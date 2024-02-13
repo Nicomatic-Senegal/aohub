@@ -11,4 +11,6 @@ import { SharedRoutingModule } from './shared-routing.module';
     SharedRoutingModule
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+
+ }
