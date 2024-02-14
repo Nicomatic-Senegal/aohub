@@ -1,0 +1,35 @@
+.background-inscription {
+  @apply bg-gradient-to-r from-[#B2BDE9] via-[#1B1515] to-[#5B74DD] via-[#1B1515] to-[#344054] h-full w-full
+}
+
+.div-input-inscription {
+  @apply flex flex-col mt-3 w-1/2
+}
+
+.label-inscription {
+  @apply text-[#344054] text-base
+}
+
+.input-inscription {
+  @apply text-[#344054] text-sm outline outline-[2px] outline-[#D0D5DD] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1
+}
+
+.form-inscription {
+  @apply bg-white flex flex-col justify-center items-center rounded-[20px] w-1/2 p-5
+}
+
+.titre-inscription {
+  @apply text-black text-2xl font-semibold
+}
+
+.submit-inscription {
+  @apply bg-[#EE1B22] text-white text-base font-semibold w-1/2 p-3 rounded-lg mt-10
+}
+
+.footer-inscription {
+  @apply text-[#98A2B3] text-base mb-5
+}
+
+.footer-inscription button {
+  @apply text-[#1570EF]
+}
