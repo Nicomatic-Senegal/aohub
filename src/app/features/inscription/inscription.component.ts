@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 })
 export class InscriptionComponent {
   isPasswordVisible: boolean = false;
+  isAlreadySignedUp: boolean = false;
 
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
