@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./inscription.component.scss']
 })
 export class InscriptionComponent {
+  isPasswordVisible: boolean = false;
 
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 }

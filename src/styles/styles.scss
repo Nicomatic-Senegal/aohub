@@ -5,3 +5,8 @@
 
 @import 'variables';
 @import 'global';
+
+
+html, body {
+  @apply w-full h-full m-0 p-0
+}

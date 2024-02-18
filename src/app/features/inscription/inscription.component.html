@@ -1,7 +1,7 @@
 <div class="background-inscription main">
   <app-selectionner-langue class="self-end"></app-selectionner-langue>
   <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start">
-  <div class="form-inscription">
+  <div class="form-inscription div-form">
     <p class="titre-inscription">Créer un compte</p>
     <form class="form">
       <div class="div-input-inscription">
@@ -30,7 +30,16 @@
       </div>
       <div class="div-input-inscription">
         <label for="">Mot de passe</label>
-        <input type="text" class="input-inscription" placeholder="Entrez votre mot de passe">
+        <div class="div-password">
+          <input
+            class="input-inscription"
+            type="{{ isPasswordVisible ? 'text' : 'password' }}"
+            placeholder="Entrez votre mot de passe"
+          />
+          <span class="toggle-password" (click)="togglePasswordVisibility()">
+            <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+          </span>
+        </div>
       </div>
       <button type="submit" class="submit-inscription">Créer un compte</button>
     </form>

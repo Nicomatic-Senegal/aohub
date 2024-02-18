@@ -1,35 +1,43 @@
 .background-inscription {
-  @apply bg-gradient-to-r from-[#B2BDE9] via-[#1B1515] to-[#5B74DD] via-[#1B1515] to-[#344054] h-full w-full
+  @apply bg-gradient-to-r from-[#B2BDE9] via-[#1B1515] to-[#5B74DD] via-[#1B1515] to-[#344054]
 }
 
 .div-input-inscription {
-  @apply flex flex-col mt-3 w-1/2
+  @apply flex flex-col mt-3 w-full md:w-2/3 lg:w-1/2
 }
 
 .label-inscription {
-  @apply text-[#344054] text-base
+  @apply text-[#344054] text-base font-poppins
 }
 
 .input-inscription {
-  @apply text-[#344054] text-sm outline outline-[2px] outline-[#D0D5DD] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1
+  @apply text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#D0D5DD] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full
 }
 
 .form-inscription {
-  @apply bg-white flex flex-col justify-center items-center rounded-[20px] w-1/2 p-5
+  @apply bg-white flex flex-col justify-center items-center rounded-[20px] w-full md:w-2/3 lg:w-1/2 p-5 mt-5 md:mt-2 lg:mt-0 shadow-lg shadow-[#FCFCFD]
 }
 
 .titre-inscription {
-  @apply text-black text-2xl font-semibold
+  @apply text-black text-2xl font-semibold font-poppins
 }
 
 .submit-inscription {
-  @apply bg-[#EE1B22] text-white text-base font-semibold w-1/2 p-3 rounded-lg mt-10
+  @apply bg-[#EE1B22] text-white text-base font-poppins font-semibold w-2/3 md:w-2/3 lg:w-1/2 p-3 rounded-lg mt-10
 }
 
 .footer-inscription {
-  @apply text-[#98A2B3] text-base mb-5
+  @apply text-[#98A2B3] text-base mb-5 font-poppins
 }
 
 .footer-inscription button {
-  @apply text-[#1570EF]
+  @apply text-[#1570EF] font-poppins
+}
+
+.div-password {
+  @apply relative
+}
+
+.toggle-password {
+  @apply absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-[#98A2B3]
 }
