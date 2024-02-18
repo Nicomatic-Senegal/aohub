@@ -19,7 +19,7 @@ export class ConnexionComponent {
     this.route.navigate(["/forget-password"]);
   }
 
-  seConnecter() {
+  inscription() {
     this.route.navigate(["/signup"]);
   }
 }
