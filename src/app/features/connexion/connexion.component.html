@@ -5,11 +5,14 @@
     <p class="titre-inscription mb-10">Connectez-vous à votre compte.</p>
     <form class="form">
       <div class="div-input-inscription">
-        <label for="">Email</label>
+        <label for="" class="label-inscription">Email</label>
         <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com">
       </div>
       <div class="div-input-inscription">
-        <label for="">Mot de passe</label>
+        <div class="div-label">
+          <label for="" class="label-inscription">Mot de passe</label>
+          <p (click)="motDePasseOublie()">Oublié?</p>
+        </div>
         <div class="div-password">
           <input
             class="input-inscription"
@@ -25,7 +28,7 @@
     </form>
     <div class="footer-inscription mt-5">
       Vous n'avez pas de compte ?
-      <button>Inscrivez-vous</button>
+      <button (click)="seConnecter()">Inscrivez-vous</button>
     </div>
   </div>
 </div>
