@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./connexion.component.scss']
 })
 export class ConnexionComponent {
+  isPasswordVisible: boolean = false;
 
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
 }
