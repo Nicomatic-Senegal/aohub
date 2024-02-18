@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./mot-de-passe-oublie-processus.component.scss']
 })
 export class MotDePasseOublieProcessusComponent {
+  page: number = 0;
 
+  incremente() {
+    this.page++;
+  }
 }

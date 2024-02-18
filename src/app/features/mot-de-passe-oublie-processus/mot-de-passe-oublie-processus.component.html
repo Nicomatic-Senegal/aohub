@@ -1,1 +1,41 @@
-<p>mot-de-passe-oublie-processus works!</p>
+<div class="main">
+  <div class="left">
+    <img src="../../../assets/img/logo-inhub.svg" alt="">
+    <p>Explorez InHub, votre écosystème pour des collaboration fructueuses !</p>
+  </div>
+  <div [ngSwitch]="page" class="w-1/2">
+    <div class="right" *ngSwitchCase="0">
+      <app-selectionner-langue></app-selectionner-langue>
+      <div class="reset-mdp">
+        <p class="title">Mot de passe oublié</p>
+        <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
+        <form class="form">
+          <div class="w-full">
+            <label for="">Email</label>
+            <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com">
+          </div>
+          <div class="div-button">
+            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
+            <button type="reset" class="cancel">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="right" *ngSwitchCase="1">
+      <app-selectionner-langue></app-selectionner-langue>
+      <div class="reset-mdp">
+        <img src="../../../assets/img/timer.svg" alt="">
+        <p class="title">Mot de passe oublié</p>
+        <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
+          Veuillez vérifier votre boîte de réception</p>
+          <div class="footer-inscription mb-3 self-start">
+            <button>Renvoyer le lien par e-mail</button>
+          </div>
+          <div class="footer-inscription self-start">
+            <button>Modifier l'adresse e-mail</button>
+          </div>
+      </div>
+    </div>
+    <div *ngSwitchDefault=""></div>
+  </div>
+</div>
