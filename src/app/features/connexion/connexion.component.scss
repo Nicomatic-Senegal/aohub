@@ -9,3 +9,11 @@
 .div-form {
   @apply py-20
 }
+
+.div-label {
+  @apply flex justify-between
+}
+
+.div-label p {
+  @apply text-[#EE1B22] underline
+}
