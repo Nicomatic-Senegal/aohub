@@ -1,39 +1,80 @@
-<div class="main">
-  <div class="left">
-    <img src="../../../assets/img/logo-inhub.svg" alt="">
-    <p>Explorez InHub, votre écosystème pour des collaboration fructueuses !</p>
-  </div>
-  <div [ngSwitch]="page" class="w-1/2">
+<div class="background-inscription main">
+  <app-selectionner-langue class="self-end"></app-selectionner-langue>
+  <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start">
+  <div [ngSwitch]="page" class="form-inscription div-form">
     <div class="right" *ngSwitchCase="0">
-      <app-selectionner-langue></app-selectionner-langue>
       <div class="reset-mdp">
         <p class="title">Mot de passe oublié</p>
         <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
         <form class="form">
           <div class="w-full">
-            <label for="">Email</label>
+            <label for="" class="label-inscription">Email</label>
             <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com">
           </div>
           <div class="div-button">
-            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
             <button type="reset" class="cancel">Annuler</button>
+            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
           </div>
         </form>
       </div>
     </div>
     <div class="right" *ngSwitchCase="1">
-      <app-selectionner-langue></app-selectionner-langue>
       <div class="reset-mdp">
         <img src="../../../assets/img/timer.svg" alt="">
         <p class="title">Mot de passe oublié</p>
         <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
           Veuillez vérifier votre boîte de réception</p>
           <div class="footer-inscription mb-3 self-start">
-            <button>Renvoyer le lien par e-mail</button>
+            <button (click)="incremente()">Renvoyer le lien par e-mail</button>
           </div>
-          <div class="footer-inscription self-start">
+          <div class="footer-inscription self-start" (click)="decremente()">
             <button>Modifier l'adresse e-mail</button>
           </div>
+      </div>
+    </div>
+    <div class="right" *ngSwitchCase="2">
+      <div class="reset-mdp">
+        <p class="title">Reinitialisation de votre mot de passe</p>
+        <form class="form mt-10">
+          <div class="w-full">
+            <label for="" class="label-inscription">Nouveau mot de passe</label>
+            <div class="div-password">
+              <input
+                class="input-inscription"
+                type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                placeholder="Entrez votre mot de passe"
+              />
+              <span class="toggle-password" (click)="togglePasswordVisibility()">
+                <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+              </span>
+            </div>
+          </div>
+          <div class="w-full mt-5">
+            <label for="" class="label-inscription">Confirmer nouveau mot de passe</label>
+            <div class="div-password">
+              <input
+                class="input-inscription"
+                type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
+                placeholder="Confirmez votre mot de passe"
+              />
+              <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+              </span>
+            </div>
+          </div>
+          <div class="div-button">
+            <button type="reset" class="cancel" (click)="decremente()">Annuler</button>
+            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="right" *ngSwitchCase="3">
+      <div class="reset-mdp">
+        <img src="../../../assets/img/success.svg" alt="">
+        <p class="title">Mot de passe mis à jour</p>
+        <p class="desc ">Votre mot de passe a été modifié avec succès.</p>
+        <button (click)="toConnexion()" class="submit-inscription">Se connecter</button>
       </div>
     </div>
     <div *ngSwitchDefault=""></div>
