@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-connexion',
@@ -11,7 +12,6 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class ConnexionComponent {
   isPasswordVisible: boolean = false;
-
   loginForm: FormGroup;
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder) {
