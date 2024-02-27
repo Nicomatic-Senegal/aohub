@@ -5,6 +5,8 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { SelectionnerLangueComponent } from './selectionner-langue/selectionner-langue.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,12 +17,18 @@ import { TopBarComponent } from './top-bar/top-bar.component';
   ],
   imports: [
     CommonModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [
     SelectionnerLangueComponent,
     SideBarComponent,
-    TopBarComponent
+    TopBarComponent,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class SharedModule {

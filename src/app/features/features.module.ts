@@ -10,6 +10,7 @@ import { ParametresComponent } from './parametres/parametres.component';
 import { ParametreProfilComponent } from './parametre-profil/parametre-profil.component';
 import { ParametreNotificationComponent } from './parametre-notification/parametre-notification.component';
 import { ParametreMotDePasseComponent } from './parametre-mot-de-passe/parametre-mot-de-passe.component';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { ParametreMotDePasseComponent } from './parametre-mot-de-passe/parametre
   imports: [
     CommonModule,
     FeaturesRoutingModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ]
 })
 export class FeaturesModule { }

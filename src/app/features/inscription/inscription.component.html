@@ -3,22 +3,22 @@
   <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start">
   <div class="form-inscription div-form">
     <p class="titre-inscription">Créer un compte</p>
-    <form class="form">
+    <form class="form" [formGroup]="registerForm">
       <div class="div-input-inscription">
         <label for="">Prénom(s)</label>
-        <input type="text" class="input-inscription" placeholder="Mame Diarra">
+        <input type="text" class="input-inscription" placeholder="Mame Diarra" formControlName="firstName">
       </div>
       <div class="div-input-inscription">
         <label for="">Nom</label>
-        <input type="text" class="input-inscription" placeholder="Bousso">
+        <input type="text" class="input-inscription" placeholder="Bousso" formControlName="lastName">
       </div>
       <div class="div-input-inscription">
         <label for="">Numéro de téléphone</label>
-        <input type="text" class="input-inscription" placeholder="+221 78 275 84 96">
+        <input type="text" class="input-inscription" placeholder="+221 78 275 84 96" formControlName="phoneNumber">
       </div>
       <div class="div-input-inscription">
         <label for="">Entreprise</label>
-        <select name="" id="" class="input-inscription">
+        <select name="" id="" class="input-inscription" formControlName="enterpriseName">
           <option value="Nicomatic">Nicomatic</option>
           <option value="">Genise</option>
           <option value="">Inhub</option>
@@ -26,7 +26,7 @@
       </div>
       <div class="div-input-inscription">
         <label for="">Email</label>
-        <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.sn">
+        <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.sn" formControlName="email">
       </div>
       <div class="div-input-inscription">
         <label for="">Mot de passe</label>
@@ -35,13 +35,14 @@
             class="input-inscription"
             type="{{ isPasswordVisible ? 'text' : 'password' }}"
             placeholder="Entrez votre mot de passe"
+            formControlName="password"
           />
           <span class="toggle-password" (click)="togglePasswordVisibility()">
             <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
           </span>
         </div>
       </div>
-      <button type="submit" class="submit-inscription">Créer un compte</button>
+      <button type="submit" class="submit-inscription" [disabled]="registerForm.invalid" (click)="register()">Créer un compte</button>
     </form>
     <div class="footer-inscription">
       Vous avez déjà un compte ?
