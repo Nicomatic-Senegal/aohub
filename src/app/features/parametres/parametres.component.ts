@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./parametres.component.scss']
 })
 export class ParametresComponent {
+  screen: number = 1;
 
+  nextScreeen(num: number) {
+    this.screen = num;
+  }
 }
