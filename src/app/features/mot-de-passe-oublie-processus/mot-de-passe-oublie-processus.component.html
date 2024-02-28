@@ -6,14 +6,20 @@
       <div class="reset-mdp">
         <p class="title">Mot de passe oublié</p>
         <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
-        <form class="form">
+        <form class="form" [formGroup]="mailFrom">
           <div class="w-full">
             <label for="" class="label-inscription">Email</label>
-            <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com">
+            <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.com" id="email" name="email" formControlName="email" required>
+            <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
+              L'Email est requis.
+            </div>
+            <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
+              Veller renseigner un email valide.
+            </div>
           </div>
           <div class="div-button">
             <button type="reset" class="cancel">Annuler</button>
-            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
+            <button type="submit" class="submit" [disabled]="mailFrom.invalid">Confirmer</button>
           </div>
         </form>
       </div>
@@ -25,56 +31,11 @@
         <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
           Veuillez vérifier votre boîte de réception</p>
           <div class="footer-inscription mb-3 self-start">
-            <button (click)="incremente()">Renvoyer le lien par e-mail</button>
+            <button  [disabled]="isButtonDisabled()" (click)="startTimerOnClick()" class="flex">Renvoyer le lien par e-mail (<p *ngIf="seconds < 60"> {{seconds}} </p>) </button>
           </div>
           <div class="footer-inscription self-start" (click)="decremente()">
             <button>Modifier l'adresse e-mail</button>
           </div>
-      </div>
-    </div>
-    <div class="right" *ngSwitchCase="2">
-      <div class="reset-mdp">
-        <p class="title">Reinitialisation de votre mot de passe</p>
-        <form class="form mt-10">
-          <div class="w-full">
-            <label for="" class="label-inscription">Nouveau mot de passe</label>
-            <div class="div-password">
-              <input
-                class="input-inscription"
-                type="{{ isPasswordVisible ? 'text' : 'password' }}"
-                placeholder="Entrez votre mot de passe"
-              />
-              <span class="toggle-password" (click)="togglePasswordVisibility()">
-                <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
-              </span>
-            </div>
-          </div>
-          <div class="w-full mt-5">
-            <label for="" class="label-inscription">Confirmer nouveau mot de passe</label>
-            <div class="div-password">
-              <input
-                class="input-inscription"
-                type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
-                placeholder="Confirmez votre mot de passe"
-              />
-              <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
-                <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
-              </span>
-            </div>
-          </div>
-          <div class="div-button">
-            <button type="reset" class="cancel" (click)="decremente()">Annuler</button>
-            <button type="submit" class="submit" (click)="incremente()">Confirmer</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div class="right" *ngSwitchCase="3">
-      <div class="reset-mdp">
-        <img src="../../../assets/img/success.svg" alt="">
-        <p class="title">Mot de passe mis à jour</p>
-        <p class="desc ">Votre mot de passe a été modifié avec succès.</p>
-        <button (click)="toConnexion()" class="submit-inscription">Se connecter</button>
       </div>
     </div>
     <div *ngSwitchDefault=""></div>

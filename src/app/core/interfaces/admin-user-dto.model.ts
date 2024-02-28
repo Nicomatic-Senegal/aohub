@@ -6,6 +6,7 @@ class AdminUserDTO {
   email!: string;
   phoneNumber!: string;
   imageUrl?: string;
+  langKey?: string;
 }
 
 export { AdminUserDTO };

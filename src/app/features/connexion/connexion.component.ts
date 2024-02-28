@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -11,14 +11,18 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class ConnexionComponent {
   isPasswordVisible: boolean = false;
-
+  user: LoginVM = new LoginVM();
   loginForm: FormGroup;
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      username: [null, [Validators.required]],
-      password: [null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]],
+      username: new FormControl(this.user.username, [Validators.required]),
+      password: new FormControl(this.user.password, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
     });
+  }
+
+  getControl(controlName: string) {
+    return this.loginForm.get(controlName);
   }
 
   togglePasswordVisibility(): void {
@@ -34,15 +38,18 @@ export class ConnexionComponent {
   }
 
   login() {
-    let user: LoginVM = new LoginVM();
     const formValue = this.loginForm.value;
-    user.username = formValue.username;
-    user.password = formValue.password;
-    console.log(user);
+    this.user.username = formValue.username;
+    this.user.password = formValue.password;
+    console.log(this.user);
 
-    this.authService.authenticate(user).subscribe({
+    this.authService.authenticate(this.user).subscribe({
       next: (data) => {
         console.log(data);
+        localStorage.setItem("token", data['id_token']);
+        this.route.navigate(["/setting"]);
+      },
+      error: (err) => {
 
       }
     })

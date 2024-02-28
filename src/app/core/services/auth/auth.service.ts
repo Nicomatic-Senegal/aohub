@@ -5,27 +5,50 @@ import { BaseAppService } from '../base-app/base-app.service';
 import { ManagedUserVM } from '../../interfaces/managed-user-vm.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginVM } from '../../interfaces/login-vm.model';
+import { KeyAndPasswordVM } from 'src/app/features/interfaces/key-and-password-vm.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private router: Router, private http: HttpClient, private baseApp: BaseAppService) { }
+  constructor(private http: HttpClient, private baseApp: BaseAppService) { }
 
   authenticate(userLogged: LoginVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'v1/authenticate';
+    const url = baseUrl + 'authenticate';
     return this.http.post<any>(url, userLogged, { headers, responseType: 'json' });
   }
 
   register(userRegistered: ManagedUserVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'v1/register';
+    const url = baseUrl + 'register';
     return this.http.post<any>(url, userRegistered, { headers, responseType: 'json' });
   }
+
+  activateCompte(key: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const baseUrl = this.baseApp.getBaseUrl();
+    const url = baseUrl + 'activate?key=' + key;
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  requestPasswordReset(email: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const baseUrl = this.baseApp.getBaseUrl();
+    const url = baseUrl + 'account/reset-password/init';
+    return this.http.post<any>(url, email, { headers, responseType: 'json' });
+  }
+
+  finishPasswordReset(kpVM: KeyAndPasswordVM): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const baseUrl = this.baseApp.getBaseUrl();
+    const url = baseUrl + 'account/reset-password/finish';
+    return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
+  }
+
 
   checkAndRefreshToken(): Observable<any> {
     const token: string | null = localStorage.getItem('token');

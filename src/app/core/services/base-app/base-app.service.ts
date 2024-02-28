@@ -16,7 +16,7 @@ export class BaseAppService {
   jwtHelper: JwtHelperService = new JwtHelperService();
 
   constructor(private router: Router) {
-    this.baseUrl = 'http://localhost:8080/api/';
+    this.baseUrl = 'http://localhost:8080/api/v1/';
 
     this.token_timer = 50;
     this.idle_timer = 15;

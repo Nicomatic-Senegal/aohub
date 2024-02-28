@@ -7,6 +7,9 @@
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Email</label>
         <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com" formControlName="username">
+        <div *ngIf="getControl('username')?.invalid && (getControl('username')?.dirty || getControl('username')?.touched)" class="text-red-600 text-xs">
+          L'Email est requis.
+        </div>
       </div>
       <div class="div-input-inscription">
         <div class="div-label">
@@ -23,6 +26,15 @@
           <span class="toggle-password" (click)="togglePasswordVisibility()">
             <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
           </span>
+        </div>
+        <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
+          Le Mot de passe est requis.
+        </div>
+        <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être supérieur à 4 caractères.
+        </div>
+        <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être inférieur à 100 caractères.
         </div>
       </div>
       <button type="submit" class="submit-inscription" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>

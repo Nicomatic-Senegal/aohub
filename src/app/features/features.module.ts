@@ -11,6 +11,8 @@ import { ParametreProfilComponent } from './parametre-profil/parametre-profil.co
 import { ParametreNotificationComponent } from './parametre-notification/parametre-notification.component';
 import { ParametreMotDePasseComponent } from './parametre-mot-de-passe/parametre-mot-de-passe.component';
 import { CoreModule } from '../core/core.module';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { CoreModule } from '../core/core.module';
     ParametresComponent,
     ParametreProfilComponent,
     ParametreNotificationComponent,
-    ParametreMotDePasseComponent
+    ParametreMotDePasseComponent,
+    ActivateAccountComponent,
+    AccountResetInitComponent
   ],
   imports: [
     CommonModule,
