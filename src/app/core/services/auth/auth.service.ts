@@ -49,6 +49,13 @@ export class AuthService {
     return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
   }
 
+  changePassword(kpVM: KeyAndPasswordVM): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const baseUrl = this.baseApp.getBaseUrl();
+    const url = baseUrl + 'account/change-password';
+    return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
+  }
+
 
   checkAndRefreshToken(): Observable<any> {
     const token: string | null = localStorage.getItem('token');

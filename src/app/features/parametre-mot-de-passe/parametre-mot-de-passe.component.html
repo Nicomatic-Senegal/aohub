@@ -5,22 +5,68 @@
 <div class="my-5  border-b-2 border-[#E5E5E5]">
   <form action="">
     <div class=" pb-5  border-b-2 border-[#E5E5E5] w-full mb-8">
-      <div class="flex items-center w-2/3 justify-between">
-        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Mot de passe actuel</label>
-          <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%] ">
+      <div class="flex flex-col md:flex-row items-center w-ful md:w-2/3 md:justify-between">
+        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-full md:w-[40%]">Mot de passe actuel</label>
+        <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full md:w-[60%]">
+
       </div>
     </div>
     <div class=" mb-8 pb-5  border-b-2 border-[#E5E5E5]">
-      <div class="flex items-center w-2/3 justify-between ">
-        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Nouveau mot de passe</label>
-        <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%]">
+      <div class="flex flex-col md:flex-row items-center w-ful md:w-2/3 md:justify-between ">
+        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-full md:w-[40%]">Nouveau mot de passe</label>
+        <div class="div-password w-full md:w-[60%]">
+          <input
+            class="input-inscription"
+            type="{{ isPasswordVisible ? 'text' : 'password' }}"
+            placeholder="Entrez votre mot de passe"
+            formControlName="password"
+            id="password"
+            name="password"
+          />
+          <span class="toggle-password" (click)="togglePasswordVisibility()">
+            <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+          </span>
+        </div>
+        <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
+          Le Mot de passe est requis.
+        </div>
+        <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être supérieur à 4 caractères.
+        </div>
+        <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être inférieur à 100 caractères.
+        </div>
         <!-- <p class="font-poppins text-sm text-[#848484]/60">Votre nouveau mot de passe doit comporter plus de 8 caractères.</p> -->
       </div>
     </div>
     <div class=" mb-8 pb-5  border-b-2 border-[#E5E5E5]">
-      <div class="flex items-center w-2/3 justify-between ">
-        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Confirmez le nouveau mot de passe</label>
-        <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%]">
+      <div class="flex flex-col md:flex-row items-center w-ful md:w-2/3 md:justify-between">
+        <label for="" class="font-poppins font-semibold text-base text-[#344054] w-full md:w-[40%]">Confirmez le nouveau mot de passe</label>
+        <div class="div-password w-full md:w-[60%]">
+          <input
+            class="input-inscription"
+            type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
+            placeholder="Confirmez votre mot de passe"
+            formControlName="cpassword"
+            id="cpassword"
+            name="cpassword"
+          />
+          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+            <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+          </span>
+        </div>
+        <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+          Le Mot de passe est requis.
+        </div>
+        <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être supérieur à 4 caractères.
+        </div>
+        <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
+          Le Mot de passe doit être inférieur à 100 caractères.
+        </div>
+        <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+          Les mots de passe doivent etre similaires.
+        </div>
       </div>
     </div>
   </form>

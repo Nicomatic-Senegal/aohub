@@ -9,6 +9,7 @@ export class BaseAppService {
 
 
   baseUrl: string;
+  baseUrlAdmin: string;
   //baseUrlUploadDemo: string;
   remainingSecondFromJWT!: number;
   token_timer: number;
@@ -17,6 +18,7 @@ export class BaseAppService {
 
   constructor(private router: Router) {
     this.baseUrl = 'http://localhost:8080/api/v1/';
+    this.baseUrlAdmin = 'http://localhost:8080/api/admin/v1/';
 
     this.token_timer = 50;
     this.idle_timer = 15;
@@ -41,6 +43,10 @@ export class BaseAppService {
 
   getBaseUrl() {
     return this.baseUrl;
+  }
+
+  getBaseUrlAdmin() {
+    return this.baseUrlAdmin;
   }
 
   logOut() {

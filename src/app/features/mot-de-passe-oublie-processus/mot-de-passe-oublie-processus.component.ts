@@ -15,8 +15,11 @@ export class MotDePasseOublieProcessusComponent {
   isConfirmPasswordVisible: boolean = false;
   email!: string;
   mailFrom!: FormGroup;
+  token!: string;
 
-  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder){}
+  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder){
+
+  }
 
   seconds: number = 0;
   private unsubscribe$ = new Subject<void>();

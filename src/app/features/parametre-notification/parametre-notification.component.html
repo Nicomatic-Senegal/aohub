@@ -2,23 +2,39 @@
   <p class="font-poppins font-semibold text-xl mt-16">Paramètres de notification</p>
   <p class="font-poppins text-[#344054] my-4">Nous pourrions toujours vous envoyer des notifications importantes concernant des opportunités en dehors de vos paramètres de notification.</p>
 </div>
-<div class="my-5  border-b-2 border-[#E5E5E5]">
+<div class="my-5">
   <form action="">
-    <div class="flex items-center w-2/3 justify-between mb-8 pb-5  border-b-2 border-[#E5E5E5]">
-      <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Mot de passe actuel</label>
-        <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%] ">
+    <div class="flex flex-col md:flex-row items-center md:w-full md:justify-start mb-8 pb-5  border-b-2 border-[#E5E5E5]">
+      <div class="mb-2 md:mb-0 w-full md:w-[60%]">
+        <p class="font-poppins font-semibold text-base text-[#344054]">Opportunités</p>
+        <p class="font-poppins font-light text-sm text-[#344054]">Il s'agit de notifications concernant de nouvelles opportunités</p>
+      </div>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" value="" class="sr-only peer">
+        <div class="relative w-11 h-6 bg-gray-200 border-none outline-none peer-focus:outline-none peer-focus:ring-4 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full  after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white  after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#EE1B22]"></div>
+        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Email</span>
+      </label>
     </div>
-    <div class="flex items-center w-2/3 justify-between mb-8 pb-5  border-b-2 border-[#E5E5E5] ">
-      <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Nouveau mot de passe</label>
-      <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%]">
-      <!-- <p class="font-poppins text-sm text-[#848484]/60">Votre nouveau mot de passe doit comporter plus de 8 caractères.</p> -->
+    <div class="flex flex-col md:flex-row items-center md:w-full md:justify-start mb-8 pb-5  border-b-2 border-[#E5E5E5]">
+      <div class="mb-2 md:mb-0 w-full md:w-[60%]">
+        <p class="font-poppins font-semibold text-base text-[#344054]">Rappels</p>
+        <p class="font-poppins font-light text-sm text-[#344054]">Il s'agit de notifications pour vous rappeler des actions qui sont attendues de votre part</p>
+      </div>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" value="" class="sr-only peer">
+        <div class="relative w-11 h-6 bg-gray-200 border-none outline-none peer-focus:outline-none peer-focus:ring-4 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full  after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white  after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#EE1B22]"></div>
+        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Email</span>
+      </label>
     </div>
-    <div class="flex items-center w-2/3 justify-between mb-8 pb-5  border-b-2 border-[#E5E5E5] ">
-      <label for="" class="font-poppins font-semibold text-base text-[#344054] w-[40%]">Confirmez le nouveau mot de passe</label>
-      <input type="password" placeholder="*************" class="text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-[60%]">
+    <div class="flex flex-col md:flex-row items-center md:w-full md:justify-start mb-8 pb-5">
+      <div class="mb-2 md:mb-0 w-full md:w-[60%]">
+        <p class="font-poppins font-semibold text-base text-[#344054] ">Affectations</p>
+        <p class="font-poppins font-light text-sm text-[#344054] ">Il s'agit de vous informer d’actions qui vous sont assignées</p>
+      </div>
+      <label class="inline-flex items-center cursor-pointer">
+        <input type="checkbox" value="" class="sr-only peer">
+        <div class="relative w-11 h-6 bg-gray-200 border-none outline-none peer-focus:outline-none peer-focus:ring-4 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full  after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white  after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#EE1B22]"></div>
+        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Email</span>
+      </label>
     </div>
   </form>
-<div class="flex justify-end my-8">
-  <button class="border-2 border-[#C1C1C1] text-[#344054] py-2 px-5 font-poppins text-base font-semibold rounded-md mr-5">Annuler</button>
-  <button class="bg-[#17418B] border-2 border-[#C1C1C1] text-white py-2 px-5 font-poppins text-base font-semibold rounded-md mr-5">Enregistrer</button>
-</div>

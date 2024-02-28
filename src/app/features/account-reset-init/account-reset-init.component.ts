@@ -13,8 +13,11 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors,
 export class AccountResetInitComponent implements OnInit {
   key!: string;
   changePasswordForm!: FormGroup;
+  token!: string;
 
-  constructor(private route:Router, private router: ActivatedRoute, private authService: AuthService, private fb: FormBuilder) {}
+  constructor(private route:Router, private router: ActivatedRoute, private authService: AuthService, private fb: FormBuilder) {
+
+  }
 
   ngOnInit() {
     this.key = this.router.snapshot.queryParamMap.get('key')!;

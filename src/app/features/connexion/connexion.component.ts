@@ -13,12 +13,14 @@ export class ConnexionComponent {
   isPasswordVisible: boolean = false;
   user: LoginVM = new LoginVM();
   loginForm: FormGroup;
+  token!: string;
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       username: new FormControl(this.user.username, [Validators.required]),
       password: new FormControl(this.user.password, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
     });
+
   }
 
   getControl(controlName: string) {
@@ -47,6 +49,7 @@ export class ConnexionComponent {
       next: (data) => {
         console.log(data);
         localStorage.setItem("token", data['id_token']);
+        localStorage.setItem("login", this.user.username);
         this.route.navigate(["/setting"]);
       },
       error: (err) => {

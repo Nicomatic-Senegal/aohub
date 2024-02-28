@@ -18,6 +18,7 @@ export class InscriptionComponent implements OnInit {
   registerForm!: FormGroup;
   listEnterprise: Array<EnterpriseDTO> = [];
   user: ManagedUserVM = new ManagedUserVM();
+  token!: string;
 
   constructor(
     private route: Router,
@@ -25,6 +26,7 @@ export class InscriptionComponent implements OnInit {
     private fb: FormBuilder,
     private enterpriseService: EnterpriseService
     ) {
+
   }
 
   ngOnInit(): void {
