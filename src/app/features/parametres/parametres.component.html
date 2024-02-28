@@ -1,10 +1,10 @@
 
 <div class="flex w-full h-full ">
-  <app-side-bar class="w-1/4 h-full"></app-side-bar>
+  <app-side-bar class="md:w-1/4 h-full"></app-side-bar>
   <div class="flex flex-col w-3/4 px-10 h-full" >
     <app-top-bar class="w-full"></app-top-bar>
     <p class="font-roboto text-3xl font-bold mb-3">Paramètres</p>
-    <div class="flex border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-lg font-semibold py-3">
+    <div class="flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-lg font-semibold py-3">
       <button class="mr-10" (click)="nextScreeen(1)">Profil</button>
       <button class="mr-10" (click)="nextScreeen(2)">Mot de passe</button>
       <button (click)="nextScreeen(3)">Notifications</button>

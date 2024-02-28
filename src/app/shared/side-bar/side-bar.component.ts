@@ -14,7 +14,12 @@ export class SideBarComponent {
     ["../../../assets/img/opportunity.svg", "Opportinutés", "/opportinutes"],
     ["../../../assets/img/activity.svg", "Activité", "/activite"],
     ["../../../assets/img/notification.svg", "Notification", "/notification"]
-  ]
+  ];
+  viewText: boolean = true;
+
+  onHamburger() {
+    this.viewText = !this.viewText;
+  }
 
   constructor(private route: Router) {
     // Initialisez la taille de l'écran lors du chargement de la page

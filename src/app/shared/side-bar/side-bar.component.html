@@ -1,32 +1,32 @@
 <div class="flex flex-col justify-between border-r border-[#737373]/43 h-full ">
   <div>
-    <div class="flex justify-between mb-5 py-10 pl-10 pr-5 ">
-      <img src="../../../assets/img/logo-inhub.svg" alt="" class="">
-      <img src="../../../assets/img/hamburger.svg" alt="" (click)="humburger()" class="self-start ">
+    <div class="flex justify-between mb-5 px-2 py-3 md:py-10 md:pl-10 md:pr-5">
+      <img src="../../../assets/img/logo-inhub.svg" alt="" class="w-10 md:w-20 lg:w-30" >
+      <img src="../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class="self-start " *ngIf="screenSize !== 'sm'">
     </div>
     <div>
-      <div class="px-10">
+      <div class="px-2 md:px-10">
         <div *ngFor="let item of options" (click)="navigation(item[2])" class="flex font-dmsans font-bold text-[#737373] text-lg">
           <img src="{{item[0]}}" alt="" class="mr-2 mb-8">
-          {{item[1]}}
+          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1]}}</p>
         </div>
       </div>
     </div>
   </div>
   <div class=" flex flex-col py-10">
-    <div class="px-10">
+    <div class=" px-2 md:px-10">
       <div  (click)="navigation('/support')" class="flex font-dmsans font-bold text-[#737373] text-lg">
         <img src="../../../assets/img/support.svg" alt="" class="mr-2 mb-8">
-        Support
+        <p *ngIf="screenSize !== 'sm' && viewText">Support</p>
       </div>
       <div  (click)="navigation('/setting')" class="flex font-dmsans font-bold text-[#737373] text-lg">
         <img src="../../../assets/img/setting.svg" alt="" class="mr-2 mb-8">
-        Parametres
+        <p *ngIf="screenSize !== 'sm' && viewText">Parametres</p>
       </div>
     </div>
-    <div class="flex border-t-2 border-[#E5E5E5] pt-5 mx-5">
+    <div class="flex border-t-2 border-[#E5E5E5] pt-5 mx-2 md:mx-5">
       <img src="../../../assets/img/pp.svg" alt="" class="mr-5">
-      <div>
+      <div *ngIf="screenSize !== 'sm' && viewText">
         <p class="font-poppins text-black text-base">Mame Diarra Bousso </p>
         <p class="font-dmsans text-[#6C6C6C] text-sm">diarra.bousso@gmail.com</p>
       </div>
