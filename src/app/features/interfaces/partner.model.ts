@@ -1,5 +1,6 @@
 import { EmployeePostDTO } from "./employee.model";
 import { EnterpriseDTO } from "./enterprise.model";
+import { InterestTopicDTO } from "./interest-topic.model";
 import { UserDTO } from "./user-dto.model";
 
 export interface PartnerDTO {
@@ -10,6 +11,6 @@ export interface PartnerDTO {
   user: UserDTO;
   enterprise: EnterpriseDTO;
   employeePost: EmployeePostDTO;
-
+  interestTopics: Array<InterestTopicDTO>;
   // You can include any additional methods or constructors if needed
 }

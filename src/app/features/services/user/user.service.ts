@@ -12,7 +12,7 @@ export class UserService {
 
   getUser(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const baseUrl = this.baseApp.getBaseUrlAdmin();
+    const baseUrl = this.baseApp.getBaseUrl();
     const url = baseUrl + 'partners/connected';
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }

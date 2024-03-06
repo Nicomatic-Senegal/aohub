@@ -6,13 +6,24 @@ import { ManagedUserVM } from '../../interfaces/managed-user-vm.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginVM } from '../../interfaces/login-vm.model';
 import { KeyAndPasswordVM } from 'src/app/features/interfaces/key-and-password-vm.model';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http: HttpClient, private baseApp: BaseAppService) { }
+
+  remainingSecondFromJWT!: number;
+  token_timer: number;
+  idle_timer: number;
+  jwtHelper: JwtHelperService = new JwtHelperService();
+
+  constructor(private route: Router, private http: HttpClient, private baseApp: BaseAppService) {
+
+    this.token_timer = 50;
+    this.idle_timer = 15;
+   }
 
   authenticate(userLogged: LoginVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -100,6 +111,49 @@ export class AuthService {
       return 0;
     }
     return payload.exp * 1000;
+  }
+
+  loggedOut() {
+    if (localStorage.getItem('token')) {
+
+      const jwtToken = localStorage.getItem('token');
+
+      if (typeof jwtToken == "string") {
+        if (this.jwtHelper.isTokenExpired(jwtToken)) {
+          localStorage.clear();
+        }
+      }
+
+    }
+    else {
+      localStorage.clear();
+    }
+  }
+
+  logOut() {
+    let language = localStorage.getItem('language');
+    localStorage.clear();
+    if (typeof language == "string") {
+      localStorage.setItem('language', language);
+    }
+
+    window.location.reload();
+    this.route.navigate(['/signin']);
+  }
+
+  getRemainingSecondJWT() {
+    return this.remainingSecondFromJWT;
+  }
+
+  isLogged(token: string) {
+    if (!localStorage.getItem("token")) {
+      this.route.navigate(['/signin']);
+      return;
+    }
+    const item = localStorage.getItem("token");
+    if (typeof item == "string") {
+      token = item;
+    }
   }
 
 }

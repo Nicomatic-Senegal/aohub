@@ -7,6 +7,8 @@ import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
+import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
+import { InterestTopicDTO } from '../interfaces/interest-topic.model';
 
 @Component({
   selector: 'app-parametre-profil',
@@ -16,9 +18,37 @@ import { PartnerDTO } from '../interfaces/partner.model';
 export class ParametreProfilComponent implements OnInit {
   isPasswordVisible: boolean = false;
   isAlreadySignedUp: boolean = false;
-  registerForm!: FormGroup;
+  profilForm!: FormGroup;
   listEnterprise: Array<EnterpriseDTO> = [];
-  user!: PartnerDTO;
+  user: PartnerDTO = {
+    id: 0,
+    phoneNumber: '',
+    imageBase64Content: '',
+    imageUrl: '',
+    user: {
+      id: 0,
+      login: '',
+      firstName: '',
+      lastName: ''
+    },
+    enterprise: {
+      id: 0,
+      name: '',
+      phoneNumber: '',
+      address: '',
+      email: '',
+      ninea: '',
+      description: '',
+      imageBase64Content: null,
+      imageUrl: null
+    },
+    employeePost: {
+      id: 0,
+      title: '',
+      description: ''
+    },
+    interestTopics: []
+  };
   token!: string;
   login!: string;
 
@@ -27,16 +57,10 @@ export class ParametreProfilComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private enterpriseService: EnterpriseService,
-    private userService: UserService
+    private userService: UserService,
     ) {
-      if (!localStorage.getItem("token")) {
-        this.route.navigate(['/signin']);
-        return;
-      }
-      const item = localStorage.getItem("token");
-      if (typeof item == "string") {
-        this.token = item;
-      }
+      // authService.loggedOut();
+      // authService.isLogged(this.token);
   }
 
   ngOnInit(): void {
@@ -50,13 +74,14 @@ export class ParametreProfilComponent implements OnInit {
 
       }
     })
-    this.registerForm = this.fb.group({
-      // firstName: new FormControl(this.user.firstName, [Validators.required]),
-      // lastName: new FormControl(this.user.lastName, [Validators.required]),
-      // phoneNumber: new FormControl(this.user.phoneNumber, [Validators.required]),
-      // email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      // password: new FormControl(this.user.password, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
-      // enterpriseName: new FormControl(this.user.enterpriseName, [Validators.required]),
+    this.profilForm = this.fb.group({
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      phoneNumber: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      enterpriseName: new FormControl(null, [Validators.required]),
+      role: new FormControl(null, [Validators.required]),
+      centreInteret: new FormControl(null, [Validators.required]),
     });
 
     this.enterpriseService.getAllEnterprises().subscribe({
@@ -70,6 +95,6 @@ export class ParametreProfilComponent implements OnInit {
   }
 
   getControl(controlName: string) {
-    return this.registerForm.get(controlName);
+    return this.profilForm.get(controlName);
   }
 }

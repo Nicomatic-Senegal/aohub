@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
 
 @Component({
   selector: 'app-parametres',
@@ -17,17 +18,12 @@ export class ParametresComponent {
     private route: Router,
     private authService: AuthService,
     private fb: FormBuilder,
-    private enterpriseService: EnterpriseService
+    private enterpriseService: EnterpriseService,
+    private baseApp: BaseAppService
     )
   {
-    if (!localStorage.getItem("token")) {
-      this.route.navigate(['/signin']);
-      return;
-    }
-    const item = localStorage.getItem("token");
-    if (typeof item == "string") {
-      this.token = item;
-    }
+    // authService.loggedOut();
+    // authService.isLogged(this.token);
 }
 
   nextScreeen(num: number) {

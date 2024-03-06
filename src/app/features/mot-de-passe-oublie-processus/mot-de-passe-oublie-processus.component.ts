@@ -79,8 +79,7 @@ export class MotDePasseOublieProcessusComponent {
   onSubmit(incr: boolean) {
     this.authService.requestPasswordReset(this.email).subscribe({
       next: (data) => {
-        if (incr)
-          this.incremente();
+        this.incremente();
       },
       error: (err) => {
 
@@ -91,5 +90,9 @@ export class MotDePasseOublieProcessusComponent {
   decremente() {
     if (this.page > 0)
       this.page--;
+  }
+
+  toConnexion() {
+    this.route.navigate(["/signin"]);
   }
 }

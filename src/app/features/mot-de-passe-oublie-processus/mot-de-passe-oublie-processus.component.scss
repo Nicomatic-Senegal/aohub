@@ -1,5 +1,5 @@
 .main {
-  @apply px-10 pt-5 flex flex-col  items-center w-full h-full pb-52
+  @apply px-10 pt-5 flex flex-col  items-center w-full h-full 
 }
 
 .right {
@@ -19,7 +19,7 @@
 }
 
 .desc {
-  @apply text-[#344054] text-xl font-poppins my-10
+  @apply text-[#344054] text-xl font-poppins my-10 text-center
 }
 
 .form {

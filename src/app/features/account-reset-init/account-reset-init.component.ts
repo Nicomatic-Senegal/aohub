@@ -4,6 +4,7 @@ import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { KeyAndPasswordVM } from '../interfaces/key-and-password-vm.model';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { confirmedValidator } from '../interfaces/utils';
 
 @Component({
   selector: 'app-account-reset-init',
@@ -26,26 +27,8 @@ export class AccountResetInitComponent implements OnInit {
       cpassword: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
     },
     {
-      validator: this.confirmedValidator('password', 'cpassword'),
+      validator: confirmedValidator('password', 'cpassword'),
     });
-  }
-
-  confirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (
-        matchingControl.errors &&
-        !matchingControl.errors['confirmedValidator']
-      ) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
   }
 
   getControl(controlName: string) {

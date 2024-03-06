@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { BaseAppService } from '../../core/services/base-app/base-app.service';
+import { confirmedValidator } from '../interfaces/utils';
 
 @Component({
   selector: 'app-parametre-mot-de-passe',
@@ -12,15 +14,9 @@ export class ParametreMotDePasseComponent implements OnInit {
   token!: string;
   changePasswordForm!: FormGroup;
 
-  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder){
-    if (!localStorage.getItem("token")) {
-      this.route.navigate(['/signin']);
-      return;
-    }
-    const item = localStorage.getItem("token");
-    if (typeof item == "string") {
-      this.token = item;
-    }
+  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService){
+    // authService.loggedOut();
+    // authService.isLogged(this.token);
   }
 
   ngOnInit() {
@@ -30,26 +26,8 @@ export class ParametreMotDePasseComponent implements OnInit {
       cpassword: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
     },
     {
-      validator: this.confirmedValidator('password', 'cpassword'),
+      validator: confirmedValidator('password', 'cpassword'),
     });
-  }
-
-  confirmedValidator(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
-      if (
-        matchingControl.errors &&
-        !matchingControl.errors['confirmedValidator']
-      ) {
-        return;
-      }
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ confirmedValidator: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    };
   }
 
   getControl(controlName: string) {

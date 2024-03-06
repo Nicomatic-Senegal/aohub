@@ -17,8 +17,8 @@ export class ConnexionComponent {
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      username: new FormControl(this.user.username, [Validators.required]),
-      password: new FormControl(this.user.password, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
+      username: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
     });
 
   }

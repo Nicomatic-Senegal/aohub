@@ -13,6 +13,8 @@ import { ParametreMotDePasseComponent } from './parametre-mot-de-passe/parametre
 import { CoreModule } from '../core/core.module';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
+import { HomeComponent } from './home/home.component';
+import { GalleryModule } from 'ng-gallery';
 
 
 @NgModule({
@@ -25,13 +27,16 @@ import { AccountResetInitComponent } from './account-reset-init/account-reset-in
     ParametreNotificationComponent,
     ParametreMotDePasseComponent,
     ActivateAccountComponent,
-    AccountResetInitComponent
+    AccountResetInitComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,
     FeaturesRoutingModule,
     SharedModule,
-    CoreModule
-  ]
+    CoreModule,
+    GalleryModule
+  ],
+
 })
 export class FeaturesModule { }

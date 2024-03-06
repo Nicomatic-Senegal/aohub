@@ -6,6 +6,7 @@ import { BaseAppService } from '../../core/services/base-app/base-app.service';
 import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
+import { confirmedValidator } from '../interfaces/utils';
 
 @Component({
   selector: 'app-inscription',
@@ -19,6 +20,7 @@ export class InscriptionComponent implements OnInit {
   listEnterprise: Array<EnterpriseDTO> = [];
   user: ManagedUserVM = new ManagedUserVM();
   token!: string;
+  isConfirmPasswordVisible: boolean = false;
 
   constructor(
     private route: Router,
@@ -31,12 +33,16 @@ export class InscriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      firstName: new FormControl(this.user.firstName, [Validators.required]),
-      lastName: new FormControl(this.user.lastName, [Validators.required]),
-      phoneNumber: new FormControl(this.user.phoneNumber, [Validators.required]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.email]),
-      password: new FormControl(this.user.password, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
-      enterpriseName: new FormControl(this.user.enterpriseName, [Validators.required]),
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      phoneNumber: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
+      cpassword: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
+      enterpriseName: new FormControl(null, [Validators.required]),
+    },
+    {
+      validator: confirmedValidator('password', 'cpassword'),
     });
 
     this.enterpriseService.getAllEnterprises().subscribe({
@@ -55,6 +61,10 @@ export class InscriptionComponent implements OnInit {
 
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
+  toggleConfirmPasswordVisibility(): void {
+    this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
   }
 
   seConnecter() {

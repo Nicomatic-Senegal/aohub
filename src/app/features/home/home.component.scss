@@ -1,0 +1,95 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow
+}
+
+.div-center {
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+.upper-home {
+  @apply flex justify-between
+}
+
+.upper-home-left {
+  @apply flex flex-col w-[60%]
+}
+
+.upper-home-right {
+  @apply flex flex-col w-[35%]
+}
+
+.upper-home-left-redbox {
+  @apply shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22]  to-[#E4CACB]
+}
+
+.upper-home-left-redbox p:nth-child(1) {
+  @apply text-[#0B0909] font-poppins font-semibold text-base
+}
+
+.upper-home-left-redbox p:nth-child(2) {
+  @apply text-[#232323] font-poppins font-normal text-xs pt-2
+}
+
+.upper-home-left-redbox button {
+  @apply bg-[#408A7E] rounded-lg h-10  text-white text-xs font-poppins font-semibold px-5 mt-5
+}
+
+.upper-home-left-bottom {
+  @apply flex flex-col mt-5 items-center
+}
+
+.upper-home-left-bottom p:nth-child(1) {
+  @apply text-[#408A7E] text-2xl font-bold mb-5 font-poppins
+}
+
+.upper-home-left-bottom p:nth-child(2) {
+  @apply text-center font-dmsans  text-black text-sm
+}
+
+.evenment {
+  @apply rounded-lg bg-white px-7 py-2 mb-5
+}
+
+.div-line-evenment {
+  @apply flex bg-[#1E1E1E]/5 mb-3 rounded-md p-1 w-full
+}
+
+.search-container {
+  @apply flex items-center border-solid border-[#ccc] rounded-lg p-1 shadow-lg mb-2
+}
+
+.search-input {
+  @apply  border-none p-1
+}
+
+.search-icon {
+  @apply cursor-pointer p-1
+}
+
+.div-line-partner {
+  @apply flex  rounded-md p-1 w-full shadow-lg mb-2
+}
+
+.div-text {
+  @apply flex flex-col
+}
+
+.div-text p:nth-child(1) {
+  @apply text-black font-poppins text-sm
+}
+
+.desc-partner{
+  @apply text-[#7D8DA6] text-xs font-poppins
+}
+
+.carousel {
+  @apply w-1/2
+}

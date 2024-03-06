@@ -6,6 +6,7 @@ import { MotDePasseOublieProcessusComponent } from './mot-de-passe-oublie-proces
 import { ParametresComponent } from './parametres/parametres.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'forget-password', component: MotDePasseOublieProcessusComponent },
   { path: 'setting', component: ParametresComponent },
   { path: 'account/activate', component: ActivateAccountComponent },
-  { path: 'account/reset/finish', component: AccountResetInitComponent }
+  { path: 'account/reset/finish', component: AccountResetInitComponent },
+  { path: 'home', component: HomeComponent }
 ];
 
 @NgModule({

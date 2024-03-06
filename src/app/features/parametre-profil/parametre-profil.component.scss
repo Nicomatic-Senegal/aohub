@@ -1,0 +1,35 @@
+.div-button {
+  @apply flex  flex-row md:justify-end  md:w-1/2 w-full
+}
+
+.div-button button {
+  @apply border-2 border-[#C1C1C1] h-10 px-5 font-poppins text-sm font-semibold rounded-md md:mr-5 mr-2 mb-1 md:mb-0
+}
+
+.div-title {
+  @apply md:w-1/2 w-full
+}
+
+.div-title p:nth-child(1) {
+  @apply font-poppins font-semibold text-base w-full
+}
+
+.div-title p:nth-child(2) {
+  @apply font-poppins text-sm text-[#344054] my-2
+}
+
+.div-line-form {
+  @apply flex flex-col md:flex-row items-center w-full md:w-2/3 md:justify-between mb-4
+}
+
+.label-line-formv{
+  @apply font-poppins font-semibold text-base text-[#344054] w-full md:w-[40%]
+}
+
+.input-line-form {
+  @apply text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full md:w-[60%]
+}
+
+.input-line-form-1 {
+  @apply text-sm font-poppins outline outline-[2px] outline-[#E5E5E5] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3
+}
