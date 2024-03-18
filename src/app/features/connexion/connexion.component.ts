@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
@@ -15,7 +16,7 @@ export class ConnexionComponent {
   loginForm: FormGroup;
   token!: string;
 
-  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder) {
+  constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       username: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
@@ -53,6 +54,12 @@ export class ConnexionComponent {
         this.route.navigate(["/setting"]);
       },
       error: (err) => {
+        console.log(err);
+
+        this.toastr.error(err.error.detail, "Error Authentication", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
 
       }
     })

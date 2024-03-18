@@ -23,7 +23,7 @@ export class ParametresComponent {
     )
   {
     // authService.loggedOut();
-    // authService.isLogged(this.token);
+    // this.token = authService.isLogged()!;
 }
 
   nextScreeen(num: number) {

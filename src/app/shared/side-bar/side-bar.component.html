@@ -2,7 +2,7 @@
   <div>
     <div class="flex justify-between mb-5 px-2 py-3 md:py-5 md:pl-5 md:pr-5">
       <img src="../../../assets/img/logo-inhub.svg" alt="" class="w-16 md:w-20 mr-2" >
-      <img src="../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class="self-start w-6" *ngIf="screenSize !== 'sm'">
+      <img src="../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class="self-start w-6 cursor-pointer" *ngIf="screenSize !== 'sm'">
     </div>
     <div>
       <div class="px-2 md:px-5">
@@ -22,7 +22,7 @@
         </div>
       </div>
     </div>
-    <div class="flex border-t-2 border-[#E5E5E5] py-5 mx-2 md:mx-5">
+    <div class="flex border-t-2 border-[#E5E5E5] py-5 mx-2 md:mx-5 pr-5">
       <img src="../../../assets/img/pp.svg" alt="" class="mr-5 w-10">
       <div *ngIf="screenSize !== 'sm' && viewText">
         <p class="font-poppins text-black text-sm">Mame Diarra Bousso </p>

@@ -15,6 +15,8 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
 import { HomeComponent } from './home/home.component';
 import { GalleryModule } from 'ng-gallery';
+import { ToastrModule } from 'ngx-toastr';
+import { OpportunitiesComponent } from './opportunities/opportunities.component';
 
 
 @NgModule({
@@ -28,14 +30,15 @@ import { GalleryModule } from 'ng-gallery';
     ParametreMotDePasseComponent,
     ActivateAccountComponent,
     AccountResetInitComponent,
-    HomeComponent
+    HomeComponent,
+    OpportunitiesComponent
   ],
   imports: [
     CommonModule,
     FeaturesRoutingModule,
     SharedModule,
     CoreModule,
-    GalleryModule
+    GalleryModule,
   ],
 
 })

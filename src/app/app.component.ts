@@ -11,14 +11,14 @@ export class AppComponent {
   title = 'inhub-ui';
 }
 
-bootstrapApplication(AppComponent, {
-  providers: [
-    {
-      provide: GALLERY_CONFIG,
-      useValue: {
-        autoHeight: true,
-        imageSize: 'cover'
-      } as GalleryConfig
-    }
-  ]
-})
+// bootstrapApplication(AppComponent, {
+//   providers: [
+//     {
+//       provide: GALLERY_CONFIG,
+//       useValue: {
+//         autoHeight: true,
+//         imageSize: 'cover'
+//       } as GalleryConfig
+//     }
+//   ]
+// })

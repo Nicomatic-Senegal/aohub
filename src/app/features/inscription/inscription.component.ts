@@ -7,6 +7,7 @@ import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { confirmedValidator } from '../interfaces/utils';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inscription',
@@ -23,6 +24,7 @@ export class InscriptionComponent implements OnInit {
   isConfirmPasswordVisible: boolean = false;
 
   constructor(
+    private toastr: ToastrService,
     private route: Router,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -36,6 +38,7 @@ export class InscriptionComponent implements OnInit {
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required]),
+      role: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
       cpassword: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),
@@ -51,6 +54,10 @@ export class InscriptionComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.toastr.error(err.error.detail, "Error Authentication", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
       }
     })
   }
@@ -81,6 +88,7 @@ export class InscriptionComponent implements OnInit {
     this.user.phoneNumber = formValue.phoneNumber;
     this.user.password = formValue.password;
     this.user.langKey = "fr";
+    this.user.role = formValue.role;
     console.log(this.user);
 
     this.authService.register(this.user).subscribe({

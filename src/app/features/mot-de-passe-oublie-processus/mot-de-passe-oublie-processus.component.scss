@@ -1,5 +1,5 @@
 .main {
-  @apply px-10 pt-5 flex flex-col  items-center w-full h-full 
+  @apply px-10 pt-5 flex flex-col  items-center w-full h-full
 }
 
 .right {
@@ -15,11 +15,11 @@
 }
 
 .title {
-  @apply text-black font-semibold font-poppins text-2xl
+  @apply text-black font-semibold font-dmsans text-2xl
 }
 
 .desc {
-  @apply text-[#344054] text-xl font-poppins my-10 text-center
+  @apply text-[#344054] text-xl font-dmsans my-10 text-center
 }
 
 .form {
@@ -31,9 +31,9 @@
 }
 
 .submit {
-  @apply bg-[#EE1B22] text-white text-base font-poppins font-semibold p-3 rounded-lg w-[45%]
+  @apply bg-[#EE1B22] text-white text-base font-dmsans font-semibold p-3 rounded-lg w-[45%]
 }
 
 .cancel {
-  @apply bg-[#403838]/60 text-white text-base font-poppins font-semibold p-3 rounded-lg w-[45%]
+  @apply bg-[#403838]/60 text-white text-base font-dmsans font-semibold p-3 rounded-lg w-[45%]
 }

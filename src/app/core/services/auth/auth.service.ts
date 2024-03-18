@@ -145,15 +145,16 @@ export class AuthService {
     return this.remainingSecondFromJWT;
   }
 
-  isLogged(token: string) {
+  isLogged() {
     if (!localStorage.getItem("token")) {
       this.route.navigate(['/signin']);
       return;
     }
     const item = localStorage.getItem("token");
     if (typeof item == "string") {
-      token = item;
+      return item;
     }
+    return item;
   }
 
 }

@@ -52,6 +52,10 @@ export class ParametreProfilComponent implements OnInit {
   token!: string;
   login!: string;
 
+  centreInteret = [
+    "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
+  ]
+
   constructor(
     private route: Router,
     private authService: AuthService,
@@ -60,17 +64,20 @@ export class ParametreProfilComponent implements OnInit {
     private userService: UserService,
     ) {
       // authService.loggedOut();
-      // authService.isLogged(this.token);
+      // this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {
     this.login = localStorage.getItem("login")!;
+    console.log(this.token);
+
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
         console.log(data);
         this.user = data;
       },
       error: (err) => {
+        console.log(err);
 
       }
     })
@@ -96,5 +103,22 @@ export class ParametreProfilComponent implements OnInit {
 
   getControl(controlName: string) {
     return this.profilForm.get(controlName);
+  }
+
+  resetForm() {
+    this.profilForm.reset();
+  }
+
+  submit() {
+    this.userService.updateUser(this.token, this.profilForm.value).subscribe({
+      next: (data) => {
+        console.log(data);
+
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
   }
 }

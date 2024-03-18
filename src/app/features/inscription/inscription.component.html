@@ -1,6 +1,8 @@
 <div class="background-inscription main">
-  <app-selectionner-langue class="self-end"></app-selectionner-langue>
-  <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
+  <div class="flex w-full justify-between">
+    <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
+    <app-selectionner-langue class="self-end"></app-selectionner-langue>
+  </div>
   <div class="form-inscription div-form">
     <p class="titre-inscription">Créer un compte</p>
     <form class="form" [formGroup]="registerForm">
@@ -19,6 +21,16 @@
         </div>
       </div>
       <div class="div-input-inscription">
+        <label for="" class="label-inscription">Email</label>
+        <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.sn" formControlName="email">
+        <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
+          L'Email est requis.
+        </div>
+        <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
+          Veller renseigner un email valide.
+        </div>
+      </div>
+      <div class="div-input-inscription">
         <label for="" class="label-inscription">Numéro de téléphone</label>
         <input type="text" class="input-inscription" placeholder="+221 78 275 84 96" formControlName="phoneNumber">
         <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
@@ -28,21 +40,24 @@
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Entreprise</label>
         <select class="input-inscription" formControlName="enterpriseName" >
+          <option value="" disabled [selected]="true">Choisissez une option...</option>
           <option *ngFor="let item of listEnterprise" value="{{item.name}}">{{item.name}}</option>
         </select>
-        <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
-          L'Entreprise est requis.
-        </div>
+          <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
+            L'Entreprise est requis.
+          </div>
       </div>
       <div class="div-input-inscription">
-        <label for="" class="label-inscription">Email</label>
-        <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.sn" formControlName="email">
-        <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-          L'Email est requis.
-        </div>
-        <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-          Veller renseigner un email valide.
-        </div>
+        <label for="" class="label-inscription">Rôle</label>
+        <select class="input-inscription" formControlName="role" >
+          <option value="" disabled [selected]="true">Choisissez une option...</option>
+          <option  value="Directeur Commercial">Directeur Commercial</option>
+          <option  value="Directeur Commercial">Ingénieur Commercial</option>
+          <option  value="Directeur Commercial">Chef De Projet</option>
+        </select>
+          <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
+            Le rôle est requis.
+          </div>
       </div>
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Mot de passe</label>
@@ -68,7 +83,7 @@
         </div>
       </div>
       <div class="div-input-inscription">
-        <label for="" class="label-inscription">Confirmer nouveau mot de passe</label>
+        <label for="" class="label-inscription">Confirmer mot de passe</label>
         <div class="div-password">
           <input
             class="input-inscription"

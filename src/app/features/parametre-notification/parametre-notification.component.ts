@@ -14,6 +14,6 @@ export class ParametreNotificationComponent {
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService){
     // authService.loggedOut();
-    // authService.isLogged(this.token);
+    // this.token = authService.isLogged()!;
   }
 }

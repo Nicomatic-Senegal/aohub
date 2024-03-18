@@ -14,12 +14,12 @@
               <p>Liste des entreprises</p>
               <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
             </div>
-            <gallery [items]="images" thumbPosition="left"  class="w-full mt-10 h-80 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
+            <gallery [items]="images" [thumb]="false"  class="w-full mt-10 h-80 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
 
         </div>
         <div class="upper-home-right">
           <div class="evenment">
-            <p class="text-[#408A7E] font-poppins text-sm mb-3">Événements à venir</p>
+            <p class="text-[#408A7E] font-poppins text-sm mb-3 font-semibold">Événements à venir</p>
             <div >
               <div *ngFor="let item of evenments" (click)="navigation(item[2])" class="div-line-evenment">
                 <img src="{{item[0]}}" alt="" class="img-line-evenment">
@@ -40,7 +40,7 @@
             </div>
           </div>
           <div class="evenment">
-            <p class="text-[#408A7E] font-poppins text-sm mb-3">Fiche partenairesr</p>
+            <p class="text-[#408A7E] font-poppins text-sm mb-3 font-semibold">Fiche partenaires</p>
             <div >
               <div class="search-container">
                 <i class="fas fa-search search-icon"></i>

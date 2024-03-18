@@ -9,7 +9,10 @@ import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gall
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private route: Router) {}
+  constructor(private route: Router) {
+    // authService.loggedOut();
+    // this.token = authService.isLogged()!;
+  }
 
   evenments = [
     ["../../../assets/img/plannification.svg", "Réunion de planification du projet XYZ", "/planification", "Réunion", "10:00 am"],

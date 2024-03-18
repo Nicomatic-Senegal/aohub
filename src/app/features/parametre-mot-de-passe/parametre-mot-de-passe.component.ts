@@ -13,10 +13,15 @@ import { confirmedValidator } from '../interfaces/utils';
 export class ParametreMotDePasseComponent implements OnInit {
   token!: string;
   changePasswordForm!: FormGroup;
+  page: number = 0;
+  isOldPasswordVisible: boolean = false;
+  isPasswordVisible: boolean = false;
+  isConfirmPasswordVisible: boolean = false;
+  email!: string;
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService){
     // authService.loggedOut();
-    // authService.isLogged(this.token);
+    // this.token = authService.isLogged()!;
   }
 
   ngOnInit() {
@@ -34,10 +39,9 @@ export class ParametreMotDePasseComponent implements OnInit {
     return this.changePasswordForm.get(controlName);
   }
 
-  page: number = 0;
-  isPasswordVisible: boolean = false;
-  isConfirmPasswordVisible: boolean = false;
-  email!: string;
+  toggleOldPasswordVisibility(): void {
+    this.isOldPasswordVisible = !this.isOldPasswordVisible;
+  }
 
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;

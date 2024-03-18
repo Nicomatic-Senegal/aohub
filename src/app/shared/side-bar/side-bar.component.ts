@@ -11,9 +11,9 @@ export class SideBarComponent {
   optionsTop = [
     ["../../../assets/img/home.svg", "Accueil", "/accueil"],
     ["../../../assets/img/projects.svg", "Mes projets", "/projets"],
-    ["../../../assets/img/opportunity.svg", "Opportinutés", "/opportinutes"],
-    ["../../../assets/img/activity.svg", "Activité", "/activite"],
-    ["../../../assets/img/notification.svg", "Notification", "/notification"]
+    ["../../../assets/img/opportunity.svg", "Opportunités", "/opportinutes"],
+    ["../../../assets/img/activity.svg", "Activités", "/activite"],
+    ["../../../assets/img/notification.svg", "Notifications", "/notification"]
   ];
 
   optionsBottom = [
