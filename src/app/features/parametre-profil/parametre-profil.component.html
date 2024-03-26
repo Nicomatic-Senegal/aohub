@@ -40,7 +40,9 @@
           </div>
         </div>
       </div>
-      <div class="ml-5 w-1/2 flex justify-between items-center">
+    </div>
+    <div class="div-line-form">
+      <div class="w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Nom</label>
         <div class="w-[60%]">
           <input type="text" placeholder="Gueye" value="{{user.user.lastName}}" formControlName="lastName" class="input-line-form">
@@ -63,7 +65,9 @@
           </div> -->
         </div>
       </div>
-      <div class="ml-5 w-1/2 flex justify-between items-center">
+    </div>
+    <div class="div-line-form">
+      <div class=" w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Numéro de téléphone</label>
         <div class="w-[60%]">
           <input type="text" value="{{user.phoneNumber}}" formControlName="phoneNumber" placeholder="+221 78 272 71 91" class="input-line-form">
@@ -74,18 +78,20 @@
       </div>
     </div>
 
-    <div class="mb-5 border-b-2 border-[#E5E5E5]">
-      <div class="div-line-form ">
-        <div class="w-1/2 flex justify-between items-center">
-          <label for="" class="label-line-form">Role</label>
-          <div class="w-[60%]">
-            <input type="text" value="{{user.employeePost.title}}" formControlName="role" placeholder="Commercial" class="input-line-form">
-            <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
-              Le role est requis.
-            </div>
+    <div class="div-line-form ">
+      <div class="w-1/2 flex justify-between items-center">
+        <label for="" class="label-line-form">Rôle</label>
+        <div class="w-[60%]">
+          <input type="text" value="{{user.employeePost.title}}" formControlName="role" placeholder="Commercial" class="input-line-form">
+          <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
+            Le role est requis.
           </div>
         </div>
-        <div class="ml-5 w-1/2 flex justify-between items-center">
+      </div>
+    </div>
+    <div class="mb-5 ">
+      <div class="div-line-form ">
+        <div class=" w-1/2 flex justify-between items-center">
           <label for="" class="label-line-form">Entreprise</label>
           <div class="w-[60%]">
             <input type="text" readonly value="{{user.enterprise.name}}" formControlName="enterpriseName" placeholder="Inhub" class="input-line-form-readonly">
@@ -96,7 +102,7 @@
         </div>
       </div>
     </div>
-    <div class="div-line-form">
+    <!-- <div class="div-line-form">
       <div class=" w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Sujets d’intérêts</label>
         <div class="w-[60%]">
@@ -116,7 +122,7 @@
           <div *ngFor="let item of centreInteret" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark"></i></div>
         </div>
       </div>
-    </div>
+    </div> -->
   </form>
 </div>
 

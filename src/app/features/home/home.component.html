@@ -19,13 +19,14 @@
         </div>
         <div class="upper-home-right">
           <div class="evenment">
-            <p class="text-[#408A7E] font-poppins text-sm mb-3 font-semibold">Événements à venir</p>
-            <div >
-              <div *ngFor="let item of evenments" (click)="navigation(item[2])" class="div-line-evenment">
+            <p class="text-[#3B8682] font-dmsans text-xl  font-semibold text-center">Inhub c’est</p>
+            <div class="text-black font-dmsans text-sm text-center">
+              Nous aidons les leaders mondiaux de l'ingénierie à innover et à garder une longueur d'avance en fournissant des interconnexions personnalisées pour des systèmes électroniques complexes
+              <!-- <div *ngFor="let item of evenments" (click)="navigation(item[2])" class="div-line-evenment">
                 <img src="{{item[0]}}" alt="" class="img-line-evenment">
                 <div class="ml-2 flex flex-col justify-between w-full">
                   <div class="flex justify-between w-full">
-                    <p class="font-poppins text-xs">{{item[1]}}</p>
+                    <p class="font-dmsans text-xs">{{item[1]}}</p>
                     <img src="../../../assets/img/trois-points.svg" alt="" class="w-3">
                   </div>
                   <div class="flex justify-between  w-full ">
@@ -36,24 +37,24 @@
                     <img src="../../../assets/img/video.svg" alt="" >
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
-          <div class="evenment">
-            <p class="text-[#408A7E] font-poppins text-sm mb-3 font-semibold">Fiche partenaires</p>
+          <div class="evenment1">
+            <p class="text-[#408A7E] font-dmsans text-sm mb-3 font-semibold">Carnet d’adresse</p>
             <div >
               <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="Rechercher un partenaire...">
               </div>
-              <div *ngFor="let item of partners" (click)="navigation(item[2])" class="div-line-partner">
+              <!-- <div *ngFor="let item of partners" (click)="navigation(item[2])" class="div-line-partner">
                 <img src="{{item[0]}}" alt="" class="w-10 mr-2">
                 <div class="div-text">
                   <p>{{item[1]}}</p>
                   <p class="desc-partner">{{item[3]}}</p>
                   <p class="desc-partner">{{item[4]}}</p>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>

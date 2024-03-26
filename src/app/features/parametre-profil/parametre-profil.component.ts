@@ -54,7 +54,7 @@ export class ParametreProfilComponent implements OnInit {
 
   centreInteret = [
     "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-  ]
+  ];
 
   constructor(
     private route: Router,
