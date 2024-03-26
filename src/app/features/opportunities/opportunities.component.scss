@@ -1,0 +1,71 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+.projet-container {
+  @apply rounded-xl w-full h-full bg-white px-5 pt-5
+}
+
+.header {
+  @apply flex items-center justify-between py-2
+}
+
+.header p {
+  @apply font-bold font-dmsans text-lg
+}
+
+.search-container {
+  @apply flex items-center justify-between border-solid  text-[#ccc] border border-[#D0D0D0] p-1 rounded-lg shadow-sm w-[30%]
+}
+
+.search-input {
+  @apply   focus:outline-none text-[#000] px-3
+}
+
+.search-icon {
+  @apply cursor-pointer p-1
+}
+
+.main-projet {
+  @apply bg-[#1E1E1E]/5 w-full h-[90%] rounded-lg p-5
+}
+
+.projet {
+  @apply w-full h-[43%] shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between
+}
+
+.change-page {
+  @apply flex justify-center
+}
+
+.change-page button {
+  @apply mx-4 font-dmsans
+}
+
+.projet-left {
+  @apply w-[60%]
+}
+
+.projet-left-head {
+  @apply border-b-[2px] border-[#737373]/20 pb-2 flex justify-between
+}
+
+.projet-left-main {
+  @apply border-b-[2px] border-[#737373]/20 py-3
+}
+
+.projet-right {
+  @apply w-[35%] flex flex-col justify-between
+}

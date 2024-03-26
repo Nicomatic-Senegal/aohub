@@ -3,15 +3,15 @@
 }
 
 .div-input-inscription {
-  @apply flex flex-col mt-3 w-full md:w-2/3 lg:w-1/2
+  @apply flex flex-col mt-3 w-full md:w-2/3 lg:w-[60%]
 }
 
 .label-inscription {
-  @apply text-[#344054] text-base font-poppins
+  @apply text-[#000] text-base font-dmsans font-medium
 }
 
 .input-inscription {
-  @apply text-[#344054] text-sm font-poppins outline outline-[2px] outline-[#D0D5DD] focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full
+  @apply text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/80 focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full
 }
 
 .form-inscription {
@@ -19,19 +19,19 @@
 }
 
 .titre-inscription {
-  @apply text-black text-2xl font-semibold font-poppins
+  @apply text-black text-2xl font-semibold font-dmsans
 }
 
 .submit-inscription {
-  @apply bg-[#EE1B22] text-white text-base font-poppins font-semibold w-2/3 md:w-2/3 lg:w-1/2 p-3 rounded-lg mt-10
+  @apply bg-[#EE1B22] text-white text-base font-dmsans font-semibold w-2/3 md:w-2/3 lg:w-[60%] p-2 rounded-lg mt-5
 }
 
 .footer-inscription {
-  @apply text-[#98A2B3] text-base mb-5 font-poppins
+  @apply text-[#98A2B3] text-base mb-5 font-dmsans
 }
 
 .footer-inscription button {
-  @apply text-[#1570EF] font-poppins
+  @apply text-[#1570EF] font-dmsans
 }
 
 .div-password {

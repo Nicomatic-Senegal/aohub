@@ -1,0 +1,39 @@
+.div-button {
+  @apply flex  flex-row md:justify-end  md:w-1/2 w-full
+}
+
+.div-button button {
+  @apply  h-10 px-5 font-dmsans text-sm font-semibold rounded-md md:mr-5 mr-2 mb-1 md:mb-0
+}
+
+.div-title {
+  @apply md:w-1/2 w-full
+}
+
+.div-title p:nth-child(1) {
+  @apply font-dmsans font-semibold text-base w-full
+}
+
+.div-title p:nth-child(2) {
+  @apply font-dmsans text-sm text-[#344054] my-2
+}
+
+.div-line-form {
+  @apply flex flex-col md:flex-row items-center w-full md:w-full md:justify-between mb-4
+}
+
+.label-line-form{
+  @apply font-dmsans font-semibold text-base text-[#000] w-full md:w-[40%]
+}
+
+.input-line-form {
+  @apply text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full
+}
+
+.input-line-form-readonly {
+  @apply text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/20 focus:outline-[#737373]/20 h-10 rounded-lg pl-3 mt-1 w-full
+}
+
+.input-line-form-1 {
+  @apply text-sm font-dmsans outline outline-[1px] outline-[#737373]/80 focus:outline-[#D1E9FF] h-8 rounded-lg pl-3
+}

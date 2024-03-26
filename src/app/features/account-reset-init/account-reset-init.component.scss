@@ -1,0 +1,39 @@
+.main {
+  @apply px-10 pt-5 flex flex-col  items-center w-full h-full
+}
+
+.right {
+  @apply h-full w-full flex flex-col justify-center items-center
+}
+
+.div-form {
+  @apply py-20
+}
+
+.reset-mdp {
+  @apply flex flex-col items-center justify-center  w-[90%] md:w-[70%]
+}
+
+.title {
+  @apply text-black font-semibold font-poppins text-2xl
+}
+
+.desc {
+  @apply text-[#344054] text-xl font-poppins my-10
+}
+
+.form {
+  @apply w-full flex flex-col items-center
+}
+
+.div-button {
+  @apply flex justify-between w-full mt-10
+}
+
+.submit {
+  @apply bg-[#EE1B22] text-white text-base font-poppins font-semibold p-3 rounded-lg w-[45%]
+}
+
+.cancel {
+  @apply bg-[#403838]/60 text-white text-base font-poppins font-semibold p-3 rounded-lg w-[45%]
+}

@@ -1,22 +1,23 @@
 
-<div class="flex w-full h-full ">
-  <app-side-bar class="w-1/4 h-full"></app-side-bar>
-  <div class="flex flex-col w-3/4 px-10 h-full" >
-    <app-top-bar class="w-full"></app-top-bar>
-    <p class="font-roboto text-3xl font-bold mb-3">Paramètres</p>
-    <div class="flex border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-lg font-semibold py-3">
-      <button class="mr-10" (click)="nextScreeen(1)">Profil</button>
-      <button class="mr-10" (click)="nextScreeen(2)">Mot de passe</button>
-      <button (click)="nextScreeen(3)">Notifications</button>
-    </div>
-    <div *ngIf="screen === 1" class="w-full h-full">
-      <app-parametre-profil></app-parametre-profil>
-    </div>
-    <div *ngIf="screen === 2" class="w-full h-full">
-      <app-parametre-mot-de-passe></app-parametre-mot-de-passe>
-    </div>
-    <div *ngIf="screen === 3" class="w-full h-full">
-      <app-parametre-notification></app-parametre-notification>
+<div class="main">
+  <app-side-bar class="app-side"></app-side-bar>
+  <div class="head-setting" >
+    <app-top-bar class="w-full flex-grow-1 " title="Paramètres"></app-top-bar>
+    <div class="px-2 md:px-10">
+      <div class="nav">
+        <button (click)="nextScreeen(1)">Profil</button>
+        <button (click)="nextScreeen(2)">Mot de passe</button>
+        <button (click)="nextScreeen(3)">Notifications</button>
+      </div>
+      <div *ngIf="screen === 1">
+        <app-parametre-profil></app-parametre-profil>
+      </div>
+      <div *ngIf="screen === 2" >
+        <app-parametre-mot-de-passe></app-parametre-mot-de-passe>
+      </div>
+      <div *ngIf="screen === 3" >
+        <app-parametre-notification></app-parametre-notification>
+      </div>
     </div>
   </div>
 

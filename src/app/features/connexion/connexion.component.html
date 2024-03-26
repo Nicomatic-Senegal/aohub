@@ -1,35 +1,54 @@
 <div class="background-inscription main">
-  <app-selectionner-langue class="self-end"></app-selectionner-langue>
-  <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start">
-  <div class="form-inscription div-form">
-    <p class="titre-inscription mb-10">Connectez-vous à votre compte.</p>
-    <form class="form" [formGroup]="loginForm">
-      <div class="div-input-inscription">
-        <label for="" class="label-inscription">Email</label>
-        <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com" formControlName="username">
-      </div>
-      <div class="div-input-inscription">
-        <div class="div-label">
-          <label for="" class="label-inscription">Mot de passe</label>
-          <p (click)="motDePasseOublie()">Oublié?</p>
+  <div class="flex w-full justify-between">
+    <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
+    <app-selectionner-langue class="self-end"></app-selectionner-langue>
+  </div>
+  <div class="h-full w-full flex items-center justify-center">
+    <div class="form-inscription div-form">
+      <p class="titre-inscription mb-10">Connectez-vous à votre compte.</p>
+      <form class="form" [formGroup]="loginForm">
+        <div class="div-input-inscription">
+          <label for="" class="label-inscription">Email</label>
+          <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com" formControlName="username">
+          <div *ngIf="getControl('username')?.invalid && (getControl('username')?.dirty || getControl('username')?.touched)" class="text-red-600 text-xs">
+            L'Email est requis.
+          </div>
+          <div *ngIf="getControl('username')?.errors?.['email']" class="text-red-600 text-xs">
+            Veller renseigner un email valide.
+          </div>
         </div>
-        <div class="div-password">
-          <input
-            class="input-inscription"
-            type="{{ isPasswordVisible ? 'text' : 'password' }}"
-            placeholder="Entrez votre mot de passe"
-            formControlName="password"
-          />
-          <span class="toggle-password" (click)="togglePasswordVisibility()">
-            <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
-          </span>
+        <div class="div-input-inscription">
+          <div class="div-label">
+            <label for="" class="label-inscription">Mot de passe</label>
+            <p (click)="motDePasseOublie()" class="cursor-pointer">Oublié?</p>
+          </div>
+          <div class="div-password">
+            <input
+              class="input-inscription"
+              type="{{ isPasswordVisible ? 'text' : 'password' }}"
+              placeholder="Entrez votre mot de passe"
+              formControlName="password"
+            />
+            <span class="toggle-password" (click)="togglePasswordVisibility()">
+              <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+            </span>
+          </div>
+          <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
+            Le Mot de passe est requis.
+          </div>
+          <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
+            Le Mot de passe doit être supérieur à 4 caractères.
+          </div>
+          <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
+            Le Mot de passe doit être inférieur à 100 caractères.
+          </div>
         </div>
+        <button type="submit" class="submit-inscription" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>
+      </form>
+      <div class="footer-inscription mt-5">
+        Vous n'avez pas de compte ?
+        <button (click)="inscription()">Inscrivez-vous</button>
       </div>
-      <button type="submit" class="submit-inscription" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>
-    </form>
-    <div class="footer-inscription mt-5">
-      Vous n'avez pas de compte ?
-      <button (click)="inscription()">Inscrivez-vous</button>
     </div>
   </div>
 </div>
