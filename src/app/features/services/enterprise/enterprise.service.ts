@@ -15,6 +15,7 @@ export class EnterpriseService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const baseUrl = this.baseApp.getBaseUrl();
     const url = baseUrl + 'enterprises';
+    console.log('register. baseurl: ' + baseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 }
