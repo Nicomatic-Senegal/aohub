@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'lamine2000/dev-inhub-platform-frontend'
+        DOCKER_IMAGE = 'lamine2000/dev-inhub-plateform-frontend'
         DOCKER_TAG = 'latest'
     }
 
