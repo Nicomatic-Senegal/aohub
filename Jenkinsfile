@@ -23,13 +23,6 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                // Building production version of Angular app
-                sh 'npm run build'
-            }
-        }
-
         stage('Dockerize') {
             steps {
                 script {
