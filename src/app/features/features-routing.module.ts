@@ -8,6 +8,7 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
 import { HomeComponent } from './home/home.component';
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
+import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'account/activate', component: ActivateAccountComponent },
   { path: 'account/reset/finish', component: AccountResetInitComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'opportunities', component: OpportunitiesComponent }
+  { path: 'opportunities', component: OpportunitiesComponent },
+  { path: 'project-submission', component: ProjectSubmissionComponent }
 ];
 
 @NgModule({

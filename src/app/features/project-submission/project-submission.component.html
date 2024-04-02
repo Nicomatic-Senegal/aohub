@@ -1,0 +1,282 @@
+<div class="main">
+  <app-side-bar class="app-side"></app-side-bar>
+  <div class="head-home" >
+    <app-top-bar class="w-full flex-grow-1 " title="Accueil"></app-top-bar>
+    <div class="div-center">
+      <button class="font-dmsans text-[#737373] text-base font-semibold text-left">Accueil &gt; Soumettre projet</button>
+      <div class="mt-4 flex flex-col justify-center items-center">
+        <p class="font-dmsans text-[#408A7E] text-2xl font-semibold">Soumettre un nouveau projet</p>
+        <div class=" flex mt-5 items-center  w-full">
+          <p *ngFor="let item of titleSteps; let i = index" class="w-[25%] text-center font-dmsans text-base font-semibold" [ngClass]="step < i + 1 ? 'text-[#737373]' : 'text-[#408A7E]'">{{ item }}</p>
+        </div>
+        <div class="flex mt-5 items-center w-full">
+          <div class="border-t-[3px] border-[#408A7E] w-20 h-1"></div>
+          <div class="rounded-full w-14 h-14 border-[3px] border-[#408A7E] flex items-center justify-center">
+            <img src="../../../assets/img/description-green.svg" alt="">
+          </div>
+          <ng-container *ngFor="let item of stepsIcons; let i = index">
+            <div class="border-t-[3px]  w-[16%] h-1" [ngClass]="step < i + 2 ? 'border-[#AAAAAA]' : 'border-[#408A7E]'"></div>
+            <div class="rounded-full w-14 h-14 border-[3px] flex items-center justify-center " [ngClass]="step < i + 2 ? 'border-[#AAAAAA]' : 'border-[#408A7E]'">
+              <ng-container *ngIf="step < i + 2; else greenModality">
+                <img src="{{item[0]}}" alt="">
+              </ng-container>
+              <ng-template #greenModality>
+                <img src="{{item[1]}}" alt="">
+              </ng-template>
+            </div>
+          </ng-container>
+          <div class="border-t-[3px]  w-20 h-1" [ngClass]="step < 5 ? 'border-[#AAAAAA]' : 'border-[#408A7E]'"></div>
+        </div>
+        <form action="" [formGroup]="projectSubmissionForm" class="w-full mt-5">
+          <div [ngSwitch]="step" class="w-full ">
+            <div *ngSwitchCase="'1'" class="w-full px-40 border-b-2 pb-10 border-[#797777]/78">
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Intitulé du projet</label>
+                  <div class=" w-[60%] ">
+                    <input type="text" class="input" placeholder="Entrer intitulé" formControlName="intitule">
+                    <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
+                      L'Intitulé du projet est requis.
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Client</label>
+                  <div class=" w-[60%]">
+                    <input type="text" class="input" placeholder="Entrer le nom du client" formControlName="client">
+                    <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
+                      Le client du projet est requis.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form">
+                <label for="" class="label w-[18%]">Description</label>
+                <div class=" w-[82%] ">
+                  <textarea type="text" class="textarea" placeholder="Ecrivez la description ici..." formControlName="description"></textarea>
+                  <div *ngIf="getControl('description')?.invalid && (getControl('description')?.dirty || getControl('description')?.touched)" class="text-red-600 text-xs">
+                    La description du projet est requise.
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form-bis w-full h-28 mt-5">
+                <div class="flex flex-col w-[45%] h-full justify-between ">
+                  <div class="part-line-form-bis ">
+                    <label for="" class="label w-[40%]">Métier</label>
+                    <div class=" w-[60%] ">
+                      <select formControlName="metier" class="input">
+                        <option value="" disabled [selected]="true">Choisissez le métier...</option>
+                        <option value="mecanique">Mecanique</option>
+                        <option value="electronique">Electronique</option>
+                        <option value="aeoronotique">Aeronotique</option>
+                      </select>
+                      <div *ngIf="getControl('metier')?.invalid && (getControl('metier')?.dirty || getControl('metier')?.touched)" class="text-red-600 text-xs">
+                        Le métier est requis.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="part-line-form-bis">
+                    <label for="" class="label w-[40%]">Confidentialité</label>
+                    <div class=" w-[60%] ">
+                      <div >
+                        <label class="label mr-20">
+                          <input type="checkbox" formControlName="confidentialite1"  class="checked:text-[#408A7E] before:text-[#408A7E] checked:before:text-[#408A7E]" (change)="handleChange('confidentialite1')">
+                          Oui
+                        </label>
+                        <input type="checkbox" formControlName="confidentialite2"  class="checkbox" (change)="handleChange('confidentialite2')">
+                        <label class="label">
+                          Non
+                        </label>
+                      </div>
+                      <div *ngIf="projectSubmissionForm.value.confidentialite1 == false && projectSubmissionForm.value.confidentialite2 == false" class="text-red-600 text-xs">
+                        La confidentialité est requise.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <div class="flex justify-between items-center">
+                    <div class="border-[2px] border-[#737373]/20 w-full rounded-lg flex px-2 flex-wrap">
+                      <div *ngFor="let item of metiers" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'2'" class="w-full px-40 border-b-2 pb-5 border-[#797777]/78">
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Marché</label>
+                  <div class=" w-[60%] ">
+                    <select formControlName="marche" class="input">
+                      <option value="" disabled [selected]="true">Choisissez le marché...</option>
+                      <option value="mecanique">Médical</option>
+                      <option value="electronique">Electronique</option>
+                      <option value="aeoronotique">Aeronotique</option>
+                    </select>
+                    <div *ngIf="getControl('marche')?.invalid && (getControl('marche')?.dirty || getControl('marche')?.touched)" class="text-red-600 text-xs">
+                      Le marché est requis.
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Prix cible (euro)</label>
+                  <div class=" w-[60%]">
+                    <input type="number" class="input" placeholder="" formControlName="prixCible">
+                    <div *ngIf="getControl('prixCible')?.invalid && (getControl('prixCible')?.dirty || getControl('prixCible')?.touched)" class="text-red-600 text-xs">
+                      Le prix cible du projet est requis.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Type de besoin</label>
+                  <div class=" w-[60%] ">
+                    <select formControlName="typeDeBesoin" class="input">
+                      <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
+                      <option value="mecanique">Contractuel</option>
+                      <option value="electronique">Pas Contrat</option>
+                      <option value="aeoronotique">Vite Fait</option>
+                    </select>
+                    <div *ngIf="getControl('typeDeBesoin')?.invalid && (getControl('typeDeBesoin')?.dirty || getControl('typeDeBesoin')?.touched)" class="text-red-600 text-xs">
+                      Le marché est requis.
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Durée (jours)</label>
+                  <div class=" w-[60%]">
+                    <input type="number" class="input" placeholder="" formControlName="duree">
+                    <div *ngIf="getControl('duree')?.invalid && (getControl('duree')?.dirty || getControl('duree')?.touched)" class="text-red-600 text-xs">
+                      La durée du projet est requise.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Volume global</label>
+                  <div class=" w-[60%]">
+                    <input type="number" class="input" placeholder="" formControlName="volumeGlobal">
+                    <div *ngIf="getControl('volumeGlobal')?.invalid && (getControl('volumeGlobal')?.dirty || getControl('volumeGlobal')?.touched)" class="text-red-600 text-xs">
+                      Le Volume global du projet est requis.
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Budget (euro)</label>
+                  <div class=" w-[60%]">
+                    <input type="number" class="input" placeholder="" formControlName="budget">
+                    <div *ngIf="getControl('budget')?.invalid && (getControl('budget')?.dirty || getControl('budget')?.touched)" class="text-red-600 text-xs">
+                      Le Budget du projet est requis.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Délai au plus tôt</label>
+                  <div class=" w-[60%]">
+                    <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTot">
+                    <div *ngIf="getControl('delaiPlusTot')?.invalid && (getControl('delaiPlusTot')?.dirty || getControl('delaiPlusTot')?.touched)" class="text-red-600 text-xs">
+                      Le delai au plus tôt est requis du projet est requis.
+                    </div>
+                  </div>
+                </div>
+                <div class="part-line-form">
+                  <label for="" class="label w-[40%]">Délai au plus tard</label>
+                  <div class=" w-[60%]">
+                    <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTard">
+                    <div *ngIf="getControl('delaiPlusTard')?.invalid && (getControl('delaiPlusTard')?.dirty || getControl('delaiPlusTard')?.touched)" class="text-red-600 text-xs">
+                      Le delai au plus tard du projet est requis.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'3'" class="w-full mt-5 px-40 border-b-2 pb-5 border-[#797777]/78">
+              <div class="div-line-form-bis">
+                <label for="" class="label w-[40%]">Joindre des fichiers dans le projet</label>
+                <div class="flex w-[60%] bg-white">
+                  <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
+                    <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
+                    <div class="flex">
+                      <input type="file" id="fileInput" class="hidden"/>
+                      <label for="fileInput" class="text-[#408A7E] font-poppins text-sm">Cliquez pour charger &nbsp;</label>
+                      <p class="text-[#344054] font-poppins text-sm"> ou faites glisser et déposez</p>
+                    </div>
+                    <p class="text-sm font-poppins font-thin text-black">SVG, PNG, JPG ou GIF</p>
+                    <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end">
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form-bis mt-10">
+                <label for="" class="label w-[40%]">Joindre des plans</label>
+                <div class="flex w-[60%] bg-white">
+                  <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
+                    <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
+                    <div class="flex">
+                      <input type="file" id="fileInput" class="hidden"/>
+                      <label for="fileInput" class="text-[#408A7E] font-poppins text-sm">Cliquez pour charger &nbsp;</label>
+                      <p class="text-[#344054] font-poppins text-sm"> ou faites glisser et déposez</p>
+                    </div>
+                    <p class="text-sm font-poppins font-thin text-black">SVG, PNG, JPG ou GIF</p>
+                    <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngSwitchCase="'4'" class="w-full px-40 border-b-2 pb-5 border-[#797777]/78">
+              <div class="div-line-form-bis mb-2">
+                <div class="w-1/2">
+
+                    <div class="bg-white shadow-md p-2 w-1/2">
+                        <label for="startDate" class="label mr-5">Date De Début</label>
+                        <input type="date" id="startDate" formControlName="startDate" placeholder="Date de début" />
+                    </div>
+                </div>
+                <div class="w-1/2">
+                    <div class="bg-white shadow-md p-2 w-1/2 flex flex-col items-center">
+                        <label for="startDate" class="label mr-5">Heure De Début</label>
+                        <ngx-mat-timepicker formControlName="heureDebut" [showSpinners]="true" [stepHour]="1"
+                            [stepMinute]="10" [stepSecond]="0" [enableMeridian]="false"></ngx-mat-timepicker>
+                    </div>
+
+                </div>
+              </div>
+
+              <div class="div-line-form-bis">
+                  <div class="w-1/2">
+                      <div class="bg-white shadow-md p-2 w-1/2">
+                          <label for="startDate" class="label mr-5">Date De Fin</label>
+                          <input type="date" [min]="minDateFinString" formControlName="endDate"
+                              placeholder="Date de fin" />
+                      </div>
+                  </div>
+                  <div class="w-1/2">
+                      <div class="bg-white shadow-md p-2 w-1/2 flex flex-col items-center">
+                          <label for="startDate" class="label mr-5">Heure De Fin</label>
+                          <ngx-mat-timepicker formControlName="heureFin" [showSpinners]="true" [stepHour]="1"
+                              [stepMinute]="10" [stepSecond]="0" [enableMeridian]="false"></ngx-mat-timepicker>
+                      </div>
+                  </div>
+              </div>
+            </div>
+            <div *ngSwitchDefault>
+
+            </div>
+          </div>
+
+
+
+          <div class="flex justify-end px-40 mt-10">
+            <button *ngIf="step > 1" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#737373] shadow-md mr-20" (click)="backStep()">{{step <= 4 ? 'Précédent' : 'Retour'}}</button>
+            <button *ngIf="step < 5" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md" (click)="nextStep()">{{step == 4 ? 'Soumettre' : 'Suivant'}}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

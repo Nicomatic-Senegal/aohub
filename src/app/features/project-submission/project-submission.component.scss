@@ -1,0 +1,54 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+
+.div-input {
+  @apply flex flex-col w-full
+}
+
+.label {
+  @apply text-[#737373] text-base font-dmsans font-medium
+}
+
+.input {
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent
+}
+
+.textarea {
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-16 rounded-md pl-3 mt-1 w-full bg-transparent pt-3
+}
+
+.div-line-form {
+  @apply flex justify-between items-center h-20
+}
+
+.div-line-form-bis {
+  @apply flex justify-between items-center
+}
+
+.part-line-form {
+  @apply w-[45%] flex justify-between items-center
+}
+
+.part-line-form-bis {
+  @apply w-full flex justify-between items-center
+}
+
+.checkbox {
+  @apply checked:bg-[#408A7E] before:text-black
+}
+
+

@@ -15,8 +15,9 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { AccountResetInitComponent } from './account-reset-init/account-reset-init.component';
 import { HomeComponent } from './home/home.component';
 import { GalleryModule } from 'ng-gallery';
-import { ToastrModule } from 'ngx-toastr';
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
+import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { OpportunitiesComponent } from './opportunities/opportunities.component'
     ActivateAccountComponent,
     AccountResetInitComponent,
     HomeComponent,
-    OpportunitiesComponent
+    OpportunitiesComponent,
+    ProjectSubmissionComponent
   ],
   imports: [
     CommonModule,
@@ -39,6 +41,9 @@ import { OpportunitiesComponent } from './opportunities/opportunities.component'
     SharedModule,
     CoreModule,
     GalleryModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
   ],
 
 })
