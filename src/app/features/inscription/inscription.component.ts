@@ -56,7 +56,7 @@ export class InscriptionComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Error Authentication", {
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
@@ -69,7 +69,7 @@ export class InscriptionComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Error Authentication", {
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
@@ -113,7 +113,11 @@ export class InscriptionComponent implements OnInit {
         this.seConnecter();
       },
       error: (err) => {
-
+        console.log(err);
+        this.toastr.error(err.error.detail, "Error pendant l'inscription", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
       }
     })
   }
