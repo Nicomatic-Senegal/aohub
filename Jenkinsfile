@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'lamine2000/dev-inhub-plateform-frontend'
-        DOCKER_TAG = 'latest'
+        DOCKER_TAG = "build-${new Date().format('yyyyMMddHHmmss')}"
     }
 
     stages {
@@ -38,7 +38,10 @@ pipeline {
                     // Login to Docker registry
                     docker.withRegistry('', 'lamine-dockerhub') {
                         // Pushing Docker image
-                        docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}").push()
+                        def builtImage = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                        builtImage.push()
+
+                        builtImage.push('latest')
                     }
                 }
             }
