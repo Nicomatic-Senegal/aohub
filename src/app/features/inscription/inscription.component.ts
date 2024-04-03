@@ -104,7 +104,7 @@ export class InscriptionComponent implements OnInit {
     this.user.phoneNumber = formValue.phoneNumber;
     this.user.password = formValue.password;
     this.user.langKey = "fr";
-    this.user.role = formValue.role;
+    this.user.employeePostTitle = formValue.role;
     console.log(this.user);
 
     this.authService.register(this.user).subscribe({

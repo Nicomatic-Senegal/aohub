@@ -7,7 +7,7 @@ class AdminUserDTO {
   phoneNumber!: string;
   imageUrl?: string;
   langKey?: string;
-  role?: string;
+  employeePostTitle?: string;
 }
 
 export { AdminUserDTO };
