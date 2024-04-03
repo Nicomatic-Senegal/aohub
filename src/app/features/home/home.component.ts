@@ -42,6 +42,4 @@ export class HomeComponent implements OnInit {
   navigation(link: string) {
     this.route.navigate([link]);
   }
-
-
 }

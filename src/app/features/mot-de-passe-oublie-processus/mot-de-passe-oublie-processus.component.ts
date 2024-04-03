@@ -78,13 +78,15 @@ export class MotDePasseOublieProcessusComponent {
   }
 
   onSubmit(incr: boolean) {
+    console.log(this.email);
+
     this.authService.requestPasswordReset(this.email).subscribe({
       next: (data) => {
         this.incremente();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
+        this.toastr.error(err.error.detail, "Erreur pendant l'envoie du mail", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
