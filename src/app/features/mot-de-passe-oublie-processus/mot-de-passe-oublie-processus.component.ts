@@ -78,9 +78,11 @@ export class MotDePasseOublieProcessusComponent {
   }
 
   onSubmit(incr: boolean) {
+    console.log(this.mailForm.value);
+
     console.log(this.email);
 
-    this.authService.requestPasswordReset(this.email).subscribe({
+    this.authService.requestPasswordReset(this.mailForm.value.email).subscribe({
       next: (data) => {
         this.incremente();
       },

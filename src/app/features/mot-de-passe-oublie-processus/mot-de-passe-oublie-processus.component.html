@@ -10,9 +10,9 @@
           <form class="form" [formGroup]="mailForm">
             <div class="w-full">
               <label for="" class="label-inscription">Email</label>
-              <input type="email" class="input-inscription"  formControlName="email" required>
+              <input type="email" class="input-inscription"  formControlName="email" >
               <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-                L'Email est requis.
+                L'email est requis.
               </div>
               <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
                 Veuillez renseigner un email valide.
