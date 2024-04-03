@@ -72,6 +72,7 @@ export class InscriptionComponent implements OnInit {
 
   toggleConfirmPasswordVisibility(): void {
     this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
+    console.log("here i am");
   }
 
   seConnecter() {

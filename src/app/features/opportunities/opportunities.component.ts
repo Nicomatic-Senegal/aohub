@@ -12,8 +12,7 @@ export class OpportunitiesComponent {
         "nicomatic.svg",
         "Mame Diarra Bousso",
         "Nicomatic",
-        "3 jours",
-        "2",
+        "3",
         "Développement d'un Nouveau Connecteur Personnalisé",
         "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
         "Défense et sécurité",
@@ -28,11 +27,10 @@ export class OpportunitiesComponent {
     ],
     [
       [
-        "nicomatic.svg",
+        "conicio.png",
         "Xavier",
         "Inhub",
-        "6 jours",
-        "8",
+        "6",
         "Renouvellement d'un Ancien Connecteur",
         "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
         "Aéoronautique et sécurité",

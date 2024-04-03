@@ -43,7 +43,7 @@
 }
 
 .projet {
-  @apply w-full h-[43%] shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between
+  @apply w-full shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between
 }
 
 .change-page {
@@ -59,11 +59,11 @@
 }
 
 .projet-left-head {
-  @apply border-b-[2px] border-[#737373]/20 pb-2 flex justify-between
+  @apply border-b-[1px] border-[#737373]/20 pb-2 flex justify-between
 }
 
 .projet-left-main {
-  @apply border-b-[2px] border-[#737373]/20 py-3
+  @apply border-b-[1px] border-[#737373]/20 py-3
 }
 
 .projet-right {
