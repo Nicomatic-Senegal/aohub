@@ -56,7 +56,7 @@ export class InscriptionComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.error.detail, "Error Authentication", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
       }
     })

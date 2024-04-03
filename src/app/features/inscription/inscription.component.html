@@ -1,4 +1,4 @@
-<div class="background-inscription main">
+<div class="background-inscription main h-full">
   <div class="flex w-full justify-between">
     <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
     <app-selectionner-langue class="self-end"></app-selectionner-langue>
@@ -8,31 +8,31 @@
     <form class="form" [formGroup]="registerForm">
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Prénom(s)</label>
-        <input type="text" class="input-inscription" placeholder="Mame Diarra" formControlName="firstName">
+        <input type="text" class="input-inscription" formControlName="firstName">
         <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-red-600 text-xs">
           Le prénom est requis.
         </div>
       </div>
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Nom</label>
-        <input type="text" class="input-inscription" placeholder="Bousso" formControlName="lastName">
+        <input type="text" class="input-inscription" formControlName="lastName">
         <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-red-600 text-xs">
           Le nom est requis.
         </div>
       </div>
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Email</label>
-        <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.sn" formControlName="email">
+        <input type="email" class="input-inscription" formControlName="email">
         <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-          L'Email est requis.
+          L'email est requis.
         </div>
         <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-          Veller renseigner un email valide.
+          Veuillez renseigner une addresse email valide.
         </div>
       </div>
       <div class="div-input-inscription">
         <label for="" class="label-inscription">Numéro de téléphone</label>
-        <input type="text" class="input-inscription" placeholder="+221 78 275 84 99" formControlName="phoneNumber">
+        <input type="text" class="input-inscription" formControlName="phoneNumber">
         <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
           Le Numéro de téléphone est requis.
         </div>
