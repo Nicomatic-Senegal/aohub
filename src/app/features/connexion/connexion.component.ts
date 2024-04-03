@@ -51,7 +51,7 @@ export class ConnexionComponent {
         console.log(data);
         localStorage.setItem("token", data['id_token']);
         localStorage.setItem("login", this.user.username);
-        this.route.navigate(["/setting"]);
+        this.route.navigate(["/home"]);
       },
       error: (err) => {
         console.log(err);
