@@ -15,7 +15,7 @@ export class MotDePasseOublieProcessusComponent {
   isPasswordVisible: boolean = false;
   isConfirmPasswordVisible: boolean = false;
   email!: string;
-  mailFrom!: FormGroup;
+  mailForm!: FormGroup;
   token!: string;
 
   constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder){
@@ -28,13 +28,13 @@ export class MotDePasseOublieProcessusComponent {
 
   ngOnInit(): void {
     this.startTimer();
-    this.mailFrom = this.fb.group({
+    this.mailForm = this.fb.group({
       email: new FormControl(null, [Validators.required, Validators.email])
     });
   }
 
   getControl(controlName: string) {
-    return this.mailFrom.get(controlName);
+    return this.mailForm.get(controlName);
   }
 
   ngOnDestroy(): void {

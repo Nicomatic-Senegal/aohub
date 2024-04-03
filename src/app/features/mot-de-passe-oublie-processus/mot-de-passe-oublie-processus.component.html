@@ -7,10 +7,10 @@
         <div class="reset-mdp">
           <p class="title">Mot de passe oublié</p>
           <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
-          <form class="form" [formGroup]="mailFrom">
+          <form class="form" [formGroup]="mailForm">
             <div class="w-full">
               <label for="" class="label-inscription">Email</label>
-              <input type="email" class="input-inscription" placeholder="diarra.bousso@gmail.com" id="email" name="email" formControlName="email" required>
+              <input type="email" class="input-inscription"  id="email" name="email" formControlName="email" required>
               <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
                 L'Email est requis.
               </div>
@@ -20,7 +20,7 @@
             </div>
             <div class="div-button">
               <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
-              <button type="submit" class="submit" [disabled]="mailFrom.invalid" (click)="onSubmit(true)">Confirmer</button>
+              <button type="submit" class="submit" [disabled]="mailForm.invalid" (click)="onSubmit(true)">Confirmer</button>
             </div>
           </form>
         </div>
