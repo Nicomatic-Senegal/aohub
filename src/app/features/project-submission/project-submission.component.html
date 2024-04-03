@@ -237,9 +237,9 @@
                     </div>
                 </div>
                 <div class="w-1/2">
-                    <div class="bg-white shadow-md p-2 w-1/2 flex flex-col items-center">
-                        <label for="startDate" class="label mr-5">Heure De Début</label>
-                        <ngx-mat-timepicker formControlName="heureDebut" [showSpinners]="true" [stepHour]="1"
+                    <div class="bg-white  shadow-md p-2 w-1/2 flex flex-col items-center">
+                        <label for="heureDeb" class="label mr-5">Heure De Début</label>
+                        <ngx-mat-timepicker  id="heureDeb" formControlName="heureDebut" [showSpinners]="true" [stepHour]="1"
                             [stepMinute]="10" [stepSecond]="0" [enableMeridian]="false"></ngx-mat-timepicker>
                     </div>
 
@@ -256,8 +256,8 @@
                   </div>
                   <div class="w-1/2">
                       <div class="bg-white shadow-md p-2 w-1/2 flex flex-col items-center">
-                          <label for="startDate" class="label mr-5">Heure De Fin</label>
-                          <ngx-mat-timepicker formControlName="heureFin" [showSpinners]="true" [stepHour]="1"
+                          <label for="heureFin"  class="label mr-5">Heure De Fin</label>
+                          <ngx-mat-timepicker id="heureFin" formControlName="heureFin" [showSpinners]="true" [stepHour]="1"
                               [stepMinute]="10" [stepSecond]="0" [enableMeridian]="false"></ngx-mat-timepicker>
                       </div>
                   </div>
