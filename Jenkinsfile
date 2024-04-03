@@ -41,7 +41,7 @@ pipeline {
                         def builtImage = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
                         builtImage.push()
 
-                        builtImage.push('latest')
+                        // builtImage.push('latest')
                     }
                 }
             }
