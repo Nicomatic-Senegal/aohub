@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,11 @@ import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gall
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  token: string;
 
-  constructor(private route: Router) {
-    // authService.loggedOut();
-    // this.token = authService.isLogged()!;
+  constructor(private route: Router, private authService: AuthService) {
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
   }
 
   evenments = [

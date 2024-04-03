@@ -1,5 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -22,14 +23,17 @@ export class SideBarComponent {
     ["../../../assets/img/setting.svg", "Parametres", "/setting"]
   ];
   viewText: boolean = true;
+  token: string;
 
   onHamburger() {
     this.viewText = !this.viewText;
   }
 
-  constructor(private route: Router) {
+  constructor(private route: Router, private authService: AuthService) {
     // Initialisez la taille de l'écran lors du chargement de la page
     console.log(window.innerWidth);
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
 
     this.updateScreenSize(window.innerWidth);
   }

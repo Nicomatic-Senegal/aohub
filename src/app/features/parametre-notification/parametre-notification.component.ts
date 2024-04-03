@@ -13,7 +13,7 @@ export class ParametreNotificationComponent {
   token!: string;
 
   constructor(private route: Router, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService){
-    // authService.loggedOut();
-    // this.token = authService.isLogged()!;
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
   }
 }

@@ -63,8 +63,8 @@ export class ParametreProfilComponent implements OnInit {
     private enterpriseService: EnterpriseService,
     private userService: UserService,
     ) {
-      // authService.loggedOut();
-      // this.token = authService.isLogged()!;
+      authService.loggedOut();
+      this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {

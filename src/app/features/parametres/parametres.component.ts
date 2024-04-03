@@ -22,8 +22,8 @@ export class ParametresComponent {
     private baseApp: BaseAppService
     )
   {
-    // authService.loggedOut();
-    // this.token = authService.isLogged()!;
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
 }
 
   nextScreeen(num: number) {

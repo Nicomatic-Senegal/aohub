@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { format } from 'date-fns';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-project-submission',
@@ -29,12 +30,13 @@ export class ProjectSubmissionComponent implements OnInit {
   minDateFinString!: string;
   startDateToString!: string;
   endDateToString!: string;
+  token: string;
 
 
 
-  constructor(private fb: FormBuilder) {
-    // authService.loggedOut();
-    // this.token = authService.isLogged()!;
+  constructor(private fb: FormBuilder, private authService: AuthService) {
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
 
     this.projectSubmissionForm = this.fb.group({
       intitule: new FormControl(null, [Validators.required]),
