@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { BaseAppService } from '../base-app/base-app.service';
 import { ManagedUserVM } from '../../interfaces/managed-user-vm.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginVM } from '../../interfaces/login-vm.model';
 import { KeyAndPasswordVM } from 'src/app/features/interfaces/key-and-password-vm.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,52 +18,47 @@ export class AuthService {
   token_timer: number;
   idle_timer: number;
   jwtHelper: JwtHelperService = new JwtHelperService();
+  apiBaseUrl: string | undefined;
 
-  constructor(private route: Router, private http: HttpClient, private baseApp: BaseAppService) {
-
+  constructor(private route: Router, private http: HttpClient) {
+    this.apiBaseUrl = environment.apiBaseUrl;
     this.token_timer = 50;
     this.idle_timer = 15;
    }
 
   authenticate(userLogged: LoginVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'authenticate';
+    const url = this.apiBaseUrl + 'authenticate';
     return this.http.post<any>(url, userLogged, { headers, responseType: 'json' });
   }
 
   register(userRegistered: ManagedUserVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'register';
+    const url = this.apiBaseUrl + 'register';
     return this.http.post<any>(url, userRegistered, { headers, responseType: 'json' });
   }
 
   activateCompte(key: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'activate?key=' + key;
+    const url = this.apiBaseUrl + 'activate?key=' + key;
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
   requestPasswordReset(email: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'account/reset-password/init';
+    const url = this.apiBaseUrl + 'account/reset-password/init';
     return this.http.post<any>(url, email, { headers, responseType: 'json' });
   }
 
   finishPasswordReset(kpVM: KeyAndPasswordVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'account/reset-password/finish';
+    const url = this.apiBaseUrl + 'account/reset-password/finish';
     return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
   }
 
   changePassword(kpVM: KeyAndPasswordVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'account/change-password';
+    const url = this.apiBaseUrl + 'account/change-password';
     return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
   }
 
@@ -92,8 +87,7 @@ export class AuthService {
       'Authorization': 'Bearer ' + token
     });
 
-    const baseUrl = this.baseApp.getBaseUrl();
-    const url = baseUrl + 'login/refresh_token';
+    const url = this.apiBaseUrl + 'login/refresh_token';
 
     return this.http.post<any>(url, {}, { headers, responseType: 'json' });
   }
