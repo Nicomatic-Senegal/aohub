@@ -1,20 +1,20 @@
-<div class="background-inscription main">
+<div class="background-inscription main h-full">
   <div class="flex w-full justify-between">
     <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
     <app-selectionner-langue class="self-end"></app-selectionner-langue>
   </div>
   <div class="h-full w-full flex items-center justify-center">
     <div class="form-inscription div-form">
-      <p class="titre-inscription mb-10">Connectez-vous à votre compte.</p>
+      <p class="titre-inscription mb-7">Connectez-vous à votre compte.</p>
       <form class="form" [formGroup]="loginForm">
-        <div class="div-input-inscription">
+        <div class="div-input-inscription mb-3">
           <label for="" class="label-inscription">Email</label>
           <input type="text" class="input-inscription" placeholder="diarra.bousso@gmail.com" formControlName="username">
           <div *ngIf="getControl('username')?.invalid && (getControl('username')?.dirty || getControl('username')?.touched)" class="text-red-600 text-xs">
-            L'Email est requis.
+            L'email est requis.
           </div>
           <div *ngIf="getControl('username')?.errors?.['email']" class="text-red-600 text-xs">
-            Veller renseigner un email valide.
+            Veuillez renseigner un email valide.
           </div>
         </div>
         <div class="div-input-inscription">
@@ -34,16 +34,16 @@
             </span>
           </div>
           <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-            Le Mot de passe est requis.
+            Le mot de passe est requis.
           </div>
           <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
             Le Mot de passe doit être supérieur à 4 caractères.
           </div>
           <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être inférieur à 100 caractères.
+            Le mot de passe doit être inférieur à 100 caractères.
           </div>
         </div>
-        <button type="submit" class="submit-inscription" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>
+        <button type="submit" class="submit-inscription mt-10" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>
       </form>
       <div class="footer-inscription mt-5">
         Vous n'avez pas de compte ?
