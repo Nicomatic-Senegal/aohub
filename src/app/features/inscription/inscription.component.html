@@ -51,9 +51,7 @@
         <label for="" class="label-inscription">Rôle</label>
         <select class="input-inscription" formControlName="role" >
           <option value="" disabled [selected]="true">Choisissez une option...</option>
-          <option  value="Directeur Commercial">Directeur Commercial</option>
-          <option  value="Directeur Commercial">Ingénieur Commercial</option>
-          <option  value="Directeur Commercial">Chef De Projet</option>
+          <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
         </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
             Le rôle est requis.

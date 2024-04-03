@@ -61,7 +61,20 @@ export class InscriptionComponent implements OnInit {
           positionClass: 'toast-top-right',
        });
       }
-    })
+    });
+
+    this.enterpriseService.getAllEmployeePost().subscribe({
+      next: (data) => {
+        this.listEmployeePost = data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Error Authentication", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      }
+    });
   }
 
   getControl(controlName: string) {
