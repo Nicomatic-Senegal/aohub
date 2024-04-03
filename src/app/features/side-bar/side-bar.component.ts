@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class SideBarComponent {
   screenSize: string = "sm";
   optionsTop = [
-    ["../../../assets/img/home.svg", "Accueil", "/accueil"],
+    ["../../../assets/img/home.svg", "Accueil", "/home"],
     ["../../../assets/img/projects.svg", "Mes projets", "/projets"],
-    ["../../../assets/img/opportunity.svg", "Opportunités", "/opportinutes"],
+    ["../../../assets/img/opportunity.svg", "Opportunités", "/opportunities"],
     ["../../../assets/img/activity.svg", "Activités", "/activite"],
     ["../../../assets/img/notification.svg", "Notifications", "/notification"]
   ];
