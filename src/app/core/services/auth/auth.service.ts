@@ -46,8 +46,8 @@ export class AuthService {
 
   requestPasswordReset(email: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = this.apiBaseUrl + 'account/reset-password/init';
-    return this.http.post<any>(url, email, { headers, responseType: 'json' });
+    const url = this.apiBaseUrl + 'account/reset-password/init/' + email;
+    return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
   finishPasswordReset(kpVM: KeyAndPasswordVM): Observable<any> {

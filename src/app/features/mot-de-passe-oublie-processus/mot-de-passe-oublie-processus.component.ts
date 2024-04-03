@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
@@ -17,7 +18,7 @@ export class MotDePasseOublieProcessusComponent {
   mailFrom!: FormGroup;
   token!: string;
 
-  constructor(private route: Router, private authService: AuthService, private fb: FormBuilder){
+  constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder){
 
   }
 
@@ -82,7 +83,11 @@ export class MotDePasseOublieProcessusComponent {
         this.incremente();
       },
       error: (err) => {
-
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
       }
     })
   }
