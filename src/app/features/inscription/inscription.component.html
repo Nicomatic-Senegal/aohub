@@ -1,4 +1,4 @@
-<div class="background-inscription main h-full">
+<div class="background-inscription main">
   <div class="flex w-full justify-between">
     <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start  w-16 md:w-20">
     <app-selectionner-langue class="self-end"></app-selectionner-langue>
@@ -34,7 +34,7 @@
         <label for="" class="label-inscription">Numéro de téléphone</label>
         <input type="text" class="input-inscription" formControlName="phoneNumber">
         <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
-          Le Numéro de téléphone est requis.
+          Le numéro de téléphone est requis.
         </div>
       </div>
       <div class="div-input-inscription">
@@ -44,7 +44,7 @@
           <option *ngFor="let item of listEnterprise" value="{{item.name}}">{{item.name}}</option>
         </select>
           <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
-            L'Entreprise est requis.
+            L'entreprise est requis.
           </div>
       </div>
       <div class="div-input-inscription">
@@ -73,13 +73,13 @@
           </span>
         </div>
         <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-          Le Mot de passe est requis.
+          Le mot de passe est requis.
         </div>
         <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
-          Le Mot de passe doit être supérieur à 4 caractères.
+          Le mot de passe doit être supérieur à 4 caractères.
         </div>
         <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-          Le Mot de passe doit être inférieur à 100 caractères.
+          Le mot de passe doit être inférieur à 100 caractères.
         </div>
       </div>
       <div class="div-input-inscription">
@@ -98,13 +98,13 @@
           </span>
         </div>
         <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-          Le Mot de passe est requis.
+          Le mot de passe est requis.
         </div>
         <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
-          Le Mot de passe doit être supérieur à 4 caractères.
+          Le mot de passe doit être supérieur à 4 caractères.
         </div>
         <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
-          Le Mot de passe doit être inférieur à 100 caractères.
+          Le mot de passe doit être inférieur à 100 caractères.
         </div>
         <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
           Les mots de passe doivent etre similaires.
