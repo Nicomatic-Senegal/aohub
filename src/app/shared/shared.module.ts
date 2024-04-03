@@ -7,8 +7,6 @@ import { SideBarComponent } from '../features/side-bar/side-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { ToastrModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { VerticalCarousselComponent } from './vertical-caroussel/vertical-caroussel.component';
 import { HorizontalCarousselComponent } from './horizontal-caroussel/horizontal-caroussel.component';
 import { GalleryModule } from 'ng-gallery';
