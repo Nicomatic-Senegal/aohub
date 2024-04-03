@@ -13,8 +13,8 @@ export class BaseAppService {
   //baseUrlUploadDemo: string;
 
   constructor(private router: Router) {
-    this.baseUrl = 'http://inhub-plateform-backend-service:8080/api/v1/';
-    this.baseUrlAdmin = 'http://inhub-plateform-backend-service:8080/api/admin/v1/';
+    this.baseUrl = 'http://dev.plateforme-inhub.com:8080/api/v1/';
+    this.baseUrlAdmin = 'http://dev.plateforme-inhub.com:8080/api/admin/v1/';
   }
 
   getBaseUrl() {
