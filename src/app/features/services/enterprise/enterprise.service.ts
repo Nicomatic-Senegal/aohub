@@ -18,4 +18,11 @@ export class EnterpriseService {
     console.log('register. baseurl: ' + this.apiBaseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
+
+  getAllEmployeePost(): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = this.apiBaseUrl + 'employee-posts';
+    console.log('register. baseurl: ' + this.apiBaseUrl);
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
 }

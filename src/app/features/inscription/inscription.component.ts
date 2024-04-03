@@ -8,6 +8,7 @@ import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { confirmedValidator } from '../interfaces/utils';
 import { ToastrService } from 'ngx-toastr';
+import { EmployeePostDTO } from '../interfaces/employee.model';
 
 @Component({
   selector: 'app-inscription',
@@ -19,6 +20,7 @@ export class InscriptionComponent implements OnInit {
   isAlreadySignedUp: boolean = false;
   registerForm!: FormGroup;
   listEnterprise: Array<EnterpriseDTO> = [];
+  listEmployeePost: Array<EmployeePostDTO> = [];
   user: ManagedUserVM = new ManagedUserVM();
   token!: string;
   isConfirmPasswordVisible: boolean = false;
