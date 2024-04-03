@@ -16,29 +16,31 @@
             <div class="projet-left">
               <div class="projet-left-head">
                 <div class="flex w-1/2">
-                  <img src="../../../assets/img/{{item[0][0]}}" alt="" class="mr-2">
+                  <img src="../../../assets/img/{{item[0][0]}}" alt="" class="mr-1.5 w-16">
                   <div class="w-">
                     <p class="font-dmsans text-black font-bold text-lg">{{item[0][1]}}</p>
-                    <p class="font-dmsans text-[#121212]/60  text-xs">{{item[0][2]}}</p>
+                    <p class="font-dmsans text-[#121212]/60 text-xs">{{item[0][2]}}</p>
                   </div>
                 </div>
-                <div>
-                  <p class="font-dmsans text-black font-bold text-base">{{item[0][3]}}</p>
-                  <div class="font-dmsans text-[#121212]/60  text-xs">{{item[0][4]}}</div>
+                <div class="w-1/6">
+                  <p class="font-dmsans text-black">{{item[0][3]}} jours</p>
+                  <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
+                    <div [ngClass]="item[0][3] <= '3' ? 'bg-red-600' : 'bg-green-600'" class="bg-red-600 text-xs font-medium text-red-100 text-center p-0.5 leading-none rounded-full" style="width: 15%"></div>
+                  </div>
                 </div>
+
               </div>
               <div class="projet-left-main">
                 <p class="font-dmsans text-black font-bold text-lg">{{item[0][5]}}</p>
                 <p class="font-dmsans text-[#121212]/60  text-base">{{item[0][6]}}</p>
               </div>
-              <div class="w-full flex justify-between items-center pt-2">
-                <div class=" w-full rounded-lg flex px-2 flex-wrap">
-                  <div *ngFor="let itemi of item[1]" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{itemi}} <i class=" ml-2 fas fa-xmark"></i></div>
-                </div>
+              <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
+                <span *ngFor="let itemi of item[1]" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi}}</span>
               </div>
             </div>
-            <!-- <div class="h-full border-l-[1px] border-dashed border-[#408A7E] "></div> -->
-            <img src="../../../assets/img/Line 43.svg" alt="">
+            
+            <div class="border-1 border-dashed border-[#408A7E] border"></div>
+
             <div class="projet-right">
               <div>
                 <div class="flex justify-between pb-2">
@@ -67,13 +69,13 @@
               </button>
             </div>
           </div>
+          
           <div class="change-page">
-            <button class="text-[#B0B0B0] mr-2">&lt;</button>
-            <button class="bg-[#408A7E] rounded-full w-6">1</button>
-            <button>2</button>
-            <button>3</button>
-            ...
-            <button class="text-[#408A7E] ml-2">&gt;</button>
+            <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
+            <button class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
+            <button class="rounded-full w-8 h-8 font-dmsans">2</button>
+            <button class="rounded-full w-8 h-8 font-dmsans">3</button>
+            <button class="text-[#408A7E]"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
         </div>
       </div>
