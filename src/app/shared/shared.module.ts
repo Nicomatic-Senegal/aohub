@@ -9,15 +9,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VerticalCarousselComponent } from './vertical-caroussel/vertical-caroussel.component';
+import { HorizontalCarousselComponent } from './horizontal-caroussel/horizontal-caroussel.component';
+import { GalleryModule } from 'ng-gallery';
 
 
 @NgModule({
   declarations: [
     SelectionnerLangueComponent,
     SideBarComponent,
-    TopBarComponent
+    TopBarComponent,
+    VerticalCarousselComponent,
+    HorizontalCarousselComponent
   ],
   imports: [
+    GalleryModule,
     CommonModule,
     SharedRoutingModule,
     HttpClientModule,
@@ -28,6 +34,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SelectionnerLangueComponent,
     SideBarComponent,
     TopBarComponent,
+    HorizontalCarousselComponent,
+    VerticalCarousselComponent,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,

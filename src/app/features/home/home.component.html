@@ -1,25 +1,24 @@
 <div class="main">
   <app-side-bar class="app-side"></app-side-bar>
-  <div class="head-home" >
-    <app-top-bar class="w-full flex-grow-1 " title="Accueil"></app-top-bar>
+  <div class="head-home">
+    <app-top-bar class="w-full flex-grow-1" title="Accueil"></app-top-bar>
     <div class="div-center">
       <div class="upper-home">
         <div class="upper-home-left">
-            <div class="upper-home-left-redbox">
-              <p>Bienvenue Mame Diarra Gueye</p>
-              <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
+            <div class="upper-home-left-redbox font-dmsans">
+              <p class="">Bienvenue Mame Diarra Gueye</p>
+              <p class=" w-full text-xs">Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
               <button>Soumettre un nouveau projet</button>
             </div>
             <div class="upper-home-left-bottom">
               <p>Liste des entreprises</p>
               <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
             </div>
-            <gallery [items]="images" [thumb]="false"  class="w-full mt-10 h-80 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
-
         </div>
         <div class="upper-home-right">
           <div class="evenment">
-            <p class="text-[#3B8682] font-dmsans text-xl  font-semibold text-center">Inhub c’est</p>
+            <!-- <app-vertical-caroussel></app-vertical-caroussel> -->
+            <p class="text-[#3B8682] font-dmsans text-xl font-semibold text-center">Inhub c’est</p>
             <div class="text-black font-dmsans text-sm text-center">
               Nous aidons les leaders mondiaux de l'ingénierie à innover et à garder une longueur d'avance en fournissant des interconnexions personnalisées pour des systèmes électroniques complexes
               <!-- <div *ngFor="let item of evenments" (click)="navigation(item[2])" class="div-line-evenment">
@@ -59,7 +58,13 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
+      <div>
+        <app-horizontal-caroussel></app-horizontal-caroussel>
+        <!-- <gallery [items]="images" [thumb]="false"  class="w-full mt-10 h-80 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery> -->
+      </div>
+
+
+</div>
+</div>
 </div>

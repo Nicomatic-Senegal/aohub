@@ -11,7 +11,7 @@
 }
 
 .div-center {
-  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+  @apply w-full h-full px-2 px-5 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
 }
 
 .upper-home {
@@ -23,23 +23,23 @@
 }
 
 .upper-home-right {
-  @apply flex flex-col w-[25%]
+  @apply flex flex-col w-[27%]
 }
 
 .upper-home-left-redbox {
-  @apply shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB]  to-[#E4CACB]
+  @apply shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]
 }
 
 .upper-home-left-redbox p:nth-child(1) {
-  @apply text-[#0B0909] font-poppins font-semibold text-lg
+  @apply text-[#0B0909] font-dmsans font-semibold text-lg
 }
 
 .upper-home-left-redbox p:nth-child(2) {
-  @apply text-[#232323] font-poppins font-normal text-base pt-2
+  @apply text-[#232323] font-dmsans font-normal text-base pt-2
 }
 
 .upper-home-left-redbox button {
-  @apply bg-[#408A7E] rounded-lg h-10  text-white text-xs font-poppins font-semibold px-5 mt-5
+  @apply bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5
 }
 
 .upper-home-left-bottom {
@@ -47,7 +47,7 @@
 }
 
 .upper-home-left-bottom p:nth-child(1) {
-  @apply text-[#408A7E] text-2xl font-bold mb-5 font-poppins
+  @apply text-[#408A7E] text-2xl font-bold mb-5 font-dmsans
 }
 
 .upper-home-left-bottom p:nth-child(2) {
@@ -91,7 +91,7 @@
 }
 
 .desc-partner{
-  @apply text-[#7D8DA6] text-xs font-poppins
+  @apply text-[#7D8DA6] text-xs font-dmsans
 }
 
 .carousel {
