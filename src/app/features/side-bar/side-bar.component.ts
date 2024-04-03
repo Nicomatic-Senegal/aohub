@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
@@ -24,6 +24,8 @@ export class SideBarComponent {
   ];
   viewText: boolean = true;
   token: string;
+  @Input() fullName!: string;
+  @Input() email!: string;
 
   onHamburger() {
     this.viewText = !this.viewText;

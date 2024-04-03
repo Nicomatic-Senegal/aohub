@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
@@ -9,6 +9,7 @@ import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
 import { InterestTopicDTO } from '../interfaces/interest-topic.model';
+import { EmployeePostDTO } from '../interfaces/employee.model';
 
 @Component({
   selector: 'app-parametre-profil',
@@ -56,6 +57,9 @@ export class ParametreProfilComponent implements OnInit {
     "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
   ];
 
+  @Output() fullName = new EventEmitter<string>();
+  @Output() email = new EventEmitter<string>();
+
   constructor(
     private route: Router,
     private authService: AuthService,
@@ -75,6 +79,7 @@ export class ParametreProfilComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.user = data;
+        this.sendFullName(this.user.user.firstName + this.user.user.lastName);
       },
       error: (err) => {
         console.log(err);
@@ -99,6 +104,14 @@ export class ParametreProfilComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  sendFullName(fullName: string) {
+    this.fullName.emit(fullName);
+  }
+
+  sendEmail(email: string) {
+    this.email.emit(email);
   }
 
   getControl(controlName: string) {
