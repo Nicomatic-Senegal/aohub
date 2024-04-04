@@ -34,7 +34,7 @@
       <div class="w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Prénom(s)</label>
         <div class="w-[60%]">
-          <input type="text" value="{{user.user.firstName}}"  formControlName="firstName" class="input-line-form ">
+          <input type="text"  formControlName="firstName" class="input-line-form ">
           <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-red-600 text-xs">
             Le prénom est requis.
           </div>
@@ -45,7 +45,7 @@
       <div class="w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Nom</label>
         <div class="w-[60%]">
-          <input type="text"  value="{{user.user.lastName}}" formControlName="lastName" class="input-line-form">
+          <input type="text"   formControlName="lastName" class="input-line-form">
           <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-red-600 text-xs">
             Le nom est requis.
           </div>
@@ -56,7 +56,7 @@
       <div class=" w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Adresse email</label>
         <div class="w-[60%]">
-          <input type="email" readonly value="{{user.user.login!}}" formControlName="email"  class="input-line-form-readonly">
+          <input type="email" readonly  formControlName="email"  class="input-line-form-readonly">
           <!-- <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
             L'Email est requis.
           </div>
@@ -70,7 +70,7 @@
       <div class=" w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Numéro de téléphone</label>
         <div class="w-[60%]">
-          <input type="text" value="{{user.phoneNumber}}" formControlName="phoneNumber" class="input-line-form">
+          <input type="text"  formControlName="phoneNumber" class="input-line-form">
           <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
             Le Numéro de téléphone est requis.
           </div>
@@ -82,7 +82,9 @@
       <div class="w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Rôle</label>
         <div class="w-[60%]">
-          <input type="text" value="{{user.employeePost.title}}" formControlName="role" class="input-line-form">
+          <select class="input-inscription" formControlName="role" >
+            <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
+          </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
             Le role est requis.
           </div>
@@ -94,7 +96,7 @@
         <div class=" w-1/2 flex justify-between items-center">
           <label for="" class="label-line-form">Entreprise</label>
           <div class="w-[60%]">
-            <input type="text" readonly value="{{user.enterprise.name}}" formControlName="enterpriseName" placeholder="Inhub" class="input-line-form-readonly">
+            <input type="text" readonly  formControlName="enterpriseName" placeholder="Inhub" class="input-line-form-readonly">
             <!-- <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
               L'Entreprise est requis.
             </div> -->

@@ -31,6 +31,7 @@ export class ProjectSubmissionComponent implements OnInit {
   startDateToString!: string;
   endDateToString!: string;
   token: string;
+  selected!: Date | null;
 
 
 

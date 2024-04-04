@@ -5,10 +5,12 @@ import { CoreRoutingModule } from './core-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ManagedUserVM } from './interfaces/managed-user-vm.model';
 import { LoginVM } from './interfaces/login-vm.model';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
     CoreRoutingModule,

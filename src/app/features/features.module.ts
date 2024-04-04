@@ -18,6 +18,9 @@ import { GalleryModule } from 'ng-gallery';
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
 import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -44,6 +47,11 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
+    MatCardModule,
+    MatDatepickerModule
+  ],
+  providers: [
+
   ],
 
 })

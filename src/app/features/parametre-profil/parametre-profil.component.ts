@@ -10,6 +10,8 @@ import { PartnerDTO } from '../interfaces/partner.model';
 import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
 import { InterestTopicDTO } from '../interfaces/interest-topic.model';
 import { EmployeePostDTO } from '../interfaces/employee.model';
+import { PartnerProfileVM } from '../interfaces/partner-profile-vm.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-parametre-profil',
@@ -20,7 +22,20 @@ export class ParametreProfilComponent implements OnInit {
   isPasswordVisible: boolean = false;
   isAlreadySignedUp: boolean = false;
   profilForm!: FormGroup;
+  listEmployeePost: Array<EmployeePostDTO> = [];
   listEnterprise: Array<EnterpriseDTO> = [];
+  userToUpdate: PartnerProfileVM = {
+    id: 0,
+    userLogin: '',
+    userFirstName: '',
+    userLastName: '',
+    phoneNumber: '',
+    imageBase64Content: '',
+    enterpriseName: '',
+    employeePostTitle: '',
+    employeePostDescription: '',
+    interestTopicLabels: []
+  };
   user: PartnerDTO = {
     id: 0,
     phoneNumber: '',
@@ -63,26 +78,13 @@ export class ParametreProfilComponent implements OnInit {
     private fb: FormBuilder,
     private enterpriseService: EnterpriseService,
     private userService: UserService,
+    private toastr: ToastrService,
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {
-    this.login = localStorage.getItem("login")!;
-    console.log(this.token);
-
-    this.userService.getUser(this.token).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.user = data;
-
-      },
-      error: (err) => {
-        console.log(err);
-
-      }
-    });
     this.profilForm = this.fb.group({
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
@@ -93,14 +95,43 @@ export class ParametreProfilComponent implements OnInit {
       centreInteret: new FormControl(null, [Validators.required]),
     });
 
-    this.enterpriseService.getAllEnterprises().subscribe({
+    this.login = localStorage.getItem("login")!;
+    console.log(this.token);
+
+    this.userService.getUser(this.token).subscribe({
       next: (data) => {
-        this.listEnterprise = data;
+        console.log(data);
+        this.user = data;
+        this.profilForm.setValue({
+          firstName: this.user.user.firstName,
+          lastName: this.user.user.lastName,
+          phoneNumber: this.user.phoneNumber,
+          email: this.user.user.login,
+          enterpriseName: this.user.enterprise.name,
+          role: this.user.employeePost.title,
+          centreInteret: this.user.interestTopics,
+        });
+        console.log(this.profilForm);
       },
       error: (err) => {
         console.log(err);
+
       }
-    })
+    });
+
+    this.enterpriseService.getAllEmployeePost().subscribe({
+      next: (data) => {
+        this.listEmployeePost = data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
+
   }
 
   getControl(controlName: string) {
@@ -112,7 +143,19 @@ export class ParametreProfilComponent implements OnInit {
   }
 
   submit() {
-    this.userService.updateUser(this.token, this.profilForm.value).subscribe({
+    const formValue = this.profilForm.value;
+    this.userToUpdate.userLogin = formValue.email;
+    this.userToUpdate.userFirstName = formValue.firstName;
+    this.userToUpdate.userLastName = formValue.lastName;
+    this.userToUpdate.phoneNumber = formValue.phoneNumber;
+    this.userToUpdate.enterpriseName = formValue.enterpriseName;
+    this.userToUpdate.employeePostTitle = formValue.role;
+    this.userToUpdate.interestTopicLabels = formValue.centreInteret;
+    this.userToUpdate.imageBase64Content = '';
+
+    console.log(this.userToUpdate);
+
+    this.userService.updateUser(this.token, this.userToUpdate).subscribe({
       next: (data) => {
         console.log(data);
 
@@ -121,6 +164,6 @@ export class ParametreProfilComponent implements OnInit {
         console.log(err);
 
       }
-    })
+    });
   }
 }
