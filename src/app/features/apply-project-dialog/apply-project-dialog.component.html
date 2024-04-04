@@ -1,0 +1,64 @@
+<!-- <div class="bg-transparent text-black">
+    <div class="flex items-center justify-between p-4 border-b rounded-t">
+        <h2 mat-dialog-title>Se positionner sur un projet</h2>
+        <button mat-button mat-dialog-close class="text-[#408A7E] border-[#408A7E] rounded-xl text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="#408A7E" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+            <span class="sr-only">Close modal</span>
+        </button>
+    </div>
+    <mat-dialog-content class="mat-typography">
+        <div class="p-4 md:p-5 space-y-4">
+            <p class="text-base leading-relaxed">
+            Voici les créneaux horaires disponibles pour la réunion de lancement
+            </p>
+            <p class="text-base leading-relaxe">Vous pouvez en sélectionner un ou plusieurs</p>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close data-modal-hide="default-modal" type="button" class="py-2.5 px-5 ms-3 mr-5 text-sm font-medium focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Annuler</button>
+        <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="text-white bg-[#408A7E] font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-[#498C9E]">Se positionner</button>
+    </mat-dialog-actions>
+</div> -->
+
+
+
+
+<div class="main">
+	<app-side-bar class="app-side"></app-side-bar>
+	<div class="head-home">
+		<app-top-bar class="w-full flex-grow-1" title="Opportunités"></app-top-bar>
+		<div class="div-center">
+			<div class="flex mb-50">
+				<p class="font-bold text-2xl font-dmsans">Se positionner sur le projet</p>
+			</div>
+			<div class="title">
+				<p class="font-bold text-xl font-dmsans">Voici les créneaux horaires disponibles pour la réunion de lancement</p>
+				<p class="text-lg font-dmsans text-gray-900 mt-3">Vous pouvez en sélectionner un ou plusieurs</p>
+			</div>
+
+			<div class="flex justify-center items-center mt-20 ml-10">
+				<ul class="grid w-full gap-6 md:grid-cols-4 flex justify-center items-center">
+						<li *ngFor="let item of creneaux; let i=index;">
+								<input type="checkbox" id="item{{i}}" value="item{{i}}" class="hidden peer" required="">
+								<label for="item{{i}}" class="inline-flex items-center justify-between w-full p-5 text-gray-400 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-[#408A7E] hover:text-gray-600 peer-checked:text-[#408A7E] hover:bg-gray-50">                           
+										<div class="block">
+												<div class="w-full text-xl font-semibold font-dmsans">{{item.day}}</div>
+												<div class="w-full text-md font-dmsans">{{item.date}}</div>
+												<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}</div>
+										</div>
+								</label>
+						</li>
+				</ul>
+			</div>
+
+			<div class="justify-content">
+				<button class="bg-[#408A7E] w-100 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+					Se positionner
+				</button>
+			</div>
+		</div>
+
+	</div>
+</div>
