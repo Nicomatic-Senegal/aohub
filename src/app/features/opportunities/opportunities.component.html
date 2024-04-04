@@ -19,7 +19,7 @@
                   <img src="../../../assets/img/nicomatic.svg" alt="" class="mr-1.5 w-16">
                   <div class="w-">
                     <p class="font-dmsans text-black font-bold text-lg">{{project?.applicant?.user?.firstName}} {{project?.applicant?.user?.lastName}}</p>
-                    <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.enterprise}}</p>
+                    <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.applicant?.enterprise?.name}}</p>
                   </div>
                 </div>
                 <div class="w-1/6">
@@ -35,7 +35,7 @@
                 <p class="font-dmsans text-[#121212]/60  text-base">{{project?.description}}</p>
               </div>
               <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
-                <span *ngFor="let itemi of project?.domains" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi}}</span>
+                <span *ngFor="let itemi of project?.markets" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi?.name}}</span>
               </div>
             </div>
             
@@ -45,7 +45,7 @@
               <div>
                 <div class="flex justify-between pb-2">
                   <p class="font-dmsans text-black font-bold text-base">Marché</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{project?.market[0]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.domains?.[0]?.name}}</p>
                 </div>
                 <div class="flex justify-between py-2">
                   <p class="font-dmsans text-black font-bold text-base">Volume global</p>
@@ -64,7 +64,7 @@
                   <p class="font-dmsans text-[#121212]  text-base">{{project?.latestDeadline}}</p>
                 </div>
               </div>
-              <button (click)="openDialog()" class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+              <button (click)="navigate('/apply-project')" class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base">
                 Se positionner
               </button>
             </div>
@@ -73,7 +73,7 @@
 
         <div class="change-page">
           <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
-          <button class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
+          <button  (click)="navigate('/home')" class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
           <button class="rounded-full w-8 h-8 font-dmsans">2</button>
           <button class="rounded-full w-8 h-8 font-dmsans">3</button>
           <button class="text-[#408A7E]"><i class="fa-solid fa-chevron-right"></i></button>

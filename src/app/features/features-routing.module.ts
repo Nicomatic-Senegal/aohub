@@ -9,6 +9,7 @@ import { AccountResetInitComponent } from './account-reset-init/account-reset-in
 import { HomeComponent } from './home/home.component';
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
 import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
+import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
@@ -20,7 +21,8 @@ const routes: Routes = [
   { path: 'account/reset/finish', component: AccountResetInitComponent },
   { path: 'home', component: HomeComponent },
   { path: 'opportunities', component: OpportunitiesComponent },
-  { path: 'project-submission', component: ProjectSubmissionComponent }
+  { path: 'project-submission', component: ProjectSubmissionComponent },
+  { path: 'apply-project', component: ApplyProjectDialogComponent },
 ];
 
 @NgModule({

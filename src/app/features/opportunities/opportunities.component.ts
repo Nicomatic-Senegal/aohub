@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
-import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opportunities',
@@ -15,47 +15,9 @@ export class OpportunitiesComponent {
   constructor(
     private projectService: ProjectService, 
     private toastr: ToastrService,
-    private dialogRef: MatDialog
+    private dialogRef: MatDialog,
+    private route: Router
     ) {}
-
-  projets = [
-    [
-      [
-        "nicomatic.svg",
-        "Mame Diarra Bousso",
-        "Nicomatic",
-        "3",
-        "Développement d'un Nouveau Connecteur Personnalisé",
-        "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
-        "Défense et sécurité",
-        "1800",
-        "Contractuel",
-        "08/10/2024",
-        "3 Mois"
-      ],
-      [
-        "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-      ]
-    ],
-    [
-      [
-        "conicio.png",
-        "Xavier",
-        "Inhub",
-        "6",
-        "Renouvellement d'un Ancien Connecteur",
-        "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
-        "Aéoronautique et sécurité",
-        "2100",
-        "Personnel",
-        "09/11/2023",
-        "2 Mois"
-      ],
-      [
-        "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-      ]
-    ],
-  ];
 
   ngOnInit(): void {
     this.projectService.getAllProjects().subscribe({
@@ -73,8 +35,16 @@ export class OpportunitiesComponent {
     });
   }
 
-  openDialog() {
-    this.dialogRef.open(ApplyProjectDialogComponent);  
+  openDialog(data: String) {
+    // this.dialogRef.open(ApplyProjectDialogComponent, {
+    //   // width: '80%',
+    //   data: { data: data },
+    //   panelClass: 'custom-modalbox'
+    // });  
+  }
+
+  navigate(link: String) {
+    this.route.navigate(['apply-project']);
   }
 
 }
