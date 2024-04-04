@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ProjectService } from '../services/project/project.service';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
 
 @Component({
   selector: 'app-opportunities',
@@ -6,6 +10,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./opportunities.component.scss']
 })
 export class OpportunitiesComponent {
+  listProject: any = null;
+
+  constructor(
+    private projectService: ProjectService, 
+    private toastr: ToastrService,
+    private dialogRef: MatDialog
+    ) {}
+
   projets = [
     [
       [
@@ -44,4 +56,25 @@ export class OpportunitiesComponent {
       ]
     ],
   ];
+
+  ngOnInit(): void {
+    this.projectService.getAllProjects().subscribe({
+      next: (data) => {
+        this.listProject = data;
+        console.log(this.listProject);
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      }
+    });
+  }
+
+  openDialog() {
+    this.dialogRef.open(ApplyProjectDialogComponent);  
+  }
+
 }
