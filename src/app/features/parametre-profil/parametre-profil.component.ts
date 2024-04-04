@@ -57,9 +57,6 @@ export class ParametreProfilComponent implements OnInit {
     "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
   ];
 
-  @Output() fullName = new EventEmitter<string>();
-  @Output() email = new EventEmitter<string>();
-
   constructor(
     private route: Router,
     private authService: AuthService,
@@ -79,13 +76,13 @@ export class ParametreProfilComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.user = data;
-        this.sendFullName(this.user.user.firstName + this.user.user.lastName);
+
       },
       error: (err) => {
         console.log(err);
 
       }
-    })
+    });
     this.profilForm = this.fb.group({
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
@@ -104,14 +101,6 @@ export class ParametreProfilComponent implements OnInit {
         console.log(err);
       }
     })
-  }
-
-  sendFullName(fullName: string) {
-    this.fullName.emit(fullName);
-  }
-
-  sendEmail(email: string) {
-    this.email.emit(email);
   }
 
   getControl(controlName: string) {

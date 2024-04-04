@@ -1,43 +1,58 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { UserService } from '../services/user/user.service';
+import { PartnerDTO } from '../interfaces/partner.model';
 
 @Component({
   selector: 'app-side-bar',
   templateUrl: './side-bar.component.html',
   styleUrls: ['./side-bar.component.scss']
 })
-export class SideBarComponent {
+export class SideBarComponent implements OnInit {
   screenSize: string = "sm";
   optionsTop = [
-    ["../../../assets/img/home.svg", "Accueil", "/home"],
-    ["../../../assets/img/projects.svg", "Mes projets", "/projets"],
-    ["../../../assets/img/opportunity.svg", "Opportunités", "/opportunities"],
-    ["../../../assets/img/activity.svg", "Activités", "/activite"],
-    ["../../../assets/img/notification.svg", "Notifications", "/notification"]
+    ["../../../assets/img/home.svg", "Accueil", "/home", "../../../assets/img/home-red.svg"],
+    ["../../../assets/img/projects.svg", "Mes projets", "/projets", "../../../assets/img/projects-red.svg"],
+    ["../../../assets/img/opportunity.svg", "Opportunités", "/opportunities", "../../../assets/img/opportunity-red.svg"],
+    ["../../../assets/img/activity.svg", "Activités", "/activite", "../../../assets/img/activity-red.svg"],
+    ["../../../assets/img/notification.svg", "Notifications", "/notification", "../../../assets/img/notification-red.svg"]
   ];
 
   optionsBottom = [
-    ["../../../assets/img/star.svg", "Avis", "/avis"],
-    ["../../../assets/img/support.svg", "Support", "/support"],
-    ["../../../assets/img/setting.svg", "Parametres", "/setting"]
+    ["../../../assets/img/star.svg", "Avis", "/avis", "../../../assets/img/star-red.svg"],
+    ["../../../assets/img/support.svg", "Support", "/support", "../../../assets/img/support-red.svg"],
+    ["../../../assets/img/setting.svg", "Parametres", "/setting", "../../../assets/img/setting-red.svg"]
   ];
   viewText: boolean = true;
   token: string;
-  @Input() fullName!: string;
-  @Input() email!: string;
+  fullName!: string;
+  email!: string;
+  @Input() screen!: string;
 
   onHamburger() {
     this.viewText = !this.viewText;
   }
 
-  constructor(private route: Router, private authService: AuthService) {
+  constructor(private route: Router, private authService: AuthService, private userService: UserService,) {
     // Initialisez la taille de l'écran lors du chargement de la page
     console.log(window.innerWidth);
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
     this.updateScreenSize(window.innerWidth);
+  }
+  ngOnInit(): void {
+    this.userService.getUser(this.token).subscribe({
+      next: (data: PartnerDTO) => {
+        this.fullName = data.user.firstName + ' ' + data.user.lastName;
+        this.email = data.user.login;
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    });
   }
 
   @HostListener('window:resize', ['$event'])

@@ -5,9 +5,9 @@
       <img src="../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class="self-start w-6 cursor-pointer" *ngIf="screenSize !== 'sm'">
     </div>
     <div>
-      <div class="px-2 md:px-5">
-        <div *ngFor="let item of optionsTop" (click)="navigation(item[2])" class="div-line-a">
-          <img src="{{item[0]}}" alt="" class="img-line-a">
+      <div class="pr-2 md:pr-5">
+        <div *ngFor="let item of optionsTop" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
           <p *ngIf="screenSize !== 'sm' && viewText">{{item[1]}}</p>
         </div>
       </div>
@@ -15,9 +15,9 @@
   </div>
   <div class=" flex flex-col ">
     <div>
-      <div class="px-2 md:px-5">
-        <div *ngFor="let item of optionsBottom" (click)="navigation(item[2])" class="div-line-a">
-          <img src="{{item[0]}}" alt="" class="img-line-a">
+      <div class="pr-2 md:pr-5">
+        <div *ngFor="let item of optionsBottom" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
           <p *ngIf="screenSize !== 'sm' && viewText">{{item[1]}}</p>
         </div>
       </div>

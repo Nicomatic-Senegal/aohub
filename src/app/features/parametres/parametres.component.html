@@ -1,13 +1,13 @@
 
 <div class="main">
-  <app-side-bar class="app-side"></app-side-bar>
+  <app-side-bar class="app-side" [screen]="'/setting'"></app-side-bar>
   <div class="head-setting" >
     <app-top-bar class="w-full flex-grow-1 " title="Paramètres"></app-top-bar>
     <div class="px-2 md:px-10">
       <div class="nav">
-        <button (click)="nextScreeen(1)">Profil</button>
-        <button (click)="nextScreeen(2)">Mot de passe</button>
-        <button (click)="nextScreeen(3)">Notifications</button>
+        <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Profil</button>
+        <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Mot de passe</button>
+        <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Notifications</button>
       </div>
       <div *ngIf="screen === 1">
         <app-parametre-profil></app-parametre-profil>

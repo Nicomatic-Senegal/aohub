@@ -1,5 +1,5 @@
 <div class="main">
-  <app-side-bar class="app-side"></app-side-bar>
+  <app-side-bar class="app-side" [screen]="'/opportunities'"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="Opportunités"></app-top-bar>
     <div class="div-center">
@@ -38,7 +38,7 @@
                 <span *ngFor="let itemi of item[1]" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi}}</span>
               </div>
             </div>
-            
+
             <div class="border-1 border-dashed border-[#408A7E] border"></div>
 
             <div class="projet-right">
@@ -69,7 +69,7 @@
               </button>
             </div>
           </div>
-          
+
           <div class="change-page">
             <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
             <button class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>

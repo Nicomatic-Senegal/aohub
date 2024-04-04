@@ -11,7 +11,7 @@
 }
 
 .nav {
-  @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold py-3
+  @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold pt-5
 }
 
 .nav button {
