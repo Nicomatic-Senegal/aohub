@@ -139,7 +139,7 @@ export class ParametreProfilComponent implements OnInit {
   }
 
   resetForm() {
-    this.profilForm.reset();
+    window.location.reload();
   }
 
   submit() {
