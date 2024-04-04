@@ -31,7 +31,7 @@
 }
 
 .input-line-form-readonly {
-  @apply text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/20 focus:outline-[#737373]/20 h-10 rounded-lg pl-3 mt-1 w-full
+  @apply text-gray-400 text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#737373] h-10 rounded-lg pl-3 mt-1 w-full
 }
 
 .input-line-form-1 {

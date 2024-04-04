@@ -82,7 +82,7 @@
       <div class="w-1/2 flex justify-between items-center">
         <label for="" class="label-line-form">Rôle</label>
         <div class="w-[60%]">
-          <select class="input-inscription" formControlName="role" >
+          <select class="input-line-form" formControlName="role" >
             <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
           </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
