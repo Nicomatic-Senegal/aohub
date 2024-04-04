@@ -39,7 +39,7 @@
 }
 
 .main-projet {
-  @apply bg-[#1E1E1E]/5 w-full h-[90%] rounded-lg p-5
+  @apply bg-[#1E1E1E]/5 w-full rounded-lg p-5
 }
 
 .projet {
@@ -47,7 +47,7 @@
 }
 
 .change-page {
-  @apply flex justify-center
+  @apply flex justify-center mt-4
 }
 
 .change-page button {

@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { ProjectService } from '../services/project/project.service';
+import { ToastrService } from 'ngx-toastr';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-opportunities',
@@ -6,42 +10,41 @@ import { Component } from '@angular/core';
   styleUrls: ['./opportunities.component.scss']
 })
 export class OpportunitiesComponent {
-  projets = [
-    [
-      [
-        "nicomatic.svg",
-        "Mame Diarra Bousso",
-        "Nicomatic",
-        "3",
-        "Développement d'un Nouveau Connecteur Personnalisé",
-        "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
-        "Défense et sécurité",
-        "1800",
-        "Contractuel",
-        "08/10/2024",
-        "3 Mois"
-      ],
-      [
-        "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-      ]
-    ],
-    [
-      [
-        "conicio.png",
-        "Xavier",
-        "Inhub",
-        "6",
-        "Renouvellement d'un Ancien Connecteur",
-        "Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe",
-        "Aéoronautique et sécurité",
-        "2100",
-        "Personnel",
-        "09/11/2023",
-        "2 Mois"
-      ],
-      [
-        "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-      ]
-    ],
-  ];
+  listProject: any = null;
+
+  constructor(
+    private projectService: ProjectService, 
+    private toastr: ToastrService,
+    private dialogRef: MatDialog,
+    private route: Router
+    ) {}
+
+  ngOnInit(): void {
+    this.projectService.getAllProjects().subscribe({
+      next: (data) => {
+        this.listProject = data;
+        console.log(this.listProject);
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      }
+    });
+  }
+
+  openDialog(data: String) {
+    // this.dialogRef.open(ApplyProjectDialogComponent, {
+    //   // width: '80%',
+    //   data: { data: data },
+    //   panelClass: 'custom-modalbox'
+    // });  
+  }
+
+  navigate(link: String) {
+    this.route.navigate(['apply-project']);
+  }
+
 }

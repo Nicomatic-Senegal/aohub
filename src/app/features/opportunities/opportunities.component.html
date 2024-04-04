@@ -2,8 +2,8 @@
   <app-side-bar class="app-side"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="Opportunités"></app-top-bar>
-    <div class="div-center">
-      <div class="projet-container">
+    <div class="div-center max-h-full">
+      <div class="projet-container max-h-full">
         <div class="header">
           <p>Nouveaux projets (08)</p>
           <div class="search-container">
@@ -11,31 +11,31 @@
             <i class="fas fa-search search-icon"></i>
           </div>
         </div>
-        <div class="main-projet">
-          <div class="projet" *ngFor="let item of projets">
+        <div class="main-projet max-h-full">  
+          <div class="projet" *ngFor="let project of listProject">
             <div class="projet-left">
               <div class="projet-left-head">
                 <div class="flex w-1/2">
-                  <img src="../../../assets/img/{{item[0][0]}}" alt="" class="mr-1.5 w-16">
+                  <img src="../../../assets/img/nicomatic.svg" alt="" class="mr-1.5 w-16">
                   <div class="w-">
-                    <p class="font-dmsans text-black font-bold text-lg">{{item[0][1]}}</p>
-                    <p class="font-dmsans text-[#121212]/60 text-xs">{{item[0][2]}}</p>
+                    <p class="font-dmsans text-black font-bold text-lg">{{project?.applicant?.user?.firstName}} {{project?.applicant?.user?.lastName}}</p>
+                    <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.applicant?.enterprise?.name}}</p>
                   </div>
                 </div>
                 <div class="w-1/6">
-                  <p class="font-dmsans text-black">{{item[0][3]}} jours</p>
+                  <p class="font-dmsans text-black">3 jours</p>
                   <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
-                    <div [ngClass]="item[0][3] <= '3' ? 'bg-red-600' : 'bg-green-600'" class="bg-red-600 text-xs font-medium text-red-100 text-center p-0.5 leading-none rounded-full" style="width: 15%"></div>
+                    <div [ngClass]="'3' <= '3' ? 'bg-red-600' : 'bg-green-600'" class="text-xs font-medium text-red-100 text-center p-0.5 leading-none rounded-full" style="width: 15%"></div>
                   </div>
                 </div>
 
               </div>
               <div class="projet-left-main">
-                <p class="font-dmsans text-black font-bold text-lg">{{item[0][5]}}</p>
-                <p class="font-dmsans text-[#121212]/60  text-base">{{item[0][6]}}</p>
+                <p class="font-dmsans text-black font-bold text-lg">{{project?.title}}</p>
+                <p class="font-dmsans text-[#121212]/60  text-base">{{project?.description}}</p>
               </div>
               <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
-                <span *ngFor="let itemi of item[1]" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi}}</span>
+                <span *ngFor="let itemi of project?.markets" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi?.name}}</span>
               </div>
             </div>
             
@@ -45,38 +45,38 @@
               <div>
                 <div class="flex justify-between pb-2">
                   <p class="font-dmsans text-black font-bold text-base">Marché</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{item[0][7]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.domains?.[0]?.name}}</p>
                 </div>
                 <div class="flex justify-between py-2">
                   <p class="font-dmsans text-black font-bold text-base">Volume global</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{item[0][8]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.globalVolume}}</p>
                 </div>
                 <div class="flex justify-between py-2">
                   <p class="font-dmsans text-black font-bold text-base">Type du besoin</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{item[0][9]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.needType}}</p>
                 </div>
                 <div class="flex justify-between py-2">
                   <p class="font-dmsans text-black font-bold text-base">Date de début</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{item[0][10]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.earliestDeadline}}</p>
                 </div>
                 <div class="flex justify-between py-2">
                   <p class="font-dmsans text-black font-bold text-base">Durée</p>
-                  <p class="font-dmsans text-[#121212]  text-base">{{item[0][11]}}</p>
+                  <p class="font-dmsans text-[#121212]  text-base">{{project?.latestDeadline}}</p>
                 </div>
               </div>
-              <button class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+              <button (click)="navigate('/apply-project')" class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base">
                 Se positionner
               </button>
             </div>
           </div>
-          
-          <div class="change-page">
-            <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
-            <button class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
-            <button class="rounded-full w-8 h-8 font-dmsans">2</button>
-            <button class="rounded-full w-8 h-8 font-dmsans">3</button>
-            <button class="text-[#408A7E]"><i class="fa-solid fa-chevron-right"></i></button>
-          </div>
+        </div>
+
+        <div class="change-page">
+          <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
+          <button  (click)="navigate('/home')" class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
+          <button class="rounded-full w-8 h-8 font-dmsans">2</button>
+          <button class="rounded-full w-8 h-8 font-dmsans">3</button>
+          <button class="text-[#408A7E]"><i class="fa-solid fa-chevron-right"></i></button>
         </div>
       </div>
     </div>

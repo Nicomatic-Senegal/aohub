@@ -18,6 +18,8 @@ import { GalleryModule } from 'ng-gallery';
 import { OpportunitiesComponent } from './opportunities/opportunities.component';
 import { ProjectSubmissionComponent } from './project-submission/project-submission.component';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
+import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     AccountResetInitComponent,
     HomeComponent,
     OpportunitiesComponent,
-    ProjectSubmissionComponent
+    ProjectSubmissionComponent,
+    ApplyProjectDialogComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +47,8 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
-  ],
+    MatDialogModule,
+  ]
 
 })
 export class FeaturesModule { }
