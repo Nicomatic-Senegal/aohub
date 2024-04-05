@@ -16,6 +16,7 @@ import { PartnerDTO } from '../interfaces/partner.model';
 export class OpportunitiesComponent {
   token!: string;
   listProject: Project[] = [];
+  listDays: number[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -32,7 +33,7 @@ export class OpportunitiesComponent {
   ngOnInit(): void {
     this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
-        data.forEach((project: { applicant: PartnerDTO; }) => {
+        data.forEach((project: { applicant: Project; }) => {
           this.partnerService.getPartnerById(this.token, project.applicant.id).subscribe({
             next: (applicant) => {
               project.applicant = applicant;
@@ -45,10 +46,31 @@ export class OpportunitiesComponent {
               });
             }
           });
+
+          const currentDate = new Date();
+          const earliestDeadline = new Date(data.earliestDeadline);
+          const differenceInMilliseconds = earliestDeadline.getTime() - currentDate.getTime();
+          const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+          this.listDays.push(differenceInDays);
+
+          this.listProject.push(data);
+          this.listProject = this.listProject.flatMap(data => data)
+          
+          console.log(project);
         });
+
+        const currentDate = new Date();
+        const earliestDeadline = new Date(data.earliestDeadline);
+        const differenceInMilliseconds = earliestDeadline.getTime() - currentDate.getTime();
+        const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+
+        this.listDays.push(differenceInDays);
+
         this.listProject.push(data);
         this.listProject = this.listProject.flatMap(data => data)
-        console.log(this.listProject);
+
+        // console.log(data);
       },
       error: (err) => {
         console.log(err);
@@ -58,10 +80,13 @@ export class OpportunitiesComponent {
        });
       }
     });
+    // console.log(this.listDays);
+    
   }
 
   onApply(id: number) {
-    this.router.navigate(['apply-project', id]);
+    // this.router.navigate(['apply-project', id]);
+    this.router.navigate(['apply-project'], { queryParams: { id: id } });
   }
 
   navigate(link: string) {
