@@ -27,7 +27,7 @@ export class ApplyProjectDialogComponent implements OnInit {
     private toastr: ToastrService,
     private projectService: ProjectService,
     private authService: AuthService
-  ) { 
+  ) {
     this.token = authService.isLogged()!;
   }
 
@@ -46,7 +46,7 @@ export class ApplyProjectDialogComponent implements OnInit {
         disponibilities: this.selectedCreneaux.map(item => ({ id: item.id })),
         projectId: this.projectId
       };
-  
+
       this.projectService.positioning(this.token, payload).subscribe({
         next: (data) => {
           this.toastr.success("Vous vous êtes positionné au projet avec succès", "Succès !", {
@@ -61,7 +61,7 @@ export class ApplyProjectDialogComponent implements OnInit {
             timeOut: 3000,
             positionClass: 'toast-top-right',
           });
-  
+
         }
       })
     } else {
@@ -87,7 +87,7 @@ export class ApplyProjectDialogComponent implements OnInit {
        });
       },
       complete: () => {
-        
+
       }
     });
   }
@@ -95,10 +95,10 @@ export class ApplyProjectDialogComponent implements OnInit {
   formatDateInDisponibilities(project: Project) {
     if (project.disponibilities) {
       project.disponibilities.forEach(disponibility => {
-        const instant = new Date(disponibility.instant);
+        const instant = new Date(disponibility.instant!);
         const disponibilityId = disponibility.id;
         const eventSchedule: EventSchedule = {
-          id: disponibilityId,
+          id: disponibilityId!,
           dayOfWeek: this.getDayOfWeek(instant.getDay()),
           day: instant.getDate(),
           month: instant.getMonth() + 1,
@@ -129,7 +129,7 @@ export class ApplyProjectDialogComponent implements OnInit {
     if (index === -1) {
         this.selectedCreneaux.push(element);
         console.log(element);
-        
+
         return;
     } else {
         // this.selectedCreneaux.splice(index, 1);
