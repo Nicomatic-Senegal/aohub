@@ -18,9 +18,16 @@
         <div class="upper-home-right">
           <div class="evenment">
             <!-- <app-vertical-caroussel></app-vertical-caroussel> -->
-            <p class="text-[#3B8682] font-dmsans text-xl font-semibold text-center">Inhub c’est</p>
+
+            <div class="carousel">
+              <div class="carousel-item" *ngFor="let item of carouselItems; let i = index" [class.active]="i === currentIndex">
+                <h3>{{ item.title }}</h3>
+                <p>{{ item.description }}</p>
+              </div>
+            </div>
+            <!-- <p class="text-[#3B8682] font-dmsans text-xl font-semibold text-center">Inhub c’est</p>
             <div class="text-black font-dmsans text-sm text-center">
-              Nous aidons les leaders mondiaux de l'ingénierie à innover et à garder une longueur d'avance en fournissant des interconnexions personnalisées pour des systèmes électroniques complexes
+              Nous aidons les leaders mondiaux de l'ingénierie à innover et à garder une longueur d'avance en fournissant des interconnexions personnalisées pour des systèmes électroniques complexes -->
               <!-- <div *ngFor="let item of evenments" (click)="navigation(item[2])" class="div-line-evenment">
                 <img src="{{item[0]}}" alt="" class="img-line-evenment">
                 <div class="ml-2 flex flex-col justify-between w-full">
@@ -37,7 +44,7 @@
                   </div>
                 </div>
               </div> -->
-            </div>
+            <!-- </div> -->
           </div>
           <div class="evenment1">
             <p class="text-[#408A7E] font-dmsans text-sm mb-3 font-semibold">Carnet d’adresse</p>

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
+
 @Component({
   selector: 'app-mot-de-passe-oublie-processus',
   templateUrl: './mot-de-passe-oublie-processus.component.html',
@@ -21,6 +22,7 @@ export class MotDePasseOublieProcessusComponent {
   constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder){
 
   }
+
 
   seconds: number = 0;
   private unsubscribe$ = new Subject<void>();
@@ -104,4 +106,6 @@ export class MotDePasseOublieProcessusComponent {
   toConnexion() {
     this.route.navigate(["/signin"]);
   }
+
+
 }
