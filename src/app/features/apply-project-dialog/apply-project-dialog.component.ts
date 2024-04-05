@@ -46,6 +46,15 @@ export class ApplyProjectDialogComponent {
   onSelected(value: any) {
     this.addOrRemoveElement(value.id);
     console.log(this.selectedCreneaux);
+
+  }
+
+  isSelected(item: any) {
+    console.log(item);
+    console.log(this.selectedCreneaux.indexOf(item));
+
+
+    return this.selectedCreneaux.indexOf(item);
   }
 
   addOrRemoveElement(element: any): void {
@@ -62,11 +71,11 @@ export class ApplyProjectDialogComponent {
   // submit(value: any) {
   //   const formValue = Object.assign({}, value, {
   //     creneaux: value.creneau.map((selected: any, i: string | number) => {
-        
+
   //     })
   //   });
   // }
-  
+
   // get f() { return this.creneauxForm.controls; }
 
   //   onSubmit(value: any) {
@@ -80,7 +89,7 @@ export class ApplyProjectDialogComponent {
 
   //   onCheckChange(event) {
   //     const formArray: FormArray = this.creneauxForm.get('creneaux') as FormArray;
-    
+
   //     /* Selected */
   //     if(event.target.checked){
   //       // Add a new control in the arrayForm
@@ -90,19 +99,19 @@ export class ApplyProjectDialogComponent {
   //     else{
   //       // find the unselected element
   //       let i: number = 0;
-    
+
   //       formArray.controls.forEach((ctrl: FormControl) => {
   //         if(ctrl.value == event.target.value) {
   //           // Remove the unselected element from the arrayForm
   //           formArray.removeAt(i);
   //           return;
   //         }
-    
+
   //         i++;
   //       });
   //     }
   //   }
-    
+
   backStep() {
     this.route.navigate(['opportunities'])
   }
