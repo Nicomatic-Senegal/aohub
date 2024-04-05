@@ -40,7 +40,7 @@ export class ProjectSubmissionComponent implements OnInit {
   allDateChoosen: Array<Date> = [];
   markets: Array<Market> = [];
   domains: Array<Domain> = [];
-  project: Project = {};
+  // project: Project = {};
 
 
 

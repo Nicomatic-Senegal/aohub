@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Project } from '../../interfaces/project.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,15 @@ export class ProjectService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'projects';
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
+  }
+
+  getProjectById(id: string): Observable<Project> {
+    const token: string | null = localStorage.getItem('token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${id}`;
+
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
 
   getAllDomains(token: string): Observable<any> {

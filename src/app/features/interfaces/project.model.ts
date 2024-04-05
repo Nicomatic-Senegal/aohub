@@ -2,10 +2,11 @@ import { Applicant } from "./applicant.model";
 import { Disponibility } from "./disponibility.model";
 import { Domain } from "./domain.model";
 import { Market } from "./market.model";
+import { PartnerDTO } from "./partner.model";
 
 export interface Project {
-    id?: number;
-    applicant?: Applicant;
+    id: number;
+    applicant?: PartnerDTO;
     budget?: string;
     client?: string;
     confidential?: boolean;
@@ -21,7 +22,7 @@ export interface Project {
     needType?: string;
     status?: string;
     targetPrice?: string;
-    teamMembers?: Array<Applicant>;
+    teamMembers?: Array<PartnerDTO>;
     title?: string;
 }
 

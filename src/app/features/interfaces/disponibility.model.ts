@@ -3,4 +3,3 @@ export interface Disponibility {
 	instant: Date;
 	project: string;
 }
-  

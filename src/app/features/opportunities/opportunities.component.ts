@@ -3,8 +3,8 @@ import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Project } from '../interfaces/project.model';
 
 @Component({
   selector: 'app-opportunities',
@@ -12,14 +12,14 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
   styleUrls: ['./opportunities.component.scss']
 })
 export class OpportunitiesComponent {
-  listProject: any[] = [];
   token!: string;
+  listProject: Project[] = [];
 
   constructor(
     private projectService: ProjectService,
     private toastr: ToastrService,
     private dialogRef: MatDialog,
-    private route: Router,
+    private router: Router,
     private authService: AuthService,
     ) {
       authService.loggedOut();
@@ -29,7 +29,8 @@ export class OpportunitiesComponent {
   ngOnInit(): void {
     this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
-        this.listProject = data;
+        this.listProject.push(data);
+        this.listProject = this.listProject.flatMap(data => data)
         console.log(this.listProject);
       },
       error: (err) => {
@@ -50,8 +51,12 @@ export class OpportunitiesComponent {
     // });
   }
 
-  navigate(link: String) {
-    this.route.navigate(['apply-project']);
+  onApply(id: number) {
+    this.router.navigate(['apply-project', id]);
+  }
+
+  navigate(link: string) {
+    this.router.navigate(['apply-project']);
   }
 
   totalItems = 10;
