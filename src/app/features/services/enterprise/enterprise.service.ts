@@ -13,14 +13,16 @@ export class EnterpriseService {
     this.apiBaseUrl = environment.apiBaseUrl; }
 
   getAllEnterprises(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const token: string | null = localStorage.getItem('token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'enterprises';
     console.log('register. baseurl: ' + this.apiBaseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
   getAllEmployeePost(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const token: string | null = localStorage.getItem('token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'employee-posts';
     console.log('register. baseurl: ' + this.apiBaseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });

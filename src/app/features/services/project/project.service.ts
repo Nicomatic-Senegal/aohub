@@ -19,7 +19,15 @@ export class ProjectService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'projects';
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
+  }
+
+  getProjectById(id: string): Observable<Project> {
+    const token: string | null = localStorage.getItem('token');
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${id}`;
+
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
 
   getAllDomains(token: string): Observable<any> {
@@ -34,6 +42,13 @@ export class ProjectService {
     const url = this.apiBaseUrl + 'markets';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  positioning(token: string, payload: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'positionings';
+
+    return this.http.post<any>(url, payload, { headers, responseType: 'json' })
   }
 
   addProject(token: string, project: ProjectVM): Observable<any> {
