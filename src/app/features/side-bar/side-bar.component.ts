@@ -22,7 +22,7 @@ export class SideBarComponent implements OnInit {
   optionsBottom = [
     ["../../../assets/img/star.svg", "Avis", "/avis", "../../../assets/img/star-red.svg"],
     ["../../../assets/img/support.svg", "Support", "/support", "../../../assets/img/support-red.svg"],
-    ["../../../assets/img/setting.svg", "Parametres", "/setting", "../../../assets/img/setting-red.svg"]
+    ["../../../assets/img/setting.svg", "Paramétres", "/setting", "../../../assets/img/setting-red.svg"]
   ];
   viewText: boolean = true;
   token: string;
