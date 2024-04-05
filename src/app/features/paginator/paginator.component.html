@@ -1,0 +1,31 @@
+<div class="pagination flex justify-center text-lg mt-5">
+    <button 
+        class="text-[#408A7E] text-lg mr-5" 
+        [disabled]="currentPage === 1"
+        [ngClass]="{ 'disable-button': currentPage === 1 }"
+        (click)="pageClicked(currentPage - 1)"
+        >
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <button 
+        *ngFor="let page of pages" 
+        class="rounded-full w-8 h-8 font-dmsans"
+        [ngClass]="{ active: page == currentPage }"
+        [ngClass]="page == currentPage ? 'bg-[#408A7E] text-white' : ''"
+        (click)="pageClicked(page)"
+        >
+        {{page}}
+    </button>
+    <!-- <button *ngFor="let page of pages" class="rounded-full w-8 h-8 font-dmsans">{{page}}</button> -->
+    <!-- <button class="rounded-full w-8 h-8 font-dmsans">3</button> -->
+
+    <button
+        [disabled]="currentPage === totalPages"
+        [ngClass]="{ 'disable-button': currentPage == totalPages }"
+        class="text-[#408A7E] text-lg ml-5"
+        (click)="pageClicked(currentPage + 1)"
+        >
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>

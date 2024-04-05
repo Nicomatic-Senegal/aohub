@@ -12,7 +12,7 @@
           </div>
         </div>
         <div class="main-projet max-h-full">
-          <div class="projet" *ngFor="let project of listProject">
+          <div class="projet" *ngFor="let project of paginatedDate">
             <div class="projet-left">
               <div class="projet-left-head">
                 <div class="flex w-1/2">
@@ -71,13 +71,13 @@
           </div>
         </div>
 
-        <div class="change-page">
-          <button class="text-[#B0B0B0]"><i class="fa-solid fa-chevron-left"></i></button>
-          <button  (click)="navigate('/home')" class="bg-[#408A7E] text-white rounded-full w-8 h-8 font-dmsans">1</button>
-          <button class="rounded-full w-8 h-8 font-dmsans">2</button>
-          <button class="rounded-full w-8 h-8 font-dmsans">3</button>
-          <button class="text-[#408A7E]"><i class="fa-solid fa-chevron-right"></i></button>
-        </div>
+        <app-paginator 
+          [totalItems]="totalItems" 
+          [itemPerPage]="itemPerPage"
+          [currentPage]="currentPage"
+          (onClick)="changePage($event)">
+        </app-paginator>
+
       </div>
     </div>
   </div>

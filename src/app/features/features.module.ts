@@ -21,6 +21,9 @@ import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateMod
 import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     OpportunitiesComponent,
     ProjectSubmissionComponent,
     ApplyProjectDialogComponent,
-    ImageSliderComponent
+    ImageSliderComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -50,6 +54,8 @@ import { ImageSliderComponent } from './image-slider/image-slider.component';
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule
   ]
 
 })

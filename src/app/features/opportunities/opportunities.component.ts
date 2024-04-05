@@ -3,6 +3,7 @@ import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-opportunities',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./opportunities.component.scss']
 })
 export class OpportunitiesComponent {
-  listProject: any = null;
+  listProject: any[] = [];
 
   constructor(
     private projectService: ProjectService,
@@ -45,6 +46,23 @@ export class OpportunitiesComponent {
 
   navigate(link: String) {
     this.route.navigate(['apply-project']);
+  }
+
+  totalItems = 10;
+  itemPerPage = 2;
+  currentPage = 1;
+  // startIndex = 1;
+  // endIndex = 4;
+
+  get paginatedDate() {
+    const start = (this.currentPage - 1) * (this.itemPerPage);
+    const end = start + this.itemPerPage;
+
+    return this.listProject.slice(start, end);
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
   }
 
 }
