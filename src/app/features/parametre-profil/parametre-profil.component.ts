@@ -158,11 +158,17 @@ export class ParametreProfilComponent implements OnInit {
     this.userService.updateUser(this.token, this.userToUpdate).subscribe({
       next: (data) => {
         console.log(data);
-
+        this.toastr.success("profil modifié avec succés.", "Succés", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
       },
       error: (err) => {
         console.log(err);
-
+        this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
       }
     });
   }

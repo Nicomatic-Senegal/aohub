@@ -90,7 +90,7 @@ export class MotDePasseOublieProcessusComponent {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur pendant l'envoie du mail", {
           timeOut: 3000,
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-center',
        });
       }
     })

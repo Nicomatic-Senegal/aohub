@@ -58,7 +58,7 @@ export class InscriptionComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
           timeOut: 3000,
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-center',
        });
       }
     });
@@ -71,7 +71,7 @@ export class InscriptionComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
           timeOut: 3000,
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-center',
        });
       }
     });
@@ -116,7 +116,7 @@ export class InscriptionComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.error.detail, "Error pendant l'inscription", {
           timeOut: 3000,
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-center',
        });
       }
     })
