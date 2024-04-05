@@ -1,9 +1,9 @@
-<div class="main">
+<div class="main font-dmsans">
   <app-side-bar class="app-side" [screen]="'/home'"></app-side-bar>
   <div class="head-home">
     <app-top-bar class="w-full flex-grow-1" title="Accueil"></app-top-bar>
     <div class="div-center">
-      <div class="upper-home">
+      <div class="upper-home static z-50">
         <div class="upper-home-left">
             <div class="upper-home-left-redbox font-dmsans">
               <p class="">Bienvenue Mame Diarra Gueye</p>
@@ -12,66 +12,52 @@
             </div>
             <div class="upper-home-left-bottom">
               <p>Liste des entreprises</p>
-              <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
+              <!-- <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p> -->
             </div>
         </div>
         <div class="upper-home-right">
           <div class="evenment">
-            <!-- <app-vertical-caroussel></app-vertical-caroussel> -->
-            <!-- <app-image-slider
-              [indicatorsVisible]="true"
-              [animationSpeed]="400"
-              [slides]="slides"
-              [autoPlay]="true"
-              [autoPlaySpeed]="2000"
-            ></app-image-slider> -->     
-          
-            <!-- <p class="text-[#3B8682] font-dmsans text-xl font-semibold text-center">Inhub c’est</p>
-            <div class="text-black font-dmsans text-sm text-center">
-              Nous aidons les leaders mondiaux de l'ingénierie à innover et à garder une longueur d'avance en fournissant des interconnexions personnalisées pour des systèmes électroniques complexes
-            </div> -->
-
+            <p class="font-bold text-[#408A7E] text-wrap text-lg">Inhub c'est :</p>
             <div class="carousel">
               <div class="carousel-item" *ngFor="let item of carouselItems; let i = index" [class.active]="i === currentIndex">
-                <h3>{{ item.title }}</h3>
-                <p>{{ item.description }}</p>
+                <h3 class="font-semibold text-wrap ">{{ item.title }}</h3>
+                <p class="text wrap ">{{ item.description }}</p>
               </div>
             </div>
   
           </div>
-          <div class="carnet">
-            <p class="text-[#408A7E] font-dmsans text-sm mb-3 font-semibold">Carnet d’adresse</p>
+          <div class="carnet fixed top-[20rem] z-50">
+            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
             <div >
-              <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" class="search-input" placeholder="Rechercher un partenaire...">
+              <div class="search-content">
+                <i class="fas fa-search search-icon mt-1 ml-2"></i>
+                <input type="search" class="search-input" placeholder="Rechercher un partenaire">
               </div>
-              <!-- <div *ngFor="let item of partners" (click)="navigation(item[2])" class="div-line-partner">
-                <img src="{{item[0]}}" alt="" class="w-10 mr-2">
-                <div class="div-text">
-                  <p>{{item[1]}}</p>
-                  <p class="desc-partner">{{item[3]}}</p>
-                  <p class="desc-partner">{{item[4]}}</p>
+
+              <div class="flex items-center gap-4 bg-gray-50 rounded-md mb-3 p-1">
+                <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
+                <div class="font-medium font-dmsans">
+                    <div>Jese Leos</div>
+                    <div class="text-md text-gray-900">Joined in August 2014</div>
                 </div>
-              </div> -->
+              </div>
+
+              <div class="flex items-center gap-4 bg-gray-50 rounded-md mb-3 p-1">
+                <img class="w-10 h-10 rounded-full" src="../../../assets/img/Nicomatic Logo Blue.jpg" alt="">
+                <div class="font-medium font-dmsans">
+                    <div>Jese Leos</div>
+                    <div class="text-md text-gray-500">Joined in August 2014</div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
 
-      <div>
-        <!-- <app-horizontal-caroussel></app-horizontal-caroussel> -->
-        <gallery [items]="images" [thumb]="false"  class="w-full bg-red-200 mt-10 h-90 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
+      <div class="z-1 relative">
+        <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
       </div>
-      <!-- <app-image-slider
-        [indicatorsVisible]="true"
-        [animationSpeed]="400"
-        [slides]="slides"
-        [autoPlay]="true"
-        [autoPlaySpeed]="2000"
-      ></app-image-slider> -->
-
-
-</div>
-</div>
+    </div>
+  </div>
 </div>

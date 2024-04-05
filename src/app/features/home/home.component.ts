@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
 
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.carouselItems.length;
-    }, 6000);
+    }, 10000);
 
     this.images = [
       new ImageItem({ src: '../../../assets/img/Slide Item — 1.svg', thumb: '../../../assets/img/Slide Item — 1.svg' }),
