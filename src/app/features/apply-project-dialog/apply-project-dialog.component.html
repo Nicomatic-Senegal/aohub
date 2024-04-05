@@ -38,8 +38,8 @@
 
 			<div class="creneaux">
 				<div class="grid w-full md:grid-cols-4 md:gap-4 px-5 my-10 flex justify-center items-center">
-						<div *ngFor="let item of creneaux; let i=index;">
-							<div (click)="onSelected(item)" class="mb-5">
+						<div *ngFor="let item of creneaux; let i=index;" (click)="onSelected(item)">
+							<!-- <div (click)="onSelected(item)" class="mb-5"> -->
 								<input type="checkbox" id="item{{i}}" value="item{{i}}" class="hidden peer">
 								<label for="item{{i}}" class="inline-flex items-center justify-between w-full p-5 text-gray-400 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-[#408A7E] hover:text-gray-600 peer-checked:text-[#408A7E] hover:bg-gray-50">                           
 										<div class="block">
@@ -48,7 +48,7 @@
 												<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}</div>
 										</div>
 								</label>
-							</div>
+							<!-- </div> -->
 						</div>
 				</div>
 			</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -10,6 +10,15 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class HomeComponent implements OnInit {
   token: string;
+
+  carouselItems: any = [
+    { title: 'Titre 1', description: 'Description 1' },
+    { title: 'Titre 2', description: 'Description 2' },
+    { title: 'Titre 3', description: 'Description 3' },
+    { title: 'Titre 4', description: 'Description 4' }
+  ];
+
+  currentIndex: number = 0;
 
   constructor(private route: Router, private authService: AuthService) {
     authService.loggedOut();
@@ -28,7 +37,7 @@ export class HomeComponent implements OnInit {
 
   images: GalleryItem[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.images = [
       new ImageItem({ src: '../../../assets/img/Slide Item — 1.svg', thumb: '../../../assets/img/Slide Item — 1.svg' }),
       new ImageItem({ src: '../../../assets/img/Slide Item — 2.svg', thumb: '../../../assets/img/Slide Item — 2.svg' }),
@@ -42,4 +51,5 @@ export class HomeComponent implements OnInit {
   navigation(link: string) {
     this.route.navigate([link]);
   }
+
 }
