@@ -3,6 +3,10 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { Market } from '../interfaces/market.model';
+import { Project } from '../interfaces/project.model';
+import { Domain } from '../interfaces/domain.model';
+import { ProjectService } from '../services/project/project.service';
 
 @Component({
   selector: 'app-project-submission',
@@ -34,10 +38,13 @@ export class ProjectSubmissionComponent implements OnInit {
   token: string;
   selectedDate!: Date | null;
   allDateChoosen: Array<Date> = [];
+  markets: Array<Market> = [];
+  domains: Array<Domain> = [];
+  project: Project = {};
 
 
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
@@ -71,9 +78,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectSubmissionForm.patchValue({
       startDate: format(dayStart, 'yyyy-MM-dd'),
-      endDate: format(dayEnd, 'yyyy-MM-dd'),
-      heureDebut: dayStart,
-      heureFin: dayEnd,
+      endDate: format(dayEnd, 'yyyy-MM-dd')
     });
 
     // pour afficher uniquement les date posterieur
@@ -82,135 +87,55 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // je recupere la date du debut
     const startDateControl: any = this.projectSubmissionForm.get('startDate');
     const endDateControl: any = this.projectSubmissionForm.get('endDate');
-    const heureDebutControl: any = this.projectSubmissionForm.get('heureDebut');
-    const heureFinControl: any = this.projectSubmissionForm.get('heureFin');
     endDateControl.valueChanges.subscribe((value: any) => {
 
       if (value) {
         const dateFin = new Date(value);
-        this.heureFinNumber = this.projectSubmissionForm.value.heureFin.getHours();
-        this.minuteFinNumber = this.projectSubmissionForm.value.heureFin.getMinutes();
-        dateFin.setHours(this.heureFinNumber, this.minuteFinNumber);
-        this.endDateToString = format(dateFin, 'yyyy-MM-dd HH:mm:ss');
+        this.endDateToString = format(dateFin, 'yyyy-MM-dd');
       }
 
     });
 
-    // apres avoir choisi une date
     startDateControl.valueChanges.subscribe((value: any) => {
-
-      // je verifie si on a choisi une date
       if (value) {
-        // this.projectSubmissionForm.get('endDate')?.enable();
-        //si oui la date de end sera la date debut
-        // c'est a dire on choisi à partir de la date de debut
-        // la date de fin doit etre superieur ou egal àa la date debut
         this.projectSubmissionForm.patchValue({
           endDate: value
         });
 
-        // la date min sera egal à la date debut
         this.minDateFinString = value;
         const dateFin = new Date(value);
-        this.heureFinNumber = this.projectSubmissionForm.value.heureFin.getHours();
-        this.minuteFinNumber = this.projectSubmissionForm.value.heureFin.getMinutes();
-        dateFin.setHours(this.heureFinNumber, this.minuteFinNumber);
-        this.endDateToString = format(dateFin, 'yyyy-MM-dd HH:mm:ss');
-
-
+        this.endDateToString = format(dateFin, 'yyyy-MM-dd');
       }
 
-      /* je l'ai mis ici parce que la date de ddebut recopie betement la date de fin */
-      const hoursDebut = this.projectSubmissionForm.value.heureDebut.getHours().toString().padStart(2, '0');
-      const minutesDebut = this.projectSubmissionForm.value.heureDebut.getMinutes().toString().padStart(2, '0');
       const dateDebut = new Date(this.projectSubmissionForm.value.startDate);
 
-      dateDebut.setHours(hoursDebut);
-      dateDebut.setMinutes(minutesDebut);
-
-      this.startDateToString = format(dateDebut, 'yyyy-MM-dd HH:mm:ss');
+      this.startDateToString = format(dateDebut, 'yyyy-MM-dd');
 
     });
 
-    // apres avoir choisi l'heure debut
-    heureDebutControl.valueChanges.subscribe((value: any) => {
+    this.projectService.getAllDomains(this.token).subscribe({
+      next: (data) => {
+        this.domains = data;
+        console.log(this.domains);
 
-      /* je l'ai mis ici parce que la date de ddebut recopie betement la date de fin */
-      const hoursDebut = value.getHours().toString().padStart(2, '0');
-      const minutesDebut = value.getMinutes().toString().padStart(2, '0');
-      const dateDebut = new Date(this.projectSubmissionForm.value.startDate);
-      const dateFin = new Date(this.projectSubmissionForm.value.endDate);
+      },
+      error: (err) => {
 
-      this.heureDebutNumber = value.getHours();
-      this.minuteDebutNumber = value.getMinutes();
-      if (dateDebut.getTime() === dateFin.getTime()) {
-        if (value.getHours() > this.heureFinNumber) {
-
-          dateDebut.setHours(this.heureFinNumber);
-          this.projectSubmissionForm.patchValue({
-            heureFin: dateDebut
-          });
-
-        } if (value.getHours() == this.heureFinNumber && value.getMinutes() > this.minuteFinNumber) {
-
-          dateDebut.setHours(this.heureFinNumber);
-          dateDebut.setMinutes(this.minuteFinNumber);
-          this.projectSubmissionForm.patchValue({
-            heureFin: dateDebut
-          });
-
-        } else {
-          dateDebut.setHours(hoursDebut, minutesDebut, 0);
-        }
-      } else {
-        dateDebut.setHours(hoursDebut, minutesDebut, 0);
       }
-
-      this.startDateToString = format(dateDebut, 'yyyy-MM-dd HH:mm:ss');
-
     });
 
-    heureFinControl.valueChanges.subscribe((value: any) => {
+    this.projectService.getAllMarkets(this.token).subscribe({
+      next: (data) => {
+        this.markets = data;
+        console.log(this.markets);
 
-      /* je l'ai mis ici parce que la date de debut recopie betement la date de fin */
-      const hoursFin = value.getHours().toString().padStart(2, '0');
-      const minutesFin = value.getMinutes().toString().padStart(2, '0');
-      const dateFin = new Date(this.projectSubmissionForm.value.endDate);
-      const dateDebut = new Date(this.projectSubmissionForm.value.startDate);
-      this.heureFinNumber = value.getHours();
-      this.minuteFinNumber = value.getMinutes();
+      },
+      error: (err) => {
 
-      if (dateDebut.getTime() === dateFin.getTime()) {
-
-        if (value.getHours() < this.heureDebutNumber) {
-
-          dateFin.setHours(this.heureDebutNumber);
-          this.projectSubmissionForm.patchValue({
-            heureFin: dateFin
-          });
-
-        } if (value.getHours() == this.heureDebutNumber && value.getMinutes() < this.minuteDebutNumber) {
-
-          dateFin.setHours(this.heureDebutNumber);
-          dateFin.setMinutes(this.minuteDebutNumber);
-          this.projectSubmissionForm.patchValue({
-            heureFin: dateFin
-          });
-
-        } else {
-          dateFin.setHours(hoursFin, minutesFin, 0);
-        }
-      } else {
-        dateFin.setHours(hoursFin, minutesFin, 0);
       }
-
-      this.endDateToString = format(dateFin, 'yyyy-MM-dd HH:mm:ss');
-
     });
-
   }
 
 

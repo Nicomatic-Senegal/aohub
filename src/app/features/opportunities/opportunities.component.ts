@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-opportunities',
@@ -12,16 +13,21 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class OpportunitiesComponent {
   listProject: any[] = [];
+  token!: string;
 
   constructor(
     private projectService: ProjectService,
     private toastr: ToastrService,
     private dialogRef: MatDialog,
-    private route: Router
-    ) {}
+    private route: Router,
+    private authService: AuthService,
+    ) {
+      authService.loggedOut();
+      this.token = authService.isLogged()!;
+    }
 
   ngOnInit(): void {
-    this.projectService.getAllProjects().subscribe({
+    this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
         this.listProject = data;
         console.log(this.listProject);

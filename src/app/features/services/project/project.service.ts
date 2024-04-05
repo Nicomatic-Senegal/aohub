@@ -10,12 +10,26 @@ export class ProjectService {
   apiBaseUrl: string | undefined;
 
   constructor(private http: HttpClient) {
-    this.apiBaseUrl = environment.apiBaseUrl; 
+    this.apiBaseUrl = environment.apiBaseUrl;
   }
 
-  getAllProjects(): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  getAllProjects(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'projects';
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  getAllDomains(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'domains';
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  getAllMarkets(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'markets';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }

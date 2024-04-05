@@ -24,4 +24,4 @@ export interface Project {
     teamMembers?: Array<Applicant>;
     title?: string;
 }
-  
+
