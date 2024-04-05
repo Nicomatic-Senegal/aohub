@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { GalleryItem, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 
@@ -16,13 +16,6 @@ interface CarouselItem {
 })
 export class HomeComponent implements OnInit {
   token: string;
-
-  carouselItems: any = [
-    { title: 'Titre 1', description: 'Description 1' },
-    { title: 'Titre 2', description: 'Description 2' },
-    { title: 'Titre 3', description: 'Description 3' },
-    { title: 'Titre 4', description: 'Description 4' }
-  ];
 
   currentIndex: number = 0;
 
@@ -58,7 +51,6 @@ export class HomeComponent implements OnInit {
       description: 'Celui qui sait, fait. Du début de projet jusqu’à la fin, vous serez en lien avec les équipes pertinentes pour chaque étape pour gagner le maximum de temps et de clarté',
     },
   ];
-  currentIndex: number = 0;
 
   evenments = [
     ["../../../assets/img/plannification.svg", "Réunion de planification du projet XYZ", "/planification", "Réunion", "10:00 am"],
@@ -72,16 +64,12 @@ export class HomeComponent implements OnInit {
 
   images: GalleryItem[] = [];
 
-<<<<<<< HEAD
-  ngOnInit(): void {
-=======
   ngOnInit() {
 
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.carouselItems.length;
     }, 6000);
 
->>>>>>> 7348eb1 (caroussel texte)
     this.images = [
       new ImageItem({ src: '../../../assets/img/Slide Item — 1.svg', thumb: '../../../assets/img/Slide Item — 1.svg' }),
       new ImageItem({ src: '../../../assets/img/Slide Item — 2.svg', thumb: '../../../assets/img/Slide Item — 2.svg' }),
