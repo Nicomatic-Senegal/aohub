@@ -13,7 +13,7 @@ export class OpportunitiesComponent {
   listProject: any = null;
 
   constructor(
-    private projectService: ProjectService, 
+    private projectService: ProjectService,
     private toastr: ToastrService,
     private dialogRef: MatDialog,
     private route: Router
@@ -29,7 +29,7 @@ export class OpportunitiesComponent {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
           timeOut: 3000,
-          positionClass: 'toast-top-right',
+          positionClass: 'toast-top-center',
        });
       }
     });
@@ -40,7 +40,7 @@ export class OpportunitiesComponent {
     //   // width: '80%',
     //   data: { data: data },
     //   panelClass: 'custom-modalbox'
-    // });  
+    // });
   }
 
   navigate(link: String) {
