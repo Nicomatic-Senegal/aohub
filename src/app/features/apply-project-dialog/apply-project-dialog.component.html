@@ -25,23 +25,22 @@
 
 
 
-<div class="main">
+<div class="main font-dmsans">
 	<app-side-bar class="app-side"></app-side-bar>
 	<div class="head-home">
 		<app-top-bar class="w-full flex-grow-1" title="Opportunités"></app-top-bar>
 		<div class="div-center">
-			<div class="flex mb-50">
-				<p class="font-bold text-2xl font-dmsans">Se positionner sur le projet</p>
-			</div>
+			<button (click)="backStep()" class="font-dmsans text-[#737373] text-base font-semibold text-left">&lt; Retour</button>
 			<div class="title">
 				<p class="font-bold text-xl font-dmsans">Voici les créneaux horaires disponibles pour la réunion de lancement</p>
 				<p class="text-lg font-dmsans text-gray-900 mt-3">Vous pouvez en sélectionner un ou plusieurs</p>
 			</div>
 
-			<div class="flex justify-center items-center mt-20 ml-10">
-				<ul class="grid w-full gap-6 md:grid-cols-4 flex justify-center items-center">
-						<li *ngFor="let item of creneaux; let i=index;">
-								<input type="checkbox" id="item{{i}}" value="item{{i}}" class="hidden peer" required="">
+			<div class="creneaux">
+				<div class="grid w-full md:grid-cols-4 md:gap-4 px-5 my-10 flex justify-center items-center">
+						<div *ngFor="let item of creneaux; let i=index;">
+							<div (click)="onSelected(item)" class="mb-5">
+								<input type="checkbox" id="item{{i}}" value="item{{i}}" class="hidden peer">
 								<label for="item{{i}}" class="inline-flex items-center justify-between w-full p-5 text-gray-400 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-[#408A7E] hover:text-gray-600 peer-checked:text-[#408A7E] hover:bg-gray-50">                           
 										<div class="block">
 												<div class="w-full text-xl font-semibold font-dmsans">{{item.day}}</div>
@@ -49,12 +48,13 @@
 												<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}</div>
 										</div>
 								</label>
-						</li>
-				</ul>
+							</div>
+						</div>
+				</div>
 			</div>
 
-			<div class="justify-content">
-				<button class="bg-[#408A7E] w-100 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+			<div class="flex justify-center mt-10">
+				<button class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
 					Se positionner
 				</button>
 			</div>
