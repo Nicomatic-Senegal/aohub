@@ -3,6 +3,7 @@ import { Disponibility } from "./disponibility.model";
 import { Domain } from "./domain.model";
 import { Market } from "./market.model";
 
+
 export interface Project {
     id?: number;
     applicant?: Applicant;

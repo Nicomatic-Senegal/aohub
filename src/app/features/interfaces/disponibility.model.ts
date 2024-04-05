@@ -1,6 +1,5 @@
 export interface Disponibility {
-	id: number;
-	instant: Date;
-	project: string;
+	id?: number;
+	instant?: Date;
+	project?: string;
 }
-  

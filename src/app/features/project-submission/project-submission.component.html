@@ -70,13 +70,11 @@
                   <div class="part-line-form-bis ">
                     <label for="" class="label w-[40%]">Métier</label>
                     <div class=" w-[60%] ">
-                      <select formControlName="metier" class="input">
+                      <select formControlName="metier" class="input" #domain (change)="onSelectDomain(domain.value)">
                         <option value="" disabled [selected]="true">Choisissez le métier...</option>
-                        <option value="mecanique">Mecanique</option>
-                        <option value="electronique">Electronique</option>
-                        <option value="aeoronotique">Aeronotique</option>
+                        <option *ngFor="let item of domains" value="{{item.name}}" class="{{domainChoosen.indexOf(item.name) !== -1 ? 'text-[#AAAAAA]' : ''}}">{{item.name}}</option>
                       </select>
-                      <div *ngIf="getControl('metier')?.invalid && (getControl('metier')?.dirty || getControl('metier')?.touched)" class="text-red-600 text-xs">
+                      <div *ngIf="domainChoosen.length === 0" class="text-red-600 text-xs">
                         Le métier est requis.
                       </div>
                     </div>
@@ -101,9 +99,10 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <div class="flex justify-between items-center">
-                    <div class="border-[2px] border-[#737373]/20 w-full rounded-lg flex px-2 flex-wrap">
-                      <div *ngFor="let item of metiers" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark"></i></div>
+                  <p class="label">Métiers choisis</p>
+                  <div class="flex justify-between items-center min-h-10 w-full">
+                    <div class="border-[2px] border-[#737373]/20 w-full min-h-10 rounded-lg flex px-2 flex-wrap">
+                      <div *ngFor="let item of domainChoosen" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
                     </div>
                   </div>
                 </div>
@@ -116,9 +115,7 @@
                   <div class=" w-[60%] ">
                     <select formControlName="marche" class="input">
                       <option value="" disabled [selected]="true">Choisissez le marché...</option>
-                      <option value="mecanique">Médical</option>
-                      <option value="electronique">Electronique</option>
-                      <option value="aeoronotique">Aeronotique</option>
+                      <option *ngFor="let item of markets" value="{{item.name}}">{{item.name}} </option>
                     </select>
                     <div *ngIf="getControl('marche')?.invalid && (getControl('marche')?.dirty || getControl('marche')?.touched)" class="text-red-600 text-xs">
                       Le marché est requis.
@@ -141,9 +138,8 @@
                   <div class=" w-[60%] ">
                     <select formControlName="typeDeBesoin" class="input">
                       <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
-                      <option value="mecanique">Contractuel</option>
-                      <option value="electronique">Pas Contrat</option>
-                      <option value="aeoronotique">Vite Fait</option>
+                      <option value="CONTRACT">Contrat</option>
+                      <option value="PUNCTUAL">Ponctuel</option>
                     </select>
                     <div *ngIf="getControl('typeDeBesoin')?.invalid && (getControl('typeDeBesoin')?.dirty || getControl('typeDeBesoin')?.touched)" class="text-red-600 text-xs">
                       Le marché est requis.
@@ -242,6 +238,9 @@
                   <mat-card class="demo-inline-calendar-card">
                     <mat-calendar class="custom-calendar"  [(selected)]="selectedDate"></mat-calendar>
                   </mat-card>
+                  <div *ngIf="allDateChoosen.length === 0" class="text-red-600 text-xs">
+                    La date est requise.
+                  </div>
                 </div>
                 <div class="w-1/2 flex flex-col items-start ">
                   <label for="time" class="label">Choissir heure:</label>
@@ -254,8 +253,8 @@
                       <input type="time" id="time" formControlName="heure" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#408A7E] focus:border-[#408A7E] block w-full p-2.5 " min="09:00" max="18:00" value="00:00" />
                   </div>
 
-                  <div class="bg-white shadow-sm rounded-md w-2/3 py-4 px-2 mt-5">
-                    <p class="label">Dates choisies.</p>
+                  <div class="bg-white shadow-sm rounded-md w-2/3 py-4 px-2 mt-5 min-h-32">
+                    <p class="label">Dates choisies:</p>
                     <p *ngFor="let item of allDateChoosen">{{item | date:'dd/MM/yyyy HH:mm'}} </p>
                   </div>
 
