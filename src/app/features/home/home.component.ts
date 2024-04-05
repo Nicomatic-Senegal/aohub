@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { GalleryComponent, GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
+import { GalleryItem, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 
@@ -16,6 +16,8 @@ interface CarouselItem {
 })
 export class HomeComponent implements OnInit {
   token: string;
+
+  currentIndex: number = 0;
 
   constructor(private route: Router, private authService: AuthService) {
     authService.loggedOut();
@@ -49,7 +51,6 @@ export class HomeComponent implements OnInit {
       description: 'Celui qui sait, fait. Du début de projet jusqu’à la fin, vous serez en lien avec les équipes pertinentes pour chaque étape pour gagner le maximum de temps et de clarté',
     },
   ];
-  currentIndex: number = 0;
 
   evenments = [
     ["../../../assets/img/plannification.svg", "Réunion de planification du projet XYZ", "/planification", "Réunion", "10:00 am"],
@@ -82,4 +83,5 @@ export class HomeComponent implements OnInit {
   navigation(link: string) {
     this.route.navigate([link]);
   }
+
 }
