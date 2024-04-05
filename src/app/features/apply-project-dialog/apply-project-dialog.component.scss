@@ -11,9 +11,11 @@
   }
   
   .div-center {
-    @apply w-full h-full px-2 px-5 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+    @apply w-full h-full px-2 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
   }
   .title {
     @apply flex flex-col mt-10 items-center
   }
-  
+  .creneaux {
+    @apply flex flex-col items-center
+  }
