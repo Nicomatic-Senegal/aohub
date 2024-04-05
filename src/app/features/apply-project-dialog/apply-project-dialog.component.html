@@ -38,18 +38,23 @@
 
 			<div class="creneaux">
 				<div class="grid w-full md:grid-cols-4 md:gap-4 px-5 my-10 ">
-						<div *ngFor="let item of listEventSchedule; let i=index;" (click)="onSelected(item)" class="inline-flex items-center justify-between w-full p-5  bg-white border-2  rounded-lg cursor-pointer " [ngClass]="isSelected(item.id) !== -1 ? 'border-[#408A7E] text-[#408A7E]' : 'border-gray-200 text-gray-400 hover:text-gray-600 hover:bg-gray-50'">
-										<div class="block">
-												<div class="w-full text-xl font-semibold font-dmsans">{{item.dayOfWeek}}</div>
-												<div class="w-full text-md font-dmsans">{{item.day}}/{{item.month}}/{{item.year}}</div>
-												<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}h {{item.minute}}mn</div>
-										</div>
+					<div 
+						*ngFor="let item of listEventSchedule; let i=index;" 
+						(click)="onSelected(item)" 
+						class="inline-flex items-center justify-between w-full p-5  bg-white border-2  rounded-lg cursor-pointer " 
+						[ngClass]="isSelected(item) !== -1 ? 'border-[#408A7E] text-[#408A7E]' : 'border-gray-200 text-gray-400 hover:text-gray-600 hover:bg-gray-50'"
+						>
+						<div class="block">
+							<div class="w-full text-xl font-semibold font-dmsans">{{item.dayOfWeek}}</div>
+							<div class="w-full text-md font-dmsans">{{item.day}}/{{item.month}}/{{item.year}}</div>
+							<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}h {{item.minute}}mn</div>
 						</div>
+					</div>
 				</div>
 			</div>
 
 			<div class="flex justify-center mt-10">
-				<button class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
+				<button (click)="onApply()" class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
 					Se positionner
 				</button>
 			</div>

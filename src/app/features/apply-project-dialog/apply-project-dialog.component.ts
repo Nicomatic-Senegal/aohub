@@ -4,6 +4,8 @@ import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../interfaces/project.model';
 import { EventSchedule } from '../interfaces/event-schedule';
+import { Disponibility } from '../interfaces/disponibility.model';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-apply-project-dialog',
@@ -12,9 +14,10 @@ import { EventSchedule } from '../interfaces/event-schedule';
 })
 
 export class ApplyProjectDialogComponent implements OnInit {
+  token: string;
   creneaux: any = null;
-  selectedCreneaux: Array<any> = [];
-  id!: string;
+  selectedCreneaux: EventSchedule[] = [];
+  projectId!: string;
   listProjects: Project[] = [];
   listEventSchedule: EventSchedule[] = [];
 
@@ -22,47 +25,51 @@ export class ApplyProjectDialogComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private toastr: ToastrService,
-    private projectService: ProjectService
-  ) { }
+    private projectService: ProjectService,
+    private authService: AuthService
+  ) { 
+    this.token = authService.isLogged()!;
+  }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       // this.id = params['id'];
     });
-    this.id = '1451';
+    this.projectId = '1451';
 
-    this.getProject(this.id);
+    this.getProject(this.projectId);
+  }
 
-    // this.formatDateInDisponibilities();
-    // console.log(this.listEventSchedule);
-    
-
-    this.creneaux = [
-      {
-        "id": "1",
-        "day": "Lundi",
-        "date": "16/03/2024",
-        "hour": "10h30mn"
-      },
-      {
-        "id": "2",
-        "day": "Mardi",
-        "date": "17/03/2024",
-        "hour": "09h00mn"
-      },
-      {
-        "id": "3",
-        "day": "Mercredi",
-        "date": "86/03/2024",
-        "hour": "10h30mn"
-      },
-      {
-        "id": "4",
-        "day": "Mercredi",
-        "date": "86/03/2024",
-        "hour": "10h30mn"
-      },
-    ]
+  onApply() {
+    if (this.selectedCreneaux.length > 0) {
+      const payload = {
+        disponibilities: this.selectedCreneaux.map(item => ({ id: item.id })),
+        projectId: this.projectId
+      };
+  
+      this.projectService.positioning(this.token, payload).subscribe({
+        next: (data) => {
+          this.toastr.success("Vous vous êtes positionné au projet avec succès", "Succès !", {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+          this.router.navigate(["/opportunities"]);
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur !", {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+  
+        }
+      })
+    } else {
+      this.toastr.warning("Veuillez choisir au moins un créneau", "Attention !", {
+        timeOut: 3000,
+        positionClass: 'toast-top-right',
+      });
+    }
   }
 
   getProject(id: string) {
@@ -80,8 +87,6 @@ export class ApplyProjectDialogComponent implements OnInit {
        });
       },
       complete: () => {
-        console.log('Tous les projets ont été récupérés avec succès!');
-        console.log(this.listEventSchedule);
         
       }
     });
@@ -111,19 +116,20 @@ export class ApplyProjectDialogComponent implements OnInit {
     return jours[day];
   }
 
-  onSelected(value: any) {
-    this.addOrRemoveElement(value.id);
-
+  onSelected(value: EventSchedule) {
+    this.addOrRemoveElement(value);
   }
 
-  isSelected(item: any) {
+  isSelected(item: EventSchedule) {
     return this.selectedCreneaux.indexOf(item);
   }
 
-  addOrRemoveElement(element: any): void {
+  addOrRemoveElement(element: EventSchedule): void {
     const index = this.selectedCreneaux.indexOf(element);
     if (index === -1) {
         this.selectedCreneaux.push(element);
+        console.log(element);
+        
         return;
     } else {
         // this.selectedCreneaux.splice(index, 1);

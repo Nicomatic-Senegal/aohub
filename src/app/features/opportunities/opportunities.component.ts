@@ -31,7 +31,7 @@ export class OpportunitiesComponent {
       next: (data) => {
         this.listProject.push(data);
         this.listProject = this.listProject.flatMap(data => data)
-        console.log(this.listProject);
+        // console.log(this.listProject);
       },
       error: (err) => {
         console.log(err);

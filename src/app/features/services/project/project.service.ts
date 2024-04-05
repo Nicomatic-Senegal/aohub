@@ -42,4 +42,11 @@ export class ProjectService {
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
+
+  positioning(token: string, payload: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'positionings';
+
+    return this.http.post<any>(url, payload, { headers, responseType: 'json' })
+  }
 }
