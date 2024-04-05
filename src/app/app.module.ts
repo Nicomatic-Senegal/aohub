@@ -10,6 +10,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './features/loading/loading.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
       },
     }),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FontAwesomeModule
   ],
   providers: [
     JwtHelperService,

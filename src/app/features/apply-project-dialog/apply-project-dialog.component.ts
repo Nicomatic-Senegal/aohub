@@ -61,8 +61,10 @@ export class ApplyProjectDialogComponent {
     const index = this.selectedCreneaux.indexOf(element);
     if (index === -1) {
         this.selectedCreneaux.push(element);
+        return;
     } else {
-        this.selectedCreneaux.splice(index, 1);
+        // this.selectedCreneaux.splice(index, 1);
+        this.selectedCreneaux = this.selectedCreneaux.filter(item => item !== this.selectedCreneaux[index]);
     }
 }
 

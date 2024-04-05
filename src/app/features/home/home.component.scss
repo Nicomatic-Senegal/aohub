@@ -55,23 +55,23 @@
 }
 
 .evenment {
-  @apply rounded-xl bg-white px-7 py-2 mb-5 shadow-lg
+  @apply rounded-xl bg-white px-3 py-2 mb-5 shadow-lg
 }
 
-.evenment1 {
-  @apply rounded-xl bg-white px-7 pt-2 pb-20 mb-5 shadow-lg
+.carnet {
+  @apply rounded-xl bg-white w-[20rem] px-4 pt-2 pb-4 mb-5 shadow-lg
 }
 
 .div-line-evenment {
   @apply flex bg-[#1E1E1E]/5 mb-3 rounded-md p-1 w-full
 }
 
-.search-container {
-  @apply flex items-center border-solid border-[#ccc] rounded-lg p-1 shadow-lg mb-2 text-[#ccc]
+.search-content {
+  @apply flex w-full mb-3 border-solid border-[#ccc] rounded-lg shadow-lg mb-2 text-[#ccc]
 }
 
 .search-input {
-  @apply  border-none p-1 focus:outline-none text-[#000]
+  @apply border-none p-1 text-[#000] w-full
 }
 
 .search-icon {
@@ -95,23 +95,18 @@
 }
 
 .carousel {
-  @apply w-1/2
-}
-
-
-.carousel {
-  width: 300px;
+  width: 100%;
   overflow: hidden;
   margin: 0 auto;
   position: relative;
-  height: 300px;
+  height: 180px;
   background-color: white;
 }
 
 .carousel-item {
-  padding: 10px;
+  padding: 5px;
   opacity: 0;
-  transition: opacity 5s ease-in-out;
+  transition: opacity 3s ease-in-out, transform 3s ease-in-out;
   position: absolute;
   top: 0;
   left: 0;

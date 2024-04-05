@@ -20,6 +20,10 @@ import { ProjectSubmissionComponent } from './project-submission/project-submiss
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ImageSliderComponent } from './image-slider/image-slider.component';
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorComponent } from './paginator/paginator.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
@@ -40,7 +44,9 @@ import { CustomDateAdapter } from './interfaces/custom-date-adapter';
     HomeComponent,
     OpportunitiesComponent,
     ProjectSubmissionComponent,
-    ApplyProjectDialogComponent
+    ApplyProjectDialogComponent,
+    ImageSliderComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -52,6 +58,8 @@ import { CustomDateAdapter } from './interfaces/custom-date-adapter';
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     MatDialogModule,
+    MatPaginatorModule,
+    MatTableModule,
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule
