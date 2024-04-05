@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
@@ -11,7 +12,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class ProjectSubmissionComponent implements OnInit {
 
   step: number = 1;
-  titleSteps = ["Description", "Modalités", "Pièces jointes", "Lancement", "Terminer"];
+  titleSteps = ["Modalités", "Pièces jointes", "Lancement", "Terminer"];
   stepsIcons = [
     ["../../../assets/img/modality.svg", "../../../assets/img/modality-green.svg"],
     ["../../../assets/img/description.svg", "../../../assets/img/description-green.svg"],
@@ -31,7 +32,8 @@ export class ProjectSubmissionComponent implements OnInit {
   startDateToString!: string;
   endDateToString!: string;
   token: string;
-  selected!: Date | null;
+  selectedDate!: Date | null;
+  allDateChoosen: Array<Date> = [];
 
 
 
@@ -52,12 +54,12 @@ export class ProjectSubmissionComponent implements OnInit {
       duree: new FormControl(null, [Validators.required]),
       volumeGlobal: new FormControl(null, [Validators.required]),
       budget: new FormControl(null, [Validators.required]),
-      delaiPlusTot: new FormControl(null, [Validators.required]),
-      delaiPlusTard: new FormControl(null, [Validators.required]),
+      // delaiPlusTot: new FormControl(null, [Validators.required]),
+      // delaiPlusTard: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
-      heureDebut: new FormControl(null, [Validators.required]),
-      heureFin: new FormControl(null, [Validators.required]),
+      heure: new FormControl(null, [Validators.required]),
+      // heureFin: new FormControl(null, [Validators.required]),
     });
 
     const dayStart = new Date();
@@ -231,5 +233,28 @@ export class ProjectSubmissionComponent implements OnInit {
     if (this.projectSubmissionForm.get(fieldName)?.value) {
       this.projectSubmissionForm.get(otherField)?.setValue(false);
     }
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    const allowedChars = /^[0-9]+$/; // Expression régulière pour n'accepter que des chiffres
+
+    // Vérifier si la touche saisie est autorisée
+    if (!allowedChars.test(event.key)) {
+      event.preventDefault(); // Empêcher la saisie du caractère non autorisé
+    }
+  }
+
+  ajouterDate() {
+    const [heures, minutes] = this.projectSubmissionForm.value.heure.split(':').map(Number);
+    console.log(this.selectedDate + ' ' + heures + '-- ' + minutes);
+    this.selectedDate?.setHours(heures, minutes);
+    console.log(this.selectedDate);
+    if (this.allDateChoosen.indexOf(this.selectedDate!) === -1)
+      this.allDateChoosen.push(this.selectedDate!);
+  }
+
+  newCreneau() {
+    this.selectedDate = null;
+    this.projectSubmissionForm.get('heure')?.setValue('00:00');
   }
 }

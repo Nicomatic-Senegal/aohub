@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FeaturesRoutingModule } from './features-routing.module';
@@ -20,6 +20,10 @@ import { ProjectSubmissionComponent } from './project-submission/project-submiss
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { CustomDateAdapter } from './interfaces/custom-date-adapter';
 
 
 @NgModule({
@@ -48,6 +52,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     NgxMatTimepickerModule,
     NgxMatNativeDateModule,
     MatDialogModule,
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }, // Utilisez la langue de votre choix, par exemple 'fr-FR' pour le français
+    { provide: DateAdapter, useClass: CustomDateAdapter },
   ]
 
 })

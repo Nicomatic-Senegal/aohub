@@ -54,3 +54,77 @@
 #heureDeb {
   @apply text-black
 }
+
+/* styles.css (ou dans le fichier CSS de votre composant) */
+
+/* Personnalisation de la couleur de fond et de la couleur du texte pour mat-card */
+.mat-mdc-card.demo-inline-calendar-card {
+  @apply bg-white shadow-sm w-72 rounded-xl
+}
+
+/* Personnalisation des couleurs pour mat-calendar */
+.mat-calendar.custom-calendar {
+  /* Ajoutez vos styles personnalisés pour le mat-calendar ici */
+}
+
+
+
+/* Exemple de personnalisation des couleurs pour les cellules de mat-calendar */
+.mat-calendar.custom-calendar .mat-calendar-body-cell {
+  background-color: #408A7E; /* Couleur de fond personnalisée */
+  color: #fff; /* Couleur du texte personnalisée */
+}
+
+/* Exemple de personnalisation des couleurs pour les jours de la semaine */
+.mat-calendar.custom-calendar .mat-calendar-table-header th {
+  background-color: #408A7E; /* Couleur de fond personnalisée pour les jours de la semaine */
+  color: #fff; /* Couleur du texte personnalisée pour les jours de la semaine */
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(6) {
+  @apply text-[#FF3B30] /* Couleur de fond personnalisée pour les weekends */
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(7) {
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */
+}
+
+::ng-deep .mat-calendar-body tr td:nth-child(6) span {
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */
+}
+
+::ng-deep .mat-calendar-body tr td:nth-child(7) span {
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends mat-focus-indicator mat-calendar-body-today*/
+}
+
+// ::ng-deep .mat-calendar-body-cell-content {
+//   @apply hover:bg-[#FF3B30]
+// }
+
+// ::ng-deep .mat-calendar-body-cell-preview {
+//   @apply hover:bg-[#FF3B30]
+// }
+
+// ::ng-deep .mat-focus-indicator {
+//   @apply hover:bg-[#FF3B30]
+// }
+
+// ::ng-deep .mat-calendar-body-selected {
+//   @apply bg-[#FF3B30]
+// }
+
+/* styles.css (ou dans le fichier CSS de votre composant) */
+
+/* Définir la couleur de fond des dates sélectionnées */
+::ng-deep .mat-calendar-body-selected {
+  background-color: #408A7E !important; /* Couleur de fond des dates sélectionnées */
+}
+
+
+::ng-deep .mat-calendar-body-selected {
+  @apply  bg-[#408A7E]
+}
+
+::ng-deep .mat-calendar-body-today {
+  @apply bg-[#EDEDED]
+}
