@@ -4,7 +4,6 @@ import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../interfaces/project.model';
 import { EventSchedule } from '../interfaces/event-schedule';
-import { Disponibility } from '../interfaces/disponibility.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class ApplyProjectDialogComponent implements OnInit {
   token: string;
   creneaux: any = null;
   selectedCreneaux: EventSchedule[] = [];
-  projectId!: string;
+  projectId!: number;
   listProjects: Project[] = [];
   listEventSchedule: EventSchedule[] = [];
 
@@ -32,13 +31,9 @@ export class ApplyProjectDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
+    this.route.queryParams.subscribe(params => {
       this.projectId = params['id'];
-      console.log('ID récupéré:', this.projectId);
     });
-    console.log(this.projectId);
-    
-    this.projectId = '1451';
 
     this.getProject(this.projectId);
   }
@@ -75,7 +70,7 @@ export class ApplyProjectDialogComponent implements OnInit {
     }
   }
 
-  getProject(id: string) {
+  getProject(id: number) {
     this.projectService.getProjectById(id).subscribe({
       next: (data) => {
         this.listProjects.push(data);

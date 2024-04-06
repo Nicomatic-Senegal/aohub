@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Project } from '../interfaces/project.model';
 import { PartnerService } from '../services/partner/partner.service';
-import { PartnerDTO } from '../interfaces/partner.model';
 
 @Component({
   selector: 'app-opportunities',
@@ -22,7 +20,6 @@ export class OpportunitiesComponent {
     private projectService: ProjectService,
     private partnerService: PartnerService,
     private toastr: ToastrService,
-    private dialogRef: MatDialog,
     private router: Router,
     private authService: AuthService,
     ) {
@@ -80,12 +77,10 @@ export class OpportunitiesComponent {
        });
       }
     });
-    // console.log(this.listDays);
     
   }
 
   onApply(id: number) {
-    // this.router.navigate(['apply-project', id]);
     this.router.navigate(['apply-project'], { queryParams: { id: id } });
   }
 
