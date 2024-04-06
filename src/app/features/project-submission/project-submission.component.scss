@@ -14,7 +14,6 @@
   @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
 }
 
-
 .div-input {
   @apply flex flex-col w-full
 }
@@ -58,8 +57,8 @@
 /* styles.css (ou dans le fichier CSS de votre composant) */
 
 /* Personnalisation de la couleur de fond et de la couleur du texte pour mat-card */
-.mat-mdc-card.demo-inline-calendar-card {
-  @apply bg-white shadow-sm w-52 rounded-xl
+.demo-inline-calendar-card {
+  @apply w-full
 }
 
 /* Personnalisation des couleurs pour mat-calendar */

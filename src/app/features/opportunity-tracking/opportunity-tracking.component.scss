@@ -1,0 +1,15 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+}

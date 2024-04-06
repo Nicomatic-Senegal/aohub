@@ -28,6 +28,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCardModule} from '@angular/material/card';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { CustomDateAdapter } from './interfaces/custom-date-adapter';
+import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { CustomDateAdapter } from './interfaces/custom-date-adapter';
     ProjectSubmissionComponent,
     ApplyProjectDialogComponent,
     ImageSliderComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    OpportunityTrackingComponent
   ],
   imports: [
     CommonModule,

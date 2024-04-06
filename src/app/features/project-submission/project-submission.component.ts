@@ -257,4 +257,13 @@ export class ProjectSubmissionComponent implements OnInit {
   removeDomain(item: string) {
     this.domainChoosen.splice(this.domainChoosen.indexOf(item), 1);
   }
+
+  onSetStep(value: number) {
+    if (value != 5)
+      this.step = value;
+  }
+
+  gotoHome() {
+    this.route.navigate(['/home']);
+  }
 }
