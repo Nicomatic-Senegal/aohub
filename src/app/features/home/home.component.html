@@ -1,13 +1,13 @@
-<div class="main font-dmsans flex w-[90%] md:w-[92%] lg:w-[95%] xl:w-[96%] max-w-full h-full">
-  <app-side-bar class="app-side" [screen]="'/home'"></app-side-bar>
-  <div class="head-home flex flex-col h-full flex-grow w-[90%]">
-    <app-top-bar class="w-full flex-grow-1" title="Accueil"></app-top-bar>
-    <div class="div-center w-[100%] h-full px-2 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5">
+<div class="main flex w-full h-[100%] overflow-auto">
+  <app-side-bar class="app-side h-100vh" [screen]="'/opportunities'"></app-side-bar>
+  <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
+    <app-top-bar class="w-full flex-grow-1 " title="Opportunités"></app-top-bar>
+    <div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="upper-home flex justify-between">
         <div class="upper-home-left flex flex-col w-[70%]">
             <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]">
-              <p class="text-[#0B0909] font-dmsans font-semibold text-lg">Bienvenue Mame Diarra Gueye</p>
-              <p class=" w-full text-xs text-[#232323] font-dmsans font-normal text-base pt-2">Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
+              <p class="text-[#0B0909] font-dmsans font-semibold text-xl">Bienvenue Mame Diarra Gueye</p>
+              <p class=" w-full text-[#232323] font-dmsans font-normal text-md pt-2">Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
               <button 
                 class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
                 (click)="navigation('/project-submission')">Soumettre un nouveau projet
