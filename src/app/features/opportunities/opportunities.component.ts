@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Project } from '../interfaces/project.model';
 import { PartnerService } from '../services/partner/partner.service';
+import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 
 @Component({
   selector: 'app-opportunities',
@@ -15,6 +16,8 @@ export class OpportunitiesComponent {
   token!: string;
   listProject: Project[] = [];
   listDays: number[] = [];
+  searchData: Project[] = [];
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
     private projectService: ProjectService,
@@ -28,6 +31,10 @@ export class OpportunitiesComponent {
     }
 
   ngOnInit(): void {
+    this.loadAllProjects();
+  }
+
+  loadAllProjects() {
     this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
         data.forEach((project: { applicant: Project; }) => {
@@ -54,7 +61,7 @@ export class OpportunitiesComponent {
           this.listProject.push(data);
           this.listProject = this.listProject.flatMap(data => data)
           
-          console.log(project);
+          console.log(this.listProject);
         });
 
         const currentDate = new Date();
@@ -77,7 +84,39 @@ export class OpportunitiesComponent {
        });
       }
     });
-    
+  }
+
+  ngAfterViewInit() {
+    fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
+      .pipe(
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap((event:KeyboardEvent) => {
+            console.log(event)
+            console.log(this.searchInput.nativeElement.value)
+            this.performSearch(this.searchInput.nativeElement.value);
+          })
+      )
+      .subscribe();
+  }
+
+  performSearch(query: string) {
+    if (query) {
+      this.projectService.searchProject(this.token, query).subscribe({
+        next: (data) => {
+          this.listProject = [];
+          this.listProject.push(data);
+          this.listProject = this.listProject.flatMap(data => data);
+          console.log(this.listProject);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    } else {
+      this.loadAllProjects();
+    }
   }
 
   onApply(id: number) {
@@ -94,7 +133,7 @@ export class OpportunitiesComponent {
   // startIndex = 1;
   // endIndex = 4;
 
-  get paginatedDate() {
+  get paginatedProjects() {
     const start = (this.currentPage - 1) * (this.itemPerPage);
     const end = start + this.itemPerPage;
 
@@ -105,4 +144,7 @@ export class OpportunitiesComponent {
     this.currentPage = page;
   }
 
+  formatProjectCount(count: number): string {
+    return count.toString().padStart(2, '0');
+  }
 }
