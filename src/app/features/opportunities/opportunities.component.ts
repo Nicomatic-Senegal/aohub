@@ -17,6 +17,11 @@ export class OpportunitiesComponent {
   listProject: Project[] = [];
   listDays: number[] = [];
   searchData: Project[] = [];
+  totalItems = 18;
+  itemPerPage = 2;
+  currentPage = 1;
+  // startIndex = 1;
+  // endIndex = 4;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -32,6 +37,7 @@ export class OpportunitiesComponent {
 
   ngOnInit(): void {
     this.loadAllProjects();
+    // this.totalItems = this.listProject.length;
   }
 
   loadAllProjects() {
@@ -126,12 +132,6 @@ export class OpportunitiesComponent {
   navigate(link: string) {
     this.router.navigate(['apply-project']);
   }
-
-  totalItems = 10;
-  itemPerPage = 2;
-  currentPage = 1;
-  // startIndex = 1;
-  // endIndex = 4;
 
   get paginatedProjects() {
     const start = (this.currentPage - 1) * (this.itemPerPage);
