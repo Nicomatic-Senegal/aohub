@@ -3,7 +3,7 @@
   <div class="head-home">
     <app-top-bar class="w-full flex-grow-1" title="Accueil"></app-top-bar>
     <div class="div-center">
-      <div class="upper-home static z-50">
+      <div class="upper-home z-50">
         <div class="upper-home-left">
             <div class="upper-home-left-redbox font-dmsans">
               <p class="">Bienvenue Mame Diarra Gueye</p>
@@ -13,6 +13,10 @@
             <div class="upper-home-left-bottom">
               <p>Liste des entreprises</p>
               <!-- <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p> -->
+            </div>
+
+            <div class="z-1 relative">
+              <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
             </div>
         </div>
         <div class="upper-home-right">
@@ -26,37 +30,36 @@
             </div>
   
           </div>
-          <div class="carnet fixed top-[20rem] z-50">
+          <div class="carnet z-50">
             <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
-            <div >
-              <div class="search-content">
-                <i class="fas fa-search search-icon mt-1 ml-2"></i>
-                <input type="search" class="search-input" placeholder="Rechercher un partenaire">
+            <div>
+              <div class="max-w-md mx-auto mb-3">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input 
+                      type="search" 
+                      id="default-search" 
+                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md" 
+                      placeholder="Rechercher des partenaires" #searchInput
+                    />
+                </div>
               </div>
-
-              <div class="flex items-center gap-4 bg-gray-50 rounded-md mb-3 p-1">
+              <div *ngFor="let partner of searchData" class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2">
                 <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
-                <div class="font-medium font-dmsans">
-                    <div>Jese Leos</div>
-                    <div class="text-md text-gray-900">Joined in August 2014</div>
+                <div class="font-dmsans">
+                    <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
+                    <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
+                    <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
                 </div>
               </div>
-
-              <div class="flex items-center gap-4 bg-gray-50 rounded-md mb-3 p-1">
-                <img class="w-10 h-10 rounded-full" src="../../../assets/img/Nicomatic Logo Blue.jpg" alt="">
-                <div class="font-medium font-dmsans">
-                    <div>Jese Leos</div>
-                    <div class="text-md text-gray-500">Joined in August 2014</div>
-                </div>
-              </div>
-
             </div>
           </div>
         </div>
-      </div>
-
-      <div class="z-1 relative">
-        <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
       </div>
     </div>
   </div>
