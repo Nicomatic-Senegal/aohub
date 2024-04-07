@@ -40,9 +40,10 @@ export class ApplyProjectDialogComponent implements OnInit {
 
   onApply() {
     if (this.selectedCreneaux.length > 0) {
+      const project = { id: this.projectId };
       const payload = {
         disponibilities: this.selectedCreneaux.map(item => ({ id: item.id })),
-        projectId: this.projectId
+        project
       };
 
       this.projectService.positioning(this.token, payload).subscribe({

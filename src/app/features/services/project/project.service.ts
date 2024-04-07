@@ -79,4 +79,11 @@ export class ProjectService {
 
     return this.http.post<any>(url, attachments, { headers, responseType: 'json' });
   }
+
+  searchProject(token: string, query: string): Observable<Project> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/search-engine`;
+
+    return this.http.get<Project>(url, { headers, params: {'query': query} });
+  }
 }
