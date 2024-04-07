@@ -30,6 +30,7 @@ import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/mate
 import { CustomDateAdapter } from './interfaces/custom-date-adapter';
 import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
 import { register as registerSwiperElements } from 'swiper/element/bundle';
+import { SupportComponent } from './support/support.component';
 
 registerSwiperElements();
 
@@ -50,7 +51,8 @@ registerSwiperElements();
     ApplyProjectDialogComponent,
     ImageSliderComponent,
     PaginatorComponent,
-    OpportunityTrackingComponent
+    OpportunityTrackingComponent,
+    SupportComponent
   ],
   imports: [
     CommonModule,

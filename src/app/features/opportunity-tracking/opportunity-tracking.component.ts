@@ -7,6 +7,8 @@ import { ProjectService } from '../services/project/project.service';
 import { Project } from '../interfaces/project.model';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { forkJoin } from 'rxjs';
+import { PositioningDTO } from '../interfaces/positioning-dto.model';
+import { Disponibility } from '../interfaces/disponibility.model';
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -16,7 +18,7 @@ import { forkJoin } from 'rxjs';
 export class OpportunityTrackingComponent implements OnInit {
   token!: string;
   listProject: Project[] = [];
-  listPositionners: Map<string, PartnerDTO[]> = new Map<string, PartnerDTO[]>();
+  listPositionners: Map<string, PositioningDTO[]> = new Map<string, PositioningDTO[]>();
   screen: number = 1;
 
   constructor(
@@ -67,5 +69,9 @@ export class OpportunityTrackingComponent implements OnInit {
 
   nextScreeen(num: number) {
     this.screen = num;
+  }
+
+  getAllDisponibility(dispo: Disponibility[]) {
+    return dispo.map(d => d.instant).toString();
   }
 }

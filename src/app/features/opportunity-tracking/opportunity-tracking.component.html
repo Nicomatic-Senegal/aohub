@@ -27,9 +27,14 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of listPositionners.get(key)">
-                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-                <td>Malcolm Lockyer</td>
-                <td>1961</td>
+                <td>{{item.partner.user.firstName}} {{item.partner}} </td>
+                <td>{{getAllDisponibility(item.disponibilities)}} </td>
+                <td>{{item.partner.user.login}} </td>
+                <td>{{item.partner.enterprise.name}} </td>
+                <td>
+                  <button class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md">Rejeter</button>
+                  <button class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
+                </td>
               </tr>
             </tbody>
           </table>
