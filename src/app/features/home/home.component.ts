@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerService } from '../services/partner/partner.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import { UserService } from '../services/user/user.service';
 
 
 interface CarouselItem {
@@ -21,11 +22,12 @@ interface CarouselItem {
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   token: string;
+  fullName!: string;
   searchData: PartnerDTO[] = [];
   currentIndex: number = 0;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-  constructor(private route: Router, private authService: AuthService, private partnerService: PartnerService) {
+  constructor(private route: Router, private authService: AuthService, private partnerService: PartnerService, private userService: UserService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
   }
@@ -73,6 +75,14 @@ export class HomeComponent implements OnInit, AfterViewInit {
   images: GalleryItem[] = [];
 
   ngOnInit() {
+    this.userService.getUser(this.token).subscribe({
+      next: (data: PartnerDTO) => {
+        this.fullName = data.user.firstName + ' ' + data.user.lastName;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
     this.images = [
       new ImageItem({ src: '../../../assets/img/Slide Item — 1.svg', thumb: '../../../assets/img/Slide Item — 1.svg' }),
       new ImageItem({ src: '../../../assets/img/Slide Item — 2.svg', thumb: '../../../assets/img/Slide Item — 2.svg' }),
