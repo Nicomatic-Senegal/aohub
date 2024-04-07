@@ -22,10 +22,16 @@ export class UserService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
-  updateUser(token: string, partner: PartnerProfileVM): Observable<any> {
+  updateUser(token: string, partner: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'partners/connected';
     return this.http.put<any>(url, partner, { headers, responseType: 'json' });
+  }
+
+  deletePicture(token: string, partner: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'partners/connected';
+    return this.http.patch<any>(url, partner, { headers, responseType: 'json' });
   }
 
   changePassword(token: string, passwordDto: PasswordChangeDTO): Observable<any> {

@@ -13,3 +13,40 @@
 .div-center {
   @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
 }
+
+.nav {
+  @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold pt-5 mb-5
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  /* border: 1px solid #dddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+
+th {
+  background-color: #fff;
+  color: #fff;
+}
+
+.impair {
+  background-color: #fff;
+}
+
+.pair {
+  /* background-color: #fc6285; */
+  background-color: #f1cbf2;
+}
+
+tr:hover {
+  /* background-color: #47cbf1; */
+  background-color: #a4c2eb;
+}

@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Disponibility } from '../interfaces/disponibility.model';
 import { data } from 'jquery';
 import { ProjectVM } from '../interfaces/project-vm.model';
+import { AttachmentDto, AttachmentType } from '../interfaces/attachment-dto.model';
 
 @Component({
   selector: 'app-project-submission',
@@ -49,6 +50,10 @@ export class ProjectSubmissionComponent implements OnInit {
   domainChoosen: Array<string> = [];
   project: ProjectVM = {};
   disponibilites: Array<Disponibility> = [];
+  filesChoosen: Array<string> = [];
+  plansChoosen: Array<string> = [];
+  filesChoosenValues: Array<string> = [];
+  plansChoosenValues: Array<string> = [];
 
 
   constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
@@ -72,6 +77,8 @@ export class ProjectSubmissionComponent implements OnInit {
       // delaiPlusTard: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
+      fichiers: new FormControl(null, [Validators.required]),
+      plans: new FormControl(null, [Validators.required]),
       heure: new FormControl(null, [Validators.required]),
       // heureFin: new FormControl(null, [Validators.required]),
     });
@@ -198,6 +205,40 @@ export class ProjectSubmissionComponent implements OnInit {
       this.projectService.addProject(this.token, this.project).subscribe({
         next: (data) => {
           console.log(data);
+          this.filesChoosen.forEach(file => {
+            let attachment: AttachmentDto = {
+              name: '',
+              type: AttachmentType.NORMAL,
+              fileSize: 0,
+              base64Content: file,
+              project: data
+            };
+            this.projectService.addProjectAttachments(this.token, attachment).subscribe({
+              next: (data) => {
+
+              },
+              error: (err) => {
+
+              }
+            });
+          });
+          this.plansChoosen.forEach(file => {
+            let attachment: AttachmentDto = {
+              name: '',
+              type: AttachmentType.PLAN,
+              fileSize: 0,
+              base64Content: file,
+              project: data
+            };
+            this.projectService.addProjectAttachments(this.token, attachment).subscribe({
+              next: (data) => {
+
+              },
+              error: (err) => {
+
+              }
+            });
+          });
           this.toastr.success("La soumission du projet a bien été effectué", "Succés", {
             timeOut: 3000,
             positionClass: 'toast-top-center',
@@ -265,5 +306,32 @@ export class ProjectSubmissionComponent implements OnInit {
 
   gotoHome() {
     this.route.navigate(['/home']);
+  }
+
+  onFileSelected(event: any, indice: number) {
+    this.plansChoosen = [];
+    this.plansChoosenValues = [];
+    this.filesChoosen = [];
+    this.filesChoosenValues = [];
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const base64String = reader.result as string;
+      // console.log(base64String);
+      if (indice === 1) {
+        this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
+        this.filesChoosen.push(file.name);
+        this.filesChoosenValues.push(base64String);
+      } else {
+        this.projectSubmissionForm.get('plans')?.setValue(file.name);
+        this.plansChoosen.push(file.name);
+        this.plansChoosenValues.push(base64String);
+      }
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   }
 }

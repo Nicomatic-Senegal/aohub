@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
+import { AttachmentDto } from '../../interfaces/attachment-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,26 @@ export class ProjectService {
     const url = this.apiBaseUrl + 'projects';
 
     return this.http.post<any>(url, project, { headers, responseType: 'json' });
+  }
+
+  getAllMyProjects(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'projects/my-projects';
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  getPartnersInMyProjects(token: string, idProject: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'positionings/project/' + idProject + '/partners';
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  addProjectAttachments(token: string, attachments: AttachmentDto): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'attachments';
+
+    return this.http.post<any>(url, attachments, { headers, responseType: 'json' });
   }
 }

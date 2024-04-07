@@ -4,7 +4,37 @@
     <app-top-bar class="w-full flex-grow-1 " title="Mes projets"></app-top-bar>
     <div class="div-center">
       <div class="flex">
-        <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">Retour</button>
+        <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">&lt;Retour</button>
+      </div>
+      <div class="nav">
+        <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">Suivi de mes opportunités</button>
+        <!-- <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Mot de passe</button>
+        <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Notifications</button> -->
+      </div>
+
+      <div class="rounded-2xl bg-white h-full w-full p-3">
+        <ng-container *ngFor="let key of listPositionners.keys()">
+          <p class="text-black text-base font-semibold font-dmsans">Liste des positionnés {{key}}</p>
+          <table class="table-fixed">
+            <thead>
+              <tr>
+                <th>Prénoms - Nom</th>
+                <th>Disponibilité</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of listPositionners.get(key)">
+                <td>The Sliding Mr. Bones (Next Stop, Pottersville)</td>
+                <td>Malcolm Lockyer</td>
+                <td>1961</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="border-b-2 border-[#737373]/40 text-[#737373] w-full my-5"></div>
+        </ng-container>
       </div>
     </div>
   </div>

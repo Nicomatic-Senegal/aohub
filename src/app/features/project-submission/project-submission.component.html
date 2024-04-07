@@ -209,12 +209,13 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" id="fileInput" class="hidden"/>
-                      <label for="fileInput" class="text-[#408A7E] font-poppins text-sm">Cliquez pour charger &nbsp;</label>
-                      <p class="text-[#344054] font-poppins text-sm"> ou faites glisser et déposez</p>
+                      <input type="file" formControlName="fichiers" (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+                      <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
+                      <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
-                    <p class="text-sm font-poppins font-thin text-black">SVG, PNG, JPG ou GIF</p>
-                    <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end">
+                    <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
+                    <p *ngIf="filesChoosen.length !== 0"  class="text-sm font-dmsans font-thin text-black mb-2">{{filesChoosen.toString()}} </p>
+                    <!-- <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end"> -->
                   </div>
                 </div>
               </div>
@@ -224,12 +225,13 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" id="fileInput" class="hidden"/>
-                      <label for="fileInput" class="text-[#408A7E] font-poppins text-sm">Cliquez pour charger &nbsp;</label>
-                      <p class="text-[#344054] font-poppins text-sm"> ou faites glisser et déposez</p>
+                      <input type="file" formControlName="plans" (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+                      <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
+                      <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
-                    <p class="text-sm font-poppins font-thin text-black">SVG, PNG, JPG ou GIF</p>
-                    <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end">
+                    <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
+                    <p *ngIf="plansChoosen.length !== 0" class="text-sm font-dmsans font-thin text-black mb-2">{{plansChoosen.toString()}} </p>
+                    <!-- <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end"> -->
                   </div>
                 </div>
               </div>

@@ -12,6 +12,8 @@ import { InterestTopicDTO } from '../interfaces/interest-topic.model';
 import { EmployeePostDTO } from '../interfaces/employee.model';
 import { PartnerProfileVM } from '../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
+import { base64toFile } from '../interfaces/utils';
+import { PictureVm } from '../interfaces/picture-vm.model';
 
 @Component({
   selector: 'app-parametre-profil',
@@ -67,6 +69,8 @@ export class ParametreProfilComponent implements OnInit {
   };
   token!: string;
   login!: string;
+  picture!: string;
+  pictureToShow!: string;
 
   centreInteret = [
     "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
@@ -90,6 +94,7 @@ export class ParametreProfilComponent implements OnInit {
       lastName: new FormControl(null, [Validators.required]),
       phoneNumber: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required, Validators.email]),
+      image: new FormControl(null, [Validators.required]),
       enterpriseName: new FormControl(null, [Validators.required]),
       role: new FormControl(null, [Validators.required]),
       centreInteret: new FormControl(null, [Validators.required]),
@@ -100,8 +105,9 @@ export class ParametreProfilComponent implements OnInit {
 
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
-        console.log(data);
         this.user = data;
+        console.log(this.user);
+
         this.profilForm.setValue({
           firstName: this.user.user.firstName,
           lastName: this.user.user.lastName,
@@ -110,8 +116,8 @@ export class ParametreProfilComponent implements OnInit {
           enterpriseName: this.user.enterprise.name,
           role: this.user.employeePost.title,
           centreInteret: this.user.interestTopics,
+          image: this.user.imageBase64Content,
         });
-        console.log(this.profilForm);
       },
       error: (err) => {
         console.log(err);
@@ -151,13 +157,41 @@ export class ParametreProfilComponent implements OnInit {
     this.userToUpdate.enterpriseName = formValue.enterpriseName;
     this.userToUpdate.employeePostTitle = formValue.role;
     this.userToUpdate.interestTopicLabels = formValue.centreInteret;
-    this.userToUpdate.imageBase64Content = '';
+    this.userToUpdate.imageBase64Content = this.picture;
 
     console.log(this.userToUpdate);
 
-    this.userService.updateUser(this.token, this.userToUpdate).subscribe({
+    this.updateUser(this.userToUpdate);
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      console.log(file);
+
+      const base64String = reader.result as string;
+      // console.log(base64String);
+      // this.profilForm.get('image')?.setValue(file.name);
+      this.pictureToShow = file.name;
+      this.picture = base64String;
+      console.log(this.picture);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onDeletePicture() {
+    let pic: PictureVm = {};
+    pic.id = this.user.id;
+    pic.imageBase64Content = '';
+    this.userService.deletePicture(this.token, pic).subscribe({
       next: (data) => {
         console.log(data);
+        this.user = data;
         this.toastr.success("profil modifié avec succés.", "Succés", {
           timeOut: 3000,
           positionClass: 'toast-top-center',
@@ -172,4 +206,25 @@ export class ParametreProfilComponent implements OnInit {
       }
     });
   }
+
+  updateUser(userToUpdate: any) {
+    this.userService.updateUser(this.token, userToUpdate).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.user = data;
+        this.toastr.success("profil modifié avec succés.", "Succés", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
+  }
+
 }
