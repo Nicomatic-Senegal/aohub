@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { GalleryItem, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { PartnerService } from '../services/partner/partner.service';
+import { PartnerDTO } from '../interfaces/partner.model';
+import { Subject, debounceTime, distinctUntilChanged, filter, fromEvent, switchMap, tap } from 'rxjs';
 
 
 interface CarouselItem {
@@ -14,12 +17,15 @@ interface CarouselItem {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   token: string;
-
+  searchData: PartnerDTO[] = [];
   currentIndex: number = 0;
 
-  constructor(private route: Router, private authService: AuthService) {
+  // searchInput = new Subject<any>();
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+
+  constructor(private route: Router, private authService: AuthService, private partnerService: PartnerService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
   }
@@ -52,20 +58,9 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  evenments = [
-    ["../../../assets/img/plannification.svg", "Réunion de planification du projet XYZ", "/planification", "Réunion", "10:00 am"],
-    ["../../../assets/img/figma.svg", "Figma UI UX Design", "/figma", "Validation", "15:30 am"]
-  ];
-
-  partners = [
-    ["../../../assets/img/pp.svg", "Mame Diarra Gueye", "/p1", "diarra.gueye@gmail.com", "+33 06 98 37 38"],
-    ["../../../assets/img/nicomatic.svg", "Xavier", "/figma", "xavier@gmail.com", "+33 06 98 37 38"]
-  ];
-
   images: GalleryItem[] = [];
 
   ngOnInit() {
-
     setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.carouselItems.length;
     }, 10000);
@@ -76,8 +71,40 @@ export class HomeComponent implements OnInit {
       new ImageItem({ src: '../../../assets/img/Slide Item — 3.svg', thumb: '../../../assets/img/Slide Item — 3.svg' }),
       new ImageItem({ src: '../../../assets/img/Slide Item — 4.svg', thumb: '../../../assets/img/Slide Item — 4.svg' }),
       new ImageItem({ src: '../../../assets/img/Slide Item — 5.svg', thumb: '../../../assets/img/Slide Item — 5.svg' }),
-      // ... more items
     ];
+  }
+
+  ngAfterViewInit() {
+    fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
+      .pipe(
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap((event:KeyboardEvent) => {
+            console.log(event)
+            console.log(this.searchInput.nativeElement.value)
+            this.performSearch(this.searchInput.nativeElement.value);
+          })
+      )
+      .subscribe();
+  }
+
+  performSearch(query: string) {
+    this.searchData = [];
+    if (query) {
+      this.partnerService.searchPartner(this.token, query).subscribe({
+        next: (data) => {
+          this.searchData.push(data);
+          this.searchData = this.searchData.flatMap(data => data);
+          console.log(this.searchData);
+          
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
+    console.log(this.searchData);
   }
 
   navigation(link: string) {

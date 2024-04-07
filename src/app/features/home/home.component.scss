@@ -59,19 +59,11 @@
 }
 
 .carnet {
-  @apply rounded-xl bg-white w-[20rem] px-4 pt-2 pb-4 mb-5 shadow-lg
+  @apply rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg
 }
 
 .div-line-evenment {
   @apply flex bg-[#1E1E1E]/5 mb-3 rounded-md p-1 w-full
-}
-
-.search-content {
-  @apply flex w-full mb-3 border-solid border-[#ccc] rounded-lg shadow-lg mb-2 text-[#ccc]
-}
-
-.search-input {
-  @apply border-none p-1 text-[#000] w-full
 }
 
 .search-icon {

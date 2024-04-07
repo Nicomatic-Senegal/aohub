@@ -20,4 +20,11 @@ export class PartnerService {
 
     return this.http.get<PartnerDTO>(url, { headers, responseType: 'json' });
   }
+
+  searchPartner(token: string, query: string): Observable<PartnerDTO> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `partners/search-engine`;
+
+    return this.http.get<PartnerDTO>(url, { headers, params: {'query': query} });
+  }
 }

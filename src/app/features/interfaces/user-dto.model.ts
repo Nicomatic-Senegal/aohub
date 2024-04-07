@@ -3,5 +3,4 @@ export interface UserDTO {
   login: string;
   firstName: string;
   lastName: string;
-  // You can include any additional methods or constructors if needed
 }
