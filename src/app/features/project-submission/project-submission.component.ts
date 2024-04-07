@@ -77,8 +77,8 @@ export class ProjectSubmissionComponent implements OnInit {
       // delaiPlusTard: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
-      fichiers: new FormControl(null, [Validators.required]),
-      plans: new FormControl(null, [Validators.required]),
+      // fichiers: new FormControl(null, [Validators.required]),
+      // plans: new FormControl(null, [Validators.required]),
       heure: new FormControl(null, [Validators.required]),
       // heureFin: new FormControl(null, [Validators.required]),
     });
@@ -320,11 +320,11 @@ export class ProjectSubmissionComponent implements OnInit {
       const base64String = reader.result as string;
       // console.log(base64String);
       if (indice === 1) {
-        this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
+        // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
         this.filesChoosen.push(file.name);
         this.filesChoosenValues.push(base64String);
       } else {
-        this.projectSubmissionForm.get('plans')?.setValue(file.name);
+        // this.projectSubmissionForm.get('plans')?.setValue(file.name);
         this.plansChoosen.push(file.name);
         this.plansChoosenValues.push(base64String);
       }
@@ -333,5 +333,9 @@ export class ProjectSubmissionComponent implements OnInit {
     if (file) {
       reader.readAsDataURL(file);
     }
+  }
+
+  removeDate(item: string) {
+    this.allDateChoosen.splice(this.allDateChoosen.indexOf(item), 1);
   }
 }

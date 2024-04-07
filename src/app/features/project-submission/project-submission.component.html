@@ -258,9 +258,12 @@
                       </div>
                     </div>
                     <img src="../../../assets/img/Line 43.svg" alt="" class="max-h-52 mt-10 mx-5">
-                    <div class="flex flex-col w-1/3 mt-10">
+                    <div class="flex flex-col w-1/3 mt-10 h-64 overflow-y-scroll">
                       <p class="italic font-semibold text-lg text-[#408A7E]">Dates choisies:</p>
-                      <p *ngFor="let item of allDateChoosen">{{item | date:'dd/MM/yyyy HH:mm'}} </p>
+                      <p class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2" *ngFor="let item of allDateChoosen">
+                        {{item | date:'dd/MM/yyyy HH:mm'}}
+                        <i class=" ml-2 fas fa-xmark" (click)="removeDate(item)"></i>
+                      </p>
                     </div>
                   </div>
                   <div *ngIf="allDateChoosen.length === 0" class="text-red-600 text-xs">

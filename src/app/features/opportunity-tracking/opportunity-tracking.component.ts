@@ -35,24 +35,20 @@ export class OpportunityTrackingComponent implements OnInit {
       next: (data) => {
 
         this.listProject = data;
-        // Créer un tableau d'observables
-        const observables = this.listProject.map(project => {
-          return this.projectService.getPartnersInMyProjects(this.token, project.id);
-        });
+        this.listProject.forEach(project => {
+          this.projectService.getPartnersInMyProjects(this.token, project.id).subscribe({
+            next: (data1) => {
+                this.listPositionners.set(project.title!, data1);
+                console.log(this.listPositionners);
 
-        // Utiliser forkJoin pour attendre que toutes les requêtes se terminent
-        forkJoin(observables).subscribe({
-          next: (data1) => {
-              // data1 est un tableau contenant les résultats de toutes les requêtes
-              this.listProject.forEach((project, index) => {
-                  const data = data1[index];
-                  this.listPositionners.set(project.title!, data);
-              });
-          },
-          error: (err) => {
-              console.error(err);
-          }
+            },
+            error: (err) => {
+                console.error(err);
+            }
+          });
         });
+        // Utiliser forkJoin pour attendre que toutes les requêtes se terminent
+
       },
       error: (err) => {
         console.log(err);
