@@ -1,51 +1,3 @@
-.main {
-  @apply flex w-full h-full
-}
-
-.app-side {
-  @apply  h-full
-}
-
-.head-home{
-  @apply flex flex-col h-full flex-grow w-[90%]
-}
-
-.div-center {
-  @apply w-full h-full px-2 px-5 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
-}
-
-.upper-home {
-  @apply flex justify-between
-}
-
-.upper-home-left {
-  @apply flex flex-col w-[70%]
-}
-
-.upper-home-right {
-  @apply flex flex-col w-[27%]
-}
-
-.upper-home-left-redbox {
-  @apply shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]
-}
-
-.upper-home-left-redbox p:nth-child(1) {
-  @apply text-[#0B0909] font-dmsans font-semibold text-lg
-}
-
-.upper-home-left-redbox p:nth-child(2) {
-  @apply text-[#232323] font-dmsans font-normal text-base pt-2
-}
-
-.upper-home-left-redbox button {
-  @apply bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5
-}
-
-.upper-home-left-bottom {
-  @apply flex flex-col mt-5 items-center
-}
-
 .upper-home-left-bottom p:nth-child(1) {
   @apply text-[#408A7E] text-2xl font-bold mb-5 font-dmsans
 }
@@ -54,56 +6,24 @@
   @apply text-center font-dmsans  text-black text-sm w-[90%]
 }
 
-.evenment {
-  @apply rounded-xl bg-white px-3 py-2 mb-5 shadow-lg
+.swiper-enterprise > swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 40vh;
+  height: 40vh;
 }
-
-.carnet {
-  @apply rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg
-}
-
-.div-line-evenment {
-  @apply flex bg-[#1E1E1E]/5 mb-3 rounded-md p-1 w-full
-}
-
-.search-icon {
-  @apply cursor-pointer p-1 mr-2
-}
-
-.div-line-partner {
-  @apply flex  rounded-md p-1 w-full shadow-lg mb-2
-}
-
-.div-text {
-  @apply flex flex-col
-}
-
-.div-text p:nth-child(1) {
-  @apply text-black font-poppins text-sm
-}
-
-.desc-partner{
-  @apply text-[#7D8DA6] text-xs font-dmsans
-}
-
-.carousel {
+.swiper-enterprise > swiper-slide img {
+  display: block;
   width: 100%;
-  overflow: hidden;
-  margin: 0 auto;
-  position: relative;
-  height: 180px;
-  background-color: white;
 }
-
-.carousel-item {
-  padding: 5px;
-  opacity: 0;
-  transition: opacity 3s ease-in-out, transform 3s ease-in-out;
-  position: absolute;
-  top: 0;
-  left: 0;
+.swiper-info-inhub > swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
 }
-
-.carousel-item.active {
-  opacity: 1;
+.swiper-info-inhub > swiper-slide img {
+  display: flex;
+  width: 100%;
+  height: 100%;
 }

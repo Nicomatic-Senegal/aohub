@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FeaturesRoutingModule } from './features-routing.module';
@@ -29,7 +29,9 @@ import {MatCardModule} from '@angular/material/card';
 import { DateAdapter, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { CustomDateAdapter } from './interfaces/custom-date-adapter';
 import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
+import { register as registerSwiperElements } from 'swiper/element/bundle';
 
+registerSwiperElements();
 
 @NgModule({
   declarations: [
@@ -64,12 +66,13 @@ import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity
     MatTableModule,
     MatCardModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }, // Utilisez la langue de votre choix, par exemple 'fr-FR' pour le français
     { provide: DateAdapter, useClass: CustomDateAdapter },
-  ]
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class FeaturesModule { }

@@ -1,36 +1,98 @@
-<div class="main font-dmsans">
+<div class="main font-dmsans flex w-[90%] md:w-[92%] lg:w-[95%] xl:w-[96%] max-w-full h-full">
   <app-side-bar class="app-side" [screen]="'/home'"></app-side-bar>
-  <div class="head-home">
+  <div class="head-home flex flex-col h-full flex-grow w-[90%]">
     <app-top-bar class="w-full flex-grow-1" title="Accueil"></app-top-bar>
-    <div class="div-center">
-      <div class="upper-home z-50">
-        <div class="upper-home-left">
-            <div class="upper-home-left-redbox font-dmsans">
-              <p class="">Bienvenue Mame Diarra Gueye</p>
-              <p class=" w-full text-xs">Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
-              <button (click)="navigation('/project-submission')">Soumettre un nouveau projet</button>
+    <div class="div-center w-[100%] h-full px-2 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5">
+      <div class="upper-home flex justify-between">
+        <div class="upper-home-left flex flex-col w-[70%]">
+            <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]">
+              <p class="text-[#0B0909] font-dmsans font-semibold text-lg">Bienvenue Mame Diarra Gueye</p>
+              <p class=" w-full text-xs text-[#232323] font-dmsans font-normal text-base pt-2">Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
+              <button 
+                class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
+                (click)="navigation('/project-submission')">Soumettre un nouveau projet
+              </button>
             </div>
-            <div class="upper-home-left-bottom">
+            <div class="upper-home-left-bottom flex flex-col mt-5 items-center mb-5">
               <p>Liste des entreprises</p>
               <!-- <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p> -->
             </div>
 
-            <div class="z-1 relative">
-              <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery>
+            <div class="relative">
+              <swiper-container 
+                class="swiper-enterprise" 
+                pagination="true" 
+                pagination-clickable="true"
+                autoplay="true"
+                effect="coverflow" 
+                grab-cursor="true" 
+                centered-slides="true"
+                slides-per-view="auto" 
+                coverflow-effect-rotate="50" 
+                coverflow-effect-stretch="0" 
+                coverflow-effect-depth="100"
+                coverflow-effect-modifier="1" 
+                coverflow-effect-slide-shadows="true"
+                >
+                <swiper-slide>
+                  <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+                </swiper-slide>
+                <swiper-slide>
+                  <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+                </swiper-slide>
+              </swiper-container>
+              <!-- <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery> -->
             </div>
         </div>
-        <div class="upper-home-right">
-          <div class="evenment">
-            <p class="font-bold text-[#408A7E] text-wrap text-lg">Inhub c'est :</p>
-            <div class="carousel">
-              <div class="carousel-item" *ngFor="let item of carouselItems; let i = index" [class.active]="i === currentIndex">
-                <h3 class="font-semibold text-wrap ">{{ item.title }}</h3>
-                <p class="text wrap ">{{ item.description }}</p>
-              </div>
-            </div>
-  
+        <div class="upper-home-right flex flex-col w-[25%]">
+          <div class="info-inhub rounded-xl mb-8 shadow-md p-0">
+            <swiper-container
+              class="swiper-info-inhub" 
+              effect="cube" 
+              autoplay="true"
+              >
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub.svg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub (1).svg"/>
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub platform info.svg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub Platform Info (1).svg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub platform.svg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/Inhub Platform Info (2).svg" />
+              </swiper-slide>
+            </swiper-container>
           </div>
-          <div class="carnet z-50">
+          <div class="carnet z-50 rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
             <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
             <div>
               <div class="max-w-md mx-auto mb-3">   
