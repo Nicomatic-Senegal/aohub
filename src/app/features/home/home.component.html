@@ -34,31 +34,31 @@
                 coverflow-effect-modifier="1" 
                 coverflow-effect-slide-shadows="true"
                 >
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('1')">
                   <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2')">
                   <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('3')">
                   <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('4')">
                   <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('5')">
                   <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('6')">
                   <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('7')">
                   <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('8')">
                   <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('9')">
                   <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
                 </swiper-slide>
               </swiper-container>
@@ -111,7 +111,11 @@
                     />
                 </div>
               </div>
-              <div *ngFor="let partner of searchData" class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2">
+              <div 
+                *ngFor="let partner of searchData" 
+                class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
+                (click)="openPartnerDetailsDialog(partner)"
+                >
                 <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
                 <div class="font-dmsans">
                     <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
