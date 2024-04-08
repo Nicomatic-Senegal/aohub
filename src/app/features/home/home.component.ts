@@ -6,6 +6,9 @@ import { PartnerService } from '../services/partner/partner.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { UserService } from '../services/user/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
+import { EnterpriseDetailsDialogComponent } from '../enterprise-details-dialog/enterprise-details-dialog.component';
 
 
 interface CarouselItem {
@@ -27,7 +30,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
   currentIndex: number = 0;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
-  constructor(private route: Router, private authService: AuthService, private partnerService: PartnerService, private userService: UserService) {
+  constructor(
+    private route: Router, 
+    private authService: AuthService, 
+    private partnerService: PartnerService, 
+    private userService: UserService,
+    private dialog: MatDialog) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
   }
@@ -99,8 +107,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
           debounceTime(500),
           distinctUntilChanged(),
           tap((event:KeyboardEvent) => {
-            console.log(event)
-            console.log(this.searchInput.nativeElement.value)
             this.performSearch(this.searchInput.nativeElement.value);
           })
       )
@@ -114,7 +120,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         next: (data) => {
           this.searchData.push(data);
           this.searchData = this.searchData.flatMap(data => data);
-          console.log(this.searchData);
           
         },
         error: (err) => {
@@ -122,6 +127,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
         }
       })
     }
+  }
+
+  openPartnerDetailsDialog(partner: any) {
+    this.dialog.open(PartnerDetailsDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        partner
+      },
+      panelClass: 'custom-dialog-container'
+    })
+  }
+
+  openEnterpriseDetailsDialog(enterprise: any) {
+    this.dialog.open(EnterpriseDetailsDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        enterprise
+      },
+      panelClass: 'custom-dialog-container'
+    })
   }
 
   navigation(link: string) {

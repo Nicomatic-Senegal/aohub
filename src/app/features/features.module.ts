@@ -32,6 +32,8 @@ import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity
 import { register as registerSwiperElements } from 'swiper/element/bundle';
 import { SupportComponent } from './support/support.component';
 import { ShowMoreDialogComponent } from './show-more-dialog/show-more-dialog.component';
+import { PartnerDetailsDialogComponent } from './partner-details-dialog/partner-details-dialog.component';
+import { EnterpriseDetailsDialogComponent } from './enterprise-details-dialog/enterprise-details-dialog.component';
 
 registerSwiperElements();
 
@@ -54,7 +56,9 @@ registerSwiperElements();
     PaginatorComponent,
     OpportunityTrackingComponent,
     SupportComponent,
-    ShowMoreDialogComponent
+    ShowMoreDialogComponent,
+    PartnerDetailsDialogComponent,
+    EnterpriseDetailsDialogComponent
   ],
   imports: [
     CommonModule,
