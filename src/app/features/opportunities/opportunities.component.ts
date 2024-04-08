@@ -15,13 +15,13 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs
 export class OpportunitiesComponent {
   token!: string;
   listProject: Project[] = [];
-  listDays: number[] = [];
   searchData: Project[] = [];
-  totalItems = 18;
+  totalItems = 0;
   itemPerPage = 2;
   currentPage = 1;
   // startIndex = 1;
   // endIndex = 4;
+  mapDays: Map<number, string> = new Map<number, string>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -37,50 +37,24 @@ export class OpportunitiesComponent {
 
   ngOnInit(): void {
     this.loadAllProjects();
-    // this.totalItems = this.listProject.length;
   }
 
   loadAllProjects() {
     this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
-        data.forEach((project: { applicant: Project; }) => {
-          this.partnerService.getPartnerById(this.token, project.applicant.id).subscribe({
-            next: (applicant) => {
-              project.applicant = applicant;
-            },
-            error: (err) => {
-              console.log(err);
-              this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-                timeOut: 3000,
-                positionClass: 'toast-top-center',
-              });
-            }
-          });
-
+        data.forEach((project: Project) => {
           const currentDate = new Date();
-          const earliestDeadline = new Date(data.earliestDeadline);
+          const earliestDeadline = new Date(project.earliestDeadline!);
           const differenceInMilliseconds = earliestDeadline.getTime() - currentDate.getTime();
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
-          this.listDays.push(differenceInDays);
-
-          this.listProject.push(data);
-          this.listProject = this.listProject.flatMap(data => data)
-          
-          console.log(this.listProject);
+          this.mapDays.set(project.id, differenceInDays.toString());
         });
-
-        const currentDate = new Date();
-        const earliestDeadline = new Date(data.earliestDeadline);
-        const differenceInMilliseconds = earliestDeadline.getTime() - currentDate.getTime();
-        const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-
-        this.listDays.push(differenceInDays);
 
         this.listProject.push(data);
         this.listProject = this.listProject.flatMap(data => data)
 
-        // console.log(data);
+        this.totalItems = this.listProject.length
       },
       error: (err) => {
         console.log(err);
@@ -99,8 +73,6 @@ export class OpportunitiesComponent {
           debounceTime(500),
           distinctUntilChanged(),
           tap((event:KeyboardEvent) => {
-            console.log(event)
-            console.log(this.searchInput.nativeElement.value)
             this.performSearch(this.searchInput.nativeElement.value);
           })
       )
@@ -114,7 +86,7 @@ export class OpportunitiesComponent {
           this.listProject = [];
           this.listProject.push(data);
           this.listProject = this.listProject.flatMap(data => data);
-          console.log(this.listProject);
+          this.totalItems = this.listProject.length;
         },
         error: (err) => {
           console.log(err);
@@ -146,5 +118,23 @@ export class OpportunitiesComponent {
 
   formatProjectCount(count: number): string {
     return count.toString().padStart(2, '0');
+  }
+
+  calculateProgressWidth(projectId: number): number {
+    const daysStr = this.mapDays.get(projectId) || '0';
+    const days = parseInt(daysStr)
+    const progressWidth = (days / 8) * 100;
+    return progressWidth;
+  }
+
+  getTranslatedNeedType(needType: string): string {
+    switch (needType?.toUpperCase()) {
+        case 'CONTRACT':
+            return 'Contrat';
+        case 'PUNCTUAL':
+            return 'Ponctuel';
+        default:
+            return needType;
+    }
   }
 }
