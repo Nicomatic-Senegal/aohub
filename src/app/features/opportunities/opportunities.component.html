@@ -23,7 +23,7 @@
             </div>
           </div>
           <div *ngIf="listProject.length !== 0">
-            <div *ngFor="let project of paginatedProjects" class="projet w-full shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between">
+            <div *ngFor="let project of paginatedProjects; let i = index" class="projet w-full shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between">
               <div class="projet-left w-[60%]">
                 <div class="projet-left-head border-b-[1px] border-[#737373]/20 pb-2 flex justify-between">
                   <div class="flex w-1/2">
@@ -33,10 +33,13 @@
                       <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.applicant?.enterprise?.name}}</p>
                     </div>
                   </div>
-                  <div class="w-1/6">
-                    <p class="font-dmsans text-black">3 jours</p>
+                  <div class="w-1/7">
+                    <p class="font-dmsans text-black">{{ mapDays.get(project.id) }} jours</p>
                     <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
-                      <div [ngClass]="'3' <= '3' ? 'bg-red-600' : 'bg-green-600'" class="text-xs font-medium text-red-100 text-center p-0.5 leading-none rounded-full" style="width: 15%"></div>
+                      <div 
+                        [ngClass]="mapDays.get(project.id)! <= '3' ? 'bg-red-600' : 'bg-green-600'" 
+                        [style.width]="calculateProgressWidth(project.id)+'%'"
+                        class="text-xs font-medium text-center p-0.5 leading-none rounded-full"></div>
                     </div>
                   </div>
   
@@ -64,7 +67,7 @@
                   </div>
                   <div class="flex justify-between py-2">
                     <p class="font-dmsans text-black font-bold text-base">Type du besoin</p>
-                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.needType | lowercase}}</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.needType ? getTranslatedNeedType(project.needType!) : ''}}</p>
                   </div>
                   <div class="flex justify-between py-2">
                     <p class="font-dmsans text-black font-bold text-base">Date de début</p>
