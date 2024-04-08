@@ -31,6 +31,7 @@ import { CustomDateAdapter } from './interfaces/custom-date-adapter';
 import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
 import { register as registerSwiperElements } from 'swiper/element/bundle';
 import { SupportComponent } from './support/support.component';
+import { ShowMoreDialogComponent } from './show-more-dialog/show-more-dialog.component';
 
 registerSwiperElements();
 
@@ -52,7 +53,8 @@ registerSwiperElements();
     ImageSliderComponent,
     PaginatorComponent,
     OpportunityTrackingComponent,
-    SupportComponent
+    SupportComponent,
+    ShowMoreDialogComponent
   ],
   imports: [
     CommonModule,
