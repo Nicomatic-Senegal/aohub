@@ -5,7 +5,7 @@
     <div class="div-center w-full h-90vh px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="projet-container rounded-xl w-full h-90vh bg-white px-5 pb-7 pt-5">
         <div class="header flex items-center justify-between py-2">
-          <p (click)="navigate('apply-project')" class="font-bold font-dmsans text-lg">Nouveaux projets ({{ formatProjectCount(listProject.length) }})</p>
+          <p class="font-bold font-dmsans text-lg">Nouveaux projets ({{ formatProjectCount(listProject.length) }})</p>
           <div class="search-container flex items-center justify-between border-solid  text-[#ccc] border border-[#D0D0D0] p-1 rounded-lg shadow-sm w-[30%]">
             <input 
               type="text" 
@@ -46,7 +46,15 @@
                 </div>
                 <div class="projet-left-main border-b-[1px] border-[#737373]/20 py-3">
                   <p class="font-dmsans text-black font-bold text-lg">{{project?.title}}</p>
-                  <p class="font-dmsans text-[#121212]/60  text-base">{{project?.description}}</p>
+                  <p 
+                    class="font-dmsans text-[#121212]/60 text-base">
+                    {{ (project?.description | slice: 0: 300) }}
+                    <span 
+                      class="cursor-pointer text-[#121212] hover:text-[#408A7E]"
+                      *ngIf="project?.description!.length > 300" 
+                      (click)="openDialog(project?.title!, project?.description!)"> ...<span class="underline hover:no-underline">voir plus</span>
+                    </span>
+                  </p>
                 </div>
                 <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
                   <span *ngFor="let itemi of project?.markets" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi?.name}}</span>

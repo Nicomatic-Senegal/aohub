@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Project } from '../interfaces/project.model';
 import { PartnerService } from '../services/partner/partner.service';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
 
 @Component({
   selector: 'app-opportunities',
@@ -30,6 +32,7 @@ export class OpportunitiesComponent {
     private toastr: ToastrService,
     private router: Router,
     private authService: AuthService,
+    public dialog: MatDialog
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -103,6 +106,16 @@ export class OpportunitiesComponent {
 
   navigate(link: string) {
     this.router.navigate(['apply-project']);
+  }
+
+  openDialog(title: string, description: string) {
+    this.dialog.open(ShowMoreDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        title, description
+      },
+      panelClass: 'custom-dialog-container'
+    });
   }
 
   get paginatedProjects() {
