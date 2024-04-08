@@ -1,1 +1,32 @@
-<p>enterprise-details-dialog works!</p>
+<div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-6 flex flex-col bg-white">
+    <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-4">
+		<h4 class="text-[#408A7E] text-xl">Entreprise</h4>
+	</div>
+    
+    <div class="lg:flex lg:justify-center">
+        <div class="w-full lg:pl-4 lg:mt-4 mr-4 flex flex-col items-center lg:items-end">
+            <div class="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex items-center justify-center">
+                <img *ngIf="enterprise.imageBase64Content" class="object-cover rounded-full h-full w-full" [src]="enterprise.imageBase64Content || '../../../assets/img/placeholder-image.jpg'" alt="">
+                <svg *ngIf="!enterprise.imageBase64Content" class="absolute w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                </svg>
+            </div>
+            <div class="flex flex-col justify-between leading-normal">
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{enterprise.name || 'Enterprise name'}}</h5>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.description || 'Enterprise eescription'}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.address || 'Enterprise adresse'}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.email || 'Enterprise email'}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.phoneNumber || 'Enterprise phone number'}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-center mt-4 mb-4">
+		<button 
+			type="submit"
+			(click)="onClose()" 
+			class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
+			Fermer
+		</button>
+	</div>
+</div>
