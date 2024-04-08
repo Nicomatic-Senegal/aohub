@@ -17,12 +17,6 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
         stage('Dockerize') {
             steps {
                 script {
@@ -39,7 +33,7 @@ pipeline {
                     docker.withRegistry('', 'lamine-dockerhub') {
                         // Pushing Docker image
                         def builtImage = docker.image("${DOCKER_IMAGE}:${DOCKER_TAG}")
-                        builtImage.push()
+                        builtImage.push('latest')
 
                         // builtImage.push('latest')
                     }
