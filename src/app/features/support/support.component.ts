@@ -28,4 +28,11 @@ export class SupportComponent implements OnInit {
     return this.supportForm.get(controlName);
   }
 
+  sendEmail() {
+    const email = 'amadoudiao72@gmail.com';
+    const subject = this.supportForm.value.intitule;
+    const body = this.supportForm.value.description;
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    this.supportForm.reset();
+  }
 }

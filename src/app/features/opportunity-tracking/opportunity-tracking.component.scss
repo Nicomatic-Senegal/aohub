@@ -31,10 +31,16 @@ th, td {
   padding: 8px;
 }
 
+tr {
+  @apply border-t border-[#F3F3F3] hover:bg-[#408A7E]/10
+}
 
 th {
-  background-color: #fff;
-  color: #fff;
+  @apply bg-white text-[#72767C] text-base font-dmsans font-normal
+}
+
+td {
+  @apply text-[#242731] text-base font-dmsans font-normal
 }
 
 .impair {
@@ -46,7 +52,4 @@ th {
   background-color: #f1cbf2;
 }
 
-tr:hover {
-  /* background-color: #47cbf1; */
-  background-color: #a4c2eb;
-}
+

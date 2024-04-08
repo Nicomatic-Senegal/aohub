@@ -9,6 +9,7 @@ import { PartnerDTO } from '../interfaces/partner.model';
 import { forkJoin } from 'rxjs';
 import { PositioningDTO } from '../interfaces/positioning-dto.model';
 import { Disponibility } from '../interfaces/disponibility.model';
+import { data } from 'jquery';
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -20,6 +21,7 @@ export class OpportunityTrackingComponent implements OnInit {
   listProject: Project[] = [];
   listPositionners: Map<string, PositioningDTO[]> = new Map<string, PositioningDTO[]>();
   screen: number = 1;
+  positioners: Array<Array<PositioningDTO>> = [];
 
   constructor(
     private projectService: ProjectService,
@@ -38,8 +40,8 @@ export class OpportunityTrackingComponent implements OnInit {
         this.listProject.forEach(project => {
           this.projectService.getPartnersInMyProjects(this.token, project.id).subscribe({
             next: (data1) => {
-                this.listPositionners.set(project.title!, data1);
-                console.log(this.listPositionners);
+                this.positioners[project.id] = data1;
+                console.log(this.positioners);
 
             },
             error: (err) => {
@@ -68,6 +70,44 @@ export class OpportunityTrackingComponent implements OnInit {
   }
 
   getAllDisponibility(dispo: Disponibility[]) {
-    return dispo.map(d => d.instant).toString();
+    if (dispo)
+      return dispo.map(d => d.instant);
+    return null;
+  }
+
+  validatePositioning(idProject: number, indice: number, idPos: number) {
+    this.projectService.validatePositioning(this.token, idPos).subscribe({
+      next: (data) => {
+        this.positioners[idProject].splice(indice, 1);
+        this.toastr.success("vous avez validé le partenaire.", "Succés", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      },
+      error: (err) => {
+        this.toastr.error("Erreur pendant la validation.", "Erreur", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
+  }
+
+  rejectPositioning(idProject: number, indice: number, idPos: number) {
+    this.projectService.rejectPositioning(this.token, idPos).subscribe({
+      next: (data) => {
+        this.positioners[idProject].splice(indice, 1);
+        this.toastr.success("vous avez rejeté le partenaire.", "Succés", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      },
+      error: (err) => {
+        this.toastr.error("Erreur pendant la rejection.", "Erreur", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
   }
 }
