@@ -16,7 +16,6 @@ export class PartnerDetailsDialogComponent {
 
     ngOnInit() {
       this.partner = this.dialogData.partner;
-      console.log(this.partner);
       
     }
 
