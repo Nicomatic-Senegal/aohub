@@ -1,0 +1,1565 @@
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 516.00 kB |               131.06 kB
+styles.css, styles.js | styles                   | 242.05 kB |                53.66 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            | 920.13 kB |               226.95 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+377.js                | features-features-module | 403.96 kB |                71.92 kB
+
+Build at: 2024-04-03T18:41:07.712Z - Hash: 3961cf41b408a175 - Time: 6534ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 516.00 kB |               131.06 kB
+styles.css, styles.js | styles                   | 242.05 kB |                53.66 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            | 920.13 kB |               226.95 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+377.js                | features-features-module | 403.96 kB |                71.92 kB
+
+Build at: 2024-04-03T18:41:24.191Z - Hash: 3961cf41b408a175 - Time: 6648ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 516.00 kB |               131.06 kB
+styles.css, styles.js | styles                   | 242.05 kB |                53.66 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            | 920.13 kB |               226.95 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+377.js                | features-features-module | 403.96 kB |                71.92 kB
+
+Build at: 2024-04-03T20:24:37.492Z - Hash: 3961cf41b408a175 - Time: 6419ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+scripts.js            | scripts                  |   0 bytes |                       -
+
+| Initial Total            |   1.06 MB |               251.07 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.48 kB |                57.77 kB
+
+Build at: 2024-04-03T20:26:21.474Z - Hash: 7a832dde63e6e974 - Time: 14869ms
+
+Error: error TS2688: Cannot find type definition file for 'jquery'.
+  The file is in the program because:
+    Entry point of type library 'jquery' specified in compilerOptions
+
+
+Error: src/app/shared/horizontal-caroussel/horizontal-caroussel.component.ts:2:20 - error TS2307: Cannot find module 'jquery' or its corresponding type declarations.
+
+2 import * as $ from "jquery";
+                     ~~~~~~~~
+
+
+Error: src/app/shared/vertical-caroussel/vertical-caroussel.component.ts:2:20 - error TS2307: Cannot find module 'jquery' or its corresponding type declarations.
+
+2 import * as $ from "jquery";
+                     ~~~~~~~~
+
+
+Error: Can't resolve 'node_modules/jquery/dist/jquery.min.js' in '/home/trivial/inhub-ui'
+
+
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✖ Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+200.js              | features-features-module | 331.29 kB |                57.88 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T20:35:19.244Z - Hash: bd8d325bb38c27d7 - Time: 5041ms
+
+Error: error TS2688: Cannot find type definition file for 'jquery'.
+  The file is in the program because:
+    Entry point of type library 'jquery' specified in compilerOptions
+
+
+Error: src/app/shared/horizontal-caroussel/horizontal-caroussel.component.ts:2:20 - error TS2307: Cannot find module 'jquery' or its corresponding type declarations.
+
+2 import * as $ from "jquery";
+                     ~~~~~~~~
+
+
+Error: src/app/shared/vertical-caroussel/vertical-caroussel.component.ts:2:20 - error TS2307: Cannot find module 'jquery' or its corresponding type declarations.
+
+2 import * as $ from "jquery";
+                     ~~~~~~~~
+
+
+Error: Can't resolve 'node_modules/jquery/dist/jquery.min.js' in '/home/trivial/inhub-ui'
+
+
+
+✖ Failed to compile.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 243.17 kB |                53.80 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.06 MB |               270.83 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.29 kB |                57.88 kB
+
+Build at: 2024-04-03T20:42:50.489Z - Hash: b325ab6fced37741 - Time: 6570ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.47 kB |                57.83 kB
+
+Build at: 2024-04-03T20:48:47.098Z - Hash: bc11392efd12b636 - Time: 15079ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.93 kB |                57.85 kB
+
+Build at: 2024-04-03T21:01:04.618Z - Hash: 3db76b7e413223e8 - Time: 12245ms
+
+Error: src/app/features/parametre-profil/parametre-profil.component.ts:46:7 - error TS2322: Type '{ id: number; title: string; description: string; }' is not assignable to type 'EmployeePostDTO'.
+  Object literal may only specify known properties, and 'id' does not exist in type 'EmployeePostDTO'.
+
+46       id: 0,
+         ~~~~~
+
+  src/app/features/interfaces/partner.model.ts:13:3
+    13   employeePost: EmployeePostDTO;
+         ~~~~~~~~~~~~
+    The expected type comes from property 'employeePost' which is declared here on type 'PartnerDTO'
+
+
+
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✖ Failed to compile.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.93 kB |                57.85 kB
+
+Build at: 2024-04-03T21:02:43.945Z - Hash: 5b548fb0f35a43e0 - Time: 8416ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 331.94 kB |                57.88 kB
+
+Build at: 2024-04-03T21:05:57.955Z - Hash: b3e6be25cb3b4711 - Time: 10385ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.20 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+200.js                | features-features-module | 332.12 kB |                57.94 kB
+
+Build at: 2024-04-03T21:09:17.741Z - Hash: 1a4a955d76ea4a28 - Time: 10645ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.42 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.88 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+142.js                | features-features-module | 332.12 kB |                57.92 kB
+
+Build at: 2024-04-03T21:18:11.167Z - Hash: ea3e328df4bc7869 - Time: 13075ms
+
+./src/app/features/home/home.component.ts:4:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/home'
+
+./src/app/features/opportunities/opportunities.component.ts:3:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/opportunities'
+
+./src/app/features/parametres/parametres.component.ts:8:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/parametres'
+
+./src/app/features/project-submission/project-submission.component.ts:6:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/project-submission'
+
+
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✖ Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.47 kB |                57.94 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T21:23:47.471Z - Hash: 382cac85529a0475 - Time: 5278ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.60 kB |                57.88 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T21:27:41.506Z - Hash: 512b1f050b54ff68 - Time: 4317ms
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.77 kB |                57.89 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T21:38:03.971Z - Hash: cd485aa8d43bebd0 - Time: 5397ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46CKilled
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.42 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.88 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+142.js                | features-features-module | 332.86 kB |                57.99 kB
+
+Build at: 2024-04-03T21:47:04.481Z - Hash: 38e41080cd456e0a - Time: 10101ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 595.10 kB |               147.42 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.88 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+142.js                | features-features-module | 332.86 kB |                57.99 kB
+
+Build at: 2024-04-03T21:57:08.738Z - Hash: 38e41080cd456e0a - Time: 7007ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.28 kB |                57.94 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T22:04:30.888Z - Hash: 845830153f197a1b - Time: 5756ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+main.js             | main                     | 594.42 kB |               147.18 kB
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.31 kB |                57.89 kB
+
+3 unchanged chunks
+
+Build at: 2024-04-03T22:06:57.557Z - Hash: e95aeffb4eaaf071 - Time: 6917ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+142.js              | features-features-module | 332.61 kB |                57.97 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-03T22:45:55.162Z - Hash: 62b98c8741b17bd3 - Time: 4861ms
+
+✔ Compiled successfully.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46CKilled
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 594.42 kB |               147.18 kB
+styles.css, styles.js | styles                   | 325.14 kB |                61.64 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               278.64 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+142.js                | features-features-module | 332.61 kB |                57.97 kB
+
+Build at: 2024-04-04T17:52:40.522Z - Hash: 62b98c8741b17bd3 - Time: 6608ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 596.31 kB |               147.80 kB
+styles.css, styles.js | styles                   | 327.96 kB |                62.05 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               279.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+20.js                 | features-features-module | 376.09 kB |                65.07 kB
+
+Build at: 2024-04-04T17:56:48.221Z - Hash: bd25dddaee0da2a3 - Time: 13236ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 596.31 kB |               147.80 kB
+styles.css, styles.js | styles                   | 327.96 kB |                62.05 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               279.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+20.js                 | features-features-module | 376.09 kB |                65.10 kB
+
+Build at: 2024-04-04T18:18:17.850Z - Hash: c0d38ae35889cdad - Time: 10630ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 596.31 kB |               147.80 kB
+styles.css, styles.js | styles                   | 327.96 kB |                62.05 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               279.66 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+20.js                 | features-features-module | 376.09 kB |                65.10 kB
+
+Build at: 2024-04-04T21:38:37.734Z - Hash: c0d38ae35889cdad - Time: 7824ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 596.31 kB |               147.80 kB
+styles.css, styles.js | styles                   | 328.00 kB |                62.00 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.14 MB |               279.62 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+20.js                 | features-features-module | 376.70 kB |                65.23 kB
+
+Build at: 2024-04-05T01:45:25.414Z - Hash: 40a75726561a07ee - Time: 10184ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 628.21 kB |               156.45 kB
+styles.css, styles.js | styles                   | 327.94 kB |                62.05 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.17 MB |               288.33 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+191.js                | features-features-module | 377.12 kB |                65.64 kB
+
+Build at: 2024-04-05T13:03:08.262Z - Hash: 25afb4396d345570 - Time: 13189ms
+
+./src/app/app.module.ts:13:0-69 - Error: Module not found: Error: Can't resolve '@fortawesome/angular-fontawesome' in '/home/trivial/inhub-ui/src/app'
+
+Error: src/app/app.component.html:1:1 - error NG8001: 'app-spinner' is not a known element:
+1. If 'app-spinner' is an Angular component, then verify that it is part of this module.
+2. If 'app-spinner' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+1 <app-spinner></app-spinner>
+  ~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:2:1 - error NG8001: 'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+2 <router-outlet></router-outlet>
+  ~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.module.ts:13:35 - error TS2307: Cannot find module '@fortawesome/angular-fontawesome' or its corresponding type declarations.
+
+13 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Error: src/app/app.module.ts:20:12 - error NG1010: Value
+
+
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✖ Failed to compile.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   |  Raw Size | Estimated Transfer Size
+main.js             | main    | 689.42 kB |               170.06 kB
+runtime.js          | runtime |   2.72 kB |                 1.27 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-05T13:10:13.228Z - Hash: 8d1d9954bdcf26cd - Time: 6960ms
+
+Error: src/app/app.component.html:1:1 - error NG8001: 'app-spinner' is not a known element:
+1. If 'app-spinner' is an Angular component, then verify that it is part of this module.
+2. If 'app-spinner' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+1 <app-spinner></app-spinner>
+  ~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:2:1 - error NG8001: 'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+2 <router-outlet></router-outlet>
+  ~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.module.ts:13:35 - error TS2307: Cannot find module '@fortawesome/angular-fontawesome' or its corresponding type declarations.
+
+13 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Error: src/app/app.module.ts:20:12 - error NG1010: Value
+
+
+
+✖ Failed to compile.
+✔ Browser application bundle generation complete.
+
+6 unchanged chunks
+
+Build at: 2024-04-05T13:10:14.885Z - Hash: 8d1d9954bdcf26cd - Time: 1583ms
+
+Error: src/app/app.component.html:1:1 - error NG8001: 'app-spinner' is not a known element:
+1. If 'app-spinner' is an Angular component, then verify that it is part of this module.
+2. If 'app-spinner' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+1 <app-spinner></app-spinner>
+  ~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:2:1 - error NG8001: 'router-outlet' is not a known element:
+1. If 'router-outlet' is an Angular component, then verify that it is part of this module.
+2. If 'router-outlet' is a Web Component then add 'CUSTOM_ELEMENTS_SCHEMA' to the '@NgModule.schemas' of this component to suppress this message.
+
+2 <router-outlet></router-outlet>
+  ~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:7:16
+    7   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.module.ts:13:35 - error TS2307: Cannot find module '@fortawesome/angular-fontawesome' or its corresponding type declarations.
+
+13 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+                                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Error: src/app/app.module.ts:20:12 - error NG1010: Value
+
+
+
+✖ Failed to compile.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 657.76 kB |               161.43 kB
+styles.css, styles.js | styles                   | 327.94 kB |                62.05 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.20 MB |               293.30 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+191.js                | features-features-module | 377.12 kB |                65.64 kB
+
+Build at: 2024-04-05T13:14:16.829Z - Hash: a1175d4ccd116746 - Time: 6775ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 658.10 kB |               161.46 kB
+styles.css, styles.js | styles                   | 327.86 kB |                62.04 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.20 MB |               293.32 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+109.js                | features-features-module | 381.27 kB |                66.46 kB
+
+Build at: 2024-04-05T16:18:52.752Z - Hash: b76cd485b8244b7f - Time: 13762ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+109.js              | features-features-module | 379.29 kB |                66.45 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-05T17:41:01.907Z - Hash: efa136d8edc713f2 - Time: 4435ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46CKilled
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 658.10 kB |               161.46 kB
+styles.css, styles.js | styles                   | 328.82 kB |                62.20 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.20 MB |               293.48 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+109.js                | features-features-module | 379.29 kB |                66.45 kB
+
+Build at: 2024-04-05T21:38:23.744Z - Hash: efa136d8edc713f2 - Time: 7595ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46C✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+main.js             | main                     | 669.35 kB |               164.54 kB
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+109.js              | features-features-module | 351.55 kB |                61.94 kB
+
+3 unchanged chunks
+
+Build at: 2024-04-05T21:42:37.274Z - Hash: d7ba09c5f56e4166 - Time: 11269ms
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.35 kB |               164.50 kB
+styles.css, styles.js | styles                   | 381.22 kB |                64.77 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.09 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+404.js                | features-features-module | 354.06 kB |                62.46 kB
+
+Build at: 2024-04-05T22:03:46.605Z - Hash: 3b23ae7991fa6645 - Time: 16805ms
+
+Error: src/app/features/apply-project-dialog/apply-project-dialog.component.ts:98:34 - error TS2769: No overload matches this call.
+  Overload 1 of 4, '(value: string | number | Date): Date', gave the following error.
+    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number | Date'.
+      Type 'undefined' is not assignable to type 'string | number | Date'.
+  Overload 2 of 4, '(value: string | number): Date', gave the following error.
+    Argument of type 'Date | undefined' is not assignable to parameter of type 'string | number'.
+      Type 'undefined' is not assignable to type 'string | number'.
+
+98         const instant = new Date(disponibility.instant);
+                                    ~~~~~~~~~~~~~~~~~~~~~
+
+
+
+Error: src/app/features/apply-project-dialog/apply-project-dialog.component.ts:101:11 - error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+
+101           id: disponibilityId,
+              ~~
+
+  src/app/features/interfaces/event-schedule.ts:2:3
+    2   id: number;
+        ~~
+    The expected type comes from property 'id' which is declared here on type 'EventSchedule'
+
+
+
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✖ Failed to compile.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.35 kB |               164.50 kB
+styles.css, styles.js | styles                   | 381.22 kB |                64.77 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.09 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+404.js                | features-features-module | 354.06 kB |                62.46 kB
+
+Build at: 2024-04-05T22:12:18.424Z - Hash: 695f476aeb091e45 - Time: 7467ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+404.js              | features-features-module | 353.99 kB |                62.42 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-05T22:29:48.593Z - Hash: f1afc99de427d445 - Time: 6889ms
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+? Port 4200 is already in use.
+Would you like to use a different port? (Y/n) [46D[46CKilled
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.61 kB |               164.63 kB
+styles.css, styles.js | styles                   | 381.25 kB |                64.80 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.25 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+404.js                | features-features-module | 354.54 kB |                62.65 kB
+
+Build at: 2024-04-05T22:32:53.807Z - Hash: 99ec0347b9b2af33 - Time: 14575ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.61 kB |               164.67 kB
+styles.css, styles.js | styles                   | 381.43 kB |                64.86 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.35 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+82.js                 | features-features-module | 349.76 kB |                61.65 kB
+
+Build at: 2024-04-07T01:38:17.339Z - Hash: e01313314e1fbd71 - Time: 14988ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+npm ERR! Missing script: "prod"
+npm ERR! 
+npm ERR! To see a list of scripts, run:
+npm ERR!   npm run
+
+npm ERR! A complete log of this run can be found in: /home/trivial/.npm/_logs/2024-04-07T10_39_29_932Z-debug-0.log
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.60 kB |               164.66 kB
+styles.css, styles.js | styles                   | 382.87 kB |                64.96 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.43 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+376.js                | features-features-module | 521.96 kB |               103.25 kB
+
+Build at: 2024-04-07T10:59:11.849Z - Hash: ca3f38ef045d68be - Time: 7267ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.60 kB |               164.68 kB
+styles.css, styles.js | styles                   | 383.27 kB |                65.04 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.54 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+331.js                | features-features-module | 535.14 kB |               105.01 kB
+
+Build at: 2024-04-07T21:21:31.777Z - Hash: 975bd97ea1b03e1a - Time: 15086ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names                    |  Raw Size | Estimated Transfer Size
+runtime.js          | runtime                  |   2.72 kB |                 1.27 kB
+
+Lazy Chunk Files    | Names                    |  Raw Size | Estimated Transfer Size
+331.js              | features-features-module | 535.14 kB |               104.80 kB
+
+4 unchanged chunks
+
+Build at: 2024-04-07T22:04:35.303Z - Hash: a4049c53c3de0b00 - Time: 7230ms
+
+✔ Compiled successfully.
+Killed
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.60 kB |               164.68 kB
+styles.css, styles.js | styles                   | 383.33 kB |                65.07 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.57 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+331.js                | features-features-module | 535.14 kB |               104.80 kB
+
+Build at: 2024-04-07T22:05:34.181Z - Hash: 6b485c60b54246ac - Time: 9290ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
+
+> inhub-ui@0.0.0 startprod
+> ng serve --host 0.0.0.0 --disable-host-check --configuration production
+
+Node.js version v21.7.1 detected.
+Odd numbered Node.js versions will not enter LTS status and should not be used for production. For more information, please see https://nodejs.org/en/about/releases/.
+Warning: Running a server with --disable-host-check is a security risk. See https://medium.com/webpack/webpack-dev-server-middleware-security-issues-1489d950874a for more information.
+Warning: 'outputHashing' option is disabled when using the dev-server.
+****************************************************************************************
+This is a simple server for use in testing or debugging Angular applications locally.
+It hasn't been reviewed for security issues.
+
+DON'T USE IT FOR PRODUCTION!
+****************************************************************************************
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names                    |  Raw Size | Estimated Transfer Size
+main.js               | main                     | 669.60 kB |               164.68 kB
+styles.css, styles.js | styles                   | 383.33 kB |                65.07 kB
+polyfills.js          | polyfills                | 159.37 kB |                40.96 kB
+scripts.js            | scripts                  |  84.66 kB |                27.59 kB
+runtime.js            | runtime                  |   2.72 kB |                 1.27 kB
+
+| Initial Total            |   1.27 MB |               299.57 kB
+
+Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfer Size
+331.js                | features-features-module | 535.14 kB |               104.80 kB
+
+Build at: 2024-04-08T00:59:12.344Z - Hash: 6b485c60b54246ac - Time: 6810ms
+
+** Angular Live Development Server is listening on 0.0.0.0:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
