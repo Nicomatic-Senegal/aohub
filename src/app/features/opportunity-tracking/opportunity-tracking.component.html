@@ -13,8 +13,8 @@
       </div>
 
       <div class="rounded-2xl bg-white h-full w-full p-3">
-        <ng-container *ngFor="let key of listPositionners.keys()">
-          <p class="text-black text-base font-semibold font-dmsans">Liste des positionnés {{key}}</p>
+        <ng-container *ngFor="let project of listProject; let i = index">
+          <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés {{project.title}}</p>
           <table class="table-fixed">
             <thead>
               <tr>
@@ -26,14 +26,17 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of listPositionners.get(key)">
-                <td>{{item.partner.user.firstName}} {{item.partner}} </td>
-                <td>{{getAllDisponibility(item.disponibilities)}} </td>
-                <td>{{item.partner.user.login}} </td>
-                <td>{{item.partner.enterprise.name}} </td>
+              <tr *ngFor="let item of positioners[project.id]; let j = index">
+                <td>{{item?.partner?.user?.firstName}} {{item?.partner?.user?.lastName}} </td>
                 <td>
-                  <button class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md">Rejeter</button>
-                  <button class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
+                  <p *ngFor="let item of getAllDisponibility(item.disponibilities)">{{ item | date: 'EEE, dd MMM à HH:mm' : 'fr' }}</p>
+
+                </td>
+                <td>{{item?.partner?.user?.login}} </td>
+                <td>{{item?.partner?.enterprise?.name}} </td>
+                <td>
+                  <button (click)="rejectPositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md mr-3">Rejeter</button>
+                  <button (click)="validatePositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
                 </td>
               </tr>
             </tbody>

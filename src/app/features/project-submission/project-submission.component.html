@@ -38,10 +38,10 @@
         </div>
         <form action="" [formGroup]="projectSubmissionForm" class="w-full mt-5">
           <div [ngSwitch]="step" class="w-full ">
-            <div *ngSwitchCase="'1'" class="w-full px-40 border-b-2 pb-10 border-[#797777]/78">
+            <div *ngSwitchCase="'1'" class="w-full px-10 border-b-2 pb-10 border-[#797777]/78">
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Intitulé du projet</label>
+                  <label for="" class="label w-[30%]">Intitulé du projet</label>
                   <div class=" w-[60%] ">
                     <input type="text" class="input" placeholder="Entrer intitulé" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
@@ -50,7 +50,7 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Client</label>
+                  <label for="" class="label w-[30%]">Client</label>
                   <div class=" w-[60%]">
                     <input type="text" class="input" placeholder="Entrer le nom du client" formControlName="client" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
@@ -71,9 +71,9 @@
               <div class="div-line-form-bis w-full h-28 mt-5">
                 <div class="flex flex-col w-[45%] h-full justify-between ">
                   <div class="part-line-form-bis ">
-                    <label for="" class="label w-[40%]">Métier</label>
+                    <label for="" class="label w-[30%]">Métier</label>
                     <div class=" w-[60%] ">
-                      <select formControlName="metier" class="input" #domain (change)="onSelectDomain(domain.value)">
+                      <select  class="input" #domain (change)="onSelectDomain(domain.value)">
                         <option value="" disabled [selected]="true">Choisissez le métier...</option>
                         <option *ngFor="let item of domains" value="{{item.name}}" class="{{domainChoosen.indexOf(item.name) !== -1 ? 'text-[#AAAAAA]' : ''}}">{{item.name}}</option>
                       </select>
@@ -83,7 +83,7 @@
                     </div>
                   </div>
                   <div class="part-line-form-bis">
-                    <label for="" class="label w-[40%]">Confidentialité</label>
+                    <label for="" class="label w-[30%]">Confidentialité</label>
                     <div class=" w-[60%] ">
                       <div >
                         <label class="label mr-20">
@@ -104,17 +104,17 @@
                 <div class="part-line-form">
                   <p class="label">Métiers choisis</p>
                   <div class="flex justify-between items-center min-h-10 w-full">
-                    <div class="border-[2px] border-[#737373]/20 w-full min-h-10 rounded-lg flex px-2 flex-wrap">
-                      <div *ngFor="let item of domainChoosen" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
+                    <div class="overflow-y-scroll border-[2px] border-[#737373]/20 w-full min-h-10 max-h-20 rounded-lg flex px-2 flex-wrap">
+                      <div *ngFor="let item of domainChoosen" class=" rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div *ngSwitchCase="'2'" class="w-full px-40 border-b-2 pb-5 border-[#797777]/78">
+            <div *ngSwitchCase="'2'" class="w-full px-10 border-b-2 pb-5 border-[#797777]/78">
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Marché</label>
+                  <label for="" class="label w-[30%]">Marché</label>
                   <div class=" w-[60%] ">
                     <select formControlName="marche" class="input">
                       <option value="" disabled [selected]="true">Choisissez le marché...</option>
@@ -126,7 +126,7 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Prix cible (euro)</label>
+                  <label for="" class="label w-[30%]">Prix cible (euro)</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="prixCible" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('prixCible')?.invalid && (getControl('prixCible')?.dirty || getControl('prixCible')?.touched)" class="text-red-600 text-xs">
@@ -137,7 +137,7 @@
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Type de besoin</label>
+                  <label for="" class="label w-[30%]">Type de besoin</label>
                   <div class=" w-[60%] ">
                     <select formControlName="typeDeBesoin" class="input">
                       <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
@@ -150,7 +150,7 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Durée (jours)</label>
+                  <label for="" class="label w-[30%]">Durée (jours)</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="duree" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('duree')?.invalid && (getControl('duree')?.dirty || getControl('duree')?.touched)" class="text-red-600 text-xs">
@@ -161,7 +161,7 @@
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Volume global</label>
+                  <label for="" class="label w-[30%]">Volume global</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="volumeGlobal" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('volumeGlobal')?.invalid && (getControl('volumeGlobal')?.dirty || getControl('volumeGlobal')?.touched)" class="text-red-600 text-xs">
@@ -170,7 +170,7 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Budget (euro)</label>
+                  <label for="" class="label w-[30%]">Budget (euro)</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="budget" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('budget')?.invalid && (getControl('budget')?.dirty || getControl('budget')?.touched)" class="text-red-600 text-xs">
@@ -181,17 +181,17 @@
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Délai au plus tôt</label>
+                  <label for="" class="label w-[30%]">Délai au plus tôt</label>
                   <div class=" w-[60%]">
                     <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTot"> -->
-                    <input type="date" id="startDate" formControlName="startDate" placeholder="Selectionner une date" class="input" (keydown.enter)="$event.preventDefault()"/>
+                    <input type="date" id="startDate" [min]="minDate.toISOString().split('T')[0]" formControlName="startDate" placeholder="Selectionner une date" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTot')?.invalid && (getControl('delaiPlusTot')?.dirty || getControl('delaiPlusTot')?.touched)" class="text-red-600 text-xs">
                       Le delai au plus tôt est requis du projet est requis.
                     </div>
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[40%]">Délai au plus tard</label>
+                  <label for="" class="label w-[30%]">Délai au plus tard</label>
                   <div class=" w-[60%]">
                     <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTard"> -->
                     <input type="date" [min]="minDateFinString" formControlName="endDate" placeholder="Date de fin" class="input" (keydown.enter)="$event.preventDefault()"/>
@@ -202,14 +202,14 @@
                 </div>
               </div>
             </div>
-            <div *ngSwitchCase="'3'" class="w-full mt-5 px-40 border-b-2 pb-5 border-[#797777]/78">
+            <div *ngSwitchCase="'3'" class="w-full mt-5 px-10 border-b-2 pb-5 border-[#797777]/78">
               <div class="div-line-form-bis">
-                <label for="" class="label w-[40%]">Joindre des fichiers dans le projet</label>
+                <label for="" class="label w-[30%]">Joindre des fichiers dans le projet</label>
                 <div class="flex w-[60%] bg-white">
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" formControlName="fichiers" (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+                      <input type="file"  (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
                       <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
@@ -220,12 +220,12 @@
                 </div>
               </div>
               <div class="div-line-form-bis mt-10">
-                <label for="" class="label w-[40%]">Joindre des plans</label>
+                <label for="" class="label w-[30%]">Joindre des plans</label>
                 <div class="flex w-[60%] bg-white">
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" formControlName="plans" (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+                      <input type="file" (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
                       <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
@@ -236,30 +236,30 @@
                 </div>
               </div>
             </div>
-            <div *ngSwitchCase="'4'" class="w-full px-40 border-b-2 pb-2 border-[#797777]/78">
+            <div *ngSwitchCase="'4'" class="w-full px-10 border-b-2 pb-2 border-[#797777]/78">
               <div class="div-line-form-bis mb-2">
-                <div class="w-full bg-white flex flex-col items-center shadow-sm  rounded-xl ">
+                <div class="w-full  flex flex-col items-center  rounded-xl ">
                   <label for="" class="label ">Veuillez choisir une date et une heure pour la réunion de lançement du projet </label>
                   <div class="demo-inline-calendar-card flex">
-                    <mat-calendar class="custom-calendar w-1/4 mr-5"  [(selected)]="selectedDate"></mat-calendar>
-                    <div class="w-1/3 flex flex-col justify-between mb-5">
+                    <mat-calendar [minDate]="minDate" class="custom-calendar w-1/4 mr-5"  [(selected)]="selectedDate"></mat-calendar>
+                    <div class="w-1/3 flex flex-col justify-center items-center mb-5">
                       <div class="flex justify-between">
-                        <input type="time" id="time" formControlName="heure" class="mt-10 bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#408A7E] focus:border-[#408A7E] block w-32 p-2.5 " min="09:00" max="18:00" value="00:00" />
+                        <input type="time" id="time" formControlName="heure" class=" mr-10 mt-10 bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#408A7E] focus:border-[#408A7E] block w-32 p-2.5 " min="09:00" max="18:00" value="00:00" />
                         <button class="h-10 mt-10 text-white font-dmsans py-2 px-5 bg-[#408A7E] rounded-lg" (click)="ajouterDate()" >
                           Valider
                         </button>
                       </div>
-                      <div class="flex justify-between">
+                      <!-- <div class="flex justify-between">
                         <button class="flex items-center text-[#408A7E] font-dmsans text-base" (click)="newCreneau()">
                           <i class="fas fa-plus mr-2"></i>
                           Ajouter un autre créneau
                         </button >
 
-                      </div>
+                      </div> -->
                     </div>
                     <img src="../../../assets/img/Line 43.svg" alt="" class="max-h-52 mt-10 mx-5">
-                    <div class="flex flex-col w-1/3 mt-10 h-64 overflow-y-scroll">
-                      <p class="italic font-semibold text-lg text-[#408A7E]">Dates choisies:</p>
+                    <div class="flex flex-col w-1/3 mt-10 h-52 overflow-y-scroll">
+                      <p class="font-dmsans font-semibold text-lg text-[#408A7E]">Dates choisies:</p>
                       <p class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2" *ngFor="let item of allDateChoosen">
                         {{item | date:'dd/MM/yyyy HH:mm'}}
                         <i class=" ml-2 fas fa-xmark" (click)="removeDate(item)"></i>

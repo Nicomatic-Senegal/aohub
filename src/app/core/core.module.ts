@@ -6,17 +6,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { ManagedUserVM } from './interfaces/managed-user-vm.model';
 import { LoginVM } from './interfaces/login-vm.model';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { DateFormatPipe } from './pipes/date.pipe';
 
 
 @NgModule({
   declarations: [
+    DateFormatPipe
   ],
   imports: [
     CommonModule,
     CoreRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports: [],
+  exports: [
+    DateFormatPipe
+  ],
   providers: [
     ManagedUserVM,
     LoginVM

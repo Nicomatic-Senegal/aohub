@@ -22,12 +22,13 @@ export class SideBarComponent implements OnInit {
   optionsBottom = [
     ["../../../assets/img/star.svg", "Avis", "/avis", "../../../assets/img/star-red.svg"],
     ["../../../assets/img/support.svg", "Support", "/support", "../../../assets/img/support-red.svg"],
-    ["../../../assets/img/setting.svg", "Paramétres", "/setting", "../../../assets/img/setting-red.svg"]
+    ["../../../assets/img/setting.svg", "Paramètres", "/setting", "../../../assets/img/setting-red.svg"]
   ];
   viewText: boolean = true;
   token: string;
   fullName!: string;
   email!: string;
+  picture!: string;
   @Input() screen!: string;
 
   onHamburger() {
@@ -47,6 +48,7 @@ export class SideBarComponent implements OnInit {
       next: (data: PartnerDTO) => {
         this.fullName = data.user.firstName + ' ' + data.user.lastName;
         this.email = data.user.login;
+        this.picture = data.imageBase64Content;
       },
       error: (err) => {
         console.log(err);

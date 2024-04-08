@@ -11,13 +11,13 @@
           <div class="div-password w-full">
             <input
               class="text-[#383838] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full"
-              type="{{ isPasswordVisible ? 'text' : 'password' }}"
+              type="{{ isOldPasswordVisible ? 'text' : 'password' }}"
               formControlName="oldPassword"
               id="oldPassword"
               name="oldPassword"
             />
-            <span class="toggle-password" (click)="togglePasswordVisibility()">
-              <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+            <span class="toggle-password" (click)="toggleOldPasswordVisibility()">
+              <i class="{{ isOldPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
             </span>
           </div>
           <div *ngIf="getControl('oldPassword')?.invalid && (getControl('oldPassword')?.dirty || getControl('oldPassword')?.touched)" class="text-red-600 text-xs">
@@ -40,7 +40,7 @@
           <div class="div-password w-full ">
             <input
               class="text-[#383838] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full"
-              type="{{ isOldPasswordVisible ? 'text' : 'password' }}"
+              type="{{ isPasswordVisible ? 'text' : 'password' }}"
               formControlName="password"
               id="password"
               name="password"

@@ -185,26 +185,36 @@ export class ParametreProfilComponent implements OnInit {
   }
 
   onDeletePicture() {
-    let pic: PictureVm = {};
-    pic.id = this.user.id;
-    pic.imageBase64Content = '';
-    this.userService.deletePicture(this.token, pic).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.user = data;
-        this.toastr.success("profil modifié avec succés.", "Succés", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
-      }
-    });
+    this.userToUpdate.userLogin = this.user.user.login;
+    this.userToUpdate.userFirstName = this.user.user.firstName;
+    this.userToUpdate.userLastName = this.user.user.lastName;
+    this.userToUpdate.phoneNumber = this.user.phoneNumber;
+    this.userToUpdate.enterpriseName = this.user.enterprise.name;
+    this.userToUpdate.employeePostTitle = this.user.employeePost.title;
+    this.userToUpdate.interestTopicLabels = this.user.interestTopics;
+    this.userToUpdate.imageBase64Content = '';
+    this.updateUser(this.userToUpdate);
+    // let pic: PictureVm = {};
+    // pic.id = this.user.id;
+    // pic.imageBase64Content = '';
+    // this.userService.deletePicture(this.token, pic).subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //     this.user = data;
+    //     this.toastr.success("profil modifié avec succés.", "Succés", {
+    //       timeOut: 3000,
+    //       positionClass: 'toast-top-center',
+    //    });
+    //    window.location.reload();
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //     this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
+    //       timeOut: 3000,
+    //       positionClass: 'toast-top-center',
+    //    });
+    //   }
+    // });
   }
 
   updateUser(userToUpdate: any) {
@@ -216,6 +226,7 @@ export class ParametreProfilComponent implements OnInit {
           timeOut: 3000,
           positionClass: 'toast-top-center',
        });
+       window.location.reload();
       },
       error: (err) => {
         console.log(err);

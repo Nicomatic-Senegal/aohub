@@ -68,7 +68,7 @@ export class ProjectService {
 
   getPartnersInMyProjects(token: string, idProject: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'positionings/project/' + idProject + '/partners';
+    const url = this.apiBaseUrl + 'positionings/project/' + idProject;
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
@@ -85,5 +85,19 @@ export class ProjectService {
     const url = this.apiBaseUrl + `projects/search-engine`;
 
     return this.http.get<Project>(url, { headers, params: {'query': query} });
+  }
+
+  validatePositioning(token: string, idPos: number): Observable<Project> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `positionings/validate/${idPos}`;
+
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
+  }
+
+  rejectPositioning(token: string, idPos: number): Observable<Project> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `positionings/reject/${idPos}`;
+
+    return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
 }

@@ -22,6 +22,7 @@ import { AttachmentDto, AttachmentType } from '../interfaces/attachment-dto.mode
 export class ProjectSubmissionComponent implements OnInit {
 
   step: number = 1;
+  minDate!: Date;
   titleSteps = ["Modalités", "Pièces jointes", "Lancement", "Terminer"];
   stepsIcons = [
     ["../../../assets/img/modality.svg", "../../../assets/img/modality-green.svg"],
@@ -60,6 +61,7 @@ export class ProjectSubmissionComponent implements OnInit {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
+    this.minDate = new Date();
     this.projectSubmissionForm = this.fb.group({
       intitule: new FormControl(null, [Validators.required]),
       client: new FormControl(null, [Validators.required]),
