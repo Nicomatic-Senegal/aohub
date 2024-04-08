@@ -9,6 +9,8 @@ import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs
 import { MatDialog } from '@angular/material/dialog';
 import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
 import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
+import { UserService } from '../services/user/user.service';
+import { PartnerDTO } from '../interfaces/partner.model';
 
 @Component({
   selector: 'app-opportunities',
@@ -22,6 +24,8 @@ export class OpportunitiesComponent {
   totalItems = 0;
   itemPerPage = 2;
   currentPage = 1;
+  currentConnectedUser!: PartnerDTO;
+  positionApplied: boolean = false;
   // startIndex = 1;
   // endIndex = 4;
   mapDays: Map<number, string> = new Map<number, string>();
@@ -33,14 +37,30 @@ export class OpportunitiesComponent {
     private toastr: ToastrService,
     private router: Router,
     private authService: AuthService,
+    private userService: UserService,
     public dialog: MatDialog
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
+      const id = userService.getUser(this.token);
     }
 
   ngOnInit(): void {
     this.loadAllProjects();
+    this.userService.getUser(this.token).subscribe({
+      next: (data) => {
+        this.currentConnectedUser = data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+          timeOut: 3000,
+          positionClass: 'toast-right-center',
+       });
+      }
+    })
+    console.log(this.listProject);
+    
   }
 
   loadAllProjects() {
@@ -130,6 +150,10 @@ export class OpportunitiesComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.positionApplied) {
+        console.log(result);
+        console.log(result.positionApplied);
+        
+        this.positionApplied = result.positionApplied;
       }
     });
   }

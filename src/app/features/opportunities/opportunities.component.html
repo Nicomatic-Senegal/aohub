@@ -1,8 +1,8 @@
-<div class="main flex w-full h-100vh overflow-auto">
+<div class="main flex w-full h-full overflow-auto">
   <app-side-bar class="app-side h-100vh" [screen]="'/opportunities'"></app-side-bar>
   <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
     <app-top-bar class="w-full flex-grow-1 " title="Opportunités"></app-top-bar>
-    <div class="div-center w-full h-90vh px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
+    <div class="div-center w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="projet-container rounded-xl w-full h-90vh bg-white px-5 pb-7 pt-5">
         <div class="header flex items-center justify-between py-2">
           <p class="font-bold font-dmsans text-lg">Nouveaux projets ({{ formatProjectCount(listProject.length) }})</p>
@@ -86,7 +86,12 @@
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.latestDeadline | date: 'dd/MM/yyyy'}}</p>
                   </div>
                 </div>
-                <button (click)="openApplyToProjectDialog(project)" class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+                <button 
+                  (click)="openApplyToProjectDialog(project)" 
+                  class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base"
+                  [ngClass]="{'bg-gray-400 cursor-not-allowed': project?.applicant?.id === currentConnectedUser.id || positionApplied === true}"
+                  [disabled]="project?.applicant?.id === currentConnectedUser.id || positionApplied === true"
+                  >
                   Se positionner
                 </button>
               </div>
