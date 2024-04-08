@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Project } from '../interfaces/project.model';
 import { EventSchedule } from '../interfaces/event-schedule';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-apply-project-dialog',
@@ -14,33 +15,30 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 export class ApplyProjectDialogComponent implements OnInit {
   token: string;
-  creneaux: any = null;
+  project!: Project;
   selectedCreneaux: EventSchedule[] = [];
-  projectId!: number;
-  listProjects: Project[] = [];
+  
   listEventSchedule: EventSchedule[] = [];
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private toastr: ToastrService,
     private projectService: ProjectService,
-    private authService: AuthService
+    private authService: AuthService,
+    public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any
   ) {
     this.token = authService.isLogged()!;
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      this.projectId = params['id'];
-    });
-
-    this.getProject(this.projectId);
+    this.project = this.dialogData.project;
+    this.formatDateInDisponibilities(this.project);
   }
 
   onApply() {
     if (this.selectedCreneaux.length > 0) {
-      const project = { id: this.projectId };
+      const project = { id: this.project.id };
       const payload = {
         disponibilities: this.selectedCreneaux.map(item => ({ id: item.id })),
         project
@@ -52,7 +50,7 @@ export class ApplyProjectDialogComponent implements OnInit {
             timeOut: 3000,
             positionClass: 'toast-top-right',
           });
-          this.router.navigate(["/opportunities"]);
+          this.dialogRef.close({ positionApplied: true });
         },
         error: (err) => {
           console.log(err);
@@ -69,26 +67,6 @@ export class ApplyProjectDialogComponent implements OnInit {
         positionClass: 'toast-top-right',
       });
     }
-  }
-
-  getProject(id: number) {
-    this.projectService.getProjectById(id).subscribe({
-      next: (data) => {
-        this.listProjects.push(data);
-        this.listProjects = this.listProjects.flatMap(data => data);
-        this.formatDateInDisponibilities(data);
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
-      },
-      complete: () => {
-
-      }
-    });
   }
 
   formatDateInDisponibilities(project: Project) {
@@ -134,9 +112,5 @@ export class ApplyProjectDialogComponent implements OnInit {
         // this.selectedCreneaux.splice(index, 1);
         this.selectedCreneaux = this.selectedCreneaux.filter(item => item !== this.selectedCreneaux[index]);
     }
-  }
-
-  backStep() {
-    this.router.navigate(['opportunities'])
   }
 }

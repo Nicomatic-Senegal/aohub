@@ -8,6 +8,7 @@ import { PartnerService } from '../services/partner/partner.service';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
+import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
 
 @Component({
   selector: 'app-opportunities',
@@ -108,13 +109,28 @@ export class OpportunitiesComponent {
     this.router.navigate(['apply-project']);
   }
 
-  openDialog(title: string, description: string) {
+  openShowMoreDialog(title: string, description: string) {
     this.dialog.open(ShowMoreDialogComponent, {
       hasBackdrop: true,
       data: {
         title, description
       },
       panelClass: 'custom-dialog-container'
+    });
+  }
+
+  openApplyToProjectDialog(project: Project) {
+    const dialogRef = this.dialog.open(ApplyProjectDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        project
+      },
+      panelClass: 'custom-dialog-container'
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.positionApplied) {
+      }
     });
   }
 
