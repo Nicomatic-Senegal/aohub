@@ -149,12 +149,8 @@ export class OpportunitiesComponent {
     })
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result && result.positionApplied) {
-        console.log(result);
-        console.log(result.positionApplied);
-        
-        this.positionApplied = result.positionApplied;
-      }
+      // TODO: ckeck if user have already apply to project
+      // this.positionApplied = result.positionApplied;
     });
   }
 
@@ -175,7 +171,8 @@ export class OpportunitiesComponent {
 
   calculateProgressWidth(projectId: number): number {
     const daysStr = this.mapDays.get(projectId) || '0';
-    const days = parseInt(daysStr)
+    let days = parseInt(daysStr);
+    days = Math.max(0, days);
     const progressWidth = (days / 8) * 100;
     return progressWidth;
   }
