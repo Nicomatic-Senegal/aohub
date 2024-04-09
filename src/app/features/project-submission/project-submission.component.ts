@@ -13,6 +13,7 @@ import { Disponibility } from '../interfaces/disponibility.model';
 import { data } from 'jquery';
 import { ProjectVM } from '../interfaces/project-vm.model';
 import { AttachmentDto, AttachmentType } from '../interfaces/attachment-dto.model';
+import { digitOnly } from '../interfaces/utils';
 
 @Component({
   selector: 'app-project-submission',
@@ -266,12 +267,7 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   onKeyPress(event: KeyboardEvent) {
-    const allowedChars = /^[0-9]+$/; // Expression régulière pour n'accepter que des chiffres
-
-    // Vérifier si la touche saisie est autorisée
-    if (!allowedChars.test(event.key)) {
-      event.preventDefault(); // Empêcher la saisie du caractère non autorisé
-    }
+    digitOnly(event);
   }
 
   ajouterDate() {

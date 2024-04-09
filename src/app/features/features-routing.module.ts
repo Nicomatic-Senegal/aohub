@@ -15,7 +15,7 @@ import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
-  { path: '', redirectTo: 'signup', pathMatch: 'full' },
+  { path: '', redirectTo: 'signin', pathMatch: 'full' },
   { path: 'signin', component: ConnexionComponent },
   { path: 'forget-password', component: MotDePasseOublieProcessusComponent },
   { path: 'setting', component: ParametresComponent },

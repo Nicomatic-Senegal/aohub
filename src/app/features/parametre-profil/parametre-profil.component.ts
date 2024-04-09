@@ -1,19 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
-import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
-import { InterestTopicDTO } from '../interfaces/interest-topic.model';
 import { EmployeePostDTO } from '../interfaces/employee.model';
 import { PartnerProfileVM } from '../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
-import { base64toFile } from '../interfaces/utils';
-import { PictureVm } from '../interfaces/picture-vm.model';
 
 @Component({
   selector: 'app-parametre-profil',

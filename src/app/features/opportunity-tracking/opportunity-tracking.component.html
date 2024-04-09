@@ -3,9 +3,9 @@
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="Mes projets"></app-top-bar>
     <div class="div-center">
-      <div class="flex">
+      <!-- <div class="flex">
         <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">&lt;Retour</button>
-      </div>
+      </div> -->
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">Suivi de mes opportunités</button>
         <!-- <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Mot de passe</button>
@@ -14,7 +14,7 @@
 
       <div class="rounded-2xl bg-white h-full w-full p-3">
         <ng-container *ngFor="let project of listProject; let i = index">
-          <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés {{project.title}}</p>
+          <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés sur le projet {{project.title}}</p>
           <table class="table-fixed">
             <thead>
               <tr>

@@ -1,5 +1,6 @@
 .background-inscription {
-  @apply bg-gradient-to-r from-[#B2BDE9] via-[#1B1515] to-[#5B74DD] via-[#1B1515] to-[#344054]
+  background-image: url('../assets/img/bg-inscription.png');
+  @apply bg-no-repeat bg-cover bg-[#61D1BF]
 }
 
 .div-input-inscription {
