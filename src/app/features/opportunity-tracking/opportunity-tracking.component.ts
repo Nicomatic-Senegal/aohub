@@ -10,6 +10,7 @@ import { forkJoin } from 'rxjs';
 import { PositioningDTO } from '../interfaces/positioning-dto.model';
 import { Disponibility } from '../interfaces/disponibility.model';
 import { data } from 'jquery';
+import { digitOnly } from '../interfaces/utils';
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -109,5 +110,13 @@ export class OpportunityTrackingComponent implements OnInit {
        });
       }
     });
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    digitOnly(event);
+  }
+
+  onValidRallonge() {
+    
   }
 }

@@ -10,5 +10,5 @@ export interface AttachmentDto {
   type: AttachmentType,
   fileSize: number,
   base64Content: string,
-  project: Project
+  project?: Project
 }

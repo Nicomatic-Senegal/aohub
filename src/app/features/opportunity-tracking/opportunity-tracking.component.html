@@ -14,6 +14,13 @@
 
       <div class="rounded-2xl bg-white h-full w-full p-3">
         <ng-container *ngFor="let project of listProject; let i = index">
+          <div class="w-full p-4 bg-white rounded-lg mb-5 flex ">
+            <p class="text-base text-[#161616] font-normal font-dmsans mr-5">Rallonger le délai pour se positionner sur cette opportunité de :</p>
+            <form class="flex">
+              <input type="number" class="input" min="1" max="30" (keypress)="onKeyPress($event)">
+              <button (click)="onValidRallonge()" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
+            </form>
+          </div>
           <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés sur le projet {{project.title}}</p>
           <table class="table-fixed">
             <thead>

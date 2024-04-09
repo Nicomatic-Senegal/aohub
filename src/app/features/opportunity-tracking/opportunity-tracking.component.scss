@@ -18,6 +18,10 @@
   @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold pt-5 mb-5
 }
 
+.input {
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent
+}
+
 
 table {
   width: 100%;

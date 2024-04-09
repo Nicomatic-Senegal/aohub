@@ -54,9 +54,7 @@ export class ProjectSubmissionComponent implements OnInit {
   disponibilites: Array<Disponibility> = [];
   filesChoosen: Array<string> = [];
   plansChoosen: Array<string> = [];
-  filesChoosenValues: Array<string> = [];
-  plansChoosenValues: Array<string> = [];
-
+  allFiles: Array<AttachmentDto> = [];
 
   constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
     authService.loggedOut();
@@ -99,8 +97,7 @@ export class ProjectSubmissionComponent implements OnInit {
     });
 
     // pour afficher uniquement les date posterieur
-    this.minDateFinString = format(dayStart, 'yyyy-MM-dd')
-
+    this.minDateFinString = format(dayStart, 'yyyy-MM-dd');
   }
 
   ngOnInit(): void {
@@ -112,7 +109,6 @@ export class ProjectSubmissionComponent implements OnInit {
         const dateFin = new Date(value);
         this.endDateToString = format(dateFin, 'yyyy-MM-dd');
       }
-
     });
 
     startDateControl.valueChanges.subscribe((value: any) => {
@@ -129,7 +125,6 @@ export class ProjectSubmissionComponent implements OnInit {
       const dateDebut = new Date(this.projectSubmissionForm.value.startDate);
 
       this.startDateToString = format(dateDebut, 'yyyy-MM-dd');
-
     });
 
     this.projectService.getAllDomains(this.token).subscribe({
@@ -147,14 +142,12 @@ export class ProjectSubmissionComponent implements OnInit {
       next: (data) => {
         this.markets = data;
         console.log(this.markets);
-
       },
       error: (err) => {
 
       }
     });
   }
-
 
   getControl(controlName: string) {
     return this.projectSubmissionForm.get(controlName);
@@ -208,32 +201,9 @@ export class ProjectSubmissionComponent implements OnInit {
       this.projectService.addProject(this.token, this.project).subscribe({
         next: (data) => {
           console.log(data);
-          this.filesChoosen.forEach(file => {
-            let attachment: AttachmentDto = {
-              name: '',
-              type: AttachmentType.NORMAL,
-              fileSize: 0,
-              base64Content: file,
-              project: data
-            };
-            this.projectService.addProjectAttachments(this.token, attachment).subscribe({
-              next: (data) => {
-
-              },
-              error: (err) => {
-
-              }
-            });
-          });
-          this.plansChoosen.forEach(file => {
-            let attachment: AttachmentDto = {
-              name: '',
-              type: AttachmentType.PLAN,
-              fileSize: 0,
-              base64Content: file,
-              project: data
-            };
-            this.projectService.addProjectAttachments(this.token, attachment).subscribe({
+          this.allFiles.forEach(file => {
+            file.project = data;
+            this.projectService.addProjectAttachments(this.token, file).subscribe({
               next: (data) => {
 
               },
@@ -254,8 +224,7 @@ export class ProjectSubmissionComponent implements OnInit {
             positionClass: 'toast-top-center',
          });
         }
-      })
-
+      });
     }
   }
 
@@ -306,30 +275,53 @@ export class ProjectSubmissionComponent implements OnInit {
     this.route.navigate(['/home']);
   }
 
+
   onFileSelected(event: any, indice: number) {
-    this.plansChoosen = [];
-    this.plansChoosenValues = [];
-    this.filesChoosen = [];
-    this.filesChoosenValues = [];
     const file = event.target.files[0];
     const reader = new FileReader();
+    const files: FileList = event.target.files;
 
-    reader.onload = () => {
-      const base64String = reader.result as string;
-      // console.log(base64String);
-      if (indice === 1) {
-        // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
-        this.filesChoosen.push(file.name);
-        this.filesChoosenValues.push(base64String);
-      } else {
-        // this.projectSubmissionForm.get('plans')?.setValue(file.name);
-        this.plansChoosen.push(file.name);
-        this.plansChoosenValues.push(base64String);
+    if (indice === 1) {
+      // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
+      this.filesChoosen = [];
+    } else {
+      this.plansChoosen = [];
+    }
+
+    for (let i = 0; i < files.length; i++) {
+      const file: File = files[i];
+      console.log('Nom du fichier:', file.name);
+      console.log('Type du fichier:', file.type);
+      console.log('Taille du fichier:', file.size, 'octets');
+      // Vous pouvez envoyer chaque fichier à votre backend ou effectuer toute autre action nécessaire ici
+
+      reader.onload = () => {
+        const base64String = reader.result as string;
+        // console.log(base64String);
+        if (indice === 1) {
+          let attachment: AttachmentDto = {
+            name: file.name,
+            type: AttachmentType.NORMAL,
+            fileSize: file.size,
+            base64Content: base64String
+          };
+          this.filesChoosen.push(file.name);
+          this.allFiles.push(attachment);
+        } else {
+          let attachment: AttachmentDto = {
+            name: file.name,
+            type: AttachmentType.PLAN,
+            fileSize: file.size,
+            base64Content: base64String
+          };
+          this.plansChoosen.push(file.name);
+          this.allFiles.push(attachment);
+        }
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
       }
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
     }
   }
 

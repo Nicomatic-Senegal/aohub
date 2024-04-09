@@ -1,6 +1,5 @@
 .background-inscription {
-  background-image: url('../assets/img/bg-inscription.png');
-  @apply bg-no-repeat bg-cover bg-[#61D1BF]
+  @apply  bg-[#F3F3F3]
 }
 
 .div-input-inscription {
@@ -16,7 +15,7 @@
 }
 
 .form-inscription {
-  @apply bg-white flex flex-col justify-center items-center rounded-[20px] w-full md:w-2/3 lg:w-1/2 p-5 mt-5 md:mt-2 lg:mt-0 shadow-lg shadow-[#D1E9FF]
+  @apply bg-white flex flex-col justify-center items-center rounded-[20px] w-full  p-5 mt-5 md:mt-2 lg:mt-0 shadow-lg shadow-[#D1E9FF]
 }
 
 .titre-inscription {
