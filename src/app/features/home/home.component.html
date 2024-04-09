@@ -34,31 +34,31 @@
                 coverflow-effect-modifier="1" 
                 coverflow-effect-slide-shadows="true"
                 >
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
                 </swiper-slide>
-                <swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
                   <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
                 </swiper-slide>
               </swiper-container>
@@ -70,25 +70,26 @@
             <swiper-container
               class="swiper-info-inhub" 
               effect="cube" 
+              speed="7000"
               autoplay="true"
               >
               <swiper-slide>
-                <img src="../../../assets/img/Inhub.svg" />
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.16.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/Inhub (1).svg"/>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.55.17.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/Inhub platform info.svg" />
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.57.19.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/Inhub Platform Info (1).svg" />
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.35.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/Inhub platform.svg" />
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.48.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/Inhub Platform Info (2).svg" />
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.54.55.jpeg" />
               </swiper-slide>
             </swiper-container>
           </div>
@@ -111,7 +112,11 @@
                     />
                 </div>
               </div>
-              <div *ngFor="let partner of searchData" class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2">
+              <div 
+                *ngFor="let partner of searchData" 
+                class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
+                (click)="openPartnerDetailsDialog(partner)"
+                >
                 <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
                 <div class="font-dmsans">
                     <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
