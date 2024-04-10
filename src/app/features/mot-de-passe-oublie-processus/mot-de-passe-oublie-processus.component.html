@@ -1,49 +1,53 @@
 <div class="background-inscription main">
   <app-selectionner-langue class="self-end"></app-selectionner-langue>
   <img src="../../../assets/img/New Logo inhub .png" alt="" class="self-start  w-16 md:w-20">
-
-  <div class="h-full w-full flex items-center justify-center ">
-    <div [ngSwitch]="page" class="form-inscription div-form">
-      <div class="right" *ngSwitchCase="0">
-        <div class="reset-mdp">
-          <p class="title">Mot de passe oublié</p>
-          <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
-          <form class="form" [formGroup]="mailForm">
-            <div class="w-full">
-              <label for="" class="label-inscription">Email</label>
-              <input type="email" class="input-inscription"  formControlName="email" >
-              <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-                L'email est requis.
-              </div>
-              <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-                Veuillez renseigner un email valide.
-              </div>
+  <div class="flex justify-between w-full h-full">
+    <div class="w-[48%] h-full flex flex-col justify-center items-center">
+      <img src="../../../assets/img/bg-inscription.png" class="max-h-1/2" alt="">
+    </div>
+    <div class="w-[48%] flex flex-col justify-center  h-full items-center">
+      <div class="h-full w-full flex items-center justify-center ">
+        <div [ngSwitch]="page" class="form-inscription div-form">
+          <div class="right" *ngSwitchCase="0">
+            <div class="reset-mdp">
+              <p class="title">Mot de passe oublié</p>
+              <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
+              <form class="form" [formGroup]="mailForm">
+                <div class="w-full">
+                  <label for="" class="label-inscription">Email</label>
+                  <input type="email" class="input-inscription"  formControlName="email" >
+                  <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
+                    L'email est requis.
+                  </div>
+                  <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
+                    Veuillez renseigner un email valide.
+                  </div>
+                </div>
+                <div class="div-button">
+                  <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
+                  <button type="submit" class="submit" [disabled]="mailForm.invalid" (click)="onSubmit(true)">Confirmer</button>
+                </div>
+              </form>
             </div>
-            <div class="div-button">
-              <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
-              <button type="submit" class="submit" [disabled]="mailForm.invalid" (click)="onSubmit(true)">Confirmer</button>
+          </div>
+          <div class="right" *ngSwitchCase="1">
+            <div class="reset-mdp">
+              <img src="../../../assets/img/timer.svg" alt="">
+              <p class="title">Mot de passe oublié</p>
+              <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
+                Veuillez vérifier votre boîte de réception</p>
+                <div class="footer-inscription mb-3 self-start">
+                  <button  [disabled]="isButtonDisabled()" (click)="startTimerOnClick()" class="flex">Renvoyer le lien par e-mail (<p *ngIf="seconds < 60"> {{seconds}} </p>) </button>
+                </div>
+                <div class="footer-inscription self-start" (click)="decremente()">
+                  <button>Modifier l'adresse e-mail</button>
+                </div>
             </div>
-          </form>
+          </div>
+          <div *ngSwitchDefault=""></div>
         </div>
       </div>
-      <div class="right" *ngSwitchCase="1">
-        <div class="reset-mdp">
-          <img src="../../../assets/img/timer.svg" alt="">
-          <p class="title">Mot de passe oublié</p>
-          <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
-            Veuillez vérifier votre boîte de réception</p>
-            <div class="footer-inscription mb-3 self-start">
-              <button  [disabled]="isButtonDisabled()" (click)="startTimerOnClick()" class="flex">Renvoyer le lien par e-mail (<p *ngIf="seconds < 60"> {{seconds}} </p>) </button>
-            </div>
-            <div class="footer-inscription self-start" (click)="decremente()">
-              <button>Modifier l'adresse e-mail</button>
-            </div>
-        </div>
-      </div>
-      <div *ngSwitchDefault=""></div>
     </div>
   </div>
-
-
 </div>
 
