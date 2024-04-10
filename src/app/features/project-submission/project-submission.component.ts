@@ -277,8 +277,6 @@ export class ProjectSubmissionComponent implements OnInit {
 
 
   onFileSelected(event: any, indice: number) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
     const files: FileList = event.target.files;
 
     if (indice === 1) {
@@ -294,6 +292,7 @@ export class ProjectSubmissionComponent implements OnInit {
       console.log('Type du fichier:', file.type);
       console.log('Taille du fichier:', file.size, 'octets');
       // Vous pouvez envoyer chaque fichier à votre backend ou effectuer toute autre action nécessaire ici
+      const reader = new FileReader();
 
       reader.onload = () => {
         const base64String = reader.result as string;
