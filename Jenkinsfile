@@ -40,6 +40,12 @@ pipeline {
                 }
             }
         }
+
+      stage('Trigger Deployment') {
+            steps {
+                httpRequest url:"http://dev.plateforme-inhub.com:1777", validResponseCodes:'200'
+            }
+        }
     }
 
     post {
