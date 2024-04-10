@@ -5,18 +5,15 @@
     
     <div class="lg:flex lg:justify-center">
         <div class="w-full lg:pl-4 lg:mt-4 mr-4 flex flex-col items-center lg:items-end">
-            <div class="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex items-center justify-center">
-                <img *ngIf="enterprise.imageBase64Content" class="object-cover rounded-full h-full w-full" [src]="enterprise.imageBase64Content || '../../../assets/img/placeholder-image.jpg'" alt="">
-                <svg *ngIf="!enterprise.imageBase64Content" class="absolute w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
-                </svg>
+            <div class="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-full flex text-center items-center justify-center lg:justify-center">
+                <img class="object-cover rounded-full h-full w-full text-center item-center" src="{{imageUrl}}" alt="">
             </div>
             <div class="flex flex-col justify-between leading-normal">
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{enterprise.name || 'Enterprise name'}}</h5>
-                <p class="mb-3 font-normal text-gray-700">{{enterprise.description || 'Enterprise eescription'}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{enterprise.address || 'Enterprise adresse'}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{enterprise.email || 'Enterprise email'}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{enterprise.phoneNumber || 'Enterprise phone number'}}</p>
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{enterprise.name}}</h5>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.description}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.address}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.phoneNumber}}</p>
+                <a href="{{enterprise.email}}" class="text-blue-500 mb-3 font-normal text-gray-700">{{enterprise.email}}</a>
             </div>
         </div>
     </div>

@@ -20,8 +20,8 @@ export class EnterpriseService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
-  getEntrepriseById(enterpriseId: any): Observable<any> {
-    let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
+  getEntrepriseById(enterpriseId: any, token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + `enterprises/${enterpriseId}`;
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
