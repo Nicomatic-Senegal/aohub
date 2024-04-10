@@ -124,7 +124,7 @@ export class OpportunityTrackingComponent implements OnInit {
 
   status(value?: PositioningStatus, ) {
 
-    if(value) {
+    if(value != undefined) {
       switch(value) {
         case PositioningStatus.ACCEPTED: return 1;
         case PositioningStatus.REJECTED: return 2;
