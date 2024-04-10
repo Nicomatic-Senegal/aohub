@@ -49,7 +49,6 @@
                   Rejeté
                 </td>
                 <td *ngIf="status(item?.status) === 3">
-                  <p>{{item.status}} </p>
                   <button (click)="rejectPositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md mr-3 mb-3">Rejeter</button>
                   <button (click)="validatePositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
                 </td>

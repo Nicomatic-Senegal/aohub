@@ -50,8 +50,8 @@
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Client</label>
-                  <div class=" w-[60%]">
+                  <label for="" class="label mr-10">Client</label>
+                  <div class=" w-full">
                     <input type="text" class="input" placeholder="Entrer le nom du client" formControlName="client" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
                       Le client du projet est requis.
@@ -104,7 +104,7 @@
                 <div class="part-line-form">
                   <p class="label">Métiers choisis</p>
                   <div class="flex justify-between items-center min-h-20 w-full">
-                    <div class="overflow-y-scroll border-[2px] border-[#737373]/20 w-full min-h-10 max-h-20 rounded-lg flex px-2 flex-wrap">
+                    <div class="overflow-y-scroll border-[2px] border-[#737373]/20 w-full h-20 rounded-lg flex px-2 flex-wrap">
                       <div *ngFor="let item of domainChoosen" class=" rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
                     </div>
                   </div>
