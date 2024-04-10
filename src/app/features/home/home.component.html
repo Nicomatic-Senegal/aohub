@@ -115,8 +115,9 @@
                 (click)="openPartnerDetailsDialog(partner)"
                 >
                 <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
-                <div class="font-dmsans">
+                <div class="font-dmsans flex-wrap">
                     <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
+                    <!-- <div class="text-sm text-gray-900 wrap">{{partner?.user?.email}}</div> -->
                     <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
                     <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
                 </div>
