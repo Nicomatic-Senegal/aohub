@@ -6,7 +6,7 @@ import { BaseAppService } from '../../core/services/base-app/base-app.service';
 import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
-import { confirmedValidator } from '../interfaces/utils';
+import { confirmedValidator, digitOnly } from '../interfaces/utils';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeePostDTO } from '../interfaces/employee.model';
 
@@ -109,8 +109,12 @@ export class InscriptionComponent implements OnInit {
 
     this.authService.register(this.user).subscribe({
       next: (data) => {
+        this.toastr.success("Vous allez recevoir un mail de validation.", "Succés", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
         this.registerForm.reset();
-        this.seConnecter();
+        // this.seConnecter();
       },
       error: (err) => {
         console.log(err);
@@ -119,6 +123,10 @@ export class InscriptionComponent implements OnInit {
           positionClass: 'toast-top-center',
        });
       }
-    })
+    });
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    digitOnly(event);
   }
 }

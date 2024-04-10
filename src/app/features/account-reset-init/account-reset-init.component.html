@@ -1,79 +1,86 @@
 <div class="background-inscription main">
   <app-selectionner-langue class="self-end"></app-selectionner-langue>
-  <img src="../../../assets/img/logo-inhub.svg" alt="" class="self-start w-16 md:w-20">
-  <div class="h-full w-full flex items-center justify-center">
-    <div [ngSwitch]="page" class="form-inscription div-form">
-      <div class="right" *ngSwitchCase="0">
-        <div class="reset-mdp">
-          <p class="title">Reinitialisation de votre mot de passe</p>
-          <form class="form mt-10" [formGroup]="changePasswordForm">
-            <div class="w-full">
-              <label for="" class="label-inscription" >Nouveau mot de passe</label>
-              <div class="div-password">
-                <input
-                  class="input-inscription"
-                  type="{{ isPasswordVisible ? 'text' : 'password' }}"
-                  formControlName="password"
-                  id="password"
-                  name="password"
-                />
-                <span class="toggle-password" (click)="togglePasswordVisibility()">
-                  <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
-                </span>
-              </div>
-              <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-                Le Mot de passe est requis.
-              </div>
-              <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
-                Le Mot de passe doit être supérieur à 4 caractères.
-              </div>
-              <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-                Le Mot de passe doit être inférieur à 100 caractères.
-              </div>
+  <img src="../../../assets/img/New Logo inhub .png" alt="" class="self-start w-16 md:w-20">
+  <div class="flex justify-between w-full h-full">
+    <div class="w-[48%] h-full flex flex-col justify-center ">
+      <img src="../../../assets/img/bg-inscription.png" class="max-h-1/2" alt="">
+    </div>
+    <div class="w-[48%] flex flex-col justify-center  h-full items-center">
+      <div class="h-full w-full flex items-center justify-center">
+        <div [ngSwitch]="page" class="form-inscription div-form">
+          <div class="right" *ngSwitchCase="0">
+            <div class="reset-mdp">
+              <p class="title">Reinitialisation de votre mot de passe</p>
+              <form class="form mt-10" [formGroup]="changePasswordForm">
+                <div class="w-full">
+                  <label for="" class="label-inscription" >Nouveau mot de passe</label>
+                  <div class="div-password">
+                    <input
+                      class="input-inscription"
+                      type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                      formControlName="password"
+                      id="password"
+                      name="password"
+                    />
+                    <span class="toggle-password" (click)="togglePasswordVisibility()">
+                      <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+                    </span>
+                  </div>
+                  <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
+                    Le Mot de passe est requis.
+                  </div>
+                  <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
+                    Le Mot de passe doit être supérieur à 4 caractères.
+                  </div>
+                  <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
+                    Le Mot de passe doit être inférieur à 100 caractères.
+                  </div>
+                </div>
+                <div class="w-full mt-5">
+                  <label for="" class="label-inscription">Confirmer nouveau mot de passe</label>
+                  <div class="div-password">
+                    <input
+                      class="input-inscription"
+                      type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
+                      formControlName="cpassword"
+                      id="cpassword"
+                      name="cpassword"
+                    />
+                    <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                      <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+                    </span>
+                  </div>
+                  <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+                    Le Mot de passe est requis.
+                  </div>
+                  <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
+                    Le Mot de passe doit être supérieur à 4 caractères.
+                  </div>
+                  <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
+                    Le Mot de passe doit être inférieur à 100 caractères.
+                  </div>
+                  <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+                    Les mots de passe doivent etre similaires.
+                  </div>
+                </div>
+                <div class="div-button">
+                  <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
+                  <button type="submit" class="submit" (click)="onSubmit()" [disabled]="changePasswordForm.invalid">Confirmer</button>
+                </div>
+              </form>
             </div>
-            <div class="w-full mt-5">
-              <label for="" class="label-inscription">Confirmer nouveau mot de passe</label>
-              <div class="div-password">
-                <input
-                  class="input-inscription"
-                  type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
-                  formControlName="cpassword"
-                  id="cpassword"
-                  name="cpassword"
-                />
-                <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
-                  <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
-                </span>
-              </div>
-              <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-                Le Mot de passe est requis.
-              </div>
-              <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
-                Le Mot de passe doit être supérieur à 4 caractères.
-              </div>
-              <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
-                Le Mot de passe doit être inférieur à 100 caractères.
-              </div>
-              <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-                Les mots de passe doivent etre similaires.
-              </div>
+          </div>
+          <div class="right" *ngSwitchCase="1">
+            <div class="reset-mdp">
+              <img src="../../../assets/img/success.svg" alt="">
+              <p class="title">Mot de passe mis à jour</p>
+              <p class="desc ">Votre mot de passe a été modifié avec succès.</p>
+              <button (click)="toConnexion()" class="submit-inscription">Se connecter</button>
             </div>
-            <div class="div-button">
-              <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
-              <button type="submit" class="submit" (click)="onSubmit()" [disabled]="changePasswordForm.invalid">Confirmer</button>
-            </div>
-          </form>
+          </div>
+          <div *ngSwitchDefault=""></div>
         </div>
       </div>
-      <div class="right" *ngSwitchCase="1">
-        <div class="reset-mdp">
-          <img src="../../../assets/img/success.svg" alt="">
-          <p class="title">Mot de passe mis à jour</p>
-          <p class="desc ">Votre mot de passe a été modifié avec succès.</p>
-          <button (click)="toConnexion()" class="submit-inscription">Se connecter</button>
-        </div>
-      </div>
-      <div *ngSwitchDefault=""></div>
     </div>
   </div>
 </div>

@@ -3,9 +3,9 @@
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="Mes projets"></app-top-bar>
     <div class="div-center">
-      <div class="flex">
+      <!-- <div class="flex">
         <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">&lt;Retour</button>
-      </div>
+      </div> -->
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">Suivi de mes opportunités</button>
         <!-- <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Mot de passe</button>
@@ -14,7 +14,15 @@
 
       <div class="rounded-2xl bg-white h-full w-full p-3">
         <ng-container *ngFor="let project of listProject; let i = index">
-          <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés {{project.title}}</p>
+          <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés sur le projet {{project.title}}</p>
+          <div class="w-full p-4 rounded-lg my-5 flex items-center">
+            <p class=" text-lg font-semibold text-[#161616] font-dmsans mr-5">Rallonger le délai pour se positionner sur cette opportunité de :</p>
+            <form class=" flex items-center">
+              <input type="number" class="input mr-5" min="1" value="1" max="30" (keypress)="onKeyPress($event)">
+              <label for="" class="text-base font-dmsans text-black mr-5">jour(s) ouvrable(s)</label>
+              <button (click)="onValidRallonge()" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
+            </form>
+          </div>
           <table class="table-fixed">
             <thead>
               <tr>
@@ -34,8 +42,15 @@
                 </td>
                 <td>{{item?.partner?.user?.login}} </td>
                 <td>{{item?.partner?.enterprise?.name}} </td>
-                <td>
-                  <button (click)="rejectPositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md mr-3">Rejeter</button>
+                <td *ngIf="status(item?.status) === 1">
+                  Accepté
+                </td>
+                <td *ngIf="status(item?.status) === 2">
+                  Rejeté
+                </td>
+                <td *ngIf="status(item?.status) === 3">
+                  <p>{{item.status}} </p>
+                  <button (click)="rejectPositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#EE1B22] shadow-md mr-3 mb-3">Rejeter</button>
                   <button (click)="validatePositioning(project.id, j, item.id)" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
                 </td>
               </tr>

@@ -103,7 +103,7 @@
                 </div>
                 <div class="part-line-form">
                   <p class="label">Métiers choisis</p>
-                  <div class="flex justify-between items-center min-h-10 w-full">
+                  <div class="flex justify-between items-center min-h-20 w-full">
                     <div class="overflow-y-scroll border-[2px] border-[#737373]/20 w-full min-h-10 max-h-20 rounded-lg flex px-2 flex-wrap">
                       <div *ngFor="let item of domainChoosen" class=" rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
                     </div>
@@ -145,7 +145,7 @@
                       <option value="PUNCTUAL">Ponctuel</option>
                     </select>
                     <div *ngIf="getControl('typeDeBesoin')?.invalid && (getControl('typeDeBesoin')?.dirty || getControl('typeDeBesoin')?.touched)" class="text-red-600 text-xs">
-                      Le marché est requis.
+                      Le type de besoin est requis.
                     </div>
                   </div>
                 </div>
@@ -209,12 +209,14 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file"  (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+                      <input type="file" multiple (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
                       <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
                     <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
-                    <p *ngIf="filesChoosen.length !== 0"  class="text-sm font-dmsans font-thin text-black mb-2">{{filesChoosen.toString()}} </p>
+                    <div class="w-full overflow-x-scroll">
+                      <p *ngIf="filesChoosen.length !== 0"  class="text-sm font-dmsans font-thin text-black mb-2">{{filesChoosen.toString()}} </p>
+                    </div>
                     <!-- <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end"> -->
                   </div>
                 </div>
@@ -225,12 +227,14 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+                      <input type="file" multiple (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
                       <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
                     <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
-                    <p *ngIf="plansChoosen.length !== 0" class="text-sm font-dmsans font-thin text-black mb-2">{{plansChoosen.toString()}} </p>
+                    <div class="w-full overflow-x-scroll">
+                      <p *ngIf="plansChoosen.length !== 0" class="text-sm font-dmsans font-thin text-black mb-2">{{plansChoosen.toString()}} </p>
+                    </div>
                     <!-- <img src="../../../assets/img/jpg-green.svg" alt="" class="self-end"> -->
                   </div>
                 </div>

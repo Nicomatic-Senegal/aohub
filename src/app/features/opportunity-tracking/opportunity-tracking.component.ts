@@ -7,9 +7,10 @@ import { ProjectService } from '../services/project/project.service';
 import { Project } from '../interfaces/project.model';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { forkJoin } from 'rxjs';
-import { PositioningDTO } from '../interfaces/positioning-dto.model';
+import { PositioningDTO, PositioningStatus } from '../interfaces/positioning-dto.model';
 import { Disponibility } from '../interfaces/disponibility.model';
 import { data } from 'jquery';
+import { digitOnly } from '../interfaces/utils';
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -23,6 +24,7 @@ export class OpportunityTrackingComponent implements OnInit {
   screen: number = 1;
   positioners: Array<Array<PositioningDTO>> = [];
 
+
   constructor(
     private projectService: ProjectService,
     private toastr: ToastrService,
@@ -30,6 +32,7 @@ export class OpportunityTrackingComponent implements OnInit {
     private authService: AuthService,) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
+
   }
 
   ngOnInit(): void {
@@ -78,7 +81,7 @@ export class OpportunityTrackingComponent implements OnInit {
   validatePositioning(idProject: number, indice: number, idPos: number) {
     this.projectService.validatePositioning(this.token, idPos).subscribe({
       next: (data) => {
-        this.positioners[idProject].splice(indice, 1);
+        this.positioners[idProject][indice].status = PositioningStatus.ACCEPTED;
         this.toastr.success("vous avez validé le partenaire.", "Succés", {
           timeOut: 3000,
           positionClass: 'toast-top-center',
@@ -96,7 +99,7 @@ export class OpportunityTrackingComponent implements OnInit {
   rejectPositioning(idProject: number, indice: number, idPos: number) {
     this.projectService.rejectPositioning(this.token, idPos).subscribe({
       next: (data) => {
-        this.positioners[idProject].splice(indice, 1);
+        this.positioners[idProject][indice].status = PositioningStatus.REJECTED;
         this.toastr.success("vous avez rejeté le partenaire.", "Succés", {
           timeOut: 3000,
           positionClass: 'toast-top-center',
@@ -109,5 +112,25 @@ export class OpportunityTrackingComponent implements OnInit {
        });
       }
     });
+  }
+
+  onKeyPress(event: KeyboardEvent) {
+    digitOnly(event);
+  }
+
+  onValidRallonge() {
+
+  }
+
+  status(value?: PositioningStatus, ) {
+
+    if(value) {
+      switch(value) {
+        case PositioningStatus.ACCEPTED: return 1;
+        case PositioningStatus.REJECTED: return 2;
+        default: return 3;
+      }
+    }
+    return 3;
   }
 }

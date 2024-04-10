@@ -15,12 +15,12 @@ export class SideBarComponent implements OnInit {
     ["../../../assets/img/home.svg", "Accueil", "/home", "../../../assets/img/home-red.svg"],
     ["../../../assets/img/projects.svg", "Mes projets", "/projets", "../../../assets/img/projects-red.svg"],
     ["../../../assets/img/opportunity.svg", "Opportunités", "/opportunities", "../../../assets/img/opportunity-red.svg"],
-    ["../../../assets/img/activity.svg", "Activités", "/activite", "../../../assets/img/activity-red.svg"],
-    ["../../../assets/img/notification.svg", "Notifications", "/notification", "../../../assets/img/notification-red.svg"]
+    // ["../../../assets/img/activity.svg", "Activités", "/activite", "../../../assets/img/activity-red.svg"],
+    // ["../../../assets/img/notification.svg", "Notifications", "/notification", "../../../assets/img/notification-red.svg"]
   ];
 
   optionsBottom = [
-    ["../../../assets/img/star.svg", "Avis", "/avis", "../../../assets/img/star-red.svg"],
+    // ["../../../assets/img/star.svg", "Avis", "/avis", "../../../assets/img/star-red.svg"],
     ["../../../assets/img/support.svg", "Support", "/support", "../../../assets/img/support-red.svg"],
     ["../../../assets/img/setting.svg", "Paramètres", "/setting", "../../../assets/img/setting-red.svg"]
   ];
