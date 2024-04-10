@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-enterprise-details-dialog',
@@ -11,17 +12,23 @@ import { EnterpriseService } from '../services/enterprise/enterprise.service';
 export class EnterpriseDetailsDialogComponent implements OnInit {
   enterpriseId!: EnterpriseDTO;
   enterprise!: EnterpriseDTO;
-  constructor(public dialogRef: MatDialogRef<EnterpriseDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any, private enterpriseService: EnterpriseService) {
-      
+  imageUrl!: string;
+  token: string;
+
+  constructor(
+    public dialogRef: MatDialogRef<EnterpriseDetailsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any, 
+    private enterpriseService: EnterpriseService,
+    private authService: AuthService) {
+      this.token = authService.isLogged()!;
     }
 
     ngOnInit() {
-      this.enterpriseId = this.dialogData.enterprise;
-      this.enterpriseService.getEntrepriseById(this.enterpriseId).subscribe({
+      this.enterpriseId = this.dialogData.enterpriseId;
+      this.imageUrl = this.dialogData.imageUrl;
+
+      this.enterpriseService.getEntrepriseById(this.enterpriseId, this.token).subscribe({
         next: (data) => {
-          console.log(data);
-          
           this.enterprise = data;
         },
         error: (err) => {
