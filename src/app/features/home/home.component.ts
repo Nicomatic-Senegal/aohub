@@ -120,6 +120,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         next: (data) => {
           this.searchData.push(data);
           this.searchData = this.searchData.flatMap(data => data);
+          console.log(this.searchData);
           
         },
         error: (err) => {

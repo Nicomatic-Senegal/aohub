@@ -14,7 +14,7 @@ export class PartnerService {
     this.apiBaseUrl = environment.apiBaseUrl;
   }
 
-  getPartnerById(token: string, id: number): Observable<PartnerDTO> {
+  getPartnerById( id: number, token: string): Observable<PartnerDTO> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + `partners/${id}`;
 

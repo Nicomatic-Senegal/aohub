@@ -11,27 +11,27 @@
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <div class="flex flex-col justify-between pt-1 leading-normal">
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{partner.user.firstName || 'First Name'}} {{partner.user.lastName || 'Last Name'}}</h5>
-                <p class="mb-3 font-normal text-gray-700">Email</p>
-                <p class="mb-3 font-normal text-gray-700">{{partner.employeePost.title || 'Employee Title'}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{partner.phoneNumber}}</p>
+            <div class="flex flex-col justify-left items-start pt-1 leading-normal">
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900 text-center items-cente justify-center">{{partner.user.firstName}} {{partner.user.lastName || 'Last Name'}}</h5>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Métier: </span>{{partner.employeePost.title}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Adresse email: </span> {{partner.user.email}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Numéro de téléphone: </span> {{partner.phoneNumber}}</p>
             </div>
         </div>
         <div class="lg:w-1/2 lg:pl-4 lg:mt-4 mr-4 flex flex-col items-center lg:items-end">
             <div class="flex flex-col justify-between leading-normal">
-                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{partner.enterprise.name || 'Enterprise Name'}}</h5>
-                <p class="mb-3 font-normal text-gray-700">{{partner.enterprise.description || 'Enterprise Description'}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{partner.enterprise.address}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{partner.enterprise.email}}</p>
-                <p class="mb-3 font-normal text-gray-700">{{partner.enterprise.phoneNumber}}</p>
+                <h5 class="mb-2 text-lg font-bold tracking-tight text-gray-900">{{enterprise.name}}</h5>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.description}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.address}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.email}}</p>
+                <p class="mb-3 font-normal text-gray-700">{{enterprise.phoneNumber}}</p>
             </div>
-            <div class="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex items-center justify-center">
-                <img *ngIf="partner.imageBase64Content" class="object-cover rounded-full h-full w-full" [src]="partner.imageBase64Content || '../../../assets/img/placeholder-image.jpg'" alt="">
+            <!-- <div class="relative w-20 h-20 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600 flex items-center justify-center">
+                <img *ngIf="enterprise.imageBase64Content" class="object-cover rounded-full h-full w-full" [src]="enterprise.imageBase64Content || '../../../assets/img/placeholder-image.jpg'" alt="">
                 <svg *ngIf="!partner.imageBase64Content" class="absolute w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
                 </svg>
-            </div>
+            </div> -->
         </div>
     </div>
     

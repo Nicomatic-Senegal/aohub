@@ -42,7 +42,8 @@ export class ParametreProfilComponent implements OnInit {
       id: 0,
       login: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      email: ''
     },
     enterprise: {
       id: 0,
