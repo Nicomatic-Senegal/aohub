@@ -209,7 +209,7 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file"  (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+                      <input type="file" multiple (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
                       <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
@@ -227,7 +227,7 @@
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
-                      <input type="file" (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+                      <input type="file" multiple (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
                       <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
                       <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
                     </div>
