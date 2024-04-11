@@ -20,7 +20,7 @@ export class OpportunityTrackingComponent implements OnInit {
   screen: number = 1;
   positioners: Array<Array<PositioningDTO>> = [];
   totalItems = 4;
-  itemPerPage = 1;
+  itemPerPage = 2;
   currentPage = 1;
 
 
