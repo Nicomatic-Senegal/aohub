@@ -7,6 +7,7 @@ import { Project } from '../interfaces/project.model';
 import { PositioningDTO, PositioningStatus } from '../interfaces/positioning-dto.model';
 import { Disponibility } from '../interfaces/disponibility.model';
 import { digitOnly } from '../interfaces/utils';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -23,19 +24,43 @@ export class OpportunityTrackingComponent implements OnInit {
   itemPerPage = 2;
   currentPage = 1;
 
+  myForm: FormGroup;
+
 
   constructor(
     private projectService: ProjectService,
     private toastr: ToastrService,
     private route: Router,
-    private authService: AuthService,) {
+    private authService: AuthService,
+    private fb: FormBuilder) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
+      this.myForm = this.fb.group({
+        nbDays: [1, [Validators.required, Validators.min(1), Validators.max(30)]]
+      });
 
   }
 
   ngOnInit(): void {
     this.loadProject();
+  }
+
+  extendDeadlineForOpportunity(): void {
+    if (this.myForm.valid) {
+      const nbDays = this.myForm.get('nbDays')?.value;
+      this.projectService.extendDeadlineForOpportunity(this.token, nbDays).subscribe({
+        next: (data) => {
+          this.toastr.success("Vous avez rallongé la durée du projet de: " + nbDays + " jours.", "Succès", {
+            timeOut: 3000,
+            positionClass: 'toast-right-center',
+         });
+          console.log(data);
+        },
+        error: (error) => {
+          console.log(error);
+        }
+      });
+    }
   }
 
   loadProject() {

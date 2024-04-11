@@ -107,4 +107,11 @@ export class ProjectService {
 
     return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
+
+  extendDeadlineForOpportunity(token: string, nbDays: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects}`;
+
+    return this.http.patch<void>(url, { headers, responseType: 'json' });
+  }
 }

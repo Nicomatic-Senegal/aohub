@@ -20,10 +20,10 @@
             <p class="text-[#408A7E] text-xl font-semibold font-dmsans">Liste des positionnés sur le projet: <span class="font-bold">{{project.title}}</span></p>
             <div class="w-full rounded-lg mt-3 mb-5 flex items-center">
               <p class=" text-md font-semibold text-[#161616] font-dmsans mr-5">Rallonger le délai pour se positionner sur cette opportunité de :</p>
-              <form class=" flex items-center">
-                <input type="number" class="input mr-5" min="1" value="1" max="30" (keypress)="onKeyPress($event)">
-                <label for="" class="text-base font-dmsans text-black mr-5">jour(s)</label>
-                <button (click)="onValidRallonge()" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
+              <form [formGroup]="myForm" (ngSubmit)="extendDeadlineForOpportunity()" class="flex items-center">
+                <input type="number" formControlName="nbDays">
+                <label for="nbDays" class="text-base font-dmsans text-black mr-5">jour(s)</label>
+                <button type="submit" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md">Valider</button>
               </form>
             </div>
             <table class="table-fixed">
