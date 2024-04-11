@@ -137,30 +137,6 @@
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Type de besoin</label>
-                  <div class=" w-[60%] ">
-                    <select formControlName="typeDeBesoin" class="input">
-                      <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
-                      <option value="CONTRACT">Contrat</option>
-                      <option value="PUNCTUAL">Ponctuel</option>
-                    </select>
-                    <div *ngIf="getControl('typeDeBesoin')?.invalid && (getControl('typeDeBesoin')?.dirty || getControl('typeDeBesoin')?.touched)" class="text-red-600 text-xs">
-                      Le type de besoin est requis.
-                    </div>
-                  </div>
-                </div>
-                <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Durée (jours)</label>
-                  <div class=" w-[60%]">
-                    <input type="number" class="input" placeholder="" formControlName="duree" min="0" (keypress)="onKeyPress($event)">
-                    <div *ngIf="getControl('duree')?.invalid && (getControl('duree')?.dirty || getControl('duree')?.touched)" class="text-red-600 text-xs">
-                      La durée du projet est requise.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="div-line-form">
-                <div class="part-line-form">
                   <label for="" class="label w-[30%]">Volume global</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="volumeGlobal" min="0" (keypress)="onKeyPress($event)">
@@ -197,6 +173,27 @@
                     <input type="date" [min]="minDateFinString" formControlName="endDate" placeholder="Date de fin" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTard')?.invalid && (getControl('delaiPlusTard')?.dirty || getControl('delaiPlusTard')?.touched)" class="text-red-600 text-xs">
                       Le delai au plus tard du projet est requis.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="div-line-form">
+                <div class="part-line-form">
+                  <label for="" class="label w-[30%]">Type de besoin</label>
+                  <div class=" w-[60%] ">
+                    <select formControlName="typeDeBesoin" class="input" (change)="onTypeDeBesoinSelected($event)">
+                      <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
+                      <option value="CONTRACT">Contractuel</option>
+                      <option value="PUNCTUAL">Ponctuel</option>
+                    </select>
+                  </div>
+                </div>
+                <div *ngIf="displayContractDuration" class="part-line-form">
+                  <label for="" class="label w-[30%]">Durée (années)</label>
+                  <div class=" w-[60%]">
+                    <input type="number" class="input" placeholder="" formControlName="duree" min="0" (keypress)="onKeyPress($event)">
+                    <div *ngIf="getControl('duree')?.invalid && (getControl('duree')?.dirty || getControl('duree')?.touched)" class="text-red-600 text-xs">
+                      La durée du projet est requise.
                     </div>
                   </div>
                 </div>

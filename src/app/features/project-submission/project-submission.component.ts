@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Market } from '../interfaces/market.model';
-import { Project } from '../interfaces/project.model';
 import { Domain } from '../interfaces/domain.model';
 import { ProjectService } from '../services/project/project.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Disponibility } from '../interfaces/disponibility.model';
-import { data } from 'jquery';
 import { ProjectVM } from '../interfaces/project-vm.model';
 import { AttachmentDto, AttachmentType } from '../interfaces/attachment-dto.model';
 import { digitOnly } from '../interfaces/utils';
@@ -55,6 +52,7 @@ export class ProjectSubmissionComponent implements OnInit {
   filesChoosen: Array<string> = [];
   plansChoosen: Array<string> = [];
   allFiles: Array<AttachmentDto> = [];
+  displayContractDuration: boolean = false;
 
   constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
     authService.loggedOut();
@@ -71,7 +69,7 @@ export class ProjectSubmissionComponent implements OnInit {
       marche: new FormControl(null, [Validators.required]),
       prixCible: new FormControl(null, [Validators.required]),
       typeDeBesoin: new FormControl(null, [Validators.required]),
-      duree: new FormControl(null, [Validators.required]),
+      duree: new FormControl(null),
       volumeGlobal: new FormControl(null, [Validators.required]),
       budget: new FormControl(null, [Validators.required]),
       // delaiPlusTot: new FormControl(null, [Validators.required]),
@@ -326,5 +324,14 @@ export class ProjectSubmissionComponent implements OnInit {
 
   removeDate(item: string) {
     this.allDateChoosen.splice(this.allDateChoosen.indexOf(item), 1);
+  }
+
+  onTypeDeBesoinSelected(event: any): void {
+    const selectedValue = event.target.value;
+    if (selectedValue === "CONTRACT") {
+      this.displayContractDuration = true; 
+    } else {
+      this.displayContractDuration = false;
+    }
   }
 }
