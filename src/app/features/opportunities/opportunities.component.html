@@ -27,7 +27,7 @@
               <div class="projet-left w-[60%]">
                 <div class="projet-left-head border-b-[1px] border-[#737373]/20 pb-2 flex justify-between">
                   <div class="flex w-1/2">
-                    <img src="../../../assets/img/nicomatic.svg" alt="" class="mr-1.5 w-16">
+                    <img src="{{ project?.applicant?.imageBase64Content ? project?.applicant?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" alt="" class="mr-2 mt-0.5 w-10 h-10 rounded-full">
                     <div class="w-">
                       <p class="font-dmsans text-black font-bold text-lg">{{project?.applicant?.user?.firstName}} {{project?.applicant?.user?.lastName}}</p>
                       <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.applicant?.enterprise?.name}}</p>
@@ -56,8 +56,8 @@
                     </span>
                   </p>
                 </div>
-                <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
-                  <span *ngFor="let itemi of project?.domains" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi?.name}}</span>
+                <div class="flex justify-between items-center pt-3 px-2 flex flex-wrap grid grid-cols-4 gap-2">
+                  <span *ngFor="let itemi of project?.domains" class="text-[#408A7E] text-sm bg-[#DBE9E6] text-sm me-2 px-3 py-1 rounded-2xl">{{itemi?.name}}</span>
                 </div>
               </div>
   
