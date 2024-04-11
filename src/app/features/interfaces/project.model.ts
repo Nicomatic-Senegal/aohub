@@ -25,5 +25,6 @@ export interface Project {
     targetPrice?: string;
     teamMembers?: Array<PartnerDTO>;
     title?: string;
+    deadlinePositioning?: Date;
 }
 

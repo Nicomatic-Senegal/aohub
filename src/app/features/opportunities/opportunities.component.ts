@@ -68,10 +68,12 @@ export class OpportunitiesComponent {
       next: (data) => {
         data.forEach((project: Project) => {
           const currentDate = new Date();
-          const earliestDeadline = new Date(project.earliestDeadline!);
-          const differenceInMilliseconds = earliestDeadline.getTime() - currentDate.getTime();
+          const deadlinePositioning = new Date(project.deadlinePositioning!);
+          const differenceInMilliseconds = deadlinePositioning.getTime() - currentDate.getTime();
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
+          console.log(deadlinePositioning);
+          
           this.mapDays.set(project.id, differenceInDays.toString());
         });
 
