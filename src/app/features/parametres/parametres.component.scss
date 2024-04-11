@@ -1,0 +1,23 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-setting{
+  @apply flex flex-col h-full flex-grow
+}
+
+.nav {
+  @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold pt-5
+}
+
+.nav button {
+  @apply mr-10
+}
+
+.div-part {
+  @apply w-full h-full
+}

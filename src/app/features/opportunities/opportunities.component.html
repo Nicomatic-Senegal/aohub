@@ -1,0 +1,113 @@
+<div class="main flex w-full h-full overflow-auto">
+  <app-side-bar class="app-side h-100vh" [screen]="'/opportunities'"></app-side-bar>
+  <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
+    <app-top-bar class="w-full flex-grow-1 " title="Opportunités"></app-top-bar>
+    <div class="div-center w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
+      <div class="projet-container rounded-xl w-full h-90vh bg-white px-5 pb-7 pt-5">
+        <div class="header flex items-center justify-between py-2">
+          <p class="font-bold font-dmsans text-lg">Nouveaux projets ({{ formatProjectCount(listProject.length) }})</p>
+          <div class="search-container flex items-center justify-between border-solid  text-[#ccc] border border-[#D0D0D0] p-1 rounded-lg shadow-sm w-[30%]">
+            <input 
+              type="text" 
+              class="search-input focus:outline-none text-[#000] px-3"
+              placeholder="Rechercher..."
+              #searchInput>
+            <i class="fas fa-search search-icon cursor-pointer p-1"></i>
+          </div>
+        </div>
+        <div class="main-projet bg-[#1E1E1E]/5 h-90vh w-full rounded-lg p-5 overflow-auto">
+          <div *ngIf="listProject.length === 0" class="mt-[10%] mb-[10%] flex items-center justify-center">
+            <div class="text-center">
+              <p class="text-3xl font-bold mb-4">Aucun projet trouvé</p>
+              <p class="text-lg text-gray-600">Il n'y a actuellement aucun projet disponible</p>
+            </div>
+          </div>
+          <div *ngIf="listProject.length !== 0">
+            <div *ngFor="let project of paginatedProjects; let i = index" class="projet w-full shadow-xl rounded-xl bg-white mb-8 p-4 flex justify-between">
+              <div class="projet-left w-[60%]">
+                <div class="projet-left-head border-b-[1px] border-[#737373]/20 pb-2 flex justify-between">
+                  <div class="flex w-1/2">
+                    <img src="../../../assets/img/nicomatic.svg" alt="" class="mr-1.5 w-16">
+                    <div class="w-">
+                      <p class="font-dmsans text-black font-bold text-lg">{{project?.applicant?.user?.firstName}} {{project?.applicant?.user?.lastName}}</p>
+                      <p class="font-dmsans text-[#121212]/60 text-xs">{{project?.applicant?.enterprise?.name}}</p>
+                    </div>
+                  </div>
+                  <div class="w-1/7">
+                    <p class="font-dmsans text-black">{{ mapDays.get(project.id) }} jours</p>
+                    <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
+                      <div 
+                        [ngClass]="mapDays.get(project.id)! <= '3' ? 'bg-red-600' : 'bg-green-600'" 
+                        [style.width]="calculateProgressWidth(project.id)+'%'"
+                        class="text-xs font-medium text-center p-0.5 leading-none rounded-full"></div>
+                    </div>
+                  </div>
+  
+                </div>
+                <div class="projet-left-main border-b-[1px] border-[#737373]/20 py-3">
+                  <p class="font-dmsans text-black font-bold text-lg">{{project?.title}}</p>
+                  <p 
+                    class="font-dmsans text-[#121212]/60 text-base">
+                    {{ (project?.description | slice: 0: 300) }}
+                    <span 
+                      class="cursor-pointer text-[#121212] hover:text-[#408A7E]"
+                      *ngIf="project?.description!.length > 300" 
+                      (click)="openShowMoreDialog(project?.title!, project?.description!)"> ...<span class="underline hover:no-underline">voir plus</span>
+                    </span>
+                  </p>
+                </div>
+                <div class="flex justify-between items-center pt-2 px-2 flex flex-wrap grid grid-cols-4 gap-2">
+                  <span *ngFor="let itemi of project?.markets" class="w-full rounded-xl px-7 py-3 text-[#408A7E] text-sm bg-[#DBE9E6] mr-3 h-7 flex items-center justify-between my-2">{{itemi?.name}}</span>
+                </div>
+              </div>
+  
+              <div class="border-1 border-dashed border-[#408A7E] border"></div>
+  
+              <div class="projet-right w-[35%] flex flex-col justify-between">
+                <div>
+                  <div class="flex justify-between pb-2">
+                    <p class="font-dmsans text-black font-bold text-base">Marché</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.domains?.[0]?.name}}</p>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <p class="font-dmsans text-black font-bold text-base">Volume global</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.globalVolume}}</p>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <p class="font-dmsans text-black font-bold text-base">Type du besoin</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.needType ? getTranslatedNeedType(project.needType!) : ''}}</p>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <p class="font-dmsans text-black font-bold text-base">Date de début</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.earliestDeadline | date: 'dd/MM/yyyy'}}</p>
+                  </div>
+                  <div class="flex justify-between py-2">
+                    <p class="font-dmsans text-black font-bold text-base">Durée</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.latestDeadline | date: 'dd/MM/yyyy'}}</p>
+                  </div>
+                </div>
+                <button 
+                  (click)="openApplyToProjectDialog(project)" 
+                  class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base"
+                  [ngClass]="{'bg-gray-400 cursor-not-allowed': project?.applicant?.id === currentConnectedUser.id || positionApplied === true}"
+                  [disabled]="project?.applicant?.id === currentConnectedUser.id || positionApplied === true"
+                  >
+                  Se positionner
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <app-paginator 
+          *ngIf="listProject.length !== 0"
+          [totalItems]="totalItems" 
+          [itemPerPage]="itemPerPage"
+          [currentPage]="currentPage"
+          (onClick)="changePage($event)">
+        </app-paginator>
+
+      </div>
+    </div>
+  </div>
+</div>

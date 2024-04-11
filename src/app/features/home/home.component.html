@@ -1,0 +1,133 @@
+<div class="main flex w-full h-[100%] overflow-auto">
+  <app-side-bar class="app-side h-100vh" [screen]="'/home'"></app-side-bar>
+  <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
+    <app-top-bar class="w-full flex-grow-1 " title="Accueil"></app-top-bar>
+    <div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
+      <div class="upper-home flex justify-between">
+        <div class="upper-home-left flex flex-col w-[70%]">
+            <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]">
+              <p class="text-[#0B0909] font-dmsans font-semibold text-xl">Bienvenue {{fullName}}</p>
+              <p class=" w-full text-[#232323] font-dmsans font-normal text-md pt-2">Prêt à donner vie à votre prochaine idée ? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
+              <button 
+                class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
+                (click)="navigation('/project-submission')">Soumettre un nouveau projet
+              </button>
+            </div>
+            <div class="upper-home-left-bottom flex flex-col mt-5 items-center mb-5">
+              <p>Écosystème Inhub</p>
+              <!-- <p>Prêt à donner vie à votre prochaine idée? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p> -->
+            </div>
+
+            <div class="relative">
+              <swiper-container 
+                class="swiper-enterprise" 
+                pagination="true" 
+                pagination-clickable="true"
+                autoplay="true"
+                effect="coverflow" 
+                grab-cursor="true" 
+                centered-slides="true"
+                slides-per-view="auto" 
+                coverflow-effect-rotate="50" 
+                coverflow-effect-stretch="0" 
+                coverflow-effect-depth="100"
+                coverflow-effect-modifier="1" 
+                coverflow-effect-slide-shadows="true"
+                >
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src=" https://swiperjs.com/demos/images/nature-1.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
+                </swiper-slide>
+                <swiper-slide (click)="openEnterpriseDetailsDialog('2952')">
+                  <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
+                </swiper-slide>
+              </swiper-container>
+              <!-- <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery> -->
+            </div>
+        </div>
+        <div class="upper-home-right flex flex-col w-[25%]">
+          <div class="info-inhub rounded-xl mb-8 shadow-md p-0">
+            <swiper-container
+              class="swiper-info-inhub" 
+              effect="cube" 
+              speed="7000"
+              autoplay="true"
+              >
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.16.jpeg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.55.17.jpeg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.57.19.jpeg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.35.jpeg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.48.jpeg" />
+              </swiper-slide>
+              <swiper-slide>
+                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.54.55.jpeg" />
+              </swiper-slide>
+            </swiper-container>
+          </div>
+          <div class="carnet z-50 rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
+            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
+            <div>
+              <div class="max-w-md mx-auto mb-3">   
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input 
+                      type="search" 
+                      id="default-search" 
+                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md" 
+                      placeholder="Rechercher des partenaires" #searchInput
+                    />
+                </div>
+              </div>
+              <div 
+                *ngFor="let partner of searchData" 
+                class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
+                (click)="openPartnerDetailsDialog(partner)"
+                >
+                <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
+                <div class="font-dmsans">
+                    <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
+                    <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
+                    <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+.upper-home-left-bottom p:nth-child(1) {
+  @apply text-[#408A7E] text-2xl font-bold mb-5 font-dmsans my-5
+}
+
+.upper-home-left-bottom p:nth-child(2) {
+  @apply text-center font-dmsans  text-black text-sm w-[90%]
+}
+
+.swiper-enterprise > swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 40vh;
+  height: 40vh;
+}
+.swiper-enterprise > swiper-slide img {
+  display: block;
+  width: 100%;
+}
+.swiper-info-inhub > swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+.swiper-info-inhub > swiper-slide img {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}

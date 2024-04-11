@@ -1,0 +1,63 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+.nav {
+  @apply flex flex-col md:flex-row items-start border-b-2 border-[#737373]/40 text-[#737373] font-dmsans text-base font-semibold pt-5 mb-5  mr-5
+}
+
+.nav button {
+  @apply mr-10
+}
+
+.input {
+  @apply text-[#408A7E] w-20 text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 bg-transparent
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  /* border: 1px solid #dddddd; */
+  text-align: left;
+  padding: 8px;
+}
+
+tr {
+  @apply border-t border-[#F3F3F3] hover:bg-[#408A7E]/10
+}
+
+th {
+  @apply bg-white text-[#72767C] text-base font-dmsans font-normal
+}
+
+td {
+  @apply text-[#242731] text-base font-dmsans font-normal
+}
+
+.impair {
+  background-color: #fff;
+}
+
+.pair {
+  /* background-color: #fc6285; */
+  background-color: #f1cbf2;
+}
+
+

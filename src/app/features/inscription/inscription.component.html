@@ -1,0 +1,123 @@
+<div class="background-inscription main">
+  <div class="flex w-full justify-between">
+    <img src="../../../assets/img/New Logo inhub .png" alt="" class="self-start  w-16 md:w-20">
+    <app-selectionner-langue class="self-end"></app-selectionner-langue>
+  </div>
+  <div class="flex justify-between w-full h-full">
+    <div class="w-[48%] h-full flex flex-col justify-center items-center">
+      <img src="../../../assets/img/bg-inscription.png" class="max-h-1/2" alt="">
+    </div>
+    <div class="w-[48%] flex flex-col justify-center  h-full items-center">
+      <div class="form-inscription div-form">
+        <p class="titre-inscription">Créer un compte</p>
+        <form class="form" [formGroup]="registerForm">
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Prénom(s)</label>
+            <input type="text" class="input-inscription" formControlName="firstName">
+            <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-red-600 text-xs">
+              Le prénom est requis.
+            </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Nom</label>
+            <input type="text" class="input-inscription" formControlName="lastName">
+            <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-red-600 text-xs">
+              Le nom est requis.
+            </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Email</label>
+            <input type="email" class="input-inscription" formControlName="email">
+            <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
+              L'email est requis.
+            </div>
+            <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
+              Veuillez renseigner une addresse email valide.
+            </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Numéro de téléphone</label>
+            <input type="text" class="input-inscription" formControlName="phoneNumber" (keypress)="onKeyPress($event)">
+            <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
+              Le numéro de téléphone est requis.
+            </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Entreprise</label>
+            <select class="input-inscription" formControlName="enterpriseName" >
+              <option value="" disabled [selected]="true">Choisissez une option...</option>
+              <option *ngFor="let item of listEnterprise" value="{{item.name}}">{{item.name}}</option>
+            </select>
+              <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
+                L'entreprise est requis.
+              </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Rôle</label>
+            <select class="input-inscription" formControlName="role" >
+              <option value="" disabled [selected]="true">Choisissez une option...</option>
+              <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
+            </select>
+              <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
+                Le rôle est requis.
+              </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Mot de passe</label>
+            <div class="div-password">
+              <input
+                class="input-inscription"
+                type="{{ isPasswordVisible ? 'text' : 'password' }}"
+                formControlName="password"
+              />
+              <span class="toggle-password" (click)="togglePasswordVisibility()">
+                <i class="{{ isPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+              </span>
+            </div>
+            <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
+              Le mot de passe est requis.
+            </div>
+            <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
+              Le mot de passe doit être supérieur à 4 caractères.
+            </div>
+            <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
+              Le mot de passe doit être inférieur à 100 caractères.
+            </div>
+          </div>
+          <div class="div-input-inscription">
+            <label for="" class="label-inscription">Confirmer mot de passe</label>
+            <div class="div-password">
+              <input
+                class="input-inscription"
+                type="{{ isConfirmPasswordVisible ? 'text' : 'password' }}"
+                formControlName="cpassword"
+                id="cpassword"
+                name="cpassword"
+              />
+              <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                <i class="{{ isConfirmPasswordVisible ? 'fas fa-eye-slash' : 'fas fa-eye' }}"></i>
+              </span>
+            </div>
+            <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+              Le mot de passe est requis.
+            </div>
+            <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
+              Le mot de passe doit être supérieur à 4 caractères.
+            </div>
+            <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
+              Le mot de passe doit être inférieur à 100 caractères.
+            </div>
+            <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
+              Les mots de passe doivent etre similaires.
+            </div>
+          </div>
+          <button type="submit" class="submit-inscription" [disabled]="registerForm.invalid" (click)="register()">Créer un compte</button>
+        </form>
+        <div class="footer-inscription">
+          Vous avez déjà un compte ?
+          <button (click)="seConnecter()">Se connecter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

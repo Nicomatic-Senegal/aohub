@@ -1,0 +1,27 @@
+<div class="slides h-[400px]">
+  <div
+    class="slide"
+    [ngStyle]="{
+      'background-image': 'url(' + slides[currentSlide].url + ')',
+      opacity: hidden ? 0 : 1,
+      transition: 'opacity ' + animationSpeed + 'ms ease-in-out'
+    }"
+  ></div>
+
+  <ng-container *ngIf="indicatorsVisible">
+    <div id="indicators">
+      <div
+        *ngFor="let slide of slides; let i = index"
+        (click)="jumpToSlide(i)"
+        class="indicator"
+        [ngClass]="{ active: i === currentSlide }"
+      ></div>
+    </div>
+  </ng-container>
+
+  <button (click)="next()" class="nextButton">Next</button>
+  <button (click)="previous()" class="previousButton">Previous</button>
+</div>
+
+<!-- <fa-icon [icon]="faArrowRight"></fa-icon> -->
+<!-- <fa-icon [icon]="faArrowLeft"></fa-icon> -->
