@@ -188,7 +188,7 @@ export class OpportunitiesComponent {
   getTranslatedNeedType(needType: string): string {
     switch (needType?.toUpperCase()) {
         case 'CONTRACT':
-            return 'Contrat';
+            return 'Contractuel';
         case 'PUNCTUAL':
             return 'Ponctuel';
         default:
