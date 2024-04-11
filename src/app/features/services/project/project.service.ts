@@ -108,10 +108,10 @@ export class ProjectService {
     return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
 
-  extendDeadlineForOpportunity(token: string, nbDays: number): Observable<void> {
+  extendDeadlineForOpportunity(token: string, payload: Object, id: number): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `projects}`;
+    const url = this.apiBaseUrl + `projects/${id}`;
 
-    return this.http.patch<void>(url, { headers, responseType: 'json' });
+    return this.http.patch<void>(url, payload, { headers, responseType: 'json' });
   }
 }
