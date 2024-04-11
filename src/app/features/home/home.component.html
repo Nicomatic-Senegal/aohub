@@ -63,7 +63,7 @@
             </div>
         </div>
         <div class="upper-home-right flex flex-col w-[25%]">
-          <div class="info-inhub rounded-xl mb-8 shadow-md p-0">
+          <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
             <swiper-container
               class="swiper-info-inhub" 
               effect="cube" 
@@ -89,7 +89,11 @@
                 <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.54.55.jpeg" />
               </swiper-slide>
             </swiper-container>
+            <div class="w-full mt-5 flex justify-center">
+              <a class="underline text-[#408A7E] hover:text-[#306F64] visited:text-[#675E86]" href="https://www.ecosysteme-inhub.com" target="_blank" rel="noopener noreferrer">www.ecosysteme-inhub.com</a>
+            </div>
           </div>
+
           <div class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
             <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
             <div>
@@ -112,17 +116,18 @@
               <div class="max-h-80 overflow-auto">
                 <div 
                   *ngFor="let partner of searchData" 
-                  class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
+                  class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab break-all"
                   (click)="openPartnerDetailsDialog(partner)"
-                  >
-                  <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
-                  <div class="font-dmsans flex-wrap">
-                      <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
-                      <!-- <div class="text-sm text-gray-900 wrap">{{partner?.user?.email}}</div> -->
-                      <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
-                      <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
+                >
+                  <img class="w-10 h-10 rounded-full" src="{{ partner?.imageBase64Content ? partner?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" alt="">
+                  <div class="font-dmsans flex flex-col justify-left items-start">
+                      <p class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</p>
+                      <p class="text-sm text-gray-900">{{partner?.user?.email}}</p>
+                      <p class="text-sm text-gray-900">{{partner?.phoneNumber}}</p>
+                      <p class="text-sm text-gray-900">{{partner?.enterprise?.name}}</p>
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
