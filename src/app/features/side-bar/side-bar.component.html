@@ -24,7 +24,7 @@
     </div>
     <div class="flex border-t-2 border-[#E5E5E5] py-5">
       <div class="flex mx-2 md:mx-5 pr-5">
-        <img src="{{picture}}" alt="" class="mr-2 w-14 h-14 rounded-full bg-[#AAAAAA]">
+        <img [src]="picture || '../../../assets/icons/icon-user.png'" alt="" class="mr-2 w-10 h-10 rounded-full bg-[#AAAAAA]">
         <div *ngIf="screenSize !== 'sm' && viewText">
           <p class="font-poppins text-black text-sm"> {{fullName}}</p>
           <p class="font-dmsans text-[#6C6C6C] text-xs">{{email}}</p>
