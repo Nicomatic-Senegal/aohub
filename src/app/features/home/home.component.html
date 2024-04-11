@@ -90,7 +90,7 @@
               </swiper-slide>
             </swiper-container>
           </div>
-          <div class="carnet z-50 rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
+          <div class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
             <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
             <div>
               <div class="max-w-md mx-auto mb-3">   
@@ -109,17 +109,19 @@
                     />
                 </div>
               </div>
-              <div 
-                *ngFor="let partner of searchData" 
-                class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
-                (click)="openPartnerDetailsDialog(partner)"
-                >
-                <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
-                <div class="font-dmsans flex-wrap">
-                    <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
-                    <!-- <div class="text-sm text-gray-900 wrap">{{partner?.user?.email}}</div> -->
-                    <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
-                    <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
+              <div class="max-h-80 overflow-auto">
+                <div 
+                  *ngFor="let partner of searchData" 
+                  class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab"
+                  (click)="openPartnerDetailsDialog(partner)"
+                  >
+                  <img class="w-10 h-10 rounded-full" src="../../../assets/img/logo-inhub.svg" alt="">
+                  <div class="font-dmsans flex-wrap">
+                      <div class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</div>
+                      <!-- <div class="text-sm text-gray-900 wrap">{{partner?.user?.email}}</div> -->
+                      <div class="text-sm text-gray-900">{{partner?.phoneNumber}}</div>
+                      <div class="text-sm text-gray-900">{{partner?.enterprise?.name}}</div>
+                  </div>
                 </div>
               </div>
             </div>
