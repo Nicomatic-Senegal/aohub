@@ -2,14 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PartnerService } from '../services/partner/partner.service';
 import { ProjectService } from '../services/project/project.service';
 import { Project } from '../interfaces/project.model';
-import { PartnerDTO } from '../interfaces/partner.model';
-import { forkJoin } from 'rxjs';
 import { PositioningDTO, PositioningStatus } from '../interfaces/positioning-dto.model';
 import { Disponibility } from '../interfaces/disponibility.model';
-import { data } from 'jquery';
 import { digitOnly } from '../interfaces/utils';
 
 @Component({
@@ -23,6 +19,9 @@ export class OpportunityTrackingComponent implements OnInit {
   listPositionners: Map<string, PositioningDTO[]> = new Map<string, PositioningDTO[]>();
   screen: number = 1;
   positioners: Array<Array<PositioningDTO>> = [];
+  totalItems = 4;
+  itemPerPage = 1;
+  currentPage = 1;
 
 
   constructor(
@@ -36,36 +35,37 @@ export class OpportunityTrackingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProject();
+  }
+
+  loadProject() {
     this.projectService.getAllMyProjects(this.token).subscribe({
       next: (data) => {
-
         this.listProject = data;
+
         this.listProject.forEach(project => {
           this.projectService.getPartnersInMyProjects(this.token, project.id).subscribe({
             next: (data1) => {
                 this.positioners[project.id] = data1;
-                console.log(this.positioners);
-
             },
             error: (err) => {
                 console.error(err);
             }
           });
         });
-        // Utiliser forkJoin pour attendre que toutes les requêtes se terminent
+
+        this.totalItems = this.listProject.length
+        // TODO: Utiliser forkJoin pour attendre que toutes les requêtes se terminent
 
       },
       error: (err) => {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-right-center',
        });
       }
     });
-  }
-  gotoHome() {
-    this.route.navigate(['/projets']);
   }
 
   nextScreeen(num: number) {
@@ -82,15 +82,15 @@ export class OpportunityTrackingComponent implements OnInit {
     this.projectService.validatePositioning(this.token, idPos).subscribe({
       next: (data) => {
         this.positioners[idProject][indice].status = PositioningStatus.ACCEPTED;
-        this.toastr.success("vous avez validé le partenaire.", "Succés", {
+        this.toastr.success("vous avez validé le partenaire.", "Succès", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-right-center',
        });
       },
       error: (err) => {
         this.toastr.error("Erreur pendant la validation.", "Erreur", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-right-center',
        });
       }
     });
@@ -100,15 +100,15 @@ export class OpportunityTrackingComponent implements OnInit {
     this.projectService.rejectPositioning(this.token, idPos).subscribe({
       next: (data) => {
         this.positioners[idProject][indice].status = PositioningStatus.REJECTED;
-        this.toastr.success("vous avez rejeté le partenaire.", "Succés", {
+        this.toastr.success("vous avez rejeté le partenaire.", "Succès", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-right-center',
        });
       },
       error: (err) => {
         this.toastr.error("Erreur pendant la rejection.", "Erreur", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-right-center',
        });
       }
     });
@@ -123,12 +123,21 @@ export class OpportunityTrackingComponent implements OnInit {
   }
 
   status(value?: PositioningStatus, ) {
-    console.log(value?.toString() === "ACCEPTED");
-
       switch(value?.toString()) {
         case "ACCEPTED": return 1;
         case "REJECTED": return 2;
         default: return 3;
       }
+  }
+
+  get paginatedProjects() {
+    const start = (this.currentPage - 1) * (this.itemPerPage);
+    const end = start + this.itemPerPage;
+
+    return this.listProject.slice(start, end);
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
   }
 }
