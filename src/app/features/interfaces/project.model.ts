@@ -26,5 +26,6 @@ export interface Project {
     teamMembers?: Array<PartnerDTO>;
     title?: string;
     deadlinePositioning?: Date;
+    createdAt: Date;
 }
 

@@ -28,7 +28,7 @@ export class OpportunitiesComponent {
   positionApplied: boolean = false;
   // startIndex = 1;
   // endIndex = 4;
-  mapDays: Map<number, string> = new Map<number, string>();
+  mapDays: Map<number, any> = new Map<number, any>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -59,7 +59,6 @@ export class OpportunitiesComponent {
        });
       }
     })
-    console.log(this.listProject);
     
   }
 
@@ -69,18 +68,23 @@ export class OpportunitiesComponent {
         data.forEach((project: Project) => {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
+
           const differenceInMilliseconds = deadlinePositioning.getTime() - currentDate.getTime();
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
 
-          console.log(deadlinePositioning);
+          const createdAt = new Date(project.createdAt);
+
+          const differenceTotalInMilliseconds = deadlinePositioning.getTime() - createdAt.getTime();
+          const differenceTotalInDays = Math.floor(differenceTotalInMilliseconds / (1000 * 60 * 60 * 24));
           
-          this.mapDays.set(project.id, differenceInDays.toString());
+          if (differenceInMilliseconds >= 0) {
+            this.mapDays.set(project.id, differenceInDays.toString());
+            this.mapDays.set(project.id, { differenceInDays, differenceTotalInDays });
+            this.listProject.push(project);
+          }
         });
-
-        this.listProject.push(data);
-        this.listProject = this.listProject.flatMap(data => data)
-
-        this.totalItems = this.listProject.length
+  
+        this.totalItems = this.listProject.length;
       },
       error: (err) => {
         console.log(err);
@@ -91,6 +95,7 @@ export class OpportunitiesComponent {
       }
     });
   }
+  
 
   ngAfterViewInit() {
     fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
@@ -172,21 +177,53 @@ export class OpportunitiesComponent {
   }
 
   calculateProgressWidth(projectId: number): number {
-    const daysStr = this.mapDays.get(projectId) || '0';
-    let days = parseInt(daysStr);
+    const differenceDaysValues = this.mapDays.get(projectId) || '0';
+    
+    let days = parseInt(differenceDaysValues.differenceInDays);
     days = Math.max(0, days);
-    const progressWidth = (days / 8) * 100;
+    const progressWidth = (days / differenceDaysValues.differenceTotalInDays) * 100;
     return progressWidth;
   }
 
   getTranslatedNeedType(needType: string): string {
     switch (needType?.toUpperCase()) {
         case 'CONTRACT':
-            return 'Contrat';
+            return 'Contractuel';
         case 'PUNCTUAL':
             return 'Ponctuel';
         default:
             return needType;
     }
   }
+
+  calculateDuration(latestDeadline: Date | undefined): string | undefined {
+    if (!latestDeadline) {
+      return undefined;
+    }
+  
+    const latestDeadlineDate = new Date(latestDeadline);
+    const today = new Date();
+    const timeDiff = Math.abs(today.getTime() - latestDeadlineDate.getTime());
+  
+    const oneDay = 1000 * 60 * 60 * 24;
+    const oneMonth = oneDay * 30;
+    const oneYear = oneDay * 365;
+  
+    let duration: number | undefined;
+    let durationText: string | undefined;
+  
+    if (timeDiff >= oneYear) {
+      duration = Math.ceil(timeDiff / oneYear);
+      durationText = duration === 1 ? 'année' : 'années';
+    } else if (timeDiff >= oneMonth) {
+      duration = Math.ceil(timeDiff / oneMonth);
+      durationText = duration === 1 ? 'mois' : 'mois';
+    } else {
+      duration = Math.ceil(timeDiff / oneDay);
+      durationText = duration === 1 ? 'jour' : 'jours';
+    }
+  
+    return duration !== undefined ? `${duration} ${durationText}` : undefined;
+  }
+  
 }
