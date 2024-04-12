@@ -16,7 +16,7 @@ export class SupportService {
 
   sendMailToSupport(token: string, support: Object): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'partners/send';
+    const url = this.apiBaseUrl + 'partners/send-mail';
 
     return this.http.post<void>(url, support, { headers, responseType: 'json' });
   }
