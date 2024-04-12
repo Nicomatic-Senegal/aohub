@@ -196,14 +196,15 @@ export class OpportunitiesComponent {
     }
   }
 
-  calculateDuration(latestDeadline: Date | undefined): string | undefined {
+  calculateDuration(latestDeadline: Date, earliestDeadline: Date): string | undefined {
     if (!latestDeadline) {
       return undefined;
     }
   
     const latestDeadlineDate = new Date(latestDeadline);
-    const today = new Date();
-    const timeDiff = Math.abs(today.getTime() - latestDeadlineDate.getTime());
+    const earliestDeadlineDate = new Date(earliestDeadline);
+
+    const timeDiff = Math.abs(latestDeadlineDate.getTime() - earliestDeadlineDate.getTime());
   
     const oneDay = 1000 * 60 * 60 * 24;
     const oneMonth = oneDay * 30;
