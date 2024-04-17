@@ -2203,6 +2203,16 @@
   resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-16.2.13.tgz"
   integrity sha512-P5OiVp9MeMwVxihtC9NB4mx1Zlbup2DLMAWYAl8/kcFdRrRW+1YDQn93tlFToQDHGpPxkqW7cnFUPnA+QwQMYA==
 
+"@ngx-translate/core@^15.0.0", "@ngx-translate/core@>=15.0.0":
+  version "15.0.0"
+  resolved "https://registry.npmjs.org/@ngx-translate/core/-/core-15.0.0.tgz"
+  integrity sha512-Am5uiuR0bOOxyoercDnAA3rJVizo4RRqJHo8N3RqJ+XfzVP/I845yEnMADykOHvM6HkVm4SZSnJBOiz0Anx5BA==
+
+"@ngx-translate/http-loader@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.npmjs.org/@ngx-translate/http-loader/-/http-loader-8.0.0.tgz"
+  integrity sha512-SFMsdUcmHF5OdZkL1CHEoSAwbP5EbAOPTLLboOCRRoOg21P4GJx+51jxGdJeGve6LSKLf4Pay7BkTwmE6vxYlg==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -6596,7 +6606,7 @@ run-parallel@^1.1.9:
   dependencies:
     queue-microtask "^1.2.2"
 
-"rxjs@^6.5.3 || ^7.4.0", rxjs@^7.5.5, rxjs@>=7.0.0, rxjs@~7.5.0:
+"rxjs@^6.5.3 || ^7.4.0", "rxjs@^6.5.5 || ^7.4.0", rxjs@^7.5.5, rxjs@>=7.0.0, rxjs@~7.5.0:
   version "7.5.7"
   resolved "https://registry.npmjs.org/rxjs/-/rxjs-7.5.7.tgz"
   integrity sha512-z9MzKh/UcOqB3i20H6rtrlaE/CgjLOvheWK/9ILrbhROGTweAi1BaFsTT9FbwZi5Trr1qNRs+MXkhmR06awzQA==

@@ -34,6 +34,9 @@ import { SupportComponent } from './support/support.component';
 import { ShowMoreDialogComponent } from './show-more-dialog/show-more-dialog.component';
 import { PartnerDetailsDialogComponent } from './partner-details-dialog/partner-details-dialog.component';
 import { EnterpriseDetailsDialogComponent } from './enterprise-details-dialog/enterprise-details-dialog.component';
+import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 registerSwiperElements();
 
@@ -75,6 +78,13 @@ registerSwiperElements();
     MatCardModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }, // Utilisez la langue de votre choix, par exemple 'fr-FR' pour le français
@@ -84,3 +94,7 @@ registerSwiperElements();
 
 })
 export class FeaturesModule { }
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/translate/', '.json');
+}

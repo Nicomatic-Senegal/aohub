@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingInterceptor } from './features/loading/loading.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -31,7 +31,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       },
     }),
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      positionClass: 'toast-middle-center', // Position du Toastr (au milieu de la page)
+      timeOut: 0, // Durée d'affichage illimitée
+      closeButton: true,
+      tapToDismiss: true,
+      preventDuplicates: true,
+      enableHtml: true,
+      toastClass: 'ngx-toastr',
+      messageClass: 'ngx-toastr-message',
+      titleClass: 'ngx-toastr-title',
+    }),
     FontAwesomeModule
   ],
   providers: [
