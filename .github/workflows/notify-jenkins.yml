@@ -2,7 +2,7 @@ name: Notify Jenkins
 
 on: 
   push:
-    branches: ['feature/config-prod']
+    branches: ['dev']
 
 jobs:
   curl:
