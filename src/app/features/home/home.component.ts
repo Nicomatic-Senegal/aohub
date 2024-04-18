@@ -111,11 +111,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openEnterpriseDetailsDialog(enterpriseId: any, imageUrl: any) {
+  openEnterpriseDetailsDialog(enterprise: any) {
     this.dialog.open(EnterpriseDetailsDialogComponent, {
       hasBackdrop: true,
       data: {
-        enterpriseId, imageUrl
+        enterprise
       },
       panelClass: 'custom-dialog-container'
     })

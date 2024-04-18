@@ -16,7 +16,7 @@
                     <a href="{{enterprise.email}}"  target="_blank" class="text-[#408A7E] hover:text-[#306F64] visited:text-[#675E86] font-normal underline">{{enterprise.email}}</a>
                 </div>
                 <div class="relative w-30 h-30 overflow-hidden bg-gray-100 rounded-full flex text-center items-center justify-center lg:justify-center ml-4">
-                    <img class="object-cover rounded-full h-full w-full text-center item-center" src="{{imageUrl}}" alt="">
+                    <img class="object-cover rounded-full h-full w-full text-center item-center" src="{{ enterprise?.imageBase64Content ? enterprise?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" alt="enterprise icon">
                 </div>
             </div>
             <div class="flex mt-4 mb-4 justify-center">
