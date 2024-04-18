@@ -81,9 +81,9 @@
                     <p class="font-dmsans text-black font-bold text-base">Date de début</p>
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.earliestDeadline | date: 'dd/MM/yyyy'}}</p>
                   </div>
-                  <div class="flex justify-between py-2">
+                  <div *ngIf="getTranslatedNeedType(project?.needType!) === 'Contractuel'" class="flex justify-between py-2">
                     <p class="font-dmsans text-black font-bold text-base">Durée du projet</p>
-                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ calculateDuration(project?.latestDeadline!, project?.earliestDeadline!) }}</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.duration }} année(s)</p>
                   </div>
                 </div>
                 <button

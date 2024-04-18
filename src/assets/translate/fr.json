@@ -40,5 +40,19 @@
   "ADDRESS_BOOK": "Carnet d’adresse",
   "SEARCH_PARTNER": "Rechercher des partenaires",
   "NEXT": "Suivant",
-  "PREVIOUS": "Précédent"
+  "PREVIOUS": "Précédent",
+  "CREATE_PROJECT": "Créer un compte",
+  "FIRSTNAME": "Prénom(s)",
+  "FIRSTNAME_REQUIRED": "Le prénom est requis",
+  "LASTNAME": "Nom",
+  "LASTNAME_REQUIRED": "Le nom est requis",
+  "TELEPHONE": "Numéro de téléphone",
+  "TELEPHONE_REQUIRED": "Le numéro de téléphone est requis",
+  "CHOOSE_OPTION": "Choisissez une option",
+  "ENTERPRISE_REQUIRED": "L'entreprise est requis",
+  "ROLE": "Rôle",
+  "ROLE_REQUIRED": "Le rôle est requis",
+  "CONFIRM_PASSWORD": "Confirmer mot de passe",
+  "ALREADY_GET_ACCOUNT": "Vous avez déjà un compte",
+  "CREATE_ACCOUNT": "Créer un compte"
 }

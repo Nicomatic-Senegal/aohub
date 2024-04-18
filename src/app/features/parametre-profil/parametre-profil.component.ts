@@ -68,10 +68,6 @@ export class ParametreProfilComponent implements OnInit {
   picture!: string;
   pictureToShow!: string;
 
-  centreInteret = [
-    "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-  ];
-
   constructor(
     private route: Router,
     private authService: AuthService,

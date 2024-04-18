@@ -25,9 +25,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
-    private route: Router, 
-    private authService: AuthService, 
-    private partnerService: PartnerService, 
+    private route: Router,
+    private authService: AuthService,
+    private partnerService: PartnerService,
     private userService: UserService,
     private enterpriseService: EnterpriseService,
     private dialog: MatDialog
@@ -51,11 +51,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadAllEnterprises() {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
+        console.log(data);
+
         this.enterprises = data.filter((enterprise:any) => enterprise.name !== 'Autre');
       },
       error: (error) => {
         console.log(error);
-        
+
       }
     })
   }
@@ -81,7 +83,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.searchData.push(data);
           this.searchData = this.searchData.flatMap(data => data);
           console.log(this.searchData);
-          
+
         },
         error: (err) => {
           console.log(err);

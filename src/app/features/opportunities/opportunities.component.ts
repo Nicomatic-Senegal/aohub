@@ -198,34 +198,4 @@ export class OpportunitiesComponent {
     }
   }
 
-  calculateDuration(latestDeadline: Date, earliestDeadline: Date): string | undefined {
-    if (!latestDeadline) {
-      return undefined;
-    }
-
-    const latestDeadlineDate = new Date(latestDeadline);
-    const today = new Date();
-    const timeDiff = Math.abs(today.getTime() - latestDeadlineDate.getTime());
-
-    const oneDay = 1000 * 60 * 60 * 24;
-    const oneMonth = oneDay * 30;
-    const oneYear = oneDay * 365;
-
-    let duration: number | undefined;
-    let durationText: string | undefined;
-
-    if (timeDiff >= oneYear) {
-      duration = Math.ceil(timeDiff / oneYear);
-      durationText = duration === 1 ? 'année' : 'années';
-    } else if (timeDiff >= oneMonth) {
-      duration = Math.ceil(timeDiff / oneMonth);
-      durationText = duration === 1 ? 'mois' : 'mois';
-    } else {
-      duration = Math.ceil(timeDiff / oneDay);
-      durationText = duration === 1 ? 'jour' : 'jours';
-    }
-
-    return duration !== undefined ? `${duration} ${durationText}` : undefined;
-  }
-
 }

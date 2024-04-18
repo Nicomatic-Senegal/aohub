@@ -58,7 +58,7 @@ export class OpportunityTrackingComponent implements OnInit {
 
       const newDeadlinePositioningInMilliseconds = createdAt + differenceInMilliseconds + nbDaysInMilliseconds;
 
-      
+
       if (newDeadlinePositioningInMilliseconds - createdAt < 30 * 24 * 60 * 60 * 1000) {
         const deadlinePositioning = new Date(newDeadlinePositioningInMilliseconds);
 
@@ -66,7 +66,7 @@ export class OpportunityTrackingComponent implements OnInit {
           id: id,
           deadlinePositioning: deadlinePositioning
         };
-  
+
         this.projectService.extendDeadlineForOpportunity(this.token, payload, id).subscribe({
           next: (data) => {
             this.toastr.success("Vous avez rallongé la durée du projet de: " + nbDays + " jours.", "Succès", {
@@ -98,7 +98,7 @@ export class OpportunityTrackingComponent implements OnInit {
     this.projectService.getAllMyProjects(this.token).subscribe({
       next: (data) => {
         console.log(data);
-        
+
         this.listProject = data;
 
         this.listProject.forEach(project => {
@@ -204,4 +204,6 @@ export class OpportunityTrackingComponent implements OnInit {
   changePage(page: number) {
     this.currentPage = page;
   }
+
+
 }
