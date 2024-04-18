@@ -17,7 +17,8 @@ export class TopBarComponent {
   changeLanguage(value: string) {
     console.log(value);
 
-    this.translate.setDefaultLang(value);
+    this.translate.use(value);
+    localStorage.setItem('language', value);
   }
 
   logout() {

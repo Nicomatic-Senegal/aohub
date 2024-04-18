@@ -18,7 +18,12 @@ export class ConnexionComponent {
   token!: string;
 
   constructor(private translate: TranslateService, private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder) {
-    this.translate.setDefaultLang('fr');
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.translate.use(language);
+    } else {
+      this.translate.use('fr');
+    }
     this.loginForm = this.fb.group({
       username: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),

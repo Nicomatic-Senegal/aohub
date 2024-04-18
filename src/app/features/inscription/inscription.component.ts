@@ -9,6 +9,7 @@ import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { confirmedValidator, digitOnly } from '../interfaces/utils';
 import { ToastrService } from 'ngx-toastr';
 import { EmployeePostDTO } from '../interfaces/employee.model';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inscription',
@@ -30,9 +31,17 @@ export class InscriptionComponent implements OnInit {
     private route: Router,
     private authService: AuthService,
     private fb: FormBuilder,
-    private enterpriseService: EnterpriseService
+    private enterpriseService: EnterpriseService,
+    private translateService: TranslateService
     ) {
+    const language = localStorage.getItem("language");
+    console.log(language);
 
+    if (language) {
+      this.translateService.use(language);
+    } else {
+      this.translateService.use('fr');
+    }
   }
 
   ngOnInit(): void {
