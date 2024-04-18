@@ -7,8 +7,6 @@ import { SideBarComponent } from '../features/side-bar/side-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { VerticalCarousselComponent } from './vertical-caroussel/vertical-caroussel.component';
-import { HorizontalCarousselComponent } from './horizontal-caroussel/horizontal-caroussel.component';
 import { GalleryModule } from 'ng-gallery';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -18,9 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
   declarations: [
     SelectionnerLangueComponent,
     SideBarComponent,
-    TopBarComponent,
-    VerticalCarousselComponent,
-    HorizontalCarousselComponent
+    TopBarComponent
   ],
   imports: [
     GalleryModule,
@@ -41,8 +37,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
     SelectionnerLangueComponent,
     SideBarComponent,
     TopBarComponent,
-    HorizontalCarousselComponent,
-    VerticalCarousselComponent,
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
