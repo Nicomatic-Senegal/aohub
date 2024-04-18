@@ -198,7 +198,7 @@ export class OpportunitiesComponent {
     }
   }
 
-  calculateDuration(latestDeadline: Date | undefined): string | undefined {
+  calculateDuration(latestDeadline: Date, earliestDeadline: Date): string | undefined {
     if (!latestDeadline) {
       return undefined;
     }

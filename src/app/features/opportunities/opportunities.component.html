@@ -83,7 +83,7 @@
                   </div>
                   <div class="flex justify-between py-2">
                     <p class="font-dmsans text-black font-bold text-base">Durée du projet</p>
-                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ calculateDuration(project?.latestDeadline) }}</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ calculateDuration(project?.latestDeadline!, project?.earliestDeadline!) }}</p>
                   </div>
                 </div>
                 <button
