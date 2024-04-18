@@ -1,7 +1,7 @@
 <div class="main">
   <app-side-bar class="app-side" [screen]="'/projets'"></app-side-bar>
   <div class="head-home" >
-    <app-top-bar class="w-full flex-grow-1 " title="Mes projets"></app-top-bar>
+    <app-top-bar class="w-full flex-grow-1 " title="{{'MY PROJECTS' | translate}}"></app-top-bar>
     <div class="div-center">
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">Suivi de mes opportunités</button>
@@ -49,7 +49,7 @@
                       </select>
                     </div>
                   </td>
-                  
+
                   <td>{{item?.partner?.user?.login}} </td>
                   <td>{{item?.partner?.enterprise?.name}} </td>
                   <td *ngIf="status(item?.status) === 1">
@@ -70,9 +70,9 @@
 
         </ng-container>
 
-        <app-paginator 
+        <app-paginator
           *ngIf="listProject.length !== 0"
-          [totalItems]="totalItems" 
+          [totalItems]="totalItems"
           [itemPerPage]="itemPerPage"
           [currentPage]="currentPage"
           (onClick)="changePage($event)">

@@ -8,7 +8,7 @@
       <div class="">
         <div *ngFor="let item of optionsTop" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
           <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
-          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1]}}</p>
+          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1] | translate}}</p>
         </div>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="">
         <div *ngFor="let item of optionsBottom" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
           <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
-          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1]}}</p>
+          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1] | translate}}</p>
         </div>
       </div>
     </div>

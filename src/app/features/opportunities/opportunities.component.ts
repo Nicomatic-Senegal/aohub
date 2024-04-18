@@ -59,12 +59,14 @@ export class OpportunitiesComponent {
        });
       }
     })
-    
+
   }
 
   loadAllProjects() {
     this.projectService.getAllProjects(this.token).subscribe({
       next: (data) => {
+        console.log(data);
+
         data.forEach((project: Project) => {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
@@ -76,14 +78,14 @@ export class OpportunitiesComponent {
 
           const differenceTotalInMilliseconds = deadlinePositioning.getTime() - createdAt.getTime();
           const differenceTotalInDays = Math.floor(differenceTotalInMilliseconds / (1000 * 60 * 60 * 24));
-          
-          if (differenceInMilliseconds >= 0) {
+
+          if (differenceInMilliseconds) {
             this.mapDays.set(project.id, differenceInDays.toString());
             this.mapDays.set(project.id, { differenceInDays, differenceTotalInDays });
             this.listProject.push(project);
           }
         });
-  
+
         this.totalItems = this.listProject.length;
       },
       error: (err) => {
@@ -95,7 +97,7 @@ export class OpportunitiesComponent {
       }
     });
   }
-  
+
 
   ngAfterViewInit() {
     fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
@@ -178,7 +180,7 @@ export class OpportunitiesComponent {
 
   calculateProgressWidth(projectId: number): number {
     const differenceDaysValues = this.mapDays.get(projectId) || '0';
-    
+
     let days = parseInt(differenceDaysValues.differenceInDays);
     days = Math.max(0, days);
     const progressWidth = (days / differenceDaysValues.differenceTotalInDays) * 100;
@@ -200,18 +202,18 @@ export class OpportunitiesComponent {
     if (!latestDeadline) {
       return undefined;
     }
-  
+
     const latestDeadlineDate = new Date(latestDeadline);
     const today = new Date();
     const timeDiff = Math.abs(today.getTime() - latestDeadlineDate.getTime());
-  
+
     const oneDay = 1000 * 60 * 60 * 24;
     const oneMonth = oneDay * 30;
     const oneYear = oneDay * 365;
-  
+
     let duration: number | undefined;
     let durationText: string | undefined;
-  
+
     if (timeDiff >= oneYear) {
       duration = Math.ceil(timeDiff / oneYear);
       durationText = duration === 1 ? 'année' : 'années';
@@ -222,8 +224,8 @@ export class OpportunitiesComponent {
       duration = Math.ceil(timeDiff / oneDay);
       durationText = duration === 1 ? 'jour' : 'jours';
     }
-  
+
     return duration !== undefined ? `${duration} ${durationText}` : undefined;
   }
-  
+
 }
