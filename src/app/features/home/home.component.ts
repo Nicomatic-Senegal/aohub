@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { GalleryItem, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerService } from '../services/partner/partner.service';
 import { PartnerDTO } from '../interfaces/partner.model';
@@ -10,16 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
 import { EnterpriseDetailsDialogComponent } from '../enterprise-details-dialog/enterprise-details-dialog.component';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
-import { error } from 'jquery';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
-
-
-interface CarouselItem {
-  title: string;
-  description: string;
-  color: string;
-  background: string;
-}
 
 @Component({
   selector: 'app-home',
@@ -61,8 +51,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadAllEnterprises() {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
-        this.enterprises = data;
-        console.log(this.enterprises);
+        this.enterprises = data.filter((enterprise:any) => enterprise.name !== 'Autre');
       },
       error: (error) => {
         console.log(error);
