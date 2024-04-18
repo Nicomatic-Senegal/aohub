@@ -1,3 +1,33 @@
 .title {
   @apply font-roboto text-2xl font-bold
 }
+
+
+.dropbtn {
+  @apply bg-[#98C0B9] text-white p-2 text-base border-none
+}
+
+.dropdown {
+  @apply relative inline-block
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}

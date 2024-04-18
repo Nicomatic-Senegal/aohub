@@ -16,16 +16,16 @@
               <label for="" class="label-inscription">Email</label>
               <input type="text" class="input-inscription" formControlName="username">
               <div *ngIf="getControl('username')?.invalid && (getControl('username')?.dirty || getControl('username')?.touched)" class="text-red-600 text-xs">
-                L'email est requis.
+                {{'EMAIL_REQUIRED' | translate}}.
               </div>
               <div *ngIf="getControl('username')?.errors?.['email']" class="text-red-600 text-xs">
-                Veuillez renseigner un email valide.
+                {{'EMAIL_NOT_VALID' | translate}}.
               </div>
             </div>
             <div class="div-input-inscription">
               <div class="div-label">
-                <label for="" class="label-inscription">Mot de passe</label>
-                <p (click)="motDePasseOublie()" class="cursor-pointer">Oublié?</p>
+                <label for="" class="label-inscription">{{'PASSWORD' | translate}}</label>
+                <p (click)="motDePasseOublie()" class="cursor-pointer">{{'FORGOT_PASSWORD' | translate}}?</p>
               </div>
               <div class="div-password">
                 <input
@@ -38,20 +38,20 @@
                 </span>
               </div>
               <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-                Le mot de passe est requis.
+                {{'PASSWORD_REQUIRED' | translate}}.
               </div>
               <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
-                Le Mot de passe doit être supérieur à 4 caractères.
+                {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
               </div>
               <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-                Le mot de passe doit être inférieur à 100 caractères.
+                {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
               </div>
             </div>
-            <button type="submit" class="submit-inscription mt-10" [disabled]="loginForm.invalid" (click)="login()">Se connecter</button>
+            <button type="submit" class="submit-inscription mt-10" [disabled]="loginForm.invalid" (click)="login()">{{'LOG_IN' | translate}}</button>
           </form>
           <div class="footer-inscription mt-5">
-            Vous n'avez pas de compte ?
-            <button (click)="inscription()">Inscrivez-vous</button>
+            {{'NO_ACCOUNT' | translate}} ?
+            <button (click)="inscription()">{{'SIGN_UP' | translate}}</button>
           </div>
         </div>
       </div>

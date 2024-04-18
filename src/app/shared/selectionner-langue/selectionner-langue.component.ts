@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-selectionner-langue',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./selectionner-langue.component.scss']
 })
 export class SelectionnerLangueComponent {
+  constructor(private translate: TranslateService,) {
 
+  }
+
+  changeLanguage(value: string) {
+    console.log(value);
+
+    this.translate.setDefaultLang(value);
+  }
 }

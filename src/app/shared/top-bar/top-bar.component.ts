@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -9,8 +10,14 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 export class TopBarComponent {
   @Input() title!: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private translate: TranslateService, private authService: AuthService) {
 
+  }
+
+  changeLanguage(value: string) {
+    console.log(value);
+
+    this.translate.setDefaultLang(value);
   }
 
   logout() {
