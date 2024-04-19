@@ -3,13 +3,13 @@
   <div class="flex">
     <div class="dropdown">
       <div class="dropbtn">
-        <button class="flex items-center">{{'CHOOSE_LANGUAGE' | translate}} <img src="../../../assets/img/dropdown_b.svg" class="w-3"></button>
+        <button class="flex items-center"><img [src]="flagUrl" alt="French" class="w-9 h-6 mr-2"> <img src="../../../assets/icons/dropdown_b.svg" class="w-3"></button>
       </div>
-      <div class="dropdown-content">
-        <a class="flex items-center text-sm text-black font-dmsans p-3 cursor-pointer" (click)="changeLanguage('en')"> <img src="../../../assets/img/ang_flag.svg" alt="English" class="w-7 mr-2"> {{'ENGLISH' | translate}} </a>
-        <a class="flex items-center text-sm text-black font-dmsans px-3 pb-3 cursor-pointer" (click)="changeLanguage('fr')"> <img src="../../../assets/img/fr_flag.svg" alt="French" class="w-7 mr-2"> {{'FRENCH' | translate}}</a>
+      <div class="dropdown-content mr-5">
+        <a class="flex items-center text-sm text-black font-dmsans px-3 cursor-pointer" (click)="changeLanguage('fr', '../../../assets/flags/fr_flag.svg')"> <img src="../../../assets/img/fr_flag.svg" alt="French" class="w-7 mr-2"> {{'French' | translate}}</a>
+        <a class="flex items-center text-sm text-black font-dmsans p-3 pb-3 cursor-pointer" (click)="changeLanguage('en', '../../../assets/flags/en_flag.svg')"> <img src="../../../assets/img/ang_flag.svg" alt="English" class="w-7 mr-2"> {{'English' | translate}} </a>
       </div>
     </div>
-    <img src="../../../assets/img/logout.svg" (click)="logout()" alt="" class="w-5">
+    <img src="../../../assets/img/logout.svg" (click)="logout()" alt="" class="w-5 cursor-pointer">
   </div>
 </div>

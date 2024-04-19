@@ -4,7 +4,7 @@
 
 
 .dropbtn {
-  @apply bg-[#98C0B9] text-white p-2 text-base border-none
+  @apply text-white p-2 text-base border-none mr-5
 }
 
 .dropdown {
@@ -21,7 +21,6 @@
 }
 
 .dropdown-content a {
-
   color: black;
   text-decoration: none;
 }
@@ -29,5 +28,3 @@
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
