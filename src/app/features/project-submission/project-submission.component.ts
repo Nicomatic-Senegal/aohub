@@ -190,7 +190,7 @@ export class ProjectSubmissionComponent implements OnInit {
       this.project.earliestDeadline = formvalue.startDate;
       this.project.globalVolume = formvalue.volumeGlobal;
       this.project.latestDeadline = formvalue.endDate;
-      this.project.markets = this.markets.filter(market => market !== formvalue.marche);;
+      this.project.markets = this.markets.filter(market => market == formvalue.marche);;
       this.project.needType = formvalue.typeDeBesoin;
       this.project.targetPrice = formvalue.prixCible;
       this.project.title = formvalue.intitule;
