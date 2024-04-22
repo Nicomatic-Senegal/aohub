@@ -9,14 +9,14 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 })
 export class TopBarComponent {
   @Input() title!: string;
+  flagUrl: string = '../../../assets/flags/fr_flag.svg';
 
   constructor(private translate: TranslateService, private authService: AuthService) {
 
   }
 
-  changeLanguage(value: string) {
-    console.log(value);
-
+  changeLanguage(value: string, flagUrl: string) {
+    this.flagUrl = flagUrl;
     this.translate.use(value);
     localStorage.setItem('language', value);
   }

@@ -7,13 +7,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./selectionner-langue.component.scss']
 })
 export class SelectionnerLangueComponent {
+  flagUrl: string = '../../../assets/flags/fr_flag.svg';
+
   constructor(private translate: TranslateService,) {
 
   }
 
-  changeLanguage(value: string) {
-    console.log(value);
-
+  changeLanguage(value: string, flagUrl: string) {
+    this.flagUrl = flagUrl;
     this.translate.use(value);
     localStorage.setItem('language', value);
   }
