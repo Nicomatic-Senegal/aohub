@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
@@ -16,11 +16,19 @@ export class ProjectService {
     this.apiBaseUrl = environment.apiBaseUrl;
   }
 
-  getAllProjects(token: string): Observable<any> {
+  getAllProjects(token: string, page: number, size: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects';
+    const url = `${this.apiBaseUrl}projects?page=${page}&size=${size}&sort=id,desc`;
 
-    return this.http.get<Project>(url, { headers, responseType: 'json' });
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const projects = response.body;
+          return { projects, totalCount };
+        })
+      );
   }
 
   getProjectById(id: number): Observable<Project> {
