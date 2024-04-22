@@ -24,10 +24,10 @@
   "SAME_PASSWORD_ERROR": "Passwords must match",
   "PASSWORD_UPDATED": "Password updated",
   "PASSWORD_UPDATED_SUCCESS_MSG": "Your password has been successfully updated",
-  "NAVIGATE_PROJECT": "Navigate to a project",
+  "NAVIGATE_PROJECT": "Position yourself to a project",
   "TIME_SLOTS_MEETING": "Here are the available time slots for the kickoff meeting",
   "CHECK_ONE_OR_MANY": "You can select one or many",
-  "NAVIGATE": "Navigate",
+  "NAVIGATE": "Position yourself",
   "ENTERPRISE": "Enterprise",
   "ENTERPRISES": "Enterprises",
   "CLOSE": "Close",
@@ -50,8 +50,8 @@
   "TELEPHONE_REQUIRED": "Phone number is required",
   "CHOOSE_OPTION": "Choose an option",
   "ENTERPRISE_REQUIRED": "Enterprise is required",
-  "ROLE": "Role",
-  "ROLE_REQUIRED": "Role is required",
+  "ROLE": "Job",
+  "ROLE_REQUIRED": "Job is required",
   "CONFIRM_PASSWORD": "Confirm password",
   "ALREADY_GET_ACCOUNT": "You already have an account",
   "CREATE_ACCOUNT": "Create an account",
@@ -154,5 +154,5 @@
   "ATTACHMENTS": "Attachments",
   "LAUNCH": "Launch",
   "TO_END": "Finish",
-  "TRACK_OPPORTUNITY": "Track my opportunities"
+  "TRACK_OPPORTUNITY": "Check my opportunities"
 }

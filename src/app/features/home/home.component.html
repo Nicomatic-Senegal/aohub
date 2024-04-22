@@ -1,7 +1,7 @@
 <div class="main flex w-full h-[100%] overflow-auto">
   <app-side-bar class="app-side h-100vh" [screen]="'/home'"></app-side-bar>
   <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
-    <app-top-bar class="w-full flex-grow-1 " title="{{'HOME' | translate}}"></app-top-bar>
+    <app-top-bar class="w-full flex-grow-1 " title="{{'HOME' | translate}}" (languageEvent)="onLanguageEvent($event)"></app-top-bar>
     <div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="upper-home flex justify-between">
         <div class="upper-home-left flex flex-col w-[70%]">
@@ -34,8 +34,8 @@
                 coverflow-effect-modifier="1"
                 coverflow-effect-slide-shadows="true"
                 >
-                <swiper-slide 
-                  *ngFor="let enterprise of enterprises" 
+                <swiper-slide
+                  *ngFor="let enterprise of enterprises"
                   (click)="openEnterpriseDetailsDialog(enterprise)">
                   <img [src]="enterprise.imageBase64Content || '../../../assets/icons/icon-enterprise.webp'" alt="{{enterprise.name}} icon" />
                 </swiper-slide>
@@ -51,22 +51,22 @@
               autoplay="true"
               >
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.16.jpeg" />
+                <img src="../../../assets/img/inhub-cest/parcours-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.55.17.jpeg" />
+                <img src="../../../assets/img/inhub-cest/reseau-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.57.19.jpeg" />
+                <img src="../../../assets/img/inhub-cest/confiance-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.35.jpeg" />
+                <img src="../../../assets/img/inhub-cest/expertise-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-09 at 16.12.23.jpeg" />
+                <img src="../../../assets/img/inhub-cest/plateforme-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.54.55.jpeg" />
+                <img src="../../../assets/img/inhub-cest/projet-{{language}}.jpeg" />
               </swiper-slide>
             </swiper-container>
             <div class="w-full mt-5 flex justify-center">

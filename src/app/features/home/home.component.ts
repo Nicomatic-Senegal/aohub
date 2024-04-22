@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   searchData: PartnerDTO[] = [];
   enterprises: EnterpriseDTO[] = [];
   currentIndex: number = 0;
+  language: string;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -34,6 +35,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
+    this.language = localStorage.getItem("language")!;
+    if (!this.language) {
+      this.language = 'fr';
+    }
   }
 
   ngOnInit() {
@@ -114,6 +119,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   navigation(link: string) {
     this.route.navigate([link]);
+  }
+
+  onLanguageEvent(data: string) {
+    console.log(data);
+
+    this.language = data;
   }
 
 }
