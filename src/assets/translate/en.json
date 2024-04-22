@@ -149,5 +149,10 @@
   "GOAL_DEMAND_REQUIRED": "The mail title is required",
   "GOAL_DEMAND_DESC": "Can you tell us more",
   "GOAL_DEMAND_DESC_REQUIRED": "The mail description is required",
-  "SEND": "Send"
+  "SEND": "Send",
+  "MODALITY": "Modalities",
+  "ATTACHMENTS": "Attachments",
+  "LAUNCH": "Launch",
+  "TO_END": "Finish",
+  "TRACK_OPPORTUNITY": "Track my opportunities"
 }

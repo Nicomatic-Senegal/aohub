@@ -149,5 +149,10 @@
   "GOAL_DEMAND_REQUIRED": "L'Intitulé du mail est requis",
   "GOAL_DEMAND_DESC": "Pouvez-vous nous en dire plus",
   "GOAL_DEMAND_DESC_REQUIRED": "La description du mail est requise",
-  "SEND": "Envoyer"
+  "SEND": "Envoyer",
+  "MODALITY": "Modalités",
+  "ATTACHMENTS": "Pièces jointes",
+  "LAUNCH": "Lancement",
+  "TO_END": "Terminer",
+  "TRACK_OPPORTUNITY": "Suivi de mes opportunités"
 }

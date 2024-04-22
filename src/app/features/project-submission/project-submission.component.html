@@ -8,13 +8,13 @@
         <button class="font-dmsans text-[#737373] text-base font-semibold text-left">&gt; {{'SUBMIT_PROJECT' | translate}}</button>
       </div>
       <div class="mt-4 flex flex-col justify-center items-center">
-        <p class="font-dmsans text-[#408A7E] text-2xl font-semibold">{{'SUBMIT_NEW_PROJECT'}} </p>
+        <p class="font-dmsans text-[#408A7E] text-2xl font-semibold">{{'SUBMIT_NEW_PROJECT' | translate}} </p>
         <div class=" flex mt-5 items-center  w-full">
           <div class="w-20"></div>
           <p  class="w-14 text-center font-dmsans text-base font-semibold text-[#408A7E]" (click)="onSetStep(1)">Description</p>
           <ng-container *ngFor="let item of titleSteps; let i = index">
             <div class="w-[16%]"></div>
-            <p (click)="onSetStep(i + 2)" class="w-14 text-center font-dmsans text-base font-semibold" [ngClass]="step < i + 2 ? 'text-[#737373]' : 'text-[#408A7E]'">{{ item }}</p>
+            <p (click)="onSetStep(i + 2)" class="w-14 text-center font-dmsans text-base font-semibold" [ngClass]="step < i + 2 ? 'text-[#737373]' : 'text-[#408A7E]'">{{ item | translate}}</p>
           </ng-container>
           <div class="w-20 "></div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="part-line-form">
                   <label for="" class="label w-[30%]">{{'PROJECT_TITLED' | translate}} </label>
                   <div class=" w-[60%] ">
-                    <input type="text" class="input" placeholder="Entrer intitulé" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
+                    <input type="text" class="input" placeholder="" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
                       {{'PROJECT_TITLED_REQUIRED' | translate}}.
                     </div>
@@ -52,7 +52,7 @@
                 <div class="part-line-form">
                   <label for="" class="label mr-10">{{'CUSTOMER' | translate}} </label>
                   <div class=" w-full">
-                    <input type="text" class="input" placeholder="Entrer le nom du client" formControlName="client" (keydown.enter)="$event.preventDefault()">
+                    <input type="text" class="input" placeholder="" formControlName="client" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
                       {{'CUSTOMER_REQUIRED' | translate}}.
                     </div>
@@ -62,7 +62,7 @@
               <div class="div-line-form">
                 <label for="" class="label w-[18%]">Description</label>
                 <div class=" w-[82%] ">
-                  <textarea type="text" class="textarea" placeholder="Ecrivez la description ici..." formControlName="description"></textarea>
+                  <textarea type="text" class="textarea" placeholder="" formControlName="description"></textarea>
                   <div *ngIf="getControl('description')?.invalid && (getControl('description')?.dirty || getControl('description')?.touched)" class="text-red-600 text-xs">
                     {{'DESCRIPTION_REQUIRED' | translate}}.
                   </div>
@@ -159,8 +159,8 @@
                 <div class="part-line-form">
                   <label for="" class="label w-[30%]">{{'DEADLINE_RATHER' | translate}} </label>
                   <div class=" w-[60%]">
-                    <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTot"> -->
-                    <input type="date" id="startDate" [min]="minDate.toISOString().split('T')[0]" formControlName="startDate" placeholder="Selectionner une date" class="input" (keydown.enter)="$event.preventDefault()"/>
+                    <!-- <input type="date" class="input" placeholder="" formControlName="delaiPlusTot"> -->
+                    <input type="date" id="startDate" [min]="minDate.toISOString().split('T')[0]" formControlName="startDate" placeholder="" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTot')?.invalid && (getControl('delaiPlusTot')?.dirty || getControl('delaiPlusTot')?.touched)" class="text-red-600 text-xs">
                       {{'DEADLINE_RATHER_REQUIRED' | translate}}.
                     </div>
@@ -169,7 +169,7 @@
                 <div class="part-line-form">
                   <label for="" class="label w-[30%]">{{'DEADLINE' | translate}}</label>
                   <div class=" w-[60%]">
-                    <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTard"> -->
+                    <!-- <input type="date" class="input" placeholder="" formControlName="delaiPlusTard"> -->
                     <input type="date" [min]="minDateFinString" formControlName="endDate" placeholder="Date de fin" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTard')?.invalid && (getControl('delaiPlusTard')?.dirty || getControl('delaiPlusTard')?.touched)" class="text-red-600 text-xs">
                       {{'DEADLINE_REQUIRED' | translate}}.

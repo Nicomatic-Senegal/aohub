@@ -21,7 +21,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
   step: number = 1;
   minDate!: Date;
-  titleSteps = ["Modalités", "Pièces jointes", "Lancement", "Terminer"];
+  titleSteps = ["MODALITY", "ATTACHMENTS", "LAUNCH", "TO_END"];
   stepsIcons = [
     ["../../../assets/img/modality.svg", "../../../assets/img/modality-green.svg"],
     ["../../../assets/img/description.svg", "../../../assets/img/description-green.svg"],
@@ -29,9 +29,6 @@ export class ProjectSubmissionComponent implements OnInit {
     ["../../../assets/img/success-grey.svg", "../../../assets/img/success-green.svg"]
   ];
   projectSubmissionForm: FormGroup;
-  metiers = [
-    "Plasturgie", "Sourcing", "Prototypist", "Assemblage", "Metallurgie", "Technicien", "Chef De Projet"
-  ];
 
   heureDebutNumber!: number;
   minuteDebutNumber!: number;
@@ -329,7 +326,7 @@ export class ProjectSubmissionComponent implements OnInit {
   onTypeDeBesoinSelected(event: any): void {
     const selectedValue = event.target.value;
     if (selectedValue === "CONTRACT") {
-      this.displayContractDuration = true; 
+      this.displayContractDuration = true;
     } else {
       this.displayContractDuration = false;
     }
