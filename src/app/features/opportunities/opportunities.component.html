@@ -5,7 +5,7 @@
     <div class="div-center w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="projet-container rounded-xl w-full h-90vh bg-white px-5 pb-7 pt-5">
         <div class="header flex items-center justify-between py-2">
-          <p class="font-bold font-dmsans text-lg">Nouveaux projets ({{ formatProjectCount(listProject.length) }})</p>
+          <p class="font-bold font-dmsans text-lg">{{'NEW_PROJECTS' | translate}} ({{ formatProjectCount(listProject.length) }})</p>
           <div class="search-container flex items-center justify-between border-solid  text-[#ccc] border border-[#D0D0D0] p-1 rounded-lg shadow-sm w-[30%]">
             <input
               type="text"
@@ -18,8 +18,8 @@
         <div class="main-projet bg-[#1E1E1E]/5 h-90vh w-full rounded-lg p-5 overflow-auto">
           <div *ngIf="listProject.length === 0" class="mt-[10%] mb-[10%] flex items-center justify-center">
             <div class="text-center">
-              <p class="text-3xl font-bold mb-4">Aucun projet trouvé</p>
-              <p class="text-lg text-gray-600">Il n'y a actuellement aucun projet disponible</p>
+              <p class="text-3xl font-bold mb-4">{{'NO_PROJECT' | translate}} </p>
+              <p class="text-lg text-gray-600">{{'NO_PROJECT_DESC' | translate}} </p>
             </div>
           </div>
           <div *ngIf="listProject.length !== 0">
@@ -34,7 +34,7 @@
                     </div>
                   </div>
                   <div class="w-1/7">
-                    <p class="font-dmsans text-black">{{ mapDays.get(project.id).differenceInDays }} jours</p>
+                    <p class="font-dmsans text-black">{{ mapDays.get(project.id).differenceInDays }} {{'DAYS' | translate}}</p>
                     <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
                       <div
                         [ngClass]="mapDays.get(project.id).differenceDaysValues! <= '3' ? 'bg-red-600' : 'bg-green-600'"
@@ -52,7 +52,7 @@
                     <span
                       class="cursor-pointer text-[#121212] hover:text-[#408A7E]"
                       *ngIf="project?.description!.length > 300"
-                      (click)="openShowMoreDialog(project?.title!, project?.description!)"> ...<span class="underline hover:no-underline">voir plus</span>
+                      (click)="openShowMoreDialog(project?.title!, project?.description!)"> ...<span class="underline hover:no-underline">{{'SHOW_MORE' | translate}} </span>
                     </span>
                   </p>
                 </div>
@@ -66,24 +66,24 @@
               <div class="projet-right w-[35%] flex flex-col justify-between">
                 <div>
                   <div class="flex justify-between pb-2">
-                    <p class="font-dmsans text-black font-bold text-base">Marché</p>
+                    <p class="font-dmsans text-black font-bold text-base">{{'MARKET' | translate}} </p>
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.markets?.[0]?.name}}</p>
                   </div>
                   <div class="flex justify-between py-2">
-                    <p class="font-dmsans text-black font-bold text-base">Volume global</p>
+                    <p class="font-dmsans text-black font-bold text-base">{{'OVERALL_VOLUME' | translate}} </p>
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.globalVolume}}</p>
                   </div>
                   <div class="flex justify-between py-2">
-                    <p class="font-dmsans text-black font-bold text-base">Type du besoin</p>
+                    <p class="font-dmsans text-black font-bold text-base">{{'NEED_TYPE' | translate}} </p>
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.needType ? getTranslatedNeedType(project.needType!) : ''}}</p>
                   </div>
                   <div class="flex justify-between py-2">
-                    <p class="font-dmsans text-black font-bold text-base">Date de début</p>
+                    <p class="font-dmsans text-black font-bold text-base">{{'START_DATE' | translate}} </p>
                     <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.earliestDeadline | date: 'dd/MM/yyyy'}}</p>
                   </div>
                   <div *ngIf="getTranslatedNeedType(project?.needType!) === 'Contractuel'" class="flex justify-between py-2">
-                    <p class="font-dmsans text-black font-bold text-base">Durée du projet</p>
-                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.duration }} année(s)</p>
+                    <p class="font-dmsans text-black font-bold text-base">{{'PROJECT_DURATION' | translate}} </p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{ project?.duration }} {{'YEAR' | translate}}(s)</p>
                   </div>
                 </div>
                 <button
@@ -92,7 +92,7 @@
                   [ngClass]="{'bg-gray-400 cursor-not-allowed': project?.applicant?.id === currentConnectedUser.id || positionApplied === true}"
                   [disabled]="project?.applicant?.id === currentConnectedUser.id || positionApplied === true"
                   >
-                  Se positionner
+                  {{'NAVIGATE' | translate}}
                 </button>
               </div>
             </div>

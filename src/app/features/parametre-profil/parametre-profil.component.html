@@ -1,11 +1,11 @@
 <div class="flex flex-col md:flex-row justify-between border-b-2 border-[#E5E5E5] w-full py-3 items-center">
   <div class="div-title">
-    <p >Informations Personnelles</p>
-    <p >Mettez à jour votre photo et vos informations personnelles ici</p>
+    <p >{{'PERSONNAL_INFOS' | translate}} </p>
+    <p >{{'UPDATE_INFOS_DESC' | translate}} </p>
   </div>
   <div class="div-button">
-    <button class="border-2 border-[#C1C1C1] text-[#344054]" type="reset" (click)="resetForm()">Annuler</button>
-    <button class="bg-[#408A7E] text-white" type="submit" (click)="submit()">Enregistrer</button>
+    <button class="border-2 border-[#C1C1C1] text-[#344054]" type="reset" (click)="resetForm()">{{'CANCEL' | translate}} </button>
+    <button class="bg-[#408A7E] text-white" type="submit" (click)="submit()">{{'SAVE' | translate}} </button>
   </div>
 </div>
 <div class="my-5">
@@ -14,8 +14,8 @@
       <div class="md:mr-20">
         <div>
           <img [src]="user.imageBase64Content || '../../../assets/icons/icon-user.png'" alt="" class="w-12 h-12 rounded-full bg-[#AAAAAA] self-start mr-5">
-          <p class="text-[#000] text-base font-medium font-dmsans">Votre photo</p>
-          <p class="text-[#344054] text-sm font-dmsans">Ceci sera affiché sur votre profil</p>
+          <p class="text-[#000] text-base font-medium font-dmsans">{{'YOUR_PICTURE' | translate}} </p>
+          <p class="text-[#344054] text-sm font-dmsans">{{'YOUR_PICTURE_DESC' | translate}} </p>
         </div>
       </div>
       <div class="w-full mt-5 md:mt-0 md:w-[60%] mb-10">
@@ -23,11 +23,11 @@
           <input type="file" formControlName="image" (change)="onFileSelected($event)" id="fileInput" class="hidden"/>
           <label for="fileInput" class=" bg-[#408A7E] text-white shadow-md py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md mr-5 cursor-pointer">
             <i class="fas fa-edit" > </i>
-            &nbsp;Modifier la photo
+            &nbsp;{{'MODIFY_PICTURE' | translate}}
           </label>
           <button (click)="onDeletePicture()" class=" bg-[#EE1B22] shadow-md text-white py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md mr-5">
             <i class="fa-regular fa-trash-can"></i>
-            &nbsp;Supprimer la photo
+            &nbsp;{{'DELETE_PICTURE' | translate}}
           </button>
         </div>
         <p class="text-sm font-dmsans font-thin text-black mb-2">{{pictureToShow}} </p>
@@ -35,29 +35,29 @@
     </div>
     <div class="div-line-form">
       <div class="w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Prénom(s)</label>
+        <label for="" class="label-line-form">{{'FIRSTNAME' | translate}} </label>
         <div class="w-[60%]">
           <input type="text"  formControlName="firstName" class="input-line-form ">
           <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-red-600 text-xs">
-            Le prénom est requis.
+            {{'FIRSTNAME_REQUIRED' | translate}}.
           </div>
         </div>
       </div>
     </div>
     <div class="div-line-form">
       <div class="w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Nom</label>
+        <label for="" class="label-line-form">{{'LASTNAME' | translate}} </label>
         <div class="w-[60%]">
           <input type="text"   formControlName="lastName" class="input-line-form">
           <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-red-600 text-xs">
-            Le nom est requis.
+            {{'LASTNAME_REQUIRED' | translate}}.
           </div>
         </div>
       </div>
     </div>
     <div class="div-line-form">
       <div class=" w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Adresse email</label>
+        <label for="" class="label-line-form">Email</label>
         <div class="w-[60%]">
           <input type="email" readonly  formControlName="email"  class="input-line-form-readonly">
           <!-- <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
@@ -71,11 +71,11 @@
     </div>
     <div class="div-line-form">
       <div class=" w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Numéro de téléphone</label>
+        <label for="" class="label-line-form">{{'TELEPHONE' |translate}} </label>
         <div class="w-[60%]">
           <input type="text"  formControlName="phoneNumber" class="input-line-form">
           <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
-            Le Numéro de téléphone est requis.
+            {{'TELEPHONE_REQUIRED' | translate}}.
           </div>
         </div>
       </div>
@@ -83,13 +83,13 @@
 
     <div class="div-line-form ">
       <div class="w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Rôle</label>
+        <label for="" class="label-line-form">{{'ROLE' | translate}} </label>
         <div class="w-[60%]">
           <select class="input-line-form" formControlName="role" >
             <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
           </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
-            Le role est requis.
+            {{'ROLE_REQUIRED' | translate}}.
           </div>
         </div>
       </div>
@@ -97,7 +97,7 @@
     <div class="mb-5 ">
       <div class="div-line-form ">
         <div class=" w-1/2 flex justify-between items-center">
-          <label for="" class="label-line-form">Entreprise</label>
+          <label for="" class="label-line-form">{{'ENTERPRISE' | translate}} </label>
           <div class="w-[60%]">
             <input type="text" readonly  formControlName="enterpriseName" placeholder="Inhub" class="input-line-form-readonly">
             <!-- <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">

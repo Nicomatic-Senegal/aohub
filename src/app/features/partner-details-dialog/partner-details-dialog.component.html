@@ -1,8 +1,8 @@
 <div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-6 flex flex-col bg-white max-w-4xl">
     <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-4">
-		<h4 class="text-[#408A7E] text-xl">Profil</h4>
+		<h4 class="text-[#408A7E] text-xl">{{'PROFILE' | translate}} </h4>
 	</div>
-    
+
     <div class="lg:flex lg:justify-center">
         <div class="lg:w-1/2 flex flex-col items-center mt-10">
             <div class="relative w-20 h-20 overflow-hidden rounded-full border-1 border-gray-300 flex items-center justify-center -pl-20">
@@ -12,9 +12,9 @@
                 <div class="w-full justify-center mt-2">
                     <p class="mb-2 text-lg font-bold tracking-tight text-[#408A7E] text-center">{{partner.user.firstName}} {{partner.user.lastName}}</p>
                 </div>
-                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Rôle: </span>{{partner.employeePost.title}}</p>
-                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Adresse email: </span> {{partner.user.email}}</p>
-                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Numéro de téléphone: </span> {{partner.phoneNumber}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'ROLE' | translate}}: </span>{{partner.employeePost.title}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Email: </span> {{partner.user.email}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'TELEPHONE'}}: </span> {{partner.phoneNumber}}</p>
             </div>
         </div>
         <div class="lg:w-1/2 lg:pl-4 lg:mt-4 mr-4 flex flex-col items-center lg:items-end">
@@ -30,14 +30,14 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="flex justify-center mt-4 mb-4">
-		<button 
+		<button
 			type="submit"
-			(click)="onClose()" 
+			(click)="onClose()"
 			class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
-			Fermer
+			{{'CLOSE' | translate}}
 		</button>
 	</div>
 </div>

@@ -1,12 +1,12 @@
 <div class="border-b-2 border-[#E5E5E5]">
-  <p class="font-dmsans font-semibold text-xl mt-7">Mot de passe</p>
-  <p class="font-dmsans text-[#383838] mb-4">Veuillez saisir votre mot de passe actuel pour en choisir un nouveau</p>
+  <p class="font-dmsans font-semibold text-xl mt-7">{{'PASSWORD' | translate}} </p>
+  <p class="font-dmsans text-[#383838] mb-4">{{'CHANGE_PASSWORD_DESC' | translate}} </p>
 </div>
 <div class="my-5  ">
   <form [formGroup]="changePasswordForm">
     <div class=" mb-8 pb-5  border-b-2 border-[#E5E5E5]">
       <div class="flex flex-col md:flex-row items-center w-ful md:w-2/3 md:justify-between ">
-        <label for="" class="font-dmsans font-semibold text-base text-[#383838] w-full md:w-[40%]">Actuel mot de passe</label>
+        <label for="" class="font-dmsans font-semibold text-base text-[#383838] w-full md:w-[40%]">{{'ACTU_PASSWORD' | translate}}</label>
         <div class="w-[60%]">
           <div class="div-password w-full">
             <input
@@ -21,13 +21,13 @@
             </span>
           </div>
           <div *ngIf="getControl('oldPassword')?.invalid && (getControl('oldPassword')?.dirty || getControl('oldPassword')?.touched)" class="text-red-600 text-xs">
-            Le Mot de passe est requis.
+            {{'PASSWORD_REQUIRED' | translate}}.
           </div>
           <div *ngIf="getControl('oldPassword')?.errors?.['minlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être supérieur à 4 caractères.
+            {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
           </div>
           <div *ngIf="getControl('oldPassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être inférieur à 100 caractères.
+            {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
           </div>
         </div>
         <!-- <p class="font-dmsans text-sm text-[#848484]/60">Votre nouveau mot de passe doit comporter plus de 8 caractères.</p> -->
@@ -35,7 +35,7 @@
     </div>
     <div class=" mb-8 pb-5  border-b-2 border-[#E5E5E5]">
       <div class="flex flex-col md:flex-row items-center w-ful md:w-2/3 md:justify-between ">
-        <label for="" class="font-dmsans font-semibold text-base text-[#383838] w-full md:w-[40%]">Nouveau mot de passe</label>
+        <label for="" class="font-dmsans font-semibold text-base text-[#383838] w-full md:w-[40%]">{{'NEW_PASSWORD'}} </label>
         <div class="w-[60%]">
           <div class="div-password w-full ">
             <input
@@ -50,13 +50,13 @@
             </span>
           </div>
           <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-            Le Mot de passe est requis.
+            {{'PASSWORD_REQUIRED' | translate}}.
           </div>
           <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être supérieur à 4 caractères.
+            {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
           </div>
           <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être inférieur à 100 caractères.
+            {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
           </div>
         </div>
         <!-- <p class="font-dmsans text-sm text-[#848484]/60">Votre nouveau mot de passe doit comporter plus de 8 caractères.</p> -->
@@ -79,23 +79,23 @@
             </span>
           </div>
           <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-            Le Mot de passe est requis.
+            {{'PASSWORD_REQUIRED' | translate}}.
           </div>
           <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être supérieur à 4 caractères.
+            {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
           </div>
           <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
-            Le Mot de passe doit être inférieur à 100 caractères.
+            {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
           </div>
           <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-            Les mots de passe doivent etre similaires.
+            {{'SAME_PASSWORD_ERROR' | translate}}.
           </div>
         </div>
       </div>
     </div>
     <div class="flex justify-end my-8">
-      <button class="border-2 border-[#C1C1C1] text-[#383838] py-2 px-5 font-dmsans text-base font-semibold rounded-md mr-5" type="reset" (click)="onReset()">Annuler</button>
-      <button class="bg-[#408A7E]  text-white py-2 px-5 font-dmsans text-base font-semibold rounded-md mr-5" type="submit" (click)="onSubmit()">Modifier</button>
+      <button class="border-2 border-[#C1C1C1] text-[#383838] py-2 px-5 font-dmsans text-base font-semibold rounded-md mr-5" type="reset" (click)="onReset()">{{'CANCEL' | translate}} </button>
+      <button class="bg-[#408A7E]  text-white py-2 px-5 font-dmsans text-base font-semibold rounded-md mr-5" type="submit" (click)="onSubmit()">{{'MODIFY' | translate}} </button>
     </div>
   </form>
 </div>
