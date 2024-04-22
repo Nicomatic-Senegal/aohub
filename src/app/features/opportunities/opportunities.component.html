@@ -37,7 +37,7 @@
                     <p class="font-dmsans text-black">{{ mapDays.get(project.id).differenceInDays }} {{'DAYS' | translate}}</p>
                     <div class="w-full bg-[#D9D9D9] rounded-full dark:bg-[#D9D9D9]">
                       <div
-                        [ngClass]="mapDays.get(project.id)?.differenceDaysValues! <= '3' ? 'bg-red-600' : 'bg-green-600'"
+                        [ngClass]="mapDays.get(project.id)?.differenceInDays! <= '3' ? 'bg-red-600' : 'bg-green-600'"
                         [style.width]="calculateProgressWidth(project.id)+'%'"
                         class="text-xs font-medium text-center p-0.5 leading-none rounded-full"></div>
                     </div>
