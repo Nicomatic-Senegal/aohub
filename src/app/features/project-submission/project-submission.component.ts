@@ -187,7 +187,7 @@ export class ProjectSubmissionComponent implements OnInit {
       this.project.earliestDeadline = formvalue.startDate;
       this.project.globalVolume = formvalue.volumeGlobal;
       this.project.latestDeadline = formvalue.endDate;
-      this.project.markets = this.markets.filter(market => market == formvalue.marche);;
+      this.project.markets = this.markets.filter(market => market.name === formvalue.marche);;
       this.project.needType = formvalue.typeDeBesoin;
       this.project.targetPrice = formvalue.prixCible;
       this.project.title = formvalue.intitule;
@@ -200,6 +200,7 @@ export class ProjectSubmissionComponent implements OnInit {
             file.project = data;
             this.projectService.addProjectAttachments(this.token, file).subscribe({
               next: (data) => {
+                console.log(data);
 
               },
               error: (err) => {

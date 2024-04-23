@@ -18,7 +18,7 @@ export class ProjectService {
 
   getAllProjects(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects';
+    const url = this.apiBaseUrl + 'projects?sort=id,desc';
 
     return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
@@ -61,7 +61,7 @@ export class ProjectService {
 
   getAllMyProjects(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/my-projects';
+    const url = this.apiBaseUrl + 'projects/my-projects?sort=id,desc';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
