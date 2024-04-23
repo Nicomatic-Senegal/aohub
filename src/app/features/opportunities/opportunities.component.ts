@@ -24,10 +24,8 @@ export class OpportunitiesComponent {
   totalItems = 0;
   itemPerPage = 2;
   currentPage = 1;
-  currentConnectedUser!: PartnerDTO;
+  currentConnectedUser?: PartnerDTO;
   positionApplied: boolean = false;
-  // startIndex = 1;
-  // endIndex = 4;
   mapDays: Map<number, any> = new Map<number, any>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
@@ -46,7 +44,11 @@ export class OpportunitiesComponent {
     }
 
   ngOnInit(): void {
-    this.loadAllProjects();
+    this.loadCurrentConnectedUser();
+    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+  }
+
+  loadCurrentConnectedUser() {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
         this.currentConnectedUser = data;
@@ -59,15 +61,14 @@ export class OpportunitiesComponent {
        });
       }
     })
-
   }
 
-  loadAllProjects() {
-    this.projectService.getAllProjects(this.token).subscribe({
-      next: (data) => {
-        console.log(data);
+  loadAllProjects(page: number, size: number) {
+    this.listProject.splice(0, this.listProject.length);
 
-        data.forEach((project: Project) => {
+    this.projectService.getAllProjects(this.token, page, size).subscribe({
+      next: (data) => {
+        data.projects.forEach((project: Project) => {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
 
@@ -82,11 +83,12 @@ export class OpportunitiesComponent {
           if (differenceInMilliseconds) {
             this.mapDays.set(project.id, differenceInDays.toString());
             this.mapDays.set(project.id, { differenceInDays, differenceTotalInDays });
+
             this.listProject.push(project);
           }
         });
 
-        this.totalItems = this.listProject.length;
+        this.totalItems = data.totalCount;
       },
       error: (err) => {
         console.log(err);
@@ -126,16 +128,8 @@ export class OpportunitiesComponent {
         }
       })
     } else {
-      this.loadAllProjects();
+      this.loadAllProjects(0, 2);
     }
-  }
-
-  onApply(id: number) {
-    this.router.navigate(['apply-project'], { queryParams: { id: id } });
-  }
-
-  navigate(link: string) {
-    this.router.navigate(['apply-project']);
   }
 
   openShowMoreDialog(title: string, description: string) {
@@ -163,15 +157,9 @@ export class OpportunitiesComponent {
     });
   }
 
-  get paginatedProjects() {
-    const start = (this.currentPage - 1) * (this.itemPerPage);
-    const end = start + this.itemPerPage;
-
-    return this.listProject.slice(start, end);
-  }
-
   changePage(page: number) {
     this.currentPage = page;
+    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
   }
 
   formatProjectCount(count: number): string {
