@@ -37,6 +37,7 @@ import { EnterpriseDetailsDialogComponent } from './enterprise-details-dialog/en
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PopupComponent } from './popup/popup.component';
 
 registerSwiperElements();
 
@@ -61,7 +62,8 @@ registerSwiperElements();
     SupportComponent,
     ShowMoreDialogComponent,
     PartnerDetailsDialogComponent,
-    EnterpriseDetailsDialogComponent
+    EnterpriseDetailsDialogComponent,
+    PopupComponent
   ],
   imports: [
     CommonModule,

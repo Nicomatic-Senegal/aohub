@@ -25,8 +25,9 @@ export class OpportunitiesComponent {
   itemPerPage = 2;
   currentPage = 1;
   currentConnectedUser?: PartnerDTO;
-  positionApplied: boolean = false;
+  alreadyApplied: boolean = false;
   mapDays: Map<number, any> = new Map<number, any>();
+  mapAlreadyAppliedApplicant: Map<number, boolean> = new Map<number, boolean>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -68,7 +69,7 @@ export class OpportunitiesComponent {
 
     this.projectService.getAllProjects(this.token, page, size).subscribe({
       next: (data) => {
-        data.projects.forEach((project: Project) => {
+        data.projects.forEach(async (project: Project) => {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
 
@@ -86,9 +87,13 @@ export class OpportunitiesComponent {
 
             this.listProject.push(project);
           }
-        });
 
+          const isMember = await this.isTeamMember(project, this.currentConnectedUser);
+          this.mapAlreadyAppliedApplicant.set(project.id, isMember);
+
+        });
         this.totalItems = data.totalCount;
+        
       },
       error: (err) => {
         console.log(err);
@@ -183,6 +188,25 @@ export class OpportunitiesComponent {
             return 'Ponctuel';
         default:
             return needType;
+    }
+  }
+
+  async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
+    console.log(project);
+    
+    try {
+      const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
+      if (data) {
+        for (const positioning of data) {
+          if (positioning.partner.id === partner?.id) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
   }
 

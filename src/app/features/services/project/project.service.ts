@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto } from '../../interfaces/attachment-dto.model';
+import { PositioningDTO } from '../../interfaces/positioning-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -121,5 +122,12 @@ export class ProjectService {
     const url = this.apiBaseUrl + `projects/${id}`;
 
     return this.http.patch<void>(url, payload, { headers, responseType: 'json' });
+  }
+
+  isTeamMember(token: string, projectId: number): Observable<PositioningDTO[]> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `positionings/project/${projectId}/all`;
+
+    return this.http.get<PositioningDTO[]>(url, { headers, responseType: 'json' });
   }
 }

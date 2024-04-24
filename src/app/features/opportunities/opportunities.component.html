@@ -89,8 +89,8 @@
                 <button
                   (click)="openApplyToProjectDialog(project)"
                   class="bg-[#408A7E] w-full text-white rounded-lg py-2 shadow-md font-dmsans text-base"
-                  [ngClass]="{'bg-gray-400 cursor-not-allowed': project?.applicant?.id === currentConnectedUser?.id || positionApplied === true}"
-                  [disabled]="project?.applicant?.id === currentConnectedUser?.id || positionApplied === true"
+                  [ngClass]="{'bg-gray-400 cursor-not-allowed': mapAlreadyAppliedApplicant.get(project.id) === true || project?.applicant?.id === currentConnectedUser?.id}"
+                  [disabled]="mapAlreadyAppliedApplicant.get(project.id) === true || project?.applicant?.id === currentConnectedUser?.id"
                   >
                   {{'NAVIGATE' | translate}}
                 </button>
