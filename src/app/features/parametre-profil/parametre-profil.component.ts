@@ -149,8 +149,10 @@ export class ParametreProfilComponent implements OnInit {
     this.userToUpdate.enterpriseName = formValue.enterpriseName;
     this.userToUpdate.employeePostTitle = formValue.role;
     this.userToUpdate.interestTopicLabels = formValue.centreInteret;
-    this.userToUpdate.imageBase64Content = this.picture;
-
+    if (this.picture)
+      this.userToUpdate.imageBase64Content = this.picture ;
+    else
+    this.userToUpdate.imageBase64Content = this.user.imageBase64Content;
     console.log(this.userToUpdate);
 
     this.updateUser(this.userToUpdate);
