@@ -152,7 +152,7 @@ export class ParametreProfilComponent implements OnInit {
     if (this.picture)
       this.userToUpdate.imageBase64Content = this.picture ;
     else
-    this.userToUpdate.imageBase64Content = this.user.imageBase64Content;
+      this.userToUpdate.imageBase64Content = this.user.imageBase64Content;
     console.log(this.userToUpdate);
 
     this.updateUser(this.userToUpdate);
