@@ -6,6 +6,9 @@
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'TRACK_OPPORTUNITY' | translate}} </button>
       </div>
+      <div (click)="moveToProjectDetails()">
+        <p>Project Details</p>
+      </div>
 
       <div class="rounded-2xl bg-white h-full w-full p-3 overflow-auto">
         <div *ngIf="listProject.length === 0" class="mt-[10%] mb-[10%] flex items-center justify-center">
