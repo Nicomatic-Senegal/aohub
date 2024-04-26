@@ -14,4 +14,4 @@ COPY . /app
 
 EXPOSE 4200
 
-CMD ["npm", "run", "startprod"]
+CMD ["npm", "run", "start"]

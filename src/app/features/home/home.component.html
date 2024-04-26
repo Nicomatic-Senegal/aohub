@@ -1,92 +1,72 @@
 <div class="main flex w-full h-[100%] overflow-auto">
   <app-side-bar class="app-side h-100vh" [screen]="'/home'"></app-side-bar>
   <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
-    <app-top-bar class="w-full flex-grow-1 " title="Accueil"></app-top-bar>
+    <app-top-bar class="w-full flex-grow-1 " title="{{'HOME' | translate}}" (languageEvent)="onLanguageEvent($event)"></app-top-bar>
     <div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
       <div class="upper-home flex justify-between">
         <div class="upper-home-left flex flex-col w-[70%]">
             <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]">
-              <p class="text-[#0B0909] font-dmsans font-semibold text-xl">Bienvenue {{fullName}}</p>
-              <p class=" w-full text-[#232323] font-dmsans font-normal text-md pt-2">Prêt à donner vie à votre prochaine idée ? Soumettez un nouveau projet dès maintenant et lancez-vous dans une nouvelle aventure de collaboration et d'innovation</p>
-              <button 
+              <p class="text-[#0B0909] font-dmsans font-semibold text-xl">{{'WELCOME' | translate}} {{fullName}}</p>
+              <p class=" w-full text-[#232323] font-dmsans font-normal text-md pt-2">{{'TEXT1_HOME' | translate}} </p>
+              <button
                 class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
-                (click)="navigation('/project-submission')">Soumettre un nouveau projet
+                (click)="navigation('/project-submission')">{{'SUBMIT_NEW_PROJECT' | translate}}
               </button>
             </div>
             <div class="upper-home-left-bottom flex flex-col mt-5 items-center mb-10">
-              <p class="text-[#408A7E] text-2xl font-bold mb-3 font-dmsans">Écosystème Inhub</p>
-              <p class="text-center font-dmsans font-medium text-gray-600 text-md w-[90%]">Plus de 10 ans de collaboration et une charte commune fédératrice.</p>
+              <p class="text-[#408A7E] text-2xl font-bold mb-3 font-dmsans">{{'ECOSYSTEM_INHUB' | translate}} </p>
+              <p class="text-center font-dmsans font-medium text-gray-600 text-md w-[90%]">{{'TEXT2_HOME' | translate}}.</p>
             </div>
 
             <div class="relative">
-              <swiper-container 
-                class="swiper-enterprise" 
-                pagination="true" 
+              <swiper-container
+                class="swiper-enterprise"
+                pagination="true"
                 pagination-clickable="true"
                 autoplay="true"
-                effect="coverflow" 
-                grab-cursor="true" 
+                effect="coverflow"
+                grab-cursor="true"
                 centered-slides="true"
-                slides-per-view="auto" 
-                coverflow-effect-rotate="50" 
-                coverflow-effect-stretch="0" 
+                slides-per-view="auto"
+                coverflow-effect-rotate="50"
+                coverflow-effect-stretch="0"
                 coverflow-effect-depth="100"
-                coverflow-effect-modifier="1" 
+                coverflow-effect-modifier="1"
                 coverflow-effect-slide-shadows="true"
                 >
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1451', '../../../assets/img/enterprises-logo/nicomatic.svg')">
-                  <img src="../../../assets/img/enterprises-logo/nicomatic.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1452', '../../../assets/img/enterprises-logo/conicio.svg')">
-                  <img src="../../../assets/img/enterprises-logo/conicio.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1452', '../../../assets/img/enterprises-logo/mdg.svg')">
-                  <img src="../../../assets/img/enterprises-logo/mdg.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1454', '../../../assets/img/enterprises-logo/pem.svg')">
-                  <img src="../../../assets/img/enterprises-logo/pem.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1455', '../../../assets/img/enterprises-logo/mgb-version.svg')">
-                  <img src="../../../assets/img/enterprises-logo/mgb-version.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1456', './../../assets/img/enterprises-logo/puget.svg')">
-                  <img src="../../../assets/img/enterprises-logo/puget.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1457', '../../../assets/img/enterprises-logo/az-injection.svg')">
-                  <img src="../../../assets/img/enterprises-logo/az-injection.svg" />
-                </swiper-slide>
-                <swiper-slide (click)="openEnterpriseDetailsDialog('1459', '../../../assets/img/enterprises-logo/thermo.svg')">
-                  <img src="../../../assets/img/enterprises-logo/thermo.svg" />
+                <swiper-slide
+                  *ngFor="let enterprise of enterprises"
+                  (click)="openEnterpriseDetailsDialog(enterprise)">
+                  <img [src]="enterprise.imageBase64Content || '../../../assets/icons/icon-enterprise.webp'" alt="{{enterprise.name}} icon" />
                 </swiper-slide>
               </swiper-container>
-              <!-- <gallery [items]="images" [thumb]="false" class="w-full mt-12 h-30 bg-transparent"  [autoPlay]="true" [playerInterval]="5000" [slidingDuration]="1000" [slidingDisabled]="false"></gallery> -->
             </div>
         </div>
         <div class="upper-home-right flex flex-col w-[25%]">
           <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
             <swiper-container
-              class="swiper-info-inhub" 
-              effect="cube" 
+              class="swiper-info-inhub"
+              effect="cube"
               speed="7000"
               autoplay="true"
               >
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.16.jpeg" />
+                <img src="../../../assets/img/inhub-cest/parcours-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.55.17.jpeg" />
+                <img src="../../../assets/img/inhub-cest/reseau-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.57.19.jpeg" />
+                <img src="../../../assets/img/inhub-cest/confiance-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.56.35.jpeg" />
+                <img src="../../../assets/img/inhub-cest/expertise-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-09 at 16.12.23.jpeg" />
+                <img src="../../../assets/img/inhub-cest/plateforme-{{language}}.jpeg" />
               </swiper-slide>
               <swiper-slide>
-                <img src="../../../assets/img/inhub-cest/WhatsApp Image 2024-04-08 at 18.54.55.jpeg" />
+                <img src="../../../assets/img/inhub-cest/projet-{{language}}.jpeg" />
               </swiper-slide>
             </swiper-container>
             <div class="w-full mt-5 flex justify-center">
@@ -95,27 +75,27 @@
           </div>
 
           <div class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
-            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">Carnet d’adresse</p>
+            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">{{'ADDRESS_BOOK' | translate}} </p>
             <div>
-              <div class="max-w-md mx-auto mb-3">   
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+              <div class="max-w-md mx-auto mb-3">
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">{{'SEARCH' | translate}} </label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                         </svg>
                     </div>
-                    <input 
-                      type="search" 
-                      id="default-search" 
-                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md" 
-                      placeholder="Rechercher des partenaires" #searchInput
+                    <input
+                      type="search"
+                      id="default-search"
+                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md"
+                      placeholder="{{'SEARCH_PARTNER' | translate}}" #searchInput
                     />
                 </div>
               </div>
               <div class="max-h-80 overflow-auto">
-                <div 
-                  *ngFor="let partner of searchData" 
+                <div
+                  *ngFor="let partner of searchData"
                   class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab break-all"
                   (click)="openPartnerDetailsDialog(partner)"
                 >

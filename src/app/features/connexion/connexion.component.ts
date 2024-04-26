@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -16,7 +17,13 @@ export class ConnexionComponent {
   loginForm: FormGroup;
   token!: string;
 
-  constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder) {
+  constructor(private translate: TranslateService, private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder) {
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.translate.use(language);
+    } else {
+      this.translate.use('fr');
+    }
     this.loginForm = this.fb.group({
       username: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [Validators.required, Validators.maxLength(100), Validators.minLength(4)]),

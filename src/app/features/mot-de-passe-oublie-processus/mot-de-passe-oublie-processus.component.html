@@ -10,22 +10,22 @@
         <div [ngSwitch]="page" class="form-inscription div-form">
           <div class="right" *ngSwitchCase="0">
             <div class="reset-mdp">
-              <p class="title">Mot de passe oublié</p>
-              <p class="desc">Fournissez l'adresse email de votre compte pour réinitialiser votre mot de passe</p>
+              <p class="title">{{'PASSWORD_FORGOTTEN' | translate}}</p>
+              <p class="desc">{{'DESC_PASSWORD_FORGOTTEN' | translate}} </p>
               <form class="form" [formGroup]="mailForm">
                 <div class="w-full">
                   <label for="" class="label-inscription">Email</label>
                   <input type="email" class="input-inscription"  formControlName="email" >
                   <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-                    L'email est requis.
+                    {{'EMAIL_REQUIRED' | translate}}.
                   </div>
                   <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-                    Veuillez renseigner un email valide.
+                    {{'EMAIL_NOT_VALID' | translate}}.
                   </div>
                 </div>
                 <div class="div-button">
-                  <button type="reset" class="cancel" (click)="toConnexion()">Annuler</button>
-                  <button type="submit" class="submit" [disabled]="mailForm.invalid" (click)="onSubmit(true)">Confirmer</button>
+                  <button type="reset" class="cancel" (click)="toConnexion()">{{'CANCEL' | translate}} </button>
+                  <button type="submit" class="submit" [disabled]="mailForm.invalid" (click)="onSubmit(true)">{{'CONFIRM' | translate}} </button>
                 </div>
               </form>
             </div>
@@ -33,14 +33,13 @@
           <div class="right" *ngSwitchCase="1">
             <div class="reset-mdp">
               <img src="../../../assets/img/timer.svg" alt="">
-              <p class="title">Mot de passe oublié</p>
-              <p class="desc mb-10">Vous recevrez un e-mail contenant un lien pour réinitialiser votre mot de passe.
-                Veuillez vérifier votre boîte de réception</p>
+              <p class="title">{{'PASSWORD_FORGOTTEN' | translate}}</p>
+              <p class="desc mb-10">{{'DESC_PASSWORD_FORGOTTEN1' | translate}} </p>
                 <div class="footer-inscription mb-3 self-start">
-                  <button  [disabled]="isButtonDisabled()" (click)="startTimerOnClick()" class="flex">Renvoyer le lien par e-mail (<p *ngIf="seconds < 60"> {{seconds}} </p>) </button>
+                  <button  [disabled]="isButtonDisabled()" (click)="startTimerOnClick()" class="flex">{{'RESEND_LINK_BY_EMAIL'}} (<p *ngIf="seconds < 60"> {{seconds}} </p>) </button>
                 </div>
                 <div class="footer-inscription self-start" (click)="decremente()">
-                  <button>Modifier l'adresse e-mail</button>
+                  <button>{{'MODIFY_EMAIL' | translate}} </button>
                 </div>
             </div>
           </div>

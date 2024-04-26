@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { GalleryItem, ImageItem } from 'ng-gallery';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerService } from '../services/partner/partner.service';
 import { PartnerDTO } from '../interfaces/partner.model';
@@ -9,14 +8,8 @@ import { UserService } from '../services/user/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
 import { EnterpriseDetailsDialogComponent } from '../enterprise-details-dialog/enterprise-details-dialog.component';
-
-
-interface CarouselItem {
-  title: string;
-  description: string;
-  color: string;
-  background: string;
-}
+import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { EnterpriseDTO } from '../interfaces/enterprise.model';
 
 @Component({
   selector: 'app-home',
@@ -27,60 +20,26 @@ export class HomeComponent implements OnInit, AfterViewInit {
   token: string;
   fullName!: string;
   searchData: PartnerDTO[] = [];
+  enterprises: EnterpriseDTO[] = [];
   currentIndex: number = 0;
+  language: string;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
-    private route: Router, 
-    private authService: AuthService, 
-    private partnerService: PartnerService, 
+    private route: Router,
+    private authService: AuthService,
+    private partnerService: PartnerService,
     private userService: UserService,
-    private dialog: MatDialog) {
+    private enterpriseService: EnterpriseService,
+    private dialog: MatDialog
+  ) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
+    this.language = localStorage.getItem("language")!;
+    if (!this.language) {
+      this.language = 'fr';
+    }
   }
-
-
-  carouselItems: CarouselItem[] = [
-    {
-      title: 'UN PARCOURS UNIQUE',
-      description: 'Chaque projet est unique, chaque gestion est différente. Le seul point commun est la promesse : une solution adaptée et répondant à votre besoin',
-      color: '#000000',
-      background: 'FFFFFF'
-    },
-    {
-      title: 'UN PROJET & UN CO-DEVELOPPEMENT',
-      description: 'Chaque projet proposé est une occasion de soutenir le client. Il vient partager avec une équipe d’experts qui aura l’écoute nécessaire pour prendre le relai.',
-      color: '#FFFFFF',
-      background: '408A7E'
-    },
-    {
-      title: 'L’ENGAGEMENT DE TOUT UN RESEAU',
-      description: 'IN’HUB  n’est pas l’initiative d’une entreprise seule. Elle est le résultat de l’engagement d’un groupement d’industriels se mettant au service de son développement.',
-      color: '#000000',
-      background: 'FFFFFF'
-    },
-    {
-      title: 'DES EXPERTISES EPROUVEES',
-      description: 'Des experts dans leur domaine depuis plus de 10 ans répondant aux exigences de différents secteurs industriels et couvrant toutes les normes industrielles en vigueur.',
-      color: '#FFFFFF',
-      background: '408A7E'
-    },
-    {
-      title: 'DES CANAUX DIVERS, UNE PLATEFORME UNIQUE',
-      description: 'Chaque membre de la communauté IN’HUB est un interlocuteur privilégié pour vos projets. Chaque membre fera le lien avec la plateforme de gestion.',
-      color: '#000000',
-      background: 'FFFFFF'
-    },
-    {
-      title: 'CONFIANCE & TRANSPARENCE',
-      description: 'Celui qui sait, fait. Du début de projet jusqu’à la fin, vous serez en lien avec les équipes pertinentes pour chaque étape pour gagner le maximum de temps et de clarté',
-      color: '#FFFFFF',
-      background: '408A7E'
-    },
-  ];
-
-  images: GalleryItem[] = [];
 
   ngOnInit() {
     this.userService.getUser(this.token).subscribe({
@@ -91,13 +50,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.log(err);
       }
     });
-    this.images = [
-      new ImageItem({ src: '../../../assets/img/Slide Item — 1.svg', thumb: '../../../assets/img/Slide Item — 1.svg' }),
-      new ImageItem({ src: '../../../assets/img/Slide Item — 2.svg', thumb: '../../../assets/img/Slide Item — 2.svg' }),
-      new ImageItem({ src: '../../../assets/img/Slide Item — 3.svg', thumb: '../../../assets/img/Slide Item — 3.svg' }),
-      new ImageItem({ src: '../../../assets/img/Slide Item — 4.svg', thumb: '../../../assets/img/Slide Item — 4.svg' }),
-      new ImageItem({ src: '../../../assets/img/Slide Item — 5.svg', thumb: '../../../assets/img/Slide Item — 5.svg' }),
-    ];
+    this.loadAllEnterprises();
+  }
+
+  loadAllEnterprises() {
+    this.enterpriseService.getAllEnterprises().subscribe({
+      next: (data) => {
+        console.log(data);
+
+        this.enterprises = data.filter((enterprise:any) => enterprise.name !== 'Autre');
+      },
+      error: (error) => {
+        console.log(error);
+
+      }
+    })
   }
 
   ngAfterViewInit() {
@@ -121,7 +88,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           this.searchData.push(data);
           this.searchData = this.searchData.flatMap(data => data);
           console.log(this.searchData);
-          
+
         },
         error: (err) => {
           console.log(err);
@@ -140,11 +107,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     })
   }
 
-  openEnterpriseDetailsDialog(enterpriseId: any, imageUrl: any) {
+  openEnterpriseDetailsDialog(enterprise: any) {
     this.dialog.open(EnterpriseDetailsDialogComponent, {
       hasBackdrop: true,
       data: {
-        enterpriseId, imageUrl
+        enterprise
       },
       panelClass: 'custom-dialog-container'
     })
@@ -152,6 +119,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   navigation(link: string) {
     this.route.navigate([link]);
+  }
+
+  onLanguageEvent(data: string) {
+    console.log(data);
+
+    this.language = data;
   }
 
 }

@@ -1,7 +1,7 @@
 <div class="background-inscription main">
   <div class="flex w-full justify-between">
     <img src="../../../assets/img/New Logo inhub .png" alt="" class="self-start  w-16 md:w-20">
-    <app-selectionner-langue class="self-end"></app-selectionner-langue>
+    <!-- <app-selectionner-langue class="self-end"></app-selectionner-langue> -->
   </div>
   <div class="flex justify-between w-full h-full">
     <div class="w-[48%] h-full flex flex-col justify-center items-center">
@@ -9,61 +9,61 @@
     </div>
     <div class="w-[48%] flex flex-col justify-center  h-full items-center">
       <div class="form-inscription div-form">
-        <p class="titre-inscription">Créer un compte</p>
+        <p class="titre-inscription">{{'CREATE_PROJECT' | translate}} </p>
         <form class="form" [formGroup]="registerForm">
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Prénom(s)</label>
+          <label for="" class="label-inscription">{{'FIRSTNAME' | translate}} </label>
             <input type="text" class="input-inscription" formControlName="firstName">
             <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-red-600 text-xs">
-              Le prénom est requis.
+              {{'FIRSTNAME_REQUIRED' | translate }}.
             </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Nom</label>
+            <label for="" class="label-inscription">{{'LASTNAME' | translate}}</label>
             <input type="text" class="input-inscription" formControlName="lastName">
             <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-red-600 text-xs">
-              Le nom est requis.
+              {{'LASTNAME_REQUIRED' | translate }}.
             </div>
           </div>
           <div class="div-input-inscription">
             <label for="" class="label-inscription">Email</label>
             <input type="email" class="input-inscription" formControlName="email">
             <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-              L'email est requis.
+              {{'EMAIL_REQUIRED' | translate }}.
             </div>
             <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-              Veuillez renseigner une addresse email valide.
+              {{'EMAIL_NOT_VALID' | translate }}.
             </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Numéro de téléphone</label>
+            <label for="" class="label-inscription">{{'TELEPHONE' | translate}} </label>
             <input type="text" class="input-inscription" formControlName="phoneNumber" (keypress)="onKeyPress($event)">
             <div *ngIf="getControl('phoneNumber')?.invalid && (getControl('phoneNumber')?.dirty || getControl('phoneNumber')?.touched)" class="text-red-600 text-xs">
-              Le numéro de téléphone est requis.
+              {{'TELEPHONE_REQUIRED' | translate}}.
             </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Entreprise</label>
+            <label for="" class="label-inscription">{{'ENTERPRISE' | translate}}</label>
             <select class="input-inscription" formControlName="enterpriseName" >
-              <option value="" disabled [selected]="true">Choisissez une option...</option>
+              <option value="" disabled [selected]="true">{{'CHOOSE_OPTION' | translate}}...</option>
               <option *ngFor="let item of listEnterprise" value="{{item.name}}">{{item.name}}</option>
             </select>
               <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
-                L'entreprise est requis.
+                {{'ENTERPRISE_REQUIRED' | translate}}.
               </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Rôle</label>
+            <label for="" class="label-inscription">{{'ROLE' | translate}} </label>
             <select class="input-inscription" formControlName="role" >
-              <option value="" disabled [selected]="true">Choisissez une option...</option>
+              <option value="" disabled [selected]="true">{{'CHOOSE_OPTION' | translate}}...</option>
               <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
             </select>
               <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
-                Le rôle est requis.
+                {{'ROLE_REQUIRED' | translate}}.
               </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Mot de passe</label>
+            <label for="" class="label-inscription">{{'PASSWORD' | translate}} </label>
             <div class="div-password">
               <input
                 class="input-inscription"
@@ -75,17 +75,17 @@
               </span>
             </div>
             <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-red-600 text-xs">
-              Le mot de passe est requis.
+              {{'PASSWORD_REQUIRED' | translate}}.
             </div>
             <div *ngIf="getControl('password')?.errors?.['minlength']" class="text-red-600 text-xs">
-              Le mot de passe doit être supérieur à 4 caractères.
+              {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
             </div>
             <div *ngIf="getControl('password')?.errors?.['maxlength']" class="text-red-600 text-xs">
-              Le mot de passe doit être inférieur à 100 caractères.
+              {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
             </div>
           </div>
           <div class="div-input-inscription">
-            <label for="" class="label-inscription">Confirmer mot de passe</label>
+            <label for="" class="label-inscription">{{'CONFIRM_PASSWORD' | translate}} </label>
             <div class="div-password">
               <input
                 class="input-inscription"
@@ -99,23 +99,23 @@
               </span>
             </div>
             <div *ngIf="getControl('cpassword')?.invalid && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-              Le mot de passe est requis.
+              {{'PASSWORD_REQUIRED' | translate}}.
             </div>
             <div *ngIf="getControl('cpassword')?.errors?.['minlength']" class="text-red-600 text-xs">
-              Le mot de passe doit être supérieur à 4 caractères.
+              {{'PASSWORD_MIN_LENGTH_ERROR' | translate}}.
             </div>
             <div *ngIf="getControl('cpassword')?.errors?.['maxlength']" class="text-red-600 text-xs">
-              Le mot de passe doit être inférieur à 100 caractères.
+              {{'PASSWORD_MAX_LENGTH_ERROR' | translate}}.
             </div>
             <div *ngIf="getControl('cpassword')?.errors?.['confirmedValidator'] && (getControl('cpassword')?.dirty || getControl('cpassword')?.touched)" class="text-red-600 text-xs">
-              Les mots de passe doivent etre similaires.
+              {{'SAME_PASSWORD_ERROR' | translate}}.
             </div>
           </div>
-          <button type="submit" class="submit-inscription" [disabled]="registerForm.invalid" (click)="register()">Créer un compte</button>
+          <button type="submit" class="submit-inscription" [disabled]="registerForm.invalid" (click)="register()">{{'CREATE_ACCOUNT' | translate}} </button>
         </form>
         <div class="footer-inscription">
-          Vous avez déjà un compte ?
-          <button (click)="seConnecter()">Se connecter</button>
+          {{'ALREADY_GET_ACCOUNT' | translate}} ?
+          <button (click)="seConnecter()">{{'LOG_IN' | translate}} </button>
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto } from '../../interfaces/attachment-dto.model';
+import { PositioningDTO } from '../../interfaces/positioning-dto.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,19 @@ export class ProjectService {
     this.apiBaseUrl = environment.apiBaseUrl;
   }
 
-  getAllProjects(token: string): Observable<any> {
+  getAllProjects(token: string, page: number, size: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects';
+    const url = `${this.apiBaseUrl}projects?page=${page}&size=${size}&sort=id,desc`;
 
-    return this.http.get<Project>(url, { headers, responseType: 'json' });
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const projects = response.body;
+          return { projects, totalCount };
+        })
+      );
   }
 
   getProjectById(id: number): Observable<Project> {
@@ -61,7 +70,7 @@ export class ProjectService {
 
   getAllMyProjects(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/my-projects';
+    const url = this.apiBaseUrl + 'projects/my-projects?sort=id,desc';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
@@ -113,5 +122,12 @@ export class ProjectService {
     const url = this.apiBaseUrl + `projects/${id}`;
 
     return this.http.patch<void>(url, payload, { headers, responseType: 'json' });
+  }
+
+  isTeamMember(token: string, projectId: number): Observable<PositioningDTO[]> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `positionings/project/${projectId}/all`;
+
+    return this.http.get<PositioningDTO[]>(url, { headers, responseType: 'json' });
   }
 }

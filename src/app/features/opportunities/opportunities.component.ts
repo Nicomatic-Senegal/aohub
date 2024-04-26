@@ -24,11 +24,10 @@ export class OpportunitiesComponent {
   totalItems = 0;
   itemPerPage = 2;
   currentPage = 1;
-  currentConnectedUser!: PartnerDTO;
-  positionApplied: boolean = false;
-  // startIndex = 1;
-  // endIndex = 4;
+  currentConnectedUser?: PartnerDTO;
+  alreadyApplied: boolean = false;
   mapDays: Map<number, any> = new Map<number, any>();
+  mapAlreadyAppliedApplicant: Map<number, boolean> = new Map<number, boolean>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -46,7 +45,11 @@ export class OpportunitiesComponent {
     }
 
   ngOnInit(): void {
-    this.loadAllProjects();
+    this.loadCurrentConnectedUser();
+    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+  }
+
+  loadCurrentConnectedUser() {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
         this.currentConnectedUser = data;
@@ -59,13 +62,14 @@ export class OpportunitiesComponent {
        });
       }
     })
-    
   }
 
-  loadAllProjects() {
-    this.projectService.getAllProjects(this.token).subscribe({
+  loadAllProjects(page: number, size: number) {
+    this.listProject.splice(0, this.listProject.length);
+
+    this.projectService.getAllProjects(this.token, page, size).subscribe({
       next: (data) => {
-        data.forEach((project: Project) => {
+        data.projects.forEach(async (project: Project) => {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
 
@@ -76,15 +80,20 @@ export class OpportunitiesComponent {
 
           const differenceTotalInMilliseconds = deadlinePositioning.getTime() - createdAt.getTime();
           const differenceTotalInDays = Math.floor(differenceTotalInMilliseconds / (1000 * 60 * 60 * 24));
-          
-          if (differenceInMilliseconds >= 0) {
+
+          if (differenceInMilliseconds) {
             this.mapDays.set(project.id, differenceInDays.toString());
             this.mapDays.set(project.id, { differenceInDays, differenceTotalInDays });
+
             this.listProject.push(project);
           }
+
+          const isMember = await this.isTeamMember(project, this.currentConnectedUser);
+          this.mapAlreadyAppliedApplicant.set(project.id, isMember);
+
         });
-  
-        this.totalItems = this.listProject.length;
+        this.totalItems = data.totalCount;
+        
       },
       error: (err) => {
         console.log(err);
@@ -95,7 +104,7 @@ export class OpportunitiesComponent {
       }
     });
   }
-  
+
 
   ngAfterViewInit() {
     fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
@@ -124,16 +133,8 @@ export class OpportunitiesComponent {
         }
       })
     } else {
-      this.loadAllProjects();
+      this.loadAllProjects(0, 2);
     }
-  }
-
-  onApply(id: number) {
-    this.router.navigate(['apply-project'], { queryParams: { id: id } });
-  }
-
-  navigate(link: string) {
-    this.router.navigate(['apply-project']);
   }
 
   openShowMoreDialog(title: string, description: string) {
@@ -161,15 +162,9 @@ export class OpportunitiesComponent {
     });
   }
 
-  get paginatedProjects() {
-    const start = (this.currentPage - 1) * (this.itemPerPage);
-    const end = start + this.itemPerPage;
-
-    return this.listProject.slice(start, end);
-  }
-
   changePage(page: number) {
     this.currentPage = page;
+    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
   }
 
   formatProjectCount(count: number): string {
@@ -178,7 +173,7 @@ export class OpportunitiesComponent {
 
   calculateProgressWidth(projectId: number): number {
     const differenceDaysValues = this.mapDays.get(projectId) || '0';
-    
+
     let days = parseInt(differenceDaysValues.differenceInDays);
     days = Math.max(0, days);
     const progressWidth = (days / differenceDaysValues.differenceTotalInDays) * 100;
@@ -196,35 +191,23 @@ export class OpportunitiesComponent {
     }
   }
 
-  calculateDuration(latestDeadline: Date, earliestDeadline: Date): string | undefined {
-    if (!latestDeadline) {
-      return undefined;
+  async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
+    console.log(project);
+    
+    try {
+      const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
+      if (data) {
+        for (const positioning of data) {
+          if (positioning.partner.id === partner?.id) {
+            return true;
+          }
+        }
+      }
+      return false;
+    } catch (error) {
+      console.log(error);
+      return false;
     }
-  
-    const latestDeadlineDate = new Date(latestDeadline);
-    const earliestDeadlineDate = new Date(earliestDeadline);
-
-    const timeDiff = Math.abs(latestDeadlineDate.getTime() - earliestDeadlineDate.getTime());
-  
-    const oneDay = 1000 * 60 * 60 * 24;
-    const oneMonth = oneDay * 30;
-    const oneYear = oneDay * 365;
-  
-    let duration: number | undefined;
-    let durationText: string | undefined;
-  
-    if (timeDiff >= oneYear) {
-      duration = Math.ceil(timeDiff / oneYear);
-      durationText = duration === 1 ? 'année' : 'années';
-    } else if (timeDiff >= oneMonth) {
-      duration = Math.ceil(timeDiff / oneMonth);
-      durationText = duration === 1 ? 'mois' : 'mois';
-    } else {
-      duration = Math.ceil(timeDiff / oneDay);
-      durationText = duration === 1 ? 'jour' : 'jours';
-    }
-  
-    return duration !== undefined ? `${duration} ${durationText}` : undefined;
   }
-  
+
 }

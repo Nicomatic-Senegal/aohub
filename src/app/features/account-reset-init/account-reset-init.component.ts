@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { KeyAndPasswordVM } from '../interfaces/key-and-password-vm.model';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { confirmedValidator } from '../interfaces/utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-account-reset-init',
@@ -16,8 +17,13 @@ export class AccountResetInitComponent implements OnInit {
   changePasswordForm!: FormGroup;
   token!: string;
 
-  constructor(private route:Router, private router: ActivatedRoute, private authService: AuthService, private fb: FormBuilder) {
-
+  constructor(private translateService: TranslateService, private route:Router, private router: ActivatedRoute, private authService: AuthService, private fb: FormBuilder) {
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.translateService.use(language);
+    } else {
+      this.translateService.use('fr');
+    }
   }
 
   ngOnInit() {

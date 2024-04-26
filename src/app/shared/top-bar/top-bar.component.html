@@ -1,10 +1,15 @@
 <div class="flex justify-between w-full py-4 shadow-lg px-2 md:px-10 items-center">
   <p class="title">{{title}}</p>
   <div class="flex">
-    <div class="mr-2 md:mr-5 flex">
-      <!-- <img src="../../../assets/img/fr_flag.svg" alt="" class="mr-1 w-7">
-      <img src="../../../assets/img/dropdown_b.svg" alt="" class="w-3"> -->
+    <div class="dropdown">
+      <div class="dropbtn">
+        <button class="flex items-center"><img [src]="flagUrl" alt="French" class="w-9 h-6 mr-2"> <img src="../../../assets/icons/dropdown_b.svg" class="w-3"></button>
+      </div>
+      <div class="dropdown-content mr-5">
+        <a class="flex items-center text-sm text-black font-dmsans px-3 cursor-pointer" (click)="changeLanguage('fr', '../../../assets/flags/fr_flag.svg')"> <img src="../../../assets/img/fr_flag.svg" alt="French" class="w-7 mr-2"> {{'French' | translate}}</a>
+        <a class="flex items-center text-sm text-black font-dmsans p-3 pb-3 cursor-pointer" (click)="changeLanguage('en', '../../../assets/flags/en_flag.svg')"> <img src="../../../assets/img/ang_flag.svg" alt="English" class="w-7 mr-2"> {{'English' | translate}} </a>
+      </div>
     </div>
-    <img src="../../../assets/img/logout.svg" (click)="logout()" alt="" class="w-5">
+    <img src="../../../assets/img/logout.svg" (click)="logout()" alt="" class="w-5 ml-5 cursor-pointer">
   </div>
 </div>

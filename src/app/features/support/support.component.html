@@ -4,30 +4,30 @@
     <app-top-bar class="w-full flex-grow-1 " title="Support"></app-top-bar>
     <div class="div-center">
       <div class="rounded-2xl bg-white h-full w-full p-3 flex flex-col items-center">
-        <p class="text-black text-2xl text-center  font-semibold font-dmsans my-10">Besoin d’aide ?</p>
+        <p class="text-black text-2xl text-center  font-semibold font-dmsans my-10">{{'NEED_HELP' | translate}} ?</p>
         <form class="w-full px-40 border-b-2 pb-10 border-[#797777]/78 flex flex-col items-center" [formGroup]="supportForm">
           <div class="div-line-form mb-5">
-              <label for="" class="label w-[30%]">Quel est le but de votre demande</label>
+              <label for="" class="label w-[30%]">{{'GOAL_DEMAND' | translate}}</label>
               <div class=" w-[60%] ">
-                <input type="text" class="input" placeholder="Entrer intitulé" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
+                <input type="text" class="input" placeholder="" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
                 <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
-                  L'Intitulé du mail est requis.
+                  {{'GOAL_DEMAND_REQUIRED' | translate}}.
                 </div>
               </div>
           </div>
           <div class="div-line-form mb-10">
-            <label for="" class="label w-[30%]">Pouvez-vous nous en dire plus ?</label>
+            <label for="" class="label w-[30%]">{{'GOAL_DEMAND_DESC' | translate}} ?</label>
             <div class=" w-[60%] ">
-              <textarea type="text" class="textarea" placeholder="Ecrivez la description ici..." formControlName="description"></textarea>
+              <textarea type="text" class="textarea" placeholder="" formControlName="description"></textarea>
               <div *ngIf="getControl('description')?.invalid && (getControl('description')?.dirty || getControl('description')?.touched)" class="text-red-600 text-xs">
-                La description du mail est requise.
+                {{'GOAL_DEMAND_DESC_REQUIRED' | translate}}.
               </div>
             </div>
           </div>
-          <button (click)="sendEmail()" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md" [disabled]="supportForm.invalid">Envoyer</button>
+          <button (click)="sendEmail()" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md" [disabled]="supportForm.invalid">{{'SEND' | translate}} </button>
 
         </form>
-      </div>  
+      </div>
     </div>
   </div>
 

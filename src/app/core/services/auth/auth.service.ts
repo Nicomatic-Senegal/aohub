@@ -7,6 +7,7 @@ import { LoginVM } from '../../interfaces/login-vm.model';
 import { KeyAndPasswordVM } from 'src/app/features/interfaces/key-and-password-vm.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   jwtHelper: JwtHelperService = new JwtHelperService();
   apiBaseUrl: string | undefined;
 
-  constructor(private route: Router, private http: HttpClient) {
+  constructor(private route: Router, private http: HttpClient, private translateService: TranslateService) {
     this.apiBaseUrl = environment.apiBaseUrl;
     this.token_timer = 50;
     this.idle_timer = 15;
@@ -144,6 +145,14 @@ export class AuthService {
       this.route.navigate(['/signin']);
       return;
     }
+
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.translateService.use(language);
+    } else {
+      this.translateService.use('fr');
+    }
+
     const item = localStorage.getItem("token");
     if (typeof item == "string") {
       return item;

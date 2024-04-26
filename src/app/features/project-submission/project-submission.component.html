@@ -4,17 +4,17 @@
     <app-top-bar class="w-full flex-grow-1 " title="Accueil"></app-top-bar>
     <div class="div-center">
       <div class="flex">
-        <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">Accueil</button>
-        <button class="font-dmsans text-[#737373] text-base font-semibold text-left">&gt; Soumettre projet</button>
+        <button class="font-dmsans text-[#737373] text-base font-semibold text-left" (click)="gotoHome()">{{'HOME' |translate}} </button>
+        <button class="font-dmsans text-[#737373] text-base font-semibold text-left">&gt; {{'SUBMIT_PROJECT' | translate}}</button>
       </div>
       <div class="mt-4 flex flex-col justify-center items-center">
-        <p class="font-dmsans text-[#408A7E] text-2xl font-semibold">Soumettre un nouveau projet</p>
+        <p class="font-dmsans text-[#408A7E] text-2xl font-semibold">{{'SUBMIT_NEW_PROJECT' | translate}} </p>
         <div class=" flex mt-5 items-center  w-full">
           <div class="w-20"></div>
           <p  class="w-14 text-center font-dmsans text-base font-semibold text-[#408A7E]" (click)="onSetStep(1)">Description</p>
           <ng-container *ngFor="let item of titleSteps; let i = index">
             <div class="w-[16%]"></div>
-            <p (click)="onSetStep(i + 2)" class="w-14 text-center font-dmsans text-base font-semibold" [ngClass]="step < i + 2 ? 'text-[#737373]' : 'text-[#408A7E]'">{{ item }}</p>
+            <p (click)="onSetStep(i + 2)" class="w-14 text-center font-dmsans text-base font-semibold" [ngClass]="step < i + 2 ? 'text-[#737373]' : 'text-[#408A7E]'">{{ item | translate}}</p>
           </ng-container>
           <div class="w-20 "></div>
         </div>
@@ -41,20 +41,20 @@
             <div *ngSwitchCase="'1'" class="w-full px-10 border-b-2 pb-10 border-[#797777]/78">
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Intitulé du projet</label>
+                  <label for="" class="label w-[30%]">{{'PROJECT_TITLED' | translate}} </label>
                   <div class=" w-[60%] ">
-                    <input type="text" class="input" placeholder="Entrer intitulé" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
+                    <input type="text" class="input" placeholder="" formControlName="intitule" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
-                      L'Intitulé du projet est requis.
+                      {{'PROJECT_TITLED_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label mr-10">Client</label>
+                  <label for="" class="label mr-10">{{'CUSTOMER' | translate}} </label>
                   <div class=" w-full">
-                    <input type="text" class="input" placeholder="Entrer le nom du client" formControlName="client" (keydown.enter)="$event.preventDefault()">
+                    <input type="text" class="input" placeholder="" formControlName="client" (keydown.enter)="$event.preventDefault()">
                     <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
-                      Le client du projet est requis.
+                      {{'CUSTOMER_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
@@ -62,47 +62,47 @@
               <div class="div-line-form">
                 <label for="" class="label w-[18%]">Description</label>
                 <div class=" w-[82%] ">
-                  <textarea type="text" class="textarea" placeholder="Ecrivez la description ici..." formControlName="description"></textarea>
+                  <textarea type="text" class="textarea" placeholder="" formControlName="description"></textarea>
                   <div *ngIf="getControl('description')?.invalid && (getControl('description')?.dirty || getControl('description')?.touched)" class="text-red-600 text-xs">
-                    La description du projet est requise.
+                    {{'DESCRIPTION_REQUIRED' | translate}}.
                   </div>
                 </div>
               </div>
               <div class="div-line-form-bis w-full h-28 mt-5">
                 <div class="flex flex-col w-[45%] h-full justify-between ">
                   <div class="part-line-form-bis ">
-                    <label for="" class="label w-[30%]">Métier</label>
+                    <label for="" class="label w-[30%]">{{'JOB' | translate}} </label>
                     <div class=" w-[60%] ">
                       <select  class="input" #domain (change)="onSelectDomain(domain.value)">
-                        <option value="" disabled [selected]="true">Choisissez le métier...</option>
+                        <option value="" disabled [selected]="true">{{'CHOOSE_JOB' | translate}}...</option>
                         <option *ngFor="let item of domains" value="{{item.name}}" class="{{domainChoosen.indexOf(item.name) !== -1 ? 'text-[#AAAAAA]' : ''}}">{{item.name}}</option>
                       </select>
                       <div *ngIf="domainChoosen.length === 0" class="text-red-600 text-xs">
-                        Le métier est requis.
+                        {{'JOB_REQUIRED' | translate}}.
                       </div>
                     </div>
                   </div>
                   <div class="part-line-form-bis">
-                    <label for="" class="label w-[30%]">Confidentialité</label>
+                    <label for="" class="label w-[30%]">{{'CONFIDENTIALITY' | translate}} </label>
                     <div class=" w-[60%] ">
                       <div >
                         <label class="label mr-20">
                           <input (keydown.enter)="$event.preventDefault()" type="checkbox" formControlName="confidentialite1"  class="peer-checked:text-[#408A7E] peer-checked:bg-[#408A7E] peer-checked:border-[#408A7E] peer-checked:border-2" (change)="handleChange('confidentialite1')">
-                          Oui
+                          {{'YES' | translate}}
                         </label>
                         <input (keydown.enter)="$event.preventDefault()" type="checkbox" formControlName="confidentialite2"  class="checkbox" (change)="handleChange('confidentialite2')">
                         <label class="label">
-                          Non
+                          {{'NO' | translate}}
                         </label>
                       </div>
                       <div *ngIf="projectSubmissionForm.value.confidentialite1 == false && projectSubmissionForm.value.confidentialite2 == false" class="text-red-600 text-xs">
-                        La confidentialité est requise.
+                        {{'CONFIDENTIALITY_REQUIRED' | translate}}.
                       </div>
                     </div>
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <p class="label">Métiers choisis</p>
+                  <p class="label">{{'CHOOSEN_PROFESSIONS' | translate}} </p>
                   <div class="flex justify-between items-center min-h-20 w-full">
                     <div class="overflow-y-scroll border-[2px] border-[#737373]/20 w-full h-20 rounded-lg flex px-2 flex-wrap">
                       <div *ngFor="let item of domainChoosen" class=" rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
@@ -114,34 +114,34 @@
             <div *ngSwitchCase="'2'" class="w-full px-10 border-b-2 pb-5 border-[#797777]/78">
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Marché</label>
+                  <label for="" class="label w-[30%]">{{'MARKET' | translate}} </label>
                   <div class=" w-[60%] ">
                     <select formControlName="marche" class="input">
-                      <option value="" disabled [selected]="true">Choisissez le marché...</option>
+                      <option value="" disabled [selected]="true">{{'CHOOSE_MARKET' | translate}}...</option>
                       <option *ngFor="let item of markets" value="{{item.name}}">{{item.name}} </option>
                     </select>
                     <div *ngIf="getControl('marche')?.invalid && (getControl('marche')?.dirty || getControl('marche')?.touched)" class="text-red-600 text-xs">
-                      Le marché est requis.
+                      {{'MARKET_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Prix cible (euro)</label>
+                  <label for="" class="label w-[30%]">{{'TARGET_PRICE' | translate}} (euro)</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="prixCible" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('prixCible')?.invalid && (getControl('prixCible')?.dirty || getControl('prixCible')?.touched)" class="text-red-600 text-xs">
-                      Le prix cible du projet est requis.
+                      {{'TARGET_PRICE_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Volume global</label>
+                  <label for="" class="label w-[30%]">{{'OVERALL_VOLUME' | translate}} </label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="volumeGlobal" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('volumeGlobal')?.invalid && (getControl('volumeGlobal')?.dirty || getControl('volumeGlobal')?.touched)" class="text-red-600 text-xs">
-                      Le Volume global du projet est requis.
+                      {{'OVERALL_VOLUME_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
@@ -150,50 +150,50 @@
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="budget" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('budget')?.invalid && (getControl('budget')?.dirty || getControl('budget')?.touched)" class="text-red-600 text-xs">
-                      Le Budget du projet est requis.
+                      {{'BUDGET_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Délai au plus tôt</label>
+                  <label for="" class="label w-[30%]">{{'DEADLINE_RATHER' | translate}} </label>
                   <div class=" w-[60%]">
-                    <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTot"> -->
-                    <input type="date" id="startDate" [min]="minDate.toISOString().split('T')[0]" formControlName="startDate" placeholder="Selectionner une date" class="input" (keydown.enter)="$event.preventDefault()"/>
+                    <!-- <input type="date" class="input" placeholder="" formControlName="delaiPlusTot"> -->
+                    <input type="date" id="startDate" [min]="minDate.toISOString().split('T')[0]" formControlName="startDate" placeholder="" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTot')?.invalid && (getControl('delaiPlusTot')?.dirty || getControl('delaiPlusTot')?.touched)" class="text-red-600 text-xs">
-                      Le delai au plus tôt est requis du projet est requis.
+                      {{'DEADLINE_RATHER_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Délai au plus tard</label>
+                  <label for="" class="label w-[30%]">{{'DEADLINE' | translate}}</label>
                   <div class=" w-[60%]">
-                    <!-- <input type="date" class="input" placeholder="Selectionner une date" formControlName="delaiPlusTard"> -->
+                    <!-- <input type="date" class="input" placeholder="" formControlName="delaiPlusTard"> -->
                     <input type="date" [min]="minDateFinString" formControlName="endDate" placeholder="Date de fin" class="input" (keydown.enter)="$event.preventDefault()"/>
                     <div *ngIf="getControl('delaiPlusTard')?.invalid && (getControl('delaiPlusTard')?.dirty || getControl('delaiPlusTard')?.touched)" class="text-red-600 text-xs">
-                      Le delai au plus tard du projet est requis.
+                      {{'DEADLINE_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
               </div>
               <div class="div-line-form">
                 <div class="part-line-form">
-                  <label for="" class="label w-[30%]">Type de besoin</label>
+                  <label for="" class="label w-[30%]">{{'NEED_TYPE' | translate}} </label>
                   <div class=" w-[60%] ">
                     <select formControlName="typeDeBesoin" class="input" (change)="onTypeDeBesoinSelected($event)">
-                      <option value="" disabled [selected]="true">Choisissez le type de besoin...</option>
-                      <option value="CONTRACT">Contractuel</option>
-                      <option value="PUNCTUAL">Ponctuel</option>
+                      <option value="" disabled [selected]="true">{{'CHOOSE_NEED_TYPE' | translate}}...</option>
+                      <option value="CONTRACT">{{'CONTRACTUAL' | translate}} </option>
+                      <option value="PUNCTUAL">{{'PUNCTUAL' | translate}} </option>
                     </select>
                   </div>
                 </div>
                 <div *ngIf="displayContractDuration" class="part-line-form">
-                  <label for="" class="label w-[30%]">Durée (années)</label>
+                  <label for="" class="label w-[30%]">{{'DURATION' | translate}} ({{'YEARS' | translate}})</label>
                   <div class=" w-[60%]">
                     <input type="number" class="input" placeholder="" formControlName="duree" min="0" (keypress)="onKeyPress($event)">
                     <div *ngIf="getControl('duree')?.invalid && (getControl('duree')?.dirty || getControl('duree')?.touched)" class="text-red-600 text-xs">
-                      La durée du projet est requise.
+                      {{'PROJECT_DURATION_REQUIRED' | translate}}.
                     </div>
                   </div>
                 </div>
@@ -201,14 +201,14 @@
             </div>
             <div *ngSwitchCase="'3'" class="w-full mt-5 px-10 border-b-2 pb-5 border-[#797777]/78">
               <div class="div-line-form-bis">
-                <label for="" class="label w-[30%]">Joindre des fichiers dans le projet</label>
+                <label for="" class="label w-[30%]">{{'JOIN_FILES' | translate}}</label>
                 <div class="flex w-[60%] bg-white">
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
                       <input type="file" multiple (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
-                      <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
-                      <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
+                      <label for="fileInput" class="text-[#408A7E] font-dmsans text-sm">{{'CLICK_TO_CHOOSE' | translate}} &nbsp;</label>
+                      <p class="text-[#344054] font-dmsans text-sm">{{'DRAG_DROP' | translate}} </p>
                     </div>
                     <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
                     <div class="w-full overflow-x-scroll">
@@ -219,14 +219,14 @@
                 </div>
               </div>
               <div class="div-line-form-bis mt-10">
-                <label for="" class="label w-[30%]">Joindre des plans</label>
+                <label for="" class="label w-[30%]">{{'JOIN_PLANS' | translate}}</label>
                 <div class="flex w-[60%] bg-white">
                   <div class="px-3 border border-[#408A7E] w-full rounded-lg flex flex-col items-center justify-center">
                     <img src="../../../assets/img/lets-icons_upload.svg" alt="" class="mb-2">
                     <div class="flex">
                       <input type="file" multiple (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
-                      <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">Cliquez pour charger &nbsp;</label>
-                      <p class="text-[#344054] font-dmsans text-sm"> ou faites glisser et déposez</p>
+                      <label for="fileInput1" class="text-[#408A7E] font-dmsans text-sm">{{'CLICK_TO_CHOOSE' | translate}} &nbsp;</label>
+                      <p class="text-[#344054] font-dmsans text-sm">{{'DRAG_DROP' | translate}} </p>
                     </div>
                     <p class="text-sm font-dmsans font-thin text-black mb-2">PDF,JPEG, PNG, XLSX ou DOCX</p>
                     <div class="w-full overflow-x-scroll">
@@ -240,14 +240,14 @@
             <div *ngSwitchCase="'4'" class="w-full px-10 border-b-2 pb-2 border-[#797777]/78">
               <div class="div-line-form-bis mb-2">
                 <div class="w-full  flex flex-col items-center  rounded-xl ">
-                  <label for="" class="label ">Veuillez choisir une date et une heure pour la réunion de lançement du projet </label>
+                  <label for="" class="label ">{{'CHOOSE_DATE_AND_TIME' | translate}} </label>
                   <div class="demo-inline-calendar-card flex">
                     <mat-calendar [minDate]="minDate" class="custom-calendar w-1/4 mr-5"  [(selected)]="selectedDate"></mat-calendar>
                     <div class="w-1/3 flex flex-col justify-center items-center mb-5">
                       <div class="flex justify-between">
                         <input type="time" id="time" formControlName="heure" class=" mr-10 mt-10 bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#408A7E] focus:border-[#408A7E] block w-32 p-2.5 " min="09:00" max="18:00" value="00:00" />
                         <button class="h-10 mt-10 text-white font-dmsans py-2 px-5 bg-[#408A7E] rounded-lg" (click)="ajouterDate()" >
-                          Valider
+                          {{'VALID' | translate}}
                         </button>
                       </div>
                       <!-- <div class="flex justify-between">
@@ -260,7 +260,7 @@
                     </div>
                     <img src="../../../assets/img/Line 43.svg" alt="" class="max-h-52 mt-10 mx-5">
                     <div class="flex flex-col w-1/3 mt-10 h-52 overflow-y-scroll">
-                      <p class="font-dmsans font-semibold text-lg text-[#408A7E]">Dates choisies:</p>
+                      <p class="font-dmsans font-semibold text-lg text-[#408A7E]">{{'DATE_CHOOSEN' | translate}}:</p>
                       <p class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2" *ngFor="let item of allDateChoosen">
                         {{item | date:'dd/MM/yyyy HH:mm'}}
                         <i class=" ml-2 fas fa-xmark" (click)="removeDate(item)"></i>
@@ -268,7 +268,7 @@
                     </div>
                   </div>
                   <div *ngIf="allDateChoosen.length === 0" class="text-red-600 text-xs">
-                    La date est requise.
+                    {{'DATE_REQUIRED' | translate}}.
                   </div>
                 </div>
                 <!-- <div class="w-1/3 flex flex-col items-start ">
@@ -305,15 +305,15 @@
             </div>
             <div *ngSwitchDefault class="w-full px-40 border-b-2 pb-5 border-[#797777]/78 flex flex-col items-center h-full">
               <img src="../../../assets/img/success.svg" class="mt-20" alt="">
-              <p class="text-[#408A7E] font-dmsans text-xl font-semibold my-10">Votre projet a bien été enregistré !</p>
+              <p class="text-[#408A7E] font-dmsans text-xl font-semibold my-10">{{'PROJECT_SUBMITTED' | translate}} !</p>
             </div>
           </div>
 
 
 
           <div class="flex justify-end px-40 mt-5">
-            <button *ngIf="step > 1" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#737373] shadow-md mr-20" (click)="backStep()" >{{step <= 4 ? 'Précédent' : 'Retour'}}</button>
-            <button *ngIf="step < 5" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md" (click)="nextStep()" >{{step == 4 ? 'Soumettre' : 'Suivant'}}</button>
+            <button *ngIf="step > 1" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#737373] shadow-md mr-20" (click)="backStep()" >{{ step <= 4 ? ('PREVIOUS' | translate) : ('BACK' | translate) }}</button>
+            <button *ngIf="step < 5" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md" (click)="nextStep()" >{{step == 4 ? ('SUBMIT' | translate) : ('NEXT' | translate)}}</button>
           </div>
         </form>
       </div>

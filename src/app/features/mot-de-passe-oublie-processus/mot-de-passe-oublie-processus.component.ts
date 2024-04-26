@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -19,8 +20,13 @@ export class MotDePasseOublieProcessusComponent {
   mailForm!: FormGroup;
   token!: string;
 
-  constructor(private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder){
-
+  constructor(private translateService: TranslateService,   private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder){
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.translateService.use(language);
+    } else {
+      this.translateService.use('fr');
+    }
   }
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
 import { GALLERY_CONFIG, GalleryConfig } from 'ng-gallery';
 
 @Component({
@@ -11,14 +12,3 @@ export class AppComponent {
   title = 'inhub-ui';
 }
 
-// bootstrapApplication(AppComponent, {
-//   providers: [
-//     {
-//       provide: GALLERY_CONFIG,
-//       useValue: {
-//         autoHeight: true,
-//         imageSize: 'cover'
-//       } as GalleryConfig
-//     }
-//   ]
-// })
