@@ -38,6 +38,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { PopupComponent } from './popup/popup.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectOptionsComponent } from './project-options/project-options.component';
 
@@ -66,6 +67,7 @@ registerSwiperElements();
     PartnerDetailsDialogComponent,
     EnterpriseDetailsDialogComponent,
     PopupComponent,
+    ProjectDetailsComponent,
     ProjectsComponent,
     ProjectOptionsComponent
   ],

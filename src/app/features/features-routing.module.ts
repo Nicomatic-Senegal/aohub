@@ -12,6 +12,7 @@ import { ProjectSubmissionComponent } from './project-submission/project-submiss
 import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
 import { SupportComponent } from './support/support.component';
+import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjectsComponent } from './projects/projects.component';
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'project-submission', component: ProjectSubmissionComponent },
   { path: 'apply-project', component: ApplyProjectDialogComponent },
   { path: 'projets', component: ProjectsComponent },
-  { path: 'support', component: SupportComponent }
+  { path: 'support', component: SupportComponent },
+  { path: 'project-details', component: ProjectDetailsComponent }
 ];
 
 @NgModule({
