@@ -18,7 +18,6 @@ export class OpportunityTrackingComponent implements OnInit {
   token!: string;
   listProject: Project[] = [];
   listPositionners: Map<string, PositioningDTO[]> = new Map<string, PositioningDTO[]>();
-  screen: number = 1;
   positioners: Array<Array<PositioningDTO>> = [];
   totalItems = 4;
   itemPerPage = 2;
@@ -124,10 +123,6 @@ export class OpportunityTrackingComponent implements OnInit {
        });
       }
     });
-  }
-
-  nextScreeen(num: number) {
-    this.screen = num;
   }
 
   getAllDisponibility(dispo: Disponibility[]) {

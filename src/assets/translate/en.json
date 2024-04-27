@@ -154,5 +154,6 @@
   "ATTACHMENTS": "Attachments",
   "LAUNCH": "Launch",
   "TO_END": "Finish",
-  "TRACK_OPPORTUNITY": "Check my opportunities"
+  "TRACK_OPPORTUNITY": "Check my opportunities",
+  "LOGOUT_MSG": "Are you sure you want to log out"
 }

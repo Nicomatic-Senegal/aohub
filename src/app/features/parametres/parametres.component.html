@@ -7,7 +7,7 @@
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">{{'PROFILE' | translate}} </button>
         <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">{{'PASSWORD' | translate}} </button>
-        <!-- <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Notifications</button> -->
+        <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#EE1B22] border-b-2 border-[#EE1B22] ' : ''">Notifications</button>
       </div>
       <div *ngIf="screen === 1">
         <app-parametre-profil></app-parametre-profil>

@@ -1,18 +1,18 @@
 <div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-16 flex flex-col bg-white max-w-2xl rounded-4xl">
     <div class="w-full p-1 pt-3 mb-10">
-		<h4 class="text-xl">Êtes-vous sûr de vouloir vous déconnecter ?</h4>
+		<h4 class="text-xl">{{'LOGOUT_MSG' | translate}} ?</h4>
 	</div>
 
     <div class="flex justify-end border-t-2 border-[#E5E5E5] mt-5 pt-5">
         <button
             (click)="onCloseDialog()"
             class="bg-[#ABABAB] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5">
-            Annuler
+            {{'CANCEL' | translate}}
         </button>
         <button
             (click)="onLogout()"
             class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5 ml-5">
-            Oui
+            {{'YES' | translate}}
         </button>
     </div>
 </div>

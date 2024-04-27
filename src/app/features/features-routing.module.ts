@@ -12,6 +12,7 @@ import { ProjectSubmissionComponent } from './project-submission/project-submiss
 import { ApplyProjectDialogComponent } from './apply-project-dialog/apply-project-dialog.component';
 import { OpportunityTrackingComponent } from './opportunity-tracking/opportunity-tracking.component';
 import { SupportComponent } from './support/support.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'opportunities', component: OpportunitiesComponent },
   { path: 'project-submission', component: ProjectSubmissionComponent },
   { path: 'apply-project', component: ApplyProjectDialogComponent },
-  { path: 'projets', component: OpportunityTrackingComponent },
+  { path: 'projets', component: ProjectsComponent },
   { path: 'support', component: SupportComponent }
 ];
 

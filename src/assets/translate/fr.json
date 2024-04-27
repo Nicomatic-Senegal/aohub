@@ -154,5 +154,6 @@
   "ATTACHMENTS": "Pièces jointes",
   "LAUNCH": "Lancement",
   "TO_END": "Terminer",
-  "TRACK_OPPORTUNITY": "Suivi de mes opportunités"
+  "TRACK_OPPORTUNITY": "Suivi de mes opportunités",
+  "LOGOUT_MSG": "Êtes-vous sûr de vouloir vous déconnecter"
 }
