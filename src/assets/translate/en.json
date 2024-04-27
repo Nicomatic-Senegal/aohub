@@ -76,8 +76,8 @@
   "YEAR": "year",
   "YEARS": "years",
   "NO_PROJECT_OWNED": "You currently have no ongoing projects",
-  "NAVIGATED_LIST": "List of navigated on the project",
-  "EXTEND_DATE_NAVIGAION": "Extend the deadline to navigate on this opportunity of",
+  "NAVIGATED_LIST": "List of positionned on the project",
+  "EXTEND_DATE_NAVIGAION": "Extend the deadline to position yourself on this opportunity of",
   "VALID": "Validate",
   "DISPONIBILITY": "Availability",
   "ACTIONS": "Actions",
@@ -155,5 +155,15 @@
   "LAUNCH": "Launch",
   "TO_END": "Finish",
   "TRACK_OPPORTUNITY": "Check my opportunities",
-  "LOGOUT_MSG": "Are you sure you want to log out"
+  "LOGOUT_MSG": "Are you sure you want to log out",
+  "PROJECT_DETAILS": "Project Details",
+  "PROJECT_TRACK": "Project Tracking",
+  "ALL_PROJECTS": "All Projects",
+  "THIS_WEEK": "This Week",
+  "THIS_DAY": "Today",
+  "THIS_MONTH": "This Month",
+  "THIS_YEAR": "This Year",
+  "PROJECT_LOADING": "Ongoing Projects",
+  "PROJECT_OVER": "Completed Projects",
+  "PROJECT_ABORTED": "Cancelled Projects"
 }

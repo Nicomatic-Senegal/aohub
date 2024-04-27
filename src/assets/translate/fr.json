@@ -155,5 +155,15 @@
   "LAUNCH": "Lancement",
   "TO_END": "Terminer",
   "TRACK_OPPORTUNITY": "Suivi de mes opportunités",
-  "LOGOUT_MSG": "Êtes-vous sûr de vouloir vous déconnecter"
+  "LOGOUT_MSG": "Êtes-vous sûr de vouloir vous déconnecter",
+  "PROJECT_DETAILS": "details projets",
+  "PROJECT_TRACK": "suivi projet",
+  "ALL_PROJECTS": "Tous les projets",
+  "THIS_WEEK": "cette semaine",
+  "THIS_DAY": "ce jour",
+  "THIS_MONTH": "ce mois",
+  "THIS_YEAR": "cette année",
+  "PROJECT_LOADING": "Projets en cours",
+  "PROJECT_OVER": "Projets terminés",
+  "PROJECT_ABORTED": "Projets annulés"
 }
