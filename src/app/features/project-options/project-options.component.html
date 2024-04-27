@@ -1,5 +1,5 @@
 <div class="main">
-  <app-side-bar class="app-side" [screen]="'/projets'"></app-side-bar>
+  <app-side-bar class="app-side" [screen]="'/projects'"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="{{'MY PROJECTS' | translate}}"></app-top-bar>
     <div class="div-center">
@@ -9,10 +9,10 @@
         <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'TRACK_OPPORTUNITY' | translate}} </button>
       </div>
       <div *ngIf="screen === 1">
-        <app-parametre-profil></app-parametre-profil>
+        <app-project-details></app-project-details>
       </div>
       <div *ngIf="screen === 2" >
-        
+
       </div>
       <div *ngIf="screen === 3" >
         <app-opportunity-tracking></app-opportunity-tracking>

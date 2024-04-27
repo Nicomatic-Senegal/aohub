@@ -125,10 +125,6 @@ export class OpportunityTrackingComponent implements OnInit {
     });
   }
 
-  moveToProjectDetails() {
-    this.route.navigate(['project-details']);
-  }
-
   getAllDisponibility(dispo: Disponibility[]) {
     if (dispo)
       return dispo.map(d => d.instant);

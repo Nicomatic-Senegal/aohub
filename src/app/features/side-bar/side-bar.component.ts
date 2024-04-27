@@ -13,7 +13,7 @@ export class SideBarComponent implements OnInit {
   screenSize: string = "sm";
   optionsTop = [
     ["../../../assets/img/home.svg", "HOME", "/home", "../../../assets/img/home-red.svg"],
-    ["../../../assets/img/projects.svg", "MY PROJECTS", "/projets", "../../../assets/img/projects-red.svg"],
+    ["../../../assets/img/projects.svg", "MY PROJECTS", "/projects", "../../../assets/img/projects-red.svg"],
     ["../../../assets/img/opportunity.svg", "OPPORTUNITIES", "/opportunities", "../../../assets/img/opportunity-red.svg"],
     // ["../../../assets/img/activity.svg", "Activités", "/activite", "../../../assets/img/activity-red.svg"],
     // ["../../../assets/img/notification.svg", "Notifications", "/notification", "../../../assets/img/notification-red.svg"]

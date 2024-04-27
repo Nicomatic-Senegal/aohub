@@ -25,4 +25,8 @@ export class ProjectsComponent {
 
   changeFilter(value: string, flagUrl: string) {
   }
+
+  projectOptions(id: number) {
+    this.route.navigate(["/project-options"])
+  }
 }

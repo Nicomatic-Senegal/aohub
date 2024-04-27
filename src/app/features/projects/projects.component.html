@@ -1,5 +1,5 @@
 <div class="main">
-  <app-side-bar class="app-side" [screen]="'/projets'"></app-side-bar>
+  <app-side-bar class="app-side" [screen]="'/projects'"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="{{'MY PROJECTS' | translate}}"></app-top-bar>
     <div class="div-center">
@@ -94,7 +94,7 @@
         </div>
       </div>
       <div class="flex flex-wrap mt-8 mx-10">
-        <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] transform transition-transform hover:scale-110">
+        <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] transform transition-transform hover:scale-110" (click)="projectOptions(1)">
           <p class="text-base font-dmsans text-[#3B8682] mb-2 font-bold">Développement d'un Nouveau Connecteur Personnalisé</p>
           <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe</p>
           <div class="flex justify-between mb-2 items-center">
