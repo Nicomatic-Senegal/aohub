@@ -130,4 +130,11 @@ export class ProjectService {
 
     return this.http.get<PositioningDTO[]>(url, { headers, responseType: 'json' });
   }
+
+  deleteProject(token: string, projectId: number, reasonToSend: string): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `/project/${projectId}`;
+
+    return this.http.delete<void>(url, {headers, responseType: 'json'});
+  }
 }

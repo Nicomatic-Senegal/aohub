@@ -1,12 +1,20 @@
-<div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
+<div class="projet-container">
     <div class="upper-home flex justify-between">
-        <div class="upper-home-left flex flex-col w-[70%]">
-            <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-white">
+        <div class="upper-home-left flex flex-col w-[65%] p-3 ml-1 shadow-lg bg-white rounded-xl mt-3">
+            <div class="upper-home-left-redbox ">
                 <div class="bloc">
                     <p class=" w-full text-[#408A7E] font-dmsans font-bold text-lg pt-2">Développement de Solutions de Connectivité pour des Applications Spatiales</p>
-                    <p class="font-dmsans text-md mt-3 text-gray-500">Le projet "Développement de Solutions de Connectivité pour des Applications Spatiales" vise à concevoir et à fabriquer des connecteurs spécifiquement adaptés aux exigences uniques des applications spatiales. Ces connecteurs joueront un rôle crucial dans la connectivité des systèmes électroniques embarqués dans des satellites, des sondes spatiales et d'autres engins spatiaux. Le projet comprendra plusieurs phases allant de la recherche et de la conception à la fabrication et aux tests, avec pour objectif ultime de fournir des solutions de connectivité fiables et robustes pour les missions spatiales</p>
+                    <p
+                        class="font-dmsans text-[#121212]/60 text-base">
+                        {{ (project?.description | slice: 0: 300) }}
+                        <span
+                        class="cursor-pointer text-[#121212] hover:text-[#408A7E]"
+                        *ngIf="project?.description!.length > 300"
+                        (click)="openShowMoreDialog(project?.title!, project?.description!)"> ...<span class="underline hover:no-underline">{{'SHOW_MORE' | translate}} </span>
+                        </span>
+                    </p>
                 </div>
-                <div class="flex items-start justify-between mt-10 w-full">
+                <div class="flex items-start justify-between mt-7 w-full">
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Responsable</p>
                         <p class="text-[#737373] font-dmsans text-md">Mame Diarra Bousso</p>
@@ -32,7 +40,7 @@
                     </div>
                 </div>         
                 
-                <div class="flex items-start justify-between mt-10 w-full">
+                <div class="flex items-start justify-between mt-7 w-full">
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Métiers</p>
                         <p class="text-[#737373] font-dmsans text-md">Plasturgie</p>
@@ -57,7 +65,12 @@
                     </div>
                 </div>  
 
-                <div class="flex items-start justify-between mt-5">
+                <div class="flex items-start justify-between -mt-5">
+                    <div class="flex flex-col flex-1 text-right w-80 pr-20">
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Budget</p>
+                        <p class="text-[#737373] font-dmsans text-md">1400 euros</p>
+                    </div>
+
                     <div class="flex flex-col flex-1 text-right w-80 pr-20">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Status</p>
                         <p class="text-[#737373] font-dmsans text-md">En cours</p>
@@ -70,14 +83,14 @@
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <button class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">Supprimer projet</button>
+                        <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">Supprimer projet</button>
                     </div>
                 </div>                
 
             </div>
         </div>
-        <div class="upper-home-right w-[27%]">
-            <div class="rounded-xl bg-white px-4 pt-4 pb-7 mb-5 shadow-lg">
+        <div class="upper-home-right w-[30%] mr-2">
+            <div class="rounded-xl bg-white px-4 pt-4 pb-7 mb-5 mt-3 shadow-lg">
                 <div class="bloc mb-2">
                     <p class="font-semibold font-md text-[#121212]">Évènements</p>
                 </div>
@@ -102,7 +115,7 @@
                 </div>
             </div>
 
-            <div class="carnet rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mb-5 shadow-lg text-[#121212]">
+            <div class="carnet rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mr-2 shadow-lg text-[#121212]">
                 <p class="font-dmsans text-md mb-3 font-semibold">Participants</p>
                 <div class="overflow-auto max-h-80">
                     <div class="max-h-80 overflow-auto">

@@ -96,65 +96,17 @@
             </div>
           </div>
         </div>
+
+        <!-- <div *ngIf="listProject?.length === 0" class="mt-[10%] mb-[10%] flex items-center justify-center">
+          <div class="text-center">
+            <p class="text-3xl font-bold mb-4">{{'NO_PROJECT' | translate}} </p>
+            <p class="text-lg text-gray-600">{{'NO_PROJECT_DESC' | translate}} </p>
+          </div>
+        </div> -->
+
         <div class="flex flex-wrap mt-8 mx-3 gap-7">
-          <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] mb-5 transform transition-transform hover:scale-105 cursor-pointer" (click)="projectOptions(1)">
-            <p class="text-base font-dmsans text-[#3B8682] mb-2 font-bold">Développement d'un Nouveau Connecteur Personnalisé</p>
-            <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe</p>
-            <div class="flex justify-between mb-2 items-center">
-              <div class="flex font-dmsans text-black font-bold items-center">
-                <img src="../../../assets/img/nicomatic.svg" class="mr-2" alt="">
-                Nicomatic
-              </div>
-              <p class="text-[#858585] font-dmsans text-base font-semibold">Volume 180</p>
-              <div class="flex font-dmsans text-base">
-                15 juil 2024
-                <img src="../../../assets/img/tiret-rond.svg" class="ml-2" alt="">
-              </div>
-            </div>
-            <div class="flex">
-              <div class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl  px-5 py-1 text-center font-dmsans text-sm"> Automobile</div>
-            </div>
-          </div>
-
-          <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] mb-5 transform transition-transform hover:scale-105 cursor-pointer" (click)="projectOptions(1)">
-            <p class="text-base font-dmsans text-[#3B8682] mb-2 font-bold">Développement d'un Nouveau Connecteur Personnalisé</p>
-            <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe</p>
-            <div class="flex justify-between mb-2 items-center">
-              <div class="flex font-dmsans text-black font-bold items-center">
-                <img src="../../../assets/img/nicomatic.svg" class="mr-2" alt="">
-                Nicomatic
-              </div>
-              <p class="text-[#858585] font-dmsans text-base font-semibold">Volume 180</p>
-              <div class="flex font-dmsans text-base">
-                15 juil 2024
-                <img src="../../../assets/img/tiret-rond.svg" class="ml-2" alt="">
-              </div>
-            </div>
-            <div class="flex">
-              <div class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl  px-5 py-1 text-center font-dmsans text-sm"> Automobile</div>
-            </div>
-          </div>
-
-          <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] mb-5 transform transition-transform hover:scale-105 cursor-pointer" (click)="projectOptions(1)">
-            <p class="text-base font-dmsans text-[#3B8682] mb-2 font-bold">Développement d'un Nouveau Connecteur Personnalisé</p>
-            <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe</p>
-            <div class="flex justify-between mb-2 items-center">
-              <div class="flex font-dmsans text-black font-bold items-center">
-                <img src="../../../assets/img/nicomatic.svg" class="mr-2" alt="">
-                Nicomatic
-              </div>
-              <p class="text-[#858585] font-dmsans text-base font-semibold">Volume 180</p>
-              <div class="flex font-dmsans text-base">
-                15 juil 2024
-                <img src="../../../assets/img/tiret-rond.svg" class="ml-2" alt="">
-              </div>
-            </div>
-            <div class="flex">
-              <div class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl  px-5 py-1 text-center font-dmsans text-sm"> Automobile</div>
-            </div>
-          </div>
-
-          <div class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] mb-5 transform transition-transform hover:scale-105 cursor-pointer" (click)="projectOptions(1)">
+          <div 
+            class="bg-white shadow-xl rounded-lg px-5 py-4 w-[48%] mb-5 transform transition-transform hover:scale-105 cursor-pointer" (click)="projectOptions(1)">
             <p class="text-base font-dmsans text-[#3B8682] mb-2 font-bold">Développement d'un Nouveau Connecteur Personnalisé</p>
             <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">Concevoir et fabriquer un connecteur sur mesure répondant aux besoins spécifiques d'un système électronique complexe</p>
             <div class="flex justify-between mb-2 items-center">
@@ -173,6 +125,14 @@
             </div>
           </div>
         </div>
+
+        <app-paginator
+          *ngIf="listProject?.length === 0"
+          [totalItems]="totalItems"
+          [itemPerPage]="itemPerPage"
+          [currentPage]="currentPage"
+          (onClick)="changePage($event)">
+        </app-paginator>
       </div>
     </div>
   </div>

@@ -26,4 +26,8 @@ export class ProjectOptionsComponent {
   nextScreeen(num: number) {
     this.screen = num;
   }
+
+  back() {
+    this.route.navigate(['/projects']);
+  }
 }
