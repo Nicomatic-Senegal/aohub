@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-popup-delete-project',
@@ -18,6 +19,7 @@ export class PopupDeleteProjectComponent implements OnInit {
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<PopupDeleteProjectComponent>,
     private authService: AuthService,
+    private router: Router,
     @Inject(MAT_DIALOG_DATA) public dialogData: any) {
   }
 
@@ -32,9 +34,10 @@ export class PopupDeleteProjectComponent implements OnInit {
     } else {
       reasonToSend = this.selectedReason || ''; 
     }
-    this.projectService.deleteProject(token, projectId, reasonToSend).subscribe({
+    this.projectService.deleteProject(this.dialogData?.token, this.dialogData?.project?.id, reasonToSend).subscribe({
       next: (data) => {
         console.log(data);
+        this.router.navigate(['/project']);
         this.toastr.success("Ce projet a été supprimé avec succès", "Succès", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
