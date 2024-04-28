@@ -1,23 +1,28 @@
 <div class="main">
   <app-side-bar class="app-side" [screen]="'/projects'"></app-side-bar>
-  <div class="head-home" >
+  <div class="head-home " >
     <app-top-bar class="w-full flex-grow-1 " title="{{'MY PROJECTS' | translate}}"></app-top-bar>
     <div class="div-center">
+      <div class="flex">
+        <button (click)="back()" class="font-dmsans text-[#737373] text-base font-semibold text-left">&lt; {{'BACK' | translate}}</button>
+      </div>
       <div class="nav">
         <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'PROJECT_DETAILS' | translate}} </button>
         <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'PROJECT_TRACK' | translate}} </button>
         <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'TRACK_OPPORTUNITY' | translate}} </button>
       </div>
-      <div *ngIf="screen === 1">
-        <app-project-details></app-project-details>
-      </div>
-      <div *ngIf="screen === 2" >
 
+      <div class="rounded-xl w-full h-full bg-white px-2 pb-7 pt-2 overflow-auto">
+        <div *ngIf="screen === 1">
+          <app-project-details [project]="project"></app-project-details>
+        </div>
+        <div *ngIf="screen === 2" >
+  
+        </div>
+        <div *ngIf="screen === 3" >
+          <app-opportunity-tracking></app-opportunity-tracking>
+        </div>
       </div>
-      <div *ngIf="screen === 3" >
-        <app-opportunity-tracking></app-opportunity-tracking>
-      </div>
-
     </div>
   </div>
 
