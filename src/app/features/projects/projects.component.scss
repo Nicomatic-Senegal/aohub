@@ -11,7 +11,7 @@
 }
 
 .div-center {
-  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+  @apply w-full h-full px-2 px-5 py-2 py-5 flex flex-col bg-[#1E1E1E]/5
 }
 
 
@@ -40,3 +40,7 @@
 .dropdown-content a:hover {background-color: #ddd;}
 
 .dropdown:hover .dropdown-content {display: block;}
+
+.shadow-custom {
+  box-shadow: 2px 7px 7px 4px #E2ECF9;
+}
