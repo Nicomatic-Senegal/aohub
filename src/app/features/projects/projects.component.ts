@@ -25,7 +25,7 @@ export class ProjectsComponent implements OnInit {
     private projectService: ProjectService,
     private userService: UserService,
     private toastr: ToastrService,
-    private route: Router,
+    private router: Router,
     private authService: AuthService) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -56,9 +56,11 @@ export class ProjectsComponent implements OnInit {
 
     this.projectService.getAllProjects(this.token, page, size).subscribe({
       next: (data) => {
-        console.log(data);
-        this.listProject.push(data.projects)
+        this.listProject.push(data.projects);
+        this.listProject = this.listProject.flatMap(data => data);
         this.totalItems = data.totalCount;
+        console.log(this.listProject);
+        
       },
       error: (err) => {
         console.log(err);
@@ -78,7 +80,7 @@ export class ProjectsComponent implements OnInit {
   changeFilter(value: string, flagUrl: string) {
   }
 
-  projectOptions(id: number) {
-    this.route.navigate(["/project-options"])
-  }
+  displayProjectDetails(id: number) {
+    this.router.navigate(['/project-options'], { queryParams: { id: id } });
+}
 }

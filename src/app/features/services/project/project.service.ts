@@ -32,10 +32,9 @@ export class ProjectService {
       );
   }
 
-  getProjectById(id: number): Observable<Project> {
-    const token: string | null = localStorage.getItem('token');
+  getProjectById(token: string, projectId: string): Observable<Project> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `projects/${id}`;
+    const url = this.apiBaseUrl + `projects/${projectId}`;
 
     return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
