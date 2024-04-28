@@ -59,7 +59,13 @@ export class ProjectsComponent implements OnInit {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
         this.totalItems = data.totalCount;
-        console.log(this.listProject);
+        // console.log(this.listProject);
+
+        // data.projects.forEach((project: Project) => {
+        //   if (project?.teamMembers?.some(member => member.id === this.currentConnectedUser?.id)) {
+        //     this.listProject.push(project);
+        // }
+        // });
         
       },
       error: (err) => {

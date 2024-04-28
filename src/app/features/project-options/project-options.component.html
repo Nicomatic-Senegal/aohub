@@ -6,10 +6,25 @@
       <div class="flex">
         <button (click)="back()" class="font-dmsans text-[#737373] text-base font-semibold text-left">&lt; {{'BACK' | translate}}</button>
       </div>
-      <div class="nav">
-        <button (click)="nextScreeen(1)" [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'PROJECT_DETAILS' | translate}} </button>
-        <button (click)="nextScreeen(2)" [ngClass]="screen === 2 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'PROJECT_TRACK' | translate}} </button>
-        <button (click)="nextScreeen(3)" [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] ' : ''">{{'TRACK_OPPORTUNITY' | translate}} </button>
+
+      <div class="text-sm font-medium text-center text-gray-500 border-b border-[#737373] mb-5 mr-5">
+        <ul class="flex flex-wrap -mb-px">
+            <li class="me-2 text-md cursor-pointer" (click)="nextScreeen(1)">
+                <a
+                  [ngClass]="screen === 1 ? 'text-[#408A7E] border-b-2 border-[#408A7E] hover:text-[#408A7E] hover:border-[#408A7E]' : 'border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300'"
+                  class="inline-block p-4 rounded-t-lg ">{{'PROJECT_DETAILS' | translate}}</a>
+            </li>
+            <li class="me-2 text-md cursor-pointer" (click)="nextScreeen(2)">
+                <a
+                  [ngClass]="screen === 2 ? 'text-[#408A7E] border-b-2 border-[#408A7E] hover:text-[#408A7E] hover:border-[#408A7E]' : 'border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300'"
+                  class="inline-block p-4 rounded-t-lg">{{'PROJECT_TRACK' | translate}}</a>
+            </li>
+            <li class="me-2 text-md cursor-pointer" (click)="nextScreeen(3)">
+                <a
+                  [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] hover:text-[#408A7E] hover:border-[#408A7E]' : 'border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300'"  
+                  class="inline-block p-4 rounded-t-lg">{{'TRACK_OPPORTUNITY' | translate}}</a>
+            </li>
+        </ul>
       </div>
 
       <div class="rounded-xl w-full h-full bg-white px-2 pb-7 pt-2 overflow-auto">
