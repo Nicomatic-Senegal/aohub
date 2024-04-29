@@ -20,6 +20,10 @@ export class ProjectsComponent implements OnInit {
   currentPage = 1;
   listProject: Project[] = [];
   currentConnectedUser?: PartnerDTO;
+  nbProjectsInProgres: number = 0;
+  nbProjectsFinished: number = 0;
+  nbProjectsOnHold: number = 0;
+  nbProjectsArchived: number = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -59,11 +63,28 @@ export class ProjectsComponent implements OnInit {
 
     this.projectService.getMyProjects(this.token, page, size).subscribe({
       next: (data) => {
-        console.log(size);
-        
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
         this.totalItems = data.totalCount;
+
+        this.listProject.forEach(project => {
+          switch(project.status) {
+            case 'IN_PROGRESS':
+              this.nbProjectsInProgres++;
+              break;
+            case 'FINISHED':
+              this.nbProjectsFinished++;
+              break;
+            case 'ON_HOLD':
+              this.nbProjectsOnHold++;
+              break;
+            case 'ARCHIVED':
+              this.nbProjectsArchived++;
+              break;
+            default:
+              break;
+          }
+        });
       },
       error: (err) => {
         console.log(err);

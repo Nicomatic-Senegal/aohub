@@ -38,60 +38,32 @@
             <div class="flex items-center mr-2">
               <img class="mr-2 w-14" src="../../../assets/img/projet tous.svg" alt="">
               <div class="flex flex-col ">
-                <p class="text-[#ACACAC] font-dmsans text-sm">{{'ALL_PROJECTS' | translate}} </p>
-                <p class="font-dmsans font-extrabold text-black text-lg">23</p>
-                <div class="flex items-center text-sm">
-                  <div class="flex text-[#00AC4F] font-dmsans text-sm mr-1 items-center">
-                    <i class="fas fa-arrow-up mr-1"></i>
-                    37,8%
-                  </div>
-                  {{'THIS_WEEK' | translate}}
-                </div>
+                <p class="text-[#ACACAC] font-dmsans text-lg">{{'ALL_PROJECTS' | translate}} </p>
+                <p class="font-dmsans font-extrabold text-black text-2xl">{{totalItems}}</p>
               </div>
             </div>
             <img src="../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
             <div class="flex items-center mr-2">
               <img class="mr-2 w-14" src="../../../assets/img/projet en cours.svg" alt="">
               <div class="flex flex-col ">
-                <p class="text-[#ACACAC] font-dmsans text-sm">{{'PROJECT_LOADING' | translate}} </p>
-                <p class="font-dmsans font-semibold text-black text-lg">07</p>
-                <div class="flex items-center text-sm">
-                  <div class="flex text-[#D0004B] font-dmsans text-sm mr-1 items-center">
-                    <i class="fas fa-arrow-down mr-1"></i>
-                    2%
-                  </div>
-                  {{'THIS_MONTH' | translate}}
-                </div>
+                <p class="text-[#ACACAC] font-dmsans text-lg">{{'PROJECT_LOADING' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsInProgres}}</p>
               </div>
             </div>
             <img src="../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
             <div class="flex items-center mr-2">
               <img class="mr-2 w-14" src="../../../assets/img/projet terminer.svg" alt="">
               <div class="flex flex-col ">
-                <p class="text-[#ACACAC] font-dmsans text-sm">{{'PROJECT_OVER' | translate}} </p>
-                <p class="font-dmsans font-semibold text-black text-lg">15</p>
-                <div class="flex items-center text-sm">
-                  <div class="flex text-[#00AC4F] font-dmsans text-sm mr-1 items-center">
-                    <i class="fas fa-arrow-up mr-1"></i>
-                    11%
-                  </div>
-                  {{'THIS_WEEK' | translate}}
-                </div>
+                <p class="text-[#ACACAC] font-dmsans text-lg">{{'PROJECT_OVER' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsFinished}}</p>
               </div>
             </div>
             <img src="../../../assets/img/sep-vertical.svg" class="mr-2" alt="">
             <div class="flex items-center">
               <img class="mr-2 w-14" src="../../../assets/img/projet annuler.svg" alt="">
               <div class="flex flex-col ">
-                <p class="text-[#ACACAC] font-dmsans text-sm">{{'PROJECT_ABORTED' | translate}} </p>
-                <p class="font-dmsans font-semibold text-black text-lg">04</p>
-                <div class="flex items-center text-sm">
-                  <div class="flex text-[#00AC4F] font-dmsans text-sm mr-1 items-center">
-                    <i class="fas fa-arrow-up mr-1"></i>
-                    5%
-                  </div>
-                  {{'THIS_WEEK' | translate}}
-                </div>
+                <p class="text-[#ACACAC] font-dmsans text-lg">{{'PROJECT_ABORTED' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsOnHold + nbProjectsArchived}}</p>
               </div>
             </div>
           </div>
