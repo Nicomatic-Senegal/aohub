@@ -32,14 +32,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(window.innerHeight < 600) {
+      this.itemPerPage = 2;
+    }
     this.loadCurrentConnectedUser();
-    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);    
   }
 
   loadCurrentConnectedUser() {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
-        this.currentConnectedUser = data;
+        this.currentConnectedUser = data;        
       },
       error: (err) => {
         console.log(err);
