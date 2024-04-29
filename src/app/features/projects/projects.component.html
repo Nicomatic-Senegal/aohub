@@ -84,7 +84,10 @@
             <p class="font-dmsans text-sm text-[#7D7D7D] mb-2">{{project?.description}}</p>
             <div class="flex justify-between mb-2 items-center">
               <div class="flex font-dmsans text-black font-bold items-center">
-                <img src="../../../assets/img/nicomatic.svg" class="mr-2" alt="">
+                <img 
+                  [src]="project?.applicant?.enterprise?.imageUrl || '../../../assets/icons/icon-enterprise.webp'" 
+                  alt="{{project?.applicant?.enterprise?.imageUrl}} icon" 
+                  class="mr-2 w-10 h-10">
                 {{project?.applicant?.enterprise?.name}}
               </div>
               <p class="font-dmsans text-base">Volume {{project?.globalVolume}}</p>

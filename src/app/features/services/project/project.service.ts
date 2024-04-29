@@ -147,8 +147,9 @@ export class ProjectService {
 
   deleteProject(token: string, projectId: number, reasonToSend: string): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `/project/${projectId}`;
+    const url = this.apiBaseUrl + `projects/${projectId}`;
+    const requestBody = {id:projectId, reason: reasonToSend };
 
-    return this.http.delete<void>(url, {headers, responseType: 'json'});
+    return this.http.delete<void>(url, {headers, body: requestBody, responseType: 'json'});
   }
 }

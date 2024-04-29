@@ -14,7 +14,7 @@
                 </div>
                 <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'ROLE' | translate}}: </span>{{partner.employeePost.title}}</p>
                 <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Email: </span> {{partner.user.email}}</p>
-                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'TELEPHONE'}}: </span> {{partner.phoneNumber}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'TELEPHONE' | translate}}: </span> {{partner.phoneNumber}}</p>
             </div>
         </div>
         <div class="lg:w-1/2 lg:pl-4 lg:mt-4 mr-4 flex flex-col items-center lg:items-end">
@@ -32,7 +32,7 @@
                 </p>
             </div>
             <div class="relative w-20 h-20 -mt-15 overflow-hidden flex items-center justify-center">
-                <img class="object-cover h-full w-full" [src]="enterprise.imageBase64Content || '../../../assets/icons/icon-enterprise.webp'" alt="enterprise icon">
+                <img class="object-cover h-full w-full" [src]="enterprise.imageUrl || '../../../assets/icons/icon-enterprise.webp'" alt="enterprise icon">
             </div>
         </div>
     </div>

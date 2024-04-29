@@ -34,10 +34,10 @@ export class PopupDeleteProjectComponent implements OnInit {
     } else {
       reasonToSend = this.selectedReason || ''; 
     }
-    this.projectService.deleteProject(this.dialogData?.token, this.dialogData?.project?.id, reasonToSend).subscribe({
+    this.projectService.deleteProject(token, projectId, reasonToSend).subscribe({
       next: (data) => {
         console.log(data);
-        this.router.navigate(['/project']);
+        this.router.navigate(['/projects']);
         this.toastr.success("Ce projet a été supprimé avec succès", "Succès", {
           timeOut: 3000,
           positionClass: 'toast-top-right',

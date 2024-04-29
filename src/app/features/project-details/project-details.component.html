@@ -29,7 +29,10 @@
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Responsable</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.applicant?.user?.firstName}}</p>
                         <div class="flex items-center"> 
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/pem.svg" alt="">
+                            <img 
+                                class="w-10 h-10 rounded-full" 
+                                src="{{ project?.applicant?.imageBase64Content ? project?.applicant?.imageBase64Content : '../../../assets/icons/icon-user.png' }}"
+                                alt="">
                             <p class="text-[#737373] font-dmsans text-sm font-xs ml-3">{{project?.enterprise?.name}}</p>
                         </div>
                     </div>
@@ -131,7 +134,10 @@
                         *ngFor="let member of project?.teamMembers" 
                         (click)="openPartnerDetailsDialog(member)"
                         class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                        <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/pem.svg" alt="">
+                        <img 
+                            class="w-10 h-10 rounded-full" 
+                            src="{{ member?.imageBase64Content ? member?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" 
+                            alt="">
                         <div class="font-dmsans flex flex-col justify-left items-start">
                             <p class="text-md font-medium">{{member?.user?.firstName}} {{member?.user?.lastName}}</p>
                             <p class="text-sm font-xs text-gray-400">{{member?.enterprise?.name}}</p>
