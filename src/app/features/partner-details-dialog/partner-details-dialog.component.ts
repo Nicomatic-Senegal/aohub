@@ -28,8 +28,6 @@ export class PartnerDetailsDialogComponent {
       this.partnerService.getPartnerById(this.dialogData.partner.id, this.token).subscribe({
         next: (data) => {
           this.partner = data;
-          console.log(data);
-          
         },
         error: (err) => {
           console.log(err);

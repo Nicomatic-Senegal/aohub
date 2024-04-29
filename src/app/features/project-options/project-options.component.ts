@@ -30,7 +30,6 @@ export class ProjectOptionsComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
         const projectId = params['id'];
-        console.log('Project ID:', projectId);
         this.getProjectById(this.token, projectId);
     });
   }
@@ -38,7 +37,6 @@ export class ProjectOptionsComponent implements OnInit {
   getProjectById(token: string, projectId: string) {
     this.projectService.getProjectById(token, projectId).subscribe({
       next: (data) => {
-        console.log(data);
         this.project = data;
       },
       error: (err) => {

@@ -20,6 +20,10 @@ export class ProjectsComponent implements OnInit {
   currentPage = 1;
   listProject: Project[] = [];
   currentConnectedUser?: PartnerDTO;
+  nbProjectsInProgres: number = 0;
+  nbProjectsFinished: number = 0;
+  nbProjectsOnHold: number = 0;
+  nbProjectsArchived: number = 0;
 
   constructor(
     private projectService: ProjectService,
@@ -32,14 +36,17 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(window.innerHeight < 600) {
+      this.itemPerPage = 2;
+    }
     this.loadCurrentConnectedUser();
-    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);    
   }
 
   loadCurrentConnectedUser() {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
-        this.currentConnectedUser = data;
+        this.currentConnectedUser = data;        
       },
       error: (err) => {
         console.log(err);
@@ -51,16 +58,33 @@ export class ProjectsComponent implements OnInit {
     })
   }
 
-  loadAllProjects(page: number, size: number) {
+  loadMyProjects(page: number, size: number) {
     this.listProject.splice(0, this.listProject.length);
 
-    this.projectService.getAllProjects(this.token, page, size).subscribe({
+    this.projectService.getMyProjects(this.token, page, size).subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
         this.totalItems = data.totalCount;
-        console.log(this.listProject);
-        
+
+        this.listProject.forEach(project => {
+          switch(project.status) {
+            case 'IN_PROGRESS':
+              this.nbProjectsInProgres++;
+              break;
+            case 'FINISHED':
+              this.nbProjectsFinished++;
+              break;
+            case 'ON_HOLD':
+              this.nbProjectsOnHold++;
+              break;
+            case 'ARCHIVED':
+              this.nbProjectsArchived++;
+              break;
+            default:
+              break;
+          }
+        });
       },
       error: (err) => {
         console.log(err);
@@ -73,8 +97,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   changePage(page: number) {
+    if(window.innerHeight < 600) {
+      this.itemPerPage = 2;
+    }
     this.currentPage = page;
-    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
   }
 
   changeFilter(value: string, flagUrl: string) {
