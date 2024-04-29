@@ -36,7 +36,7 @@ export class ProjectsComponent implements OnInit {
       this.itemPerPage = 2;
     }
     this.loadCurrentConnectedUser();
-    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);    
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);    
   }
 
   loadCurrentConnectedUser() {
@@ -54,22 +54,16 @@ export class ProjectsComponent implements OnInit {
     })
   }
 
-  loadAllProjects(page: number, size: number) {
+  loadMyProjects(page: number, size: number) {
     this.listProject.splice(0, this.listProject.length);
 
-    this.projectService.getAllProjects(this.token, page, size).subscribe({
+    this.projectService.getMyProjects(this.token, page, size).subscribe({
       next: (data) => {
+        console.log(size);
+        
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
         this.totalItems = data.totalCount;
-        // console.log(this.listProject);
-
-        // data.projects.forEach((project: Project) => {
-        //   if (project?.teamMembers?.some(member => member.id === this.currentConnectedUser?.id)) {
-        //     this.listProject.push(project);
-        // }
-        // });
-        
       },
       error: (err) => {
         console.log(err);
@@ -82,8 +76,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   changePage(page: number) {
+    if(window.innerHeight < 600) {
+      this.itemPerPage = 2;
+    }
     this.currentPage = page;
-    this.loadAllProjects(this.currentPage - 1, this.itemPerPage);
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
   }
 
   changeFilter(value: string, flagUrl: string) {
