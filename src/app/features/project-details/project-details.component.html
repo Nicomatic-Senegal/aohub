@@ -102,7 +102,7 @@
                 <div class="bloc mb-2">
                     <p class="font-semibold font-md text-[#121212]">Évènements</p>
                 </div>
-                <div class="overflow-auto max-h-20">
+                <div class="overflow-auto no-scrollbar max-h-20">
                     <div class="flex mb-5">
                         <img src="../../../assets/img/plannification.svg" alt="" class="mr-1 mb-0.5">
                         <div class="ml-2 flex flex-col justify-between w-full">
@@ -125,132 +125,18 @@
 
             <div class="carnet rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mr-2 shadow-lg text-[#121212]">
                 <p class="font-dmsans text-md mb-3 font-semibold">Participants</p>
-                <div class="overflow-auto max-h-80">
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/pem.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
+                <div class="overflow-auto no-scrollbar max-h-80">
+                    <div *ngFor="let project of project?.teamMembers" class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
+                        <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/pem.svg" alt="">
+                        <div class="font-dmsans flex flex-col justify-left items-start">
+                            <p class="text-md font-medium">{{project?.user?.firstName}} {{project?.user?.lastName}}</p>
+                            <p class="text-sm font-xs text-gray-400">{{project?.enterprise?.name}}</p>
                         </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/conicio.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
+                        <div class="flex flex-col justify-right items-start">
+                            <p class="text-sm font-xs text-gray-400">{{project?.user?.login}}</p>
                         </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/az-injection.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/nicomatic.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/conicio.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/az-injection.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/az-injection.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="max-h-80 overflow-auto">
-                        <div class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
-                            <img class="w-10 h-10 rounded-full" src="../../../assets/img/enterprises-logo/mgb.svg" alt="">
-                            <div class="font-dmsans flex flex-col justify-left items-start">
-                                <p class="text-md font-medium">Cheikh Oumar Ba</p>
-                                <p class="text-sm font-xs text-gray-400">Nicomatic</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <p class="text-sm font-xs text-gray-400">Mécanicienne</p>
-                            </div>
-                            <div class="flex flex-col justify-right items-start">
-                                <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                            </div>
+                        <div class="flex flex-col justify-right items-start">
+                            <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
                         </div>
                     </div>
                 </div>
