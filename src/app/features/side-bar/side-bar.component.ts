@@ -29,6 +29,7 @@ export class SideBarComponent implements OnInit {
   fullName!: string;
   email!: string;
   picture!: string;
+  currentConnectedUser?: any;
   @Input() screen!: string;
 
   onHamburger() {
@@ -44,17 +45,20 @@ export class SideBarComponent implements OnInit {
     this.updateScreenSize(window.innerWidth);
   }
   ngOnInit(): void {
-    this.userService.getUser(this.token).subscribe({
-      next: (data: PartnerDTO) => {
-        this.fullName = data.user.firstName + ' ' + data.user.lastName;
-        this.email = data.user.login;
-        this.picture = data.imageBase64Content;
-      },
-      error: (err) => {
-        console.log(err);
+    this.loadCurrentConnectedUser();
 
-      }
-    });
+  }
+
+  loadCurrentConnectedUser() {
+    const userData = localStorage.getItem("currentConnectedUser");
+    if (userData) {
+      this.currentConnectedUser = JSON.parse(userData);
+      this.fullName =this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
+      this.email = this.currentConnectedUser?.login;
+      this.picture = this.currentConnectedUser?.imageBase64Content;
+    } else {
+      console.error("Erreur lors de la récupération des données utilisateur");
+    }
   }
 
   @HostListener('window:resize', ['$event'])
