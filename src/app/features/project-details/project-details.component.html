@@ -26,7 +26,7 @@
                 
                 <div class="flex items-start justify-between mt-7 w-full">
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Responsable</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'RESPONSIBLE' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.applicant?.user?.firstName}}</p>
                         <div class="flex items-center"> 
                             <img 
@@ -38,12 +38,12 @@
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Client</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'CUSTOMER' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.client}}</p>
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Marché</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'MARKET' | translate}}</p>
                         <p 
                             *ngFor="let market of project?.markets"
                             class="text-[#737373] font-dmsans text-md">{{market?.name}}
@@ -51,50 +51,55 @@
                     </div>
                 
                     <div *ngIf="project?.needType == 'CONTRACT'" class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Durée du contrat</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'CONTRACT_DURACTION' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.duration}}</p>
                     </div>
                 </div>         
                 
                 <div class="flex items-start justify-between mt-7 w-full">
-                    <div class="flex flex-col flex-1 pr-5">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Domaine</p>
+                    <div class="flex flex-col flex-1">
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'PROFESSIONS' | translate}}</p>
                         <select class="text-[#737373] font-dmsans text-md">
                             <option *ngFor="let domain of project?.domains" >{{domain?.name}}</option>
                         </select>
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Délai au plus tôt</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'EARLIEST_DEADLINE' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.earliestDeadline}}</p>
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Délai au plus tard</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'LATEST_DEADLINE' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.latestDeadline}}</p>
-                    </div>
-                
-                    <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Volume global</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.globalVolume}}</p>
                     </div>
                 </div>  
 
                 <div class="flex items-end justify-between mt-7">
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Budget</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'BUDGET' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.budget}}</p>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'OVERALL_VOLUME' | translate}}</p>
+                        <p class="text-[#737373] font-dmsans text-md">{{project?.globalVolume}}</p>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3"></p>
+                        <p class="text-[#737373] font-dmsans text-md"></p>
                     </div>
                 </div>
                 
 
                 <div class="flex items-start justify-end mt-10 w-full">
                     <div class="flex flex-col flex-1">
-                        <button class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5 mr-10">Modifier projet</button>
+                        <button class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5 mr-10">{{'MODIFY_PROJECT' | translate}}</button>
                     </div>
                 
                     <div class="flex flex-col flex-1">
-                        <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">Supprimer projet</button>
+                        <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">{{'DELETE_PROJECT' | translate}}</button>
                     </div>
                 </div>                
 
@@ -103,7 +108,7 @@
         <div class="upper-home-right w-[30%] mr-2">
             <div class="rounded-xl bg-white px-4 pt-4 pb-7 mb-5 mt-3 shadow-lg">
                 <div class="bloc mb-2">
-                    <p class="font-semibold font-md text-[#121212]">Évènements</p>
+                    <p class="font-semibold font-md text-[#121212]">{{'EVENTS' | translate}}</p>
                 </div>
                 <div class="overflow-auto no-scrollbar max-h-20">
                     <div class="flex mb-5">
@@ -111,7 +116,6 @@
                         <div class="ml-2 flex flex-col justify-between w-full">
                             <div class="flex justify-between w-full">
                                 <p class="font-dmsans text-md">Rénion de planification du projet</p>
-                                <!-- <img src="../../../assets/img/trois-points.svg" alt="" class="w-3"> -->
                             </div>
                             <div class="flex justify-between w-full ">
                                 <ul class="flex text-sm list-disc list-inside text-[#7D8DA6]">
@@ -127,12 +131,11 @@
             </div>
 
             <div class="carnet rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mr-2 shadow-lg text-[#121212]">
-                <p class="font-dmsans text-md mb-3 font-semibold">Participants</p>
+                <p class="font-dmsans text-md mb-3 font-semibold">{{'PARTICIPANTS' | translate}}</p>
                 <div class="overflow-auto no-scrollbar max-h-80">
                     <div 
                         *ngFor="let member of project?.teamMembers" 
-                        (click)="openPartnerDetailsDialog(member)"
-                        class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3 cursor-grab">
+                        class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3">
                         <img 
                             class="w-10 h-10 rounded-full" 
                             src="{{ member?.imageBase64Content ? member?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" 
@@ -142,9 +145,11 @@
                             <p class="text-sm font-xs text-gray-400">{{member?.enterprise?.name}}</p>
                         </div>
                         <div class="flex flex-col justify-right items-start">
-                            <p class="text-sm font-xs text-gray-400">{{member?.user?.login}}</p>
+                            <p class="text-sm font-xs text-gray-400">{{member?.employeePost?.title}}</p>
                         </div>
-                        <div class="flex flex-col justify-right items-start">
+                        <div
+                            (click)="openPartnerDetailsDialog(member)" 
+                            class="flex flex-col justify-right items-end ml-auto cursor-grab">
                             <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
                         </div>
                     </div>
