@@ -49,10 +49,25 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const userData = localStorage.getItem("currentConnectedUser");
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
+      console.log(this.currentConnectedUser);
+      
       this.fullName = this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
       this.language = this.currentConnectedUser?.langKey;
     } else {
-      console.error("Erreur lors de la récupération des données utilisateur");
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.currentConnectedUser = data;    
+          this.fullName = this.currentConnectedUser?.user?.firstName + " " + this.currentConnectedUser?.user?.lastName;
+          this.language = this.currentConnectedUser?.user?.langKey;
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-center',
+         });
+        }
+      })
     }
   }
 

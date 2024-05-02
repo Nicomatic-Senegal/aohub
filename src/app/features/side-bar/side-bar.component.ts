@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-side-bar',
@@ -36,7 +37,7 @@ export class SideBarComponent implements OnInit {
     this.viewText = !this.viewText;
   }
 
-  constructor(private route: Router, private authService: AuthService, private userService: UserService,) {
+  constructor(private route: Router, private authService: AuthService, private userService: UserService, private toastr: ToastrService,) {
     // Initialisez la taille de l'écran lors du chargement de la page
     console.log(window.innerWidth);
     authService.loggedOut();
@@ -54,10 +55,24 @@ export class SideBarComponent implements OnInit {
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
       this.fullName =this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
-      this.email = this.currentConnectedUser?.login;
+      this.email = this.currentConnectedUser?.email;
       this.picture = this.currentConnectedUser?.imageBase64Content;
     } else {
-      console.error("Erreur lors de la récupération des données utilisateur");
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.currentConnectedUser = data;    
+          this.fullName = this.currentConnectedUser?.user?.firstName + " " + this.currentConnectedUser?.user?.lastName;
+          this.email = this.currentConnectedUser?.user?.login;
+          this.picture = this.currentConnectedUser?.imageBase64Content;    
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-center',
+         });
+        }
+      })
     }
   }
 
