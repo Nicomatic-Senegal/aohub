@@ -44,18 +44,24 @@ export class ProjectsComponent implements OnInit {
   }
 
   loadCurrentConnectedUser() {
-    this.userService.getUser(this.token).subscribe({
-      next: (data) => {
-        this.currentConnectedUser = data;        
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
-      }
-    })
+    const userData = localStorage.getItem("currentConnectedUser");
+    if (userData) {
+      this.currentConnectedUser = JSON.parse(userData);
+      
+    } else {
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.currentConnectedUser = data; 
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-right',
+         });
+        }
+      })
+    }
   }
 
   loadMyProjects(page: number, size: number) {

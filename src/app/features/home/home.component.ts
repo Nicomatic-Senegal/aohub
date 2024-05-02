@@ -49,8 +49,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const userData = localStorage.getItem("currentConnectedUser");
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
-      console.log(this.currentConnectedUser);
-      
       this.fullName = this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
       this.language = this.currentConnectedUser?.langKey;
     } else {
@@ -64,7 +62,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           console.log(err);
           this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
             timeOut: 3000,
-            positionClass: 'toast-right-center',
+            positionClass: 'toast-right-right',
          });
         }
       })
