@@ -57,12 +57,11 @@
                 </div>         
                 
                 <div class="flex items-start justify-between mt-7 w-full">
-                    <div class="flex flex-col flex-1">
+                    <div class="flex flex-col flex-1 pr-5">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">Domaine</p>
-                        <p 
-                            *ngFor="let domain of project?.domains"
-                            class="text-[#737373] font-dmsans text-md">{{domain?.name}}
-                        </p>
+                        <select class="text-[#737373] font-dmsans text-md">
+                            <option *ngFor="let domain of project?.domains" >{{domain?.name}}</option>
+                        </select>
                     </div>
                 
                     <div class="flex flex-col flex-1">

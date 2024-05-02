@@ -24,6 +24,7 @@ export class ProjectsComponent implements OnInit {
   nbProjectsFinished: number = 0;
   nbProjectsOnHold: number = 0;
   nbProjectsArchived: number = 0;
+  selectedDate: Date | null = new Date();
 
   constructor(
     private projectService: ProjectService,
@@ -115,5 +116,10 @@ export class ProjectsComponent implements OnInit {
 
   displayProjectDetails(id: number) {
     this.router.navigate(['/project-options'], { queryParams: { id: id } });
-}
+  }
+
+  onSelectDate(event: Event) {
+    console.log(this.selectedDate);
+  }
+
 }
