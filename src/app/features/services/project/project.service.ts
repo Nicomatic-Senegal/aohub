@@ -63,7 +63,7 @@ export class ProjectService {
 
   getAllMarkets(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'markets';
+    const url = this.apiBaseUrl + 'markets?page=0&size=100';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }

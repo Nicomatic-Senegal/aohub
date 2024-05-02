@@ -177,5 +177,17 @@
   "EXOTIC_REQUIREMENTS": "Besoin trop exotique",
   "INAPPROPRIATE_TIMING": "Timing inapproprié",
   "OTHER": "Autre",
-  "DELETE": "Supprimer"
+  "DELETE": "Supprimer",
+  "AUTOMOBILE": "Automobile",
+  "AERONAUTICS": "Aéronautique",
+  "ENERGY": "Énergie",
+  "ELECTRONICS": "Électronique",
+  "SPACE": "Spatial",
+  "R_AND_D": "R&D",
+  "ENGINEERING": "Ingénierie",
+  "MEDICAL": "Médical",
+  "AEROSPACE": "Aérospatial",
+  "MILITARY": "Militaire",
+  "INDUSTRIAL": "Industriel",
+  "URBAN_MOBILITY": "Mobilité urbaine"
 }

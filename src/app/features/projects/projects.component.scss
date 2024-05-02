@@ -82,3 +82,15 @@
 ::ng-deep .mat-calendar-body-today {
   @apply bg-[#EDEDED]
 }
+
+.selected {
+  @apply text-[#111] font-semibold
+}
+
+.visible {
+  display: inline-block; 
+}
+
+.active {
+  background-color: yellow; 
+}
