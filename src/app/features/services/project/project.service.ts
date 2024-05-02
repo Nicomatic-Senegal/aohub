@@ -34,7 +34,7 @@ export class ProjectService {
 
   getMyProjects(token: string, page: number, size: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = `${this.apiBaseUrl}projects/my-participations?page=${page}&size=${size}&sort=id,desc`;
+    const url = `${this.apiBaseUrl}projects/my-participations?query=&page=${page}&size=${size}&sort=id,desc`;
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(
@@ -63,7 +63,7 @@ export class ProjectService {
 
   getAllMarkets(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'markets';
+    const url = this.apiBaseUrl + 'markets?page=0&size=100';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
@@ -84,7 +84,7 @@ export class ProjectService {
 
   getAllMyProjects(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/my-projects?sort=id,desc';
+    const url = this.apiBaseUrl + 'projects/my-projects?query=&sort=id,desc';
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
@@ -147,8 +147,9 @@ export class ProjectService {
 
   deleteProject(token: string, projectId: number, reasonToSend: string): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `/project/${projectId}`;
+    const url = this.apiBaseUrl + `projects/${projectId}`;
+    const requestBody = {id:projectId, reason: reasonToSend };
 
-    return this.http.delete<void>(url, {headers, responseType: 'json'});
+    return this.http.delete<void>(url, {headers, body: requestBody, responseType: 'json'});
   }
 }

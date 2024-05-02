@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-side-bar',
@@ -29,13 +30,14 @@ export class SideBarComponent implements OnInit {
   fullName!: string;
   email!: string;
   picture!: string;
+  currentConnectedUser?: any;
   @Input() screen!: string;
 
   onHamburger() {
     this.viewText = !this.viewText;
   }
 
-  constructor(private route: Router, private authService: AuthService, private userService: UserService,) {
+  constructor(private route: Router, private authService: AuthService, private userService: UserService, private toastr: ToastrService,) {
     // Initialisez la taille de l'écran lors du chargement de la page
     console.log(window.innerWidth);
     authService.loggedOut();
@@ -44,17 +46,34 @@ export class SideBarComponent implements OnInit {
     this.updateScreenSize(window.innerWidth);
   }
   ngOnInit(): void {
-    this.userService.getUser(this.token).subscribe({
-      next: (data: PartnerDTO) => {
-        this.fullName = data.user.firstName + ' ' + data.user.lastName;
-        this.email = data.user.login;
-        this.picture = data.imageBase64Content;
-      },
-      error: (err) => {
-        console.log(err);
+    this.loadCurrentConnectedUser();
 
-      }
-    });
+  }
+
+  loadCurrentConnectedUser() {
+    const userData = localStorage.getItem("currentConnectedUser");
+    if (userData) {
+      this.currentConnectedUser = JSON.parse(userData);
+      this.fullName =this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
+      this.email = this.currentConnectedUser?.email;
+      this.picture = this.currentConnectedUser?.imageBase64Content;
+    } else {
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.currentConnectedUser = data;    
+          this.fullName = this.currentConnectedUser?.user?.firstName + " " + this.currentConnectedUser?.user?.lastName;
+          this.email = this.currentConnectedUser?.user?.login;
+          this.picture = this.currentConnectedUser?.imageBase64Content;    
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-center',
+         });
+        }
+      })
+    }
   }
 
   @HostListener('window:resize', ['$event'])

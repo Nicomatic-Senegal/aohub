@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-connexion',
@@ -17,7 +18,14 @@ export class ConnexionComponent {
   loginForm: FormGroup;
   token!: string;
 
-  constructor(private translate: TranslateService, private toastr: ToastrService, private route: Router, private authService: AuthService, private fb: FormBuilder) {
+  constructor(
+    private translate: TranslateService, 
+    private toastr: ToastrService, 
+    private route: Router,
+    private userService: UserService,
+    private authService: AuthService, 
+    private fb: FormBuilder
+  ) {
     const language = localStorage.getItem("language");
     if (language) {
       this.translate.use(language);
@@ -51,14 +59,34 @@ export class ConnexionComponent {
     const formValue = this.loginForm.value;
     this.user.username = formValue.username;
     this.user.password = formValue.password;
-    console.log(this.user);
 
     this.authService.authenticate(this.user).subscribe({
       next: (data) => {
-        console.log(data);
         localStorage.setItem("token", data['id_token']);
         localStorage.setItem("login", this.user.username);
         this.route.navigate(["/home"]);
+
+        this.userService.getUser(data['id_token']).subscribe({
+          next: (data) => {
+            const userSessionData = {
+              id: data.id,
+              firstName: data?.user?.firstName,
+              lastName: data?.user?.lastName,
+              email: data?.user?.login,
+              phoneNumber: data?.phoneNumber,
+              langKey: data?.user?.langKey,
+              imageBase64Content: data?.imageBase64Content
+            };
+            localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));  
+          },
+          error: (err) => {
+            console.log(err);
+            this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+              timeOut: 3000,
+              positionClass: 'toast-right-center',
+           });
+          }
+        })
       },
       error: (err) => {
         console.log(err);

@@ -41,7 +41,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.dialog.open(PopupDeleteProjectComponent, {
       hasBackdrop: true,
       data: {
-        title, description, project
+        title, description, token, project
       },
       panelClass: 'custom-dialog-container'
     });

@@ -44,3 +44,53 @@
 .shadow-custom {
   box-shadow: 2px 7px 7px 4px #E2ECF9;
 }
+
+.mat-calendar.custom-calendar .mat-calendar-body-cell {
+  background-color: #408A7E; 
+  color: #fff;
+}
+
+.mat-calendar.custom-calendar .mat-calendar-table-header th {
+  background-color: #408A7E; 
+  color: #fff; 
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(6) {
+  @apply text-[#FF3B30]
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(7) {
+  @apply text-[#FF3B30] 
+}
+
+::ng-deep .mat-calendar-body tr td:nth-child(6) span {
+  @apply text-[#FF3B30] 
+}
+
+::ng-deep .mat-calendar-body tr td:nth-child(7) span {
+  @apply text-[#FF3B30] 
+}
+::ng-deep .mat-calendar-body-selected {
+  background-color: #408A7E !important;
+}
+
+
+::ng-deep .mat-calendar-body-selected {
+  @apply  bg-[#408A7E]
+}
+
+::ng-deep .mat-calendar-body-today {
+  @apply bg-[#EDEDED]
+}
+
+.selected {
+  @apply text-[#111] font-semibold
+}
+
+.visible {
+  display: inline-block; 
+}
+
+.active {
+  background-color: yellow; 
+}
