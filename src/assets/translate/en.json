@@ -106,6 +106,8 @@
   "YOUR_PICTURE_DESC": "This will be displayed on your profile",
   "MODIFY_PICTURE": "Modify picture",
   "DELETE_PICTURE": "Delete picture",
+  "DELETE_PROJECT": "Delete project",
+  "MODIFY_PROJECT": "Modify project",
   "PROFILE": "Profile",
   "SUBMIT_PROJECT": "Submit project",
   "PROJECT_TITLED": "Project titled",
@@ -203,5 +205,7 @@
   "AEROSPACE": "Aerospace",
   "MILITARY": "Military",
   "INDUSTRIAL": "Insdustrial",
-  "URBAN_MOBILITY": "Urban mobility"
+  "URBAN_MOBILITY": "Urban mobility",
+  "EVENTS": "Events",
+  "PARTICIPANTS": "Participants"
 }
