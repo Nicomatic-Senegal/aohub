@@ -1,0 +1,69 @@
+<div class="div-center w-full h-full px-4 pb-7 pt-1 flex flex-col bg-white max-w-4xl">
+    <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
+		<h4 class="text-[#408A7E] text-xl font-semibold">{{'MODIFY_PROJECT' | translate}} </h4>
+	</div>
+
+    <form [formGroup]="modifyProjectForm" class="w-full">
+          <div class="flex flex-wrap -mx-2">
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'PROJECT_TITLED' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="intitule">
+                <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
+                    {{'PROJECT_TITLED_REQUIRED' | translate}}.
+                </div>
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'DESCRIPTION' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="description">
+                <div *ngIf="getControl('description')?.invalid && (getControl('description')?.dirty || getControl('description')?.touched)" class="text-red-600 text-xs">
+                    {{'DESCRIPTION_REQUIRED' | translate}}.
+                </div>
+            </div>
+            <div class="w-full md:w-[50%] px-5">
+                <label class="font-dmsans text-base text-[#333]">{{'CUSTOMER' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="client">
+                <div *ngIf="getControl('client')?.invalid && (getControl('client')?.dirty || getControl('client')?.touched)" class="text-red-600 text-xs">
+                    {{'CUSTOMER_REQUIRED' | translate}}.
+                </div>
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'MARKET' | translate}}</label>
+                <select class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="market">
+                    <option *ngFor="let market of markets" [value]="market.name">{{market?.name}}</option>
+                </select>
+            </div>
+            <div *ngIf="dialogData.project.duration" class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'CONTRACT_DURACTION' | translate}}</label>
+                <input type="number" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="contractDuration">
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EARLEAST_DEADLINE' | translate}}</label>
+                <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="earliestDeadline">
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'LATEST_DEADLINE' | translate}}</label>
+                <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="latestDeadline">
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'BUDGET' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="budget">
+                <div *ngIf="getControl('budget')?.invalid && (getControl('budget')?.dirty || getControl('budget')?.touched)" class="text-red-600 text-xs">
+                    {{'BUDGET_REQUIRED' | translate}}.
+                </div>
+            </div>
+            <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'OVERALL_VOLUME' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="globalVolume">
+                <div *ngIf="getControl('overallVolume')?.invalid && (getControl('overallVolume')?.dirty || getControl('overallVolume')?.touched)" class="text-red-600 text-xs">
+                    {{'OVERALL_VOLUME_REQUIRED' | translate}}.
+                </div>
+            </div>
+        </div>
+
+          <div class="w-full flex justify-center mt-8">
+            <button (click)="submit()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</div>

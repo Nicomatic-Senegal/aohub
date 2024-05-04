@@ -42,6 +42,7 @@ import { ProjectDetailsComponent } from './project-details/project-details.compo
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectOptionsComponent } from './project-options/project-options.component';
 import { PopupDeleteProjectComponent } from './popup-delete-project/popup-delete-project.component';
+import { PopupModifyProjectComponent } from './popup-modify-project/popup-modify-project.component';
 
 registerSwiperElements();
 
@@ -71,7 +72,8 @@ registerSwiperElements();
     ProjectDetailsComponent,
     ProjectsComponent,
     ProjectOptionsComponent,
-    PopupDeleteProjectComponent
+    PopupDeleteProjectComponent,
+    PopupModifyProjectComponent
   ],
   imports: [
     CommonModule,

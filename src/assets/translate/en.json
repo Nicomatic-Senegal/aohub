@@ -207,5 +207,6 @@
   "INDUSTRIAL": "Insdustrial",
   "URBAN_MOBILITY": "Urban mobility",
   "EVENTS": "Events",
-  "PARTICIPANTS": "Participants"
+  "PARTICIPANTS": "Participants",
+  "DESCRIPTION": "Description"
 }

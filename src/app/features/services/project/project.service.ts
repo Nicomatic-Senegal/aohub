@@ -152,4 +152,11 @@ export class ProjectService {
 
     return this.http.delete<void>(url, {headers, body: requestBody, responseType: 'json'});
   }
+
+  updateProject(token: string, project: Project, projectId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}`;
+
+    return this.http.patch<void>(url, project, {headers, responseType: 'json'});
+  }
 }

@@ -5,6 +5,8 @@ import { PopupComponent } from '../popup/popup.component';
 import { PopupDeleteProjectComponent } from '../popup-delete-project/popup-delete-project.component';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
+import { PopupModifyProjectComponent } from '../popup-modify-project/popup-modify-project.component';
+import { Project } from '../interfaces/project.model';
 
 @Component({
   selector: 'app-project-details',
@@ -31,6 +33,15 @@ export class ProjectDetailsComponent implements OnInit {
       },
       panelClass: 'custom-dialog-container'
     });
+  }
+
+  modifyProject(project: Project) {
+    this.dialog.open(PopupModifyProjectComponent, {
+      hasBackdrop: true,
+      data: {
+        project
+      }
+    })
   }
 
   deleteProject() {
