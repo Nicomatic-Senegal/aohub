@@ -4,8 +4,9 @@ import { ProjectService } from '../services/project/project.service';
 import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../interfaces/project.model';
+import { Market } from '../interfaces/market.model';
 
 @Component({
   selector: 'app-popup-modify-project',
@@ -15,19 +16,18 @@ import { Project } from '../interfaces/project.model';
 export class PopupModifyProjectComponent implements OnInit {
   modifyProjectForm: FormGroup;
   token: string;
-  markets: any;
-  projectUpdated: Project = {
-    id: 0,
-    createdAt: new Date
-  };
+  markets: Market[] = [];
+  projectUpdated: Project;
 
   constructor(
     private fb: FormBuilder, 
     private projectService: ProjectService,
     private authService: AuthService,
     private toastr: ToastrService,
+    public dialogRef: MatDialogRef<PopupModifyProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any) {
-
+    
+    this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
     this.modifyProjectForm = this.fb.group({
       intitule: new FormControl(dialogData.project.title, [Validators.required]),
@@ -40,15 +40,11 @@ export class PopupModifyProjectComponent implements OnInit {
       budget: new FormControl(dialogData.project.budget, [Validators.required]),
       globalVolume: new FormControl(dialogData.project.globalVolume, [Validators.required]),
     })
-    // const dayStart = new Date();
-    // const dayEnd = new Date();
-    // this.modifyProjectForm.patchValue({
-    //   earliestDeadline: format(dayStart, 'yyyy-MM-dd'),
-    //   latestDeadline: format(dayEnd, 'yyyy-MM-dd')
-    // });
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
+        this.markets = data;
+        
       },
       error: (err) => {
         console.log(err);
@@ -71,7 +67,6 @@ export class PopupModifyProjectComponent implements OnInit {
   submit() {
     const formValue = this.modifyProjectForm.value;
     
-    this.projectUpdated.id = this.dialogData.project.id;
     this.projectUpdated.title = formValue.intitule;
     this.projectUpdated.description = formValue.description;
     this.projectUpdated.client = formValue.client;
@@ -81,12 +76,12 @@ export class PopupModifyProjectComponent implements OnInit {
     this.projectUpdated.budget = formValue?.budget;
     this.projectUpdated.globalVolume = formValue.globalVolume;
 
-    console.log(this.token);
-    console.log(this.projectUpdated);
+    const filteredMarkets = this.markets.filter((market => market.name == formValue.market));
+    this.projectUpdated.markets = filteredMarkets; 
     
     this.projectService.updateProject(this.token, this.projectUpdated, this.dialogData.project.id).subscribe({
       next: (data) => {
-        console.log(data);
+        this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
