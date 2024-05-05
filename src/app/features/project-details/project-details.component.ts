@@ -7,6 +7,8 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
 import { PopupModifyProjectComponent } from '../popup-modify-project/popup-modify-project.component';
 import { Project } from '../interfaces/project.model';
+import { UserService } from '../services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-project-details',
@@ -17,12 +19,42 @@ export class ProjectDetailsComponent implements OnInit {
 
   @Input() project: any;
   token: string;
+  currentConnectedUser?: any;
+  isCurrentUserApplicant = false;
 
-  constructor(public dialog: MatDialog, private authService: AuthService,) {
+  constructor(public dialog: MatDialog, private authService: AuthService,
+    private userService: UserService, 
+    private toastr: ToastrService) {
     this.token = authService.isLogged()!;
+    this.loadCurrentConnectedUser();
   }
 
   ngOnInit(): void {
+    
+  }
+
+  loadCurrentConnectedUser() {
+    const userData = localStorage.getItem("currentConnectedUser");
+    console.log(userData);
+    
+    if (userData) {
+      this.currentConnectedUser = JSON.parse(userData);
+      // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;
+    } else {
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.currentConnectedUser = data;    
+          // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-right',
+         });
+        }
+      })
+    }
   }
 
   openShowMoreDialog(title: string, description: string) {
