@@ -44,6 +44,7 @@ import { ProjectOptionsComponent } from './project-options/project-options.compo
 import { PopupDeleteProjectComponent } from './popup-delete-project/popup-delete-project.component';
 import { PopupModifyProjectComponent } from './popup-modify-project/popup-modify-project.component';
 import { OpinionComponent } from './opinion/opinion.component';
+import { ActivityComponent } from './activity/activity.component';
 
 registerSwiperElements();
 
@@ -75,7 +76,8 @@ registerSwiperElements();
     ProjectOptionsComponent,
     PopupDeleteProjectComponent,
     PopupModifyProjectComponent,
-    OpinionComponent
+    OpinionComponent,
+    ActivityComponent
   ],
   imports: [
     CommonModule,

@@ -209,5 +209,21 @@
   "EVENTS": "Évènements",
   "PARTICIPANTS": "Participants",
   "DESCRIPTION": "Description",
-  "YOUR_OPINION": "Votre avis"
+  "YOUR_OPINION": "Votre avis",
+  "ACTIVITIES": "Activités",
+  "MONTH": "mois",
+  "AVAILABLE_OPPORTUNITIES": "Opportunités disponibles",
+  "ACTIVITY_EVOLUTION": "Evolution de l’activité",
+  "JANUARY": "Janvier",
+  "FEBRUARY": "Février",
+  "MARCH": "Mars",
+  "APRIL": "Avril",
+  "MAY": "Mai",
+  "JUNE": "Juin",
+  "JULY": "Juillet",
+  "AUGUST": "Août",
+  "SEPTEMBER": "Septembre",
+  "OCTOBER": "Octobre",
+  "NOVEMBER": "Novembre",
+  "DECEMBER": "Décembre"
 }

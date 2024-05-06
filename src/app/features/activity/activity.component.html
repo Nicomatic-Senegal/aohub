@@ -1,0 +1,119 @@
+<div class="main">
+  <app-side-bar class="app-side" [screen]="'/activity'"></app-side-bar>
+  <div class="head-home" >
+    <app-top-bar class="w-full flex-grow-1 " title="{{'ACTIVITIES' | translate}}"></app-top-bar>
+    <div class="div-center overflow-auto">
+      <div class=" w-full h-full  overflow-auto px-2 pb-7 pt-2">
+        <div class="flex">
+          <div class="w-full flex-col p-5">
+            <div class="dropdown mr-5">
+              <div class="px-2 border border-[#888] rounded-xl">
+                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'ENTERPRISE' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              </div>
+              <div class="dropdown-content mr-5">
+                <a
+                  *ngFor="let enterprise of allEnterprise"
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
+                  [class.selected]="isEnterpriseSelected(enterprise.name)"
+                  (click)="sortProjectsByEnterprise(enterprise.name)">
+                  <span class="mr-3 w-2">
+                    <i class="fas fa-check" [ngStyle]="{ 'display': isEnterpriseSelected(enterprise.name) ? 'inline-block' : 'none' }"></i>
+                  </span>
+                  {{enterprise.name}}
+                </a>
+              </div>
+            </div>
+            <div class="dropdown mr-5">
+              <div class=" px-2 border border-[#888] rounded-xl">
+                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'MONTH' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              </div>
+              <div class="dropdown-content mr-5">
+                <a
+                  *ngFor="let month of months"
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
+                  [class.selected]="isMonthSelected(month)"
+                  (click)="sortProjectsByMonth(month)">
+                  <span class="mr-3 w-2">
+                    <i class="fas fa-check" [ngStyle]="{ 'display': isMonthSelected(month) ? 'inline-block' : 'none' }"></i>
+                  </span>
+                  {{month | translate}}
+                </a>
+              </div>
+            </div>
+            <div class="dropdown mr-5">
+              <div class=" px-2 border border-[#888] rounded-xl">
+                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEAR' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              </div>
+              <div class="dropdown-content mr-5">
+                <a
+                  *ngFor="let year of years"
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
+                  [class.selected]="isYearSelected(year)"
+                  (click)="sortProjectsByYear(year)">
+                  <span class="mr-3 w-2">
+                    <i class="fas fa-check" [ngStyle]="{ 'display': isYearSelected(year) ? 'inline-block' : 'none' }"></i>
+                  </span>
+                  {{year}}
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="flex-col mr-5 mt-2">
+            <div class="search-container flex items-center justify-between border-solid text-[#ccc] border border-[#D0D0D0] p-1 rounded-xl shadow-md h-10">
+              <input
+                type="search"
+                class="search-input focus:outline-none text-[#444] px-3 w-60"
+                placeholder="{{'SEARCH' | translate}}..."
+                #searchInput>
+              <i class="fas fa-search search-icon cursor-pointer p-1"></i>
+            </div>
+          </div>
+        </div>
+        <div class="flex">
+          <div class="flex justify-between items-center mx-4 px-2 py-2 w-full ">
+            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+              <div class="flex flex-col justify-between">
+                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_LOADING' | translate}} </p>
+                <p class="font-dmsans font-extrabold text-black text-2xl align-bottom">{{nbProjectsInProgres}}</p>
+              </div>
+              <img class="w-8 self-end" src="../../../assets/img/projet-en-cours-a.svg" alt="">
+            </div>
+            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+              <div class="flex flex-col ">
+                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_ABORTED' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsArchived}}</p>
+              </div>
+              <img class="w-8 self-end" src="../../../assets/img/projet-rejete-a.svg" alt="">
+            </div>
+            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+              <div class="flex flex-col ">
+                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_OVER' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsFinished}}</p>
+              </div>
+              <img class="w-8 self-end" src="../../../assets/img/projet-termine-a.svg" alt="">
+            </div>
+            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+              <div class="flex flex-col ">
+                <p class="text-[#888] font-dmsans text-lg">{{'AVAILABLE_OPPORTUNITIES' | translate}} </p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsOnHold}}</p>
+              </div>
+              <img class="w-8 self-end" src="../../../assets/img/opportunites-dispo-a.svg" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mx-6 mt-10 ">
+          <div>
+            <p class="text-base font-dmsans text-[#3B8682] font-semibold">{{'ACTIVITY_EVOLUTION' | translate}}</p>
+            <img src="../../../assets/img/evolution activity.svg" alt="">
+          </div>
+          <div >
+            <p class="text-base font-dmsans text-[#3B8682] font-semibold">Top clients</p>
+            <img src="../../../assets/img/top client.svg" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

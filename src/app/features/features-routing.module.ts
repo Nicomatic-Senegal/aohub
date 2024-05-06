@@ -15,6 +15,7 @@ import { SupportComponent } from './support/support.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectOptionsComponent } from './project-options/project-options.component';
+import { ActivityComponent } from './activity/activity.component';
 
 const routes: Routes = [
   { path: 'signup', component: InscriptionComponent },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'apply-project', component: ApplyProjectDialogComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'support', component: SupportComponent },
-  { path: 'project-options', component: ProjectOptionsComponent }
+  { path: 'project-options', component: ProjectOptionsComponent },
+  { path: 'activity', component: ActivityComponent }
 ];
 
 @NgModule({

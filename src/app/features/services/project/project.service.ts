@@ -32,6 +32,21 @@ export class ProjectService {
       );
   }
 
+  getAllProjectsNoPagination(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = `${this.apiBaseUrl}projects?sort=id,desc`;
+
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const projects = response.body;
+          return { projects, totalCount };
+        })
+      );
+  }
+
   getMyProjects(token: string, page: number, size: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = `${this.apiBaseUrl}projects/my-participations?query=&page=${page}&size=${size}&sort=id,desc`;

@@ -1,0 +1,58 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-5 py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+
+.dropbtn {
+  @apply text-white p-2 text-base border-none
+}
+
+.dropdown {
+  @apply relative inline-block
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 100;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.shadow-custom {
+  box-shadow: 2px 7px 7px 4px #E2ECF9;
+}
+
+.selected {
+  @apply text-[#111] font-semibold
+}
+
+.visible {
+  display: inline-block;
+}
+
+.active {
+  background-color: yellow;
+}
