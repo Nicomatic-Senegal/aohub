@@ -225,5 +225,9 @@
   "SEPTEMBER": "Septembre",
   "OCTOBER": "Octobre",
   "NOVEMBER": "Novembre",
-  "DECEMBER": "Décembre"
+  "DECEMBER": "Décembre",
+  "IN_PROGRESS": "En cours",
+  "FINISHED": "Fini",
+  "ON_HOLD": "En attente",
+  "ARCHIVED": "Archivé"
 }

@@ -104,6 +104,13 @@ export class ProjectService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
+  getAllProjectsEnterprise(token: string, idEnterprise: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise;
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
   getPartnersInMyProjectsFiltred(token: string, idProject: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'positionings/project/' + idProject;

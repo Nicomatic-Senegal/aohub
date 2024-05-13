@@ -2,8 +2,8 @@
   <app-side-bar class="app-side" [screen]="'/activity'"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="{{'ACTIVITIES' | translate}}"></app-top-bar>
-    <div class="div-center overflow-auto">
-      <div class=" w-full h-full  overflow-auto px-2 pb-7 pt-2">
+    <div class="div-center overflow-y-scroll">
+      <div class=" w-full h-full px-2 pb-7 pt-2 overflow-y-scroll">
         <div class="flex">
           <div class="w-full flex-col p-5">
             <div class="dropdown mr-5">
@@ -14,10 +14,10 @@
                 <a
                   *ngFor="let enterprise of allEnterprise"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
-                  [class.selected]="isEnterpriseSelected(enterprise.name)"
-                  (click)="sortProjectsByEnterprise(enterprise.name)">
+                  [class.selected]="isEnterpriseSelected(enterprise.id)"
+                  (click)="sortProjectsByEnterprise(enterprise.id)">
                   <span class="mr-3 w-2">
-                    <i class="fas fa-check" [ngStyle]="{ 'display': isEnterpriseSelected(enterprise.name) ? 'inline-block' : 'none' }"></i>
+                    <i class="fas fa-check" [ngStyle]="{ 'display': isEnterpriseSelected(enterprise.id) ? 'inline-block' : 'none' }"></i>
                   </span>
                   {{enterprise.name}}
                 </a>
@@ -29,7 +29,7 @@
               </div>
               <div class="dropdown-content mr-5">
                 <a
-                  *ngFor="let month of months"
+                  *ngFor="let month of months; let i = index"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isMonthSelected(month)"
                   (click)="sortProjectsByMonth(month)">
@@ -102,14 +102,76 @@
           </div>
         </div>
 
-        <div class="flex justify-between mx-6 mt-10 ">
-          <div>
+        <div class="flex justify-between mx-6 mt-10 w-full">
+          <div class="w-[48%]">
             <p class="text-base font-dmsans text-[#3B8682] font-semibold">{{'ACTIVITY_EVOLUTION' | translate}}</p>
-            <img src="../../../assets/img/evolution activity.svg" alt="">
+            <div class=" bg-white shadow-xl rounded-xl p-4">
+              <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
+                {{'NO_PROJECT' | translate}}
+              </div>
+              <apx-chart
+              *ngIf="listProject.length > 0"
+              [series]="chartOptions.series!"
+              [chart]="chartOptions.chart!"
+              [xaxis]="chartOptions.xaxis!"
+              [stroke]="chartOptions.stroke!"
+              [dataLabels]="chartOptions.dataLabels!"
+              [yaxis]="chartOptions.yaxis!"
+              [labels]="chartOptions.labels!"
+              [legend]="chartOptions.legend!"
+              [title]="chartOptions.title!"
+              [subtitle]="chartOptions.subtitle!"
+            ></apx-chart>
+            </div>
           </div>
-          <div >
+          <div class="w-[48%] mr-6">
             <p class="text-base font-dmsans text-[#3B8682] font-semibold">Top clients</p>
-            <img src="../../../assets/img/top client.svg" alt="">
+            <div class="bg-white shadow-xl rounded-xl flex justify-start items-start p-4 " id="container">
+              <!-- app.component.html -->
+              <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
+                {{'NO_PROJECT' | translate}}
+              </div>
+              <angular-d3-cloud
+              *ngIf="listProject.length > 0"
+              [data]="data"
+              font="serif"
+              [padding]="0"
+              [rotate]="rotation"
+              [autoFill]="true"
+              [animations]="true"
+              class="max-h-[400px] max-w-[95%] flex justify-center items-center"
+              ></angular-d3-cloud>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full mx-6 mt-10">
+          <p class="text-base font-dmsans text-[#3B8682] font-semibold">Top projets</p>
+          <div class=" bg-white shadow-xl rounded-xl p-4">
+            <p class="text-base font-dmsans text-black font-semibold">Projets</p>
+            <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
+              {{'NO_PROJECT' | translate}}
+            </div>
+            <table class="w-full mt-5" *ngIf="listProject.length > 0">
+              <thead class="w-full">
+                <tr class="w-full text-base font-dmsans text-[#72767C] font-semibold border-t border-t-[F3F3F3] text-left">
+                  <th>Description</th>
+                  <th>Durée</th>
+                  <th>Responsable</th>
+                  <th>Date de création</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody class="w-full ">
+                <tr *ngFor="let row of listProject" class="w-full text-base font-dmsans text-[#242731] font-semibold border-t border-t-[F3F3F3] text-left">
+                  <td>{{ row.description }}</td>
+                  <td>{{ row.duration }}</td>
+                  <td>{{ row.applicant?.user?.firstName }} {{row.applicant?.user?.lastName }}</td>
+                  <td>{{ row.createdAt }}</td>
+                  <td>{{ row.status?.toString()! | translate }}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>

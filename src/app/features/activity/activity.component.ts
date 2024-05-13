@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -8,6 +8,8 @@ import { ProjectService } from '../services/project/project.service';
 import { UserService } from '../services/user/user.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { ChartComponent } from 'ng-apexcharts';
+import { ChartOptions, series } from '../interfaces/chart-options';
 
 @Component({
   selector: 'app-activity',
@@ -16,9 +18,6 @@ import { EnterpriseService } from '../services/enterprise/enterprise.service';
 })
 export class ActivityComponent {
   token: string;
-  totalItems = 0;
-  itemPerPage = 4;
-  currentPage = 1;
   allProjects: Project[] = [];
   listProject: Project[] = [];
   allEnterprise: EnterpriseDTO[] = [];
@@ -28,11 +27,9 @@ export class ActivityComponent {
   nbProjectsOnHold: number = 0;
   nbProjectsArchived: number = 0;
   selectedDate: Date | null = new Date();
-  selectedStatus: string[] = [];
-  selectedEnterprise: string[] = [];
+  selectedEnterprise!: number;
   selectedMonth: string[] = [];
   selectedYears: string[] = [];
-  listMarkets: any;
   months: string[] = [
     "JANUARY",
     "FEBRUARY",
@@ -50,8 +47,17 @@ export class ActivityComponent {
   years = [
     "2012", "2013", "2014", "2015", "2016", "2017",
     "2018", "2019", "2020", "2021", "2022", "2023", "2024"
-  ];;
+  ];
 
+  data: any;
+  @ViewChild("chart") chart!: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+
+  data1: any[][] = [
+    ['Donnée 1-1', 'Donnée 1-2', 'Donnée 1-3', 'Donnée 1-4', 'Donnée 1-5'],
+    ['Donnée 2-1', 'Donnée 2-2', 'Donnée 2-3', 'Donnée 2-4', 'Donnée 2-5'],
+    // Ajoutez d'autres lignes de données ici
+  ];
 
   constructor(
     private projectService: ProjectService,
@@ -62,16 +68,64 @@ export class ActivityComponent {
     private authService: AuthService) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
+
+      this.chartOptions = {
+        series: [
+          {
+            name: "Marché",
+            data: series.monthDataSeries1.prices
+          }
+        ],
+        chart: {
+          type: "area",
+          height: 390,
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: "straight"
+        },
+
+        title: {
+          text: "Analyse des marchés",
+          align: "left"
+        },
+        subtitle: {
+          text: "Les marchés",
+          align: "left"
+        },
+        labels: series.monthDataSeries1.dates,
+        xaxis: {
+          type: "datetime"
+        },
+        yaxis: {
+          opposite: true
+        },
+        legend: {
+          horizontalAlign: "left"
+        }
+      };
   }
 
   ngOnInit(): void {
-    if(window.innerHeight < 600) {
-      this.itemPerPage = 2;
-    }
     this.loadCurrentConnectedUser();
-    this.loadAllProjects();
-    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
     this.loadAllEnterprises();
+
+    console.log(this.loadAllWords());
+
+    this.data = this.loadAllWords().map(function (d) {
+        return { text: d, value: 20};
+      });
+
+    // Highcharts.chart('container', this.options);
+  }
+
+  rotation(word: any, index: number) {
+    return Math.round(Math.random())  * 90;
   }
 
   loadCurrentConnectedUser() {
@@ -95,10 +149,16 @@ export class ActivityComponent {
     }
   }
 
+  loadAllWords() {
+    return this.allProjects.map(project => project.markets?.at(0)?.name);
+  }
+
   loadAllEnterprises() {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
         this.allEnterprise = data;
+        this.selectedEnterprise = this.allEnterprise[0].id;
+        this.loadEnterpriseProjects(this.selectedEnterprise);
       },
       error: (err) => {
         console.log(err);
@@ -110,13 +170,21 @@ export class ActivityComponent {
     });
   }
 
-  loadMyProjects(page: number, size: number) {
+  loadEnterpriseProjects(idEnterprise: number) {
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyProjects(this.token, page, size).subscribe({
+    this.nbProjectsArchived = 0;
+    this.nbProjectsFinished = 0;
+    this.nbProjectsInProgres = 0;
+    this.nbProjectsOnHold = 0;
+    this.projectService.getAllProjectsEnterprise(this.token, idEnterprise).subscribe({
       next: (data) => {
-        this.listProject.push(data.projects);
-        this.listProject = this.listProject.flatMap(data => data);
-        this.totalItems = data.totalCount;
+        console.log(data);
+
+        this.allProjects = data;
+        this.listProject = this.allProjects.slice();
+        this.data = this.loadAllWords().map(function (d) {
+          return { text: d, value: 20};
+        });
 
         this.listProject.forEach(project => {
           switch(project.status) {
@@ -147,64 +215,6 @@ export class ActivityComponent {
     });
   }
 
-  loadAllProjects() {
-    this.projectService.getAllProjectsNoPagination(this.token).subscribe({
-      next: (data) => {
-        this.allProjects = data.projects;
-        this.totalItems = this.allProjects.length;
-
-        this.allProjects.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des marchés", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
-      }
-    });
-  }
-
-  changePage(page: number) {
-    if(window.innerHeight < 600) {
-      this.itemPerPage = 2;
-    }
-    this.currentPage = page;
-    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-  }
-
-  changeFilter(value: string, flagUrl: string) {
-  }
-
-  displayProjectDetails(id: number) {
-    this.router.navigate(['/project-options'], { queryParams: { id: id } });
-  }
-
-  onSelectDate(event: Event) {
-    console.log(this.selectedDate);
-  }
-
-  isStatusSelected(status: string): boolean {
-    return this.selectedStatus.includes(status);
-  }
-
   isMonthSelected(month: string): boolean {
     return this.selectedMonth.includes(month);
   }
@@ -213,25 +223,8 @@ export class ActivityComponent {
     return this.selectedYears.includes(year);
   }
 
-  isEnterpriseSelected(enterprise: string): boolean {
-    return this.selectedEnterprise.includes(enterprise);
-  }
-
-  sortProjectsByStatus(status: string) {
-    const index = this.selectedStatus.indexOf(status);
-    if (index !== -1) {
-      this.selectedStatus.splice(index, 1);
-    } else {
-      this.selectedStatus.push(status);
-    }
-
-    if (this.selectedStatus.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-    } else {
-      this.listProject = this.listProject.filter(project => {
-        return project.status !== undefined && this.selectedStatus.includes(project.status);
-      });
-    }
+  isEnterpriseSelected(enterprise: number): boolean {
+    return this.selectedEnterprise === enterprise;
   }
 
   sortProjectsByMonth(month: string) {
@@ -243,11 +236,13 @@ export class ActivityComponent {
     }
 
     if (this.selectedMonth.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
+      this.loadEnterpriseProjects(this.selectedEnterprise);
     } else {
-      // this.listProject = this.listProject.filter(project => {
-      //   return project.markets !== undefined && this.selectedStatus.includes(project.markets);
-      // });
+      this.listProject = this.allProjects.filter(project => {
+        console.log(project.createdAt.toString().split("-")[1]);
+        console.log(parseInt(project.createdAt.toString().split("-")[1]));
+        console.log(this.selectedMonth.includes(this.months[parseInt(project.createdAt.toString().split("-")[1]) - 1]));
+        return this.selectedMonth.includes(this.months[parseInt(project.createdAt.toString().split("-")[1]) - 1])});
     }
   }
 
@@ -260,28 +255,15 @@ export class ActivityComponent {
     }
 
     if (this.selectedYears.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
+      this.loadEnterpriseProjects(this.selectedEnterprise);
     } else {
-      // this.listProject = this.listProject.filter(project => {
-      //   return project.markets !== undefined && this.selectedStatus.includes(project.markets);
-      // });
+      this.listProject = this.allProjects.filter(project => this.selectedYears.includes(project.createdAt.toString().split("-")[0]));
     }
   }
 
-  sortProjectsByEnterprise(name: string) {
-    const index = this.selectedEnterprise.indexOf(name);
-    if (index !== -1) {
-      this.selectedEnterprise.splice(index, 1);
-    } else {
-      this.selectedEnterprise.push(name);
-    }
-
-    if (this.selectedEnterprise.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-    } else {
-      // this.listProject = this.listProject.filter(project => {
-      //   return project.markets !== undefined && this.selectedStatus.includes(project.markets);
-      // });
-    }
+  sortProjectsByEnterprise(id: number) {
+    this.selectedEnterprise = id;
+    this.loadEnterpriseProjects(this.selectedEnterprise);
   }
+
 }

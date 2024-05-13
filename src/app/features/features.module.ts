@@ -45,6 +45,9 @@ import { PopupDeleteProjectComponent } from './popup-delete-project/popup-delete
 import { PopupModifyProjectComponent } from './popup-modify-project/popup-modify-project.component';
 import { OpinionComponent } from './opinion/opinion.component';
 import { ActivityComponent } from './activity/activity.component';
+import { AngularD3CloudModule } from 'angular-d3-cloud';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { ProjectTrackingComponent } from './project-tracking/project-tracking.component';
 
 registerSwiperElements();
 
@@ -77,9 +80,12 @@ registerSwiperElements();
     PopupDeleteProjectComponent,
     PopupModifyProjectComponent,
     OpinionComponent,
-    ActivityComponent
+    ActivityComponent,
+    ProjectTrackingComponent
   ],
   imports: [
+    NgApexchartsModule,
+    AngularD3CloudModule,
     CommonModule,
     FeaturesRoutingModule,
     SharedModule,

@@ -19,11 +19,11 @@ export class ConnexionComponent {
   token!: string;
 
   constructor(
-    private translate: TranslateService, 
-    private toastr: ToastrService, 
+    private translate: TranslateService,
+    private toastr: ToastrService,
     private route: Router,
     private userService: UserService,
-    private authService: AuthService, 
+    private authService: AuthService,
     private fb: FormBuilder
   ) {
     const language = localStorage.getItem("language");
@@ -75,9 +75,10 @@ export class ConnexionComponent {
               email: data?.user?.login,
               phoneNumber: data?.phoneNumber,
               langKey: data?.user?.langKey,
-              imageBase64Content: data?.imageBase64Content
+              imageBase64Content: data?.imageBase64Content,
+              notificationSettings: data?.notificationSettings
             };
-            localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));  
+            localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));
           },
           error: (err) => {
             console.log(err);

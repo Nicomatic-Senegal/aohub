@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
-          this.currentConnectedUser = data;    
+          this.currentConnectedUser = data;
           this.fullName = this.currentConnectedUser?.user?.firstName + " " + this.currentConnectedUser?.user?.lastName;
           this.language = this.currentConnectedUser?.user?.langKey;
         },
