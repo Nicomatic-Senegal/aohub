@@ -21,18 +21,18 @@
             </li>
             <li class="me-2 text-md cursor-pointer" (click)="nextScreeen(3)">
                 <a
-                  [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] hover:text-[#408A7E] hover:border-[#408A7E]' : 'border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300'"  
+                  [ngClass]="screen === 3 ? 'text-[#408A7E] border-b-2 border-[#408A7E] hover:text-[#408A7E] hover:border-[#408A7E]' : 'border-b-2 border-transparent hover:text-gray-300 hover:border-gray-300'"
                   class="inline-block p-4 rounded-t-lg">{{'TRACK_OPPORTUNITY' | translate}}</a>
             </li>
         </ul>
       </div>
 
-      <div class="rounded-xl w-full h-full bg-white px-2 pb-7 pt-2 overflow-auto">
+      <div class="rounded-xl w-full h-full px-2 pb-7 pt-2 overflow-auto" [ngClass]="screen === 2 ? 'bg-transparent' : 'bg-white'">
         <div *ngIf="screen === 1">
           <app-project-details [project]="project"></app-project-details>
         </div>
         <div *ngIf="screen === 2" >
-  
+          <app-project-tracking></app-project-tracking>
         </div>
         <div *ngIf="screen === 3" >
           <app-opportunity-tracking></app-opportunity-tracking>
