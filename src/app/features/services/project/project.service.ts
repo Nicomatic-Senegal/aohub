@@ -92,11 +92,11 @@ export class ProjectService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
-  getAllMarkets(token: string): Observable<Market> {
+  getAllMarkets(token: string): Observable<Array<Market>> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'markets?page=0&size=100';
 
-    return this.http.get<Market>(url, { headers, responseType: 'json' });
+    return this.http.get<Array<Market>>(url, { headers, responseType: 'json' });
   }
 
   positioning(token: string, payload: any): Observable<any> {

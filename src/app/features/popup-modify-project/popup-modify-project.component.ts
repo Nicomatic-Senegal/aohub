@@ -20,13 +20,13 @@ export class PopupModifyProjectComponent implements OnInit {
   projectUpdated: Project;
 
   constructor(
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private projectService: ProjectService,
     private authService: AuthService,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<PopupModifyProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any) {
-    
+
     this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
     this.modifyProjectForm = this.fb.group({
@@ -43,8 +43,8 @@ export class PopupModifyProjectComponent implements OnInit {
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
-        this.markets.push(data);
-        
+        this.markets = data;
+
       },
       error: (err) => {
         console.log(err);
@@ -54,7 +54,7 @@ export class PopupModifyProjectComponent implements OnInit {
        });
       }
     })
-    
+
   }
 
   ngOnInit() {
@@ -66,7 +66,7 @@ export class PopupModifyProjectComponent implements OnInit {
 
   submit() {
     const formValue = this.modifyProjectForm.value;
-    
+
     this.projectUpdated.title = formValue.intitule;
     this.projectUpdated.description = formValue.description;
     this.projectUpdated.client = formValue.client;
@@ -77,8 +77,8 @@ export class PopupModifyProjectComponent implements OnInit {
     this.projectUpdated.globalVolume = formValue.globalVolume;
 
     const filteredMarkets = this.markets.filter((market => market.name == formValue.market));
-    this.projectUpdated.markets = filteredMarkets; 
-    
+    this.projectUpdated.markets = filteredMarkets;
+
     this.projectService.updateProject(this.token, this.projectUpdated, this.dialogData.project.id).subscribe({
       next: (data) => {
         this.dialogRef.close();

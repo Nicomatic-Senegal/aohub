@@ -57,12 +57,6 @@ export class ActivityComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
-  data1: any[][] = [
-    ['Donnée 1-1', 'Donnée 1-2', 'Donnée 1-3', 'Donnée 1-4', 'Donnée 1-5'],
-    ['Donnée 2-1', 'Donnée 2-2', 'Donnée 2-3', 'Donnée 2-4', 'Donnée 2-5'],
-    // Ajoutez d'autres lignes de données ici
-  ];
-
   constructor(
     private projectService: ProjectService,
     private userService: UserService,
