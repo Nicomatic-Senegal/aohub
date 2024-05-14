@@ -39,10 +39,9 @@ export class PopupAddEventComponent implements OnInit {
   }
 
   submit() {
-    const formValue = this.addEventForm.value;
     const payload = {
       title: this.addEventForm.get('title')?.value,
-      start: this.addEventForm.get('start')?.value,
+      start: this.addEventForm.get('start')?.value + 'T' + this.addEventForm.get('timeEvent')?.value + ':00',
       project: {
         id: this.project.id
       }
