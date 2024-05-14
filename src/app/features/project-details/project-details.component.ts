@@ -9,6 +9,7 @@ import { Project } from '../interfaces/project.model';
 import { UserService } from '../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { PopupAddEventComponent } from '../popup-add-event/popup-add-event.component';
+import { EventService } from '../services/event/event.service';
 
 @Component({
   selector: 'app-project-details',
@@ -21,16 +22,19 @@ export class ProjectDetailsComponent implements OnInit {
   token: string;
   currentConnectedUser?: any;
   isCurrentUserApplicant = false;
+  events: any;
 
-  constructor(public dialog: MatDialog, private authService: AuthService,
+  constructor(public dialog: MatDialog, 
+    private authService: AuthService,
     private userService: UserService, 
+    private eventService: EventService,
     private toastr: ToastrService) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
   }
 
   ngOnInit(): void {
-    
+    this.getAllEvents();
   }
 
   loadCurrentConnectedUser() {
@@ -50,7 +54,7 @@ export class ProjectDetailsComponent implements OnInit {
           console.log(err);
           this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
             timeOut: 3000,
-            positionClass: 'toast-right-right',
+            positionClass: 'toast-top-right',
          });
         }
       })
@@ -100,11 +104,28 @@ export class ProjectDetailsComponent implements OnInit {
     })
   }
 
+  getAllEvents() {
+    this.eventService.getAllEvents(this.token).subscribe({
+      next: (data) =>{
+        console.log(data);
+        this.events = data;
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception des évènements", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      }
+    })
+  }
+
   addEvenementDialog() {
     const project = this.project;
+    const token = this.token;
     this.dialog.open(PopupAddEventComponent, {
       data: {
-        project
+        project, token
       }
     })
   }

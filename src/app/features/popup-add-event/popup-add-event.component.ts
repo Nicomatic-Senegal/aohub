@@ -2,6 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../interfaces/project.model';
+import { EventService } from '../services/event/event.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-popup-add-event',
@@ -14,15 +16,18 @@ export class PopupAddEventComponent implements OnInit {
   project: Project;
 
   constructor(
-    private fb: FormBuilder, 
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<PopupAddEventComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    private fb: FormBuilder, 
+    private eventService: EventService,
+    private toastr: ToastrService
+    ) {
       this.token = this.dialogData.token;
       this.project = this.dialogData.project;
 
       this.addEventForm = this.fb.group({
-        intitule: [''],
-        dateEvent: [],
+        title: [''],
+        start: [],
         timeEvent: []
       })
   }
@@ -35,8 +40,31 @@ export class PopupAddEventComponent implements OnInit {
 
   submit() {
     const formValue = this.addEventForm.value;
-    console.log(formValue);
-    
+    const payload = {
+      title: this.addEventForm.get('title')?.value,
+      start: this.addEventForm.get('start')?.value,
+      project: {
+        id: this.project.id
+      }
+    };
+
+    this.eventService.addEvent(this.token, payload).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.toastr.success("Cet évènement a été ajouté avec succès", "Succès !", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+        this.dialogRef.close();
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur lors de l'ajout de l'évènement", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      }
+    })
   }
 
 }

@@ -7,14 +7,14 @@
           <div class="flex flex-wrap -mx-2">
             <div class="w-full mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_TITLE' | translate}}</label>
-                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="intitule">
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="title">
                 <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
                     {{'PROJECT_TITLED_REQUIRED' | translate}}.
                 </div>
             </div>
             <div class="w-full mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_DATE' | translate}}</label>
-                <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="dateEvent">
+                <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="start">
             </div>
             <div class="w-full mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_TIME' | translate}}</label>
