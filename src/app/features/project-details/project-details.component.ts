@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupComponent } from '../popup/popup.component';
 import { PopupDeleteProjectComponent } from '../popup-delete-project/popup-delete-project.component';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
@@ -100,5 +99,9 @@ export class ProjectDetailsComponent implements OnInit {
     })
   }
     
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
 
 }
