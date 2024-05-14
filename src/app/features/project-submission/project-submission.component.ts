@@ -135,7 +135,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
-        this.markets = data;
+        this.markets.push(data);
         console.log(this.markets);
       },
       error: (err) => {

@@ -12,7 +12,9 @@
               </div>
               <div class="dropdown-content w-60 h-80">
                 <div class="demo-inline-calendar-card flex w-full h-60">
-                  <mat-calendar class="custom-calendar w-full h-60" [(selected)]="selectedDate" (onchange)="onSelectDate($event)"></mat-calendar>
+                  <mat-calendar class="custom-calendar w-full h-60" 
+                    [(selected)]="selectedDate" (selectedChange)="onSelectDate($event)">
+                  </mat-calendar>
                 </div>
               </div>
             </div>
@@ -24,7 +26,7 @@
                 <a 
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
                   [class.selected]="isStatusSelected('IN_PROGRESS')"
-                  (click)="sortProjectsByStatus('IN_PROGRESS')">
+                  (click)="selectStatus('IN_PROGRESS')">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isStatusSelected('IN_PROGRESS') ? 'inline-block' : 'none' }"></i>
                   </span>
@@ -33,7 +35,7 @@
                 <a 
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
                   [class.selected]="isStatusSelected('FINISHED')"
-                  (click)="sortProjectsByStatus('FINISHED')">
+                  (click)="selectStatus('FINISHED')">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isStatusSelected('FINISHED') ? 'inline-block' : 'none' }"></i>
                   </span>
@@ -50,7 +52,7 @@
                   *ngFor="let market of listMarkets"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
                   [class.selected]="isMarketSelected(market)" 
-                  (click)="sortProjectsByMarket(market)">
+                  (click)="selectMarket(market)">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isMarketSelected(market) ? 'inline-block' : 'none' }"></i>
                   </span>

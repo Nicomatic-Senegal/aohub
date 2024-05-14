@@ -6,6 +6,7 @@ import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto } from '../../interfaces/attachment-dto.model';
 import { PositioningDTO } from '../../interfaces/positioning-dto.model';
+import { Market } from '../../interfaces/market.model';
 
 @Injectable({
   providedIn: 'root'
@@ -62,6 +63,21 @@ export class ProjectService {
       );
   }
 
+  getMyFilteredProjects(token: string, page: number, size: number, marketId: string[], status: string[], createdAfter: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = `${this.apiBaseUrl}projects/filter?marketIds=${marketId}&statuses=${status}&createdAfter=${createdAfter}&page=${page}&size=${size}&sort=id,desc`;
+
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const projects = response.body;
+          return { projects, totalCount };
+        })
+      );
+  }
+
   getProjectById(token: string, projectId: string): Observable<Project> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + `projects/${projectId}`;
@@ -76,11 +92,11 @@ export class ProjectService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
-  getAllMarkets(token: string): Observable<any> {
+  getAllMarkets(token: string): Observable<Market> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'markets?page=0&size=100';
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Market>(url, { headers, responseType: 'json' });
   }
 
   positioning(token: string, payload: any): Observable<any> {
