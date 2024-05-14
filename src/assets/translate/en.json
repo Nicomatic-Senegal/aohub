@@ -229,5 +229,9 @@
   "IN_PROGRESS": "In progress",
   "FINISHED": "Finished",
   "ON_HOLD": "On hold",
-  "ARCHIVED": "Archived"
+  "ARCHIVED": "Archived",
+  "ADD_EVENT": "Add event",
+  "EVENT_TITLE": "Event title",
+  "EVENT_DATE": "Event date",
+  "EVENT_TIME": "Event time"
 }
