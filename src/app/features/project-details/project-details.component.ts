@@ -8,6 +8,7 @@ import { PopupModifyProjectComponent } from '../popup-modify-project/popup-modif
 import { Project } from '../interfaces/project.model';
 import { UserService } from '../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
+import { PopupAddEventComponent } from '../popup-add-event/popup-add-event.component';
 
 @Component({
   selector: 'app-project-details',
@@ -96,6 +97,15 @@ export class ProjectDetailsComponent implements OnInit {
         partner
       },
       panelClass: 'custom-dialog-container'
+    })
+  }
+
+  addEvenementDialog() {
+    const project = this.project;
+    this.dialog.open(PopupAddEventComponent, {
+      data: {
+        project
+      }
     })
   }
     
