@@ -76,7 +76,8 @@ export class ConnexionComponent {
               phoneNumber: data?.phoneNumber,
               langKey: data?.user?.langKey,
               imageBase64Content: data?.imageBase64Content,
-              notificationSettings: data?.notificationSettings
+              notificationSettings: data?.notificationSettings,
+              enterprise: data?.enterprise
             };
             localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));
           },

@@ -9,7 +9,7 @@ import { UserService } from '../services/user/user.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { ChartComponent } from 'ng-apexcharts';
-import { ChartOptions, series } from '../interfaces/chart-options';
+import { ChartOptions, ProjectCurve, series } from '../interfaces/chart-options';
 
 @Component({
   selector: 'app-activity',
@@ -30,6 +30,10 @@ export class ActivityComponent {
   selectedEnterprise!: number;
   selectedMonth: string[] = [];
   selectedYears: string[] = [];
+  projectCurve: ProjectCurve = {
+    nbProject: [],
+    dates: []
+  };
   months: string[] = [
     "JANUARY",
     "FEBRUARY",
@@ -147,6 +151,9 @@ export class ActivityComponent {
         }
       })
     }
+    console.log(this.currentConnectedUser);
+
+    this.selectedEnterprise = this.currentConnectedUser?.enterprise.id!;
   }
 
   loadAllWords() {
@@ -157,7 +164,7 @@ export class ActivityComponent {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
         this.allEnterprise = data;
-        this.selectedEnterprise = this.allEnterprise[0].id;
+        // this.selectedEnterprise = this.allEnterprise[0].id;
         this.loadEnterpriseProjects(this.selectedEnterprise);
       },
       error: (err) => {

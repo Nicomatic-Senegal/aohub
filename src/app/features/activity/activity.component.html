@@ -58,7 +58,7 @@
               </div>
             </div>
           </div>
-          <div class="flex-col mr-5 mt-2">
+          <!-- <div class="flex-col mr-5 mt-2">
             <div class="search-container flex items-center justify-between border-solid text-[#ccc] border border-[#D0D0D0] p-1 rounded-xl shadow-md h-10">
               <input
                 type="search"
@@ -67,7 +67,7 @@
                 #searchInput>
               <i class="fas fa-search search-icon cursor-pointer p-1"></i>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="flex">
           <div class="flex justify-between items-center mx-4 px-2 py-2 w-full ">
@@ -163,7 +163,7 @@
                 </tr>
               </thead>
               <tbody class="w-full ">
-                <tr *ngFor="let row of listProject" class="w-full text-base font-dmsans text-[#242731] font-semibold border-t border-t-[F3F3F3] text-left">
+                <tr *ngFor="let row of listProject.slice(0, 5)" class="w-full text-base font-dmsans text-[#242731] font-semibold border-t border-t-[F3F3F3] text-left">
                   <td>{{ row.description }}</td>
                   <td>{{ row.duration }}</td>
                   <td>{{ row.applicant?.user?.firstName }} {{row.applicant?.user?.lastName }}</td>

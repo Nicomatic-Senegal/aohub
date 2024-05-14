@@ -22,6 +22,11 @@ export type ChartOptions = {
   subtitle: ApexTitleSubtitle;
 };
 
+export interface ProjectCurve {
+  nbProject: number[];
+  dates: string[];
+}
+
 export const series = {
   monthDataSeries1: {
     prices: [
