@@ -47,9 +47,9 @@ export class ProjectService {
       );
   }
 
-  getMyProjects(token: string, page: number, size: number): Observable<any> {
+  getMyProjects(token: string, page: number, size: number, query: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = `${this.apiBaseUrl}projects/my-participations?query=&page=${page}&size=${size}&sort=id,desc`;
+    const url = `${this.apiBaseUrl}projects/my-participations?query=${query}&page=${page}&size=${size}&sort=id,desc`;
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(

@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-paginator',
@@ -27,6 +26,13 @@ export class PaginatorComponent implements OnInit {
   pageClicked(page: number) {
     if (page > this.totalPages) return;
     this.onClick.emit(page);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.totalItems) {
+      this.totalPages = Math.ceil(this.totalItems / this.itemPerPage);
+      this.pages = Array.from({length: this.totalPages}, (_, i) => i + 1);
+    }
   }
 
 }

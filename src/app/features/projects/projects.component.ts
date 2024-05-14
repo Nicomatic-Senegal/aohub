@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -6,6 +6,7 @@ import { ProjectService } from '../services/project/project.service';
 import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { Project } from '../interfaces/project.model';
+import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 
 @Component({
   selector: 'app-projects',
@@ -28,6 +29,7 @@ export class ProjectsComponent implements OnInit {
   selectedStatus: string[] = [];
   selectedMarkets: string[] = [];
   listMarkets: any;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
     private projectService: ProjectService,
@@ -47,6 +49,40 @@ export class ProjectsComponent implements OnInit {
     this.loadAllMarket();
     this.loadMyProjects(this.currentPage - 1, this.itemPerPage);    
   }
+
+  ngAfterViewInit() {
+    fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
+      .pipe(
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap((event:KeyboardEvent) => {
+            this.performSearch(this.currentPage - 1, this.itemPerPage, this.searchInput.nativeElement.value);
+          })
+      )
+      .subscribe();
+  }
+
+  performSearch(page: number, size: number, query: string) {
+    if (query) {
+      this.projectService.getMyProjects(this.token, page, size, query).subscribe({
+        next: (data) => {
+          console.log(data);
+          
+          this.listProject = [];
+          this.listProject.push(data.projects);
+          this.listProject = this.listProject.flatMap(data => data);
+          this.totalItems = data.totalCount;
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    } else {
+      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
+    }
+  }
+
 
   loadCurrentConnectedUser() {
     const userData = localStorage.getItem("currentConnectedUser");
@@ -71,7 +107,7 @@ export class ProjectsComponent implements OnInit {
 
   loadMyProjects(page: number, size: number) {
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyProjects(this.token, page, size).subscribe({
+    this.projectService.getMyProjects(this.token, page, size, '').subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
