@@ -7,6 +7,9 @@ import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { Project } from '../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import { Market } from '../interfaces/market.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-projects',
@@ -25,7 +28,7 @@ export class ProjectsComponent implements OnInit {
   nbProjectsFinished: number = 0;
   nbProjectsOnHold: number = 0;
   nbProjectsArchived: number = 0;
-  selectedDate: Date | null = new Date();
+  selectedDate: string = new Date().toISOString().slice(0, 10);
   selectedStatus: string[] = [];
   selectedMarkets: string[] = [];
   listMarkets: any;
@@ -47,7 +50,8 @@ export class ProjectsComponent implements OnInit {
     }
     this.loadCurrentConnectedUser();
     this.loadAllMarket();
-    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);    
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage); 
+       
   }
 
   ngAfterViewInit() {
@@ -172,50 +176,76 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['/project-options'], { queryParams: { id: id } });
   }
 
-  onSelectDate(event: Event) {
-    console.log(this.selectedDate);
-  }
-
   isStatusSelected(status: string): boolean {
     return this.selectedStatus.includes(status);
   }
 
-  isMarketSelected(market: string): boolean {
-    return this.selectedMarkets.includes(market);
+  isMarketSelected(market: any): boolean {
+    return this.selectedMarkets.includes(market.id);
   }
 
-  sortProjectsByStatus(status: string) {
+  onSelectDate(event: MatDatepickerInputEvent<Date>) {
+    if (event.value !== null) {
+      const date = new Date(event + '');
+      const isoString = date.toISOString().slice(0, 10);
+      this.selectedDate = isoString;
+    } else {
+      this.sortMyProjects();
+    }
+  }
+
+  sortMyProjects() {
+    let selectedMarket: string[] = [];
+    let selectedStatus: string[] = [];
+
+    if(this.selectedMarkets.length !== 0) {
+      selectedMarket = this.selectedMarkets;
+    }
+
+    if(this.selectedStatus.length !== 0) {
+      selectedStatus = this.selectedStatus;
+    }
+
+    if(this.selectedMarkets.length === 0 && this.selectStatus.length === 0) {
+      this.loadMyProjects(this.currentPage - 1, this.itemPerPage); 
+    }
+    
+
+    this.listProject.splice(0, this.listProject.length);
+    this.projectService.getMyFilteredProjects(this.token, this.currentPage - 1, this.itemPerPage, selectedMarket, selectedStatus, '2024-05-12').subscribe({
+      next: (data) => {
+        this.listProject.push(data.projects);
+        this.listProject = this.listProject.flatMap(data => data);
+        this.totalItems = data.totalCount;
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
+  }
+
+  selectStatus(status: string) {
     const index = this.selectedStatus.indexOf(status);
     if (index !== -1) {
       this.selectedStatus.splice(index, 1);
     } else {
       this.selectedStatus.push(status);
     }
-
-    if (this.selectedStatus.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-    } else {
-      this.listProject = this.listProject.filter(project => { 
-        return project.status !== undefined && this.selectedStatus.includes(project.status);
-      });
-    }
+    this.sortMyProjects();
   }
 
-  sortProjectsByMarket(market: string) {
-    const index = this.selectedMarkets.indexOf(market);
+  selectMarket(market: any) {
+    const index = this.selectedMarkets.indexOf(market.id);
     if (index !== -1) {
       this.selectedMarkets.splice(index, 1);
     } else {
-      this.selectedMarkets.push(market);
+      this.selectedMarkets.push(market.id);
     }
-
-    if (this.selectedMarkets.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-    } else {
-      // this.listProject = this.listProject.filter(project => {
-      //   return project.markets !== undefined && this.selectedStatus.includes(project.markets);
-      // });
-    }
+    this.sortMyProjects();
   }
 
 }

@@ -43,7 +43,7 @@ export class PopupModifyProjectComponent implements OnInit {
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
-        this.markets = data;
+        this.markets.push(data);
         
       },
       error: (err) => {

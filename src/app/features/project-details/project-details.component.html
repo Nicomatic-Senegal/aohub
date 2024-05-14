@@ -66,12 +66,12 @@
                 
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'EARLEAST_DEADLINE' | translate}}</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.earliestDeadline}}</p>
+                        <p class="text-[#737373] font-dmsans text-md">{{ formatDate(project?.earliestDeadline) }}</p>
                     </div>
                 
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'LATEST_DEADLINE' | translate}}</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.latestDeadline}}</p>
+                        <p class="text-[#737373] font-dmsans text-md"> {{ formatDate(project?.latestDeadline) }}</p>
                     </div>
                 </div>  
 
