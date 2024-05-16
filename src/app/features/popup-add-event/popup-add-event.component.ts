@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../interfaces/project.model';
@@ -14,6 +14,7 @@ export class PopupAddEventComponent implements OnInit {
   addEventForm: FormGroup;
   token: string;
   project: Project;
+  @Output() eventAdded = new EventEmitter<any>();
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -42,6 +43,7 @@ export class PopupAddEventComponent implements OnInit {
     const payload = {
       title: this.addEventForm.get('title')?.value,
       start: this.addEventForm.get('start')?.value + 'T' + this.addEventForm.get('timeEvent')?.value + ':00',
+      location: this.addEventForm.get('timeEvent')?.value,
       project: {
         id: this.project.id
       }
@@ -49,11 +51,11 @@ export class PopupAddEventComponent implements OnInit {
 
     this.eventService.addEvent(this.token, payload).subscribe({
       next: (data) => {
-        console.log(data);
         this.toastr.success("Cet évènement a été ajouté avec succès", "Succès !", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
         });
+        this.eventAdded.emit(data);
         this.dialogRef.close();
       },
       error: (err) => {

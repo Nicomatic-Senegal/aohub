@@ -117,21 +117,27 @@
                     </button>
                 </div>
                 <div class="overflow-auto no-scrollbar max-h-60">
-                    <div class="flex mb-5" *ngFor="let event of events">
+                    <div class="flex mb-5" *ngFor="let event of events" 
+                        (mouseenter)="event.showDeleteIcon = true" 
+                        (mouseleave)="event.showDeleteIcon = false">
                         <img src="../../../assets/img/plannification.svg" alt="" class="mr-1 mb-0.5">
-                        <div class="ml-2 flex flex-col justify-between w-full">
+                        <div class="ml-2 flex flex-col justify-between w-full relative">
                             <div class="flex justify-between w-full">
                                 <p class="font-dmsans text-md">{{event?.title}}</p>
+                                <div *ngIf="event.showDeleteIcon" class="cursor-pointer mr-3" (click)="deleteEvent(event)">
+                                    <i class="fa-solid fa-trash-can hover:text-red-500"></i>
+                                </div>
                             </div>
                             <div class="flex justify-between w-full mt-1">
                                 <ul class="flex text-sm text-[#7D8DA6]">
-                                    <li class="mr-7">{{ formatDate(event?.start) }}</li>
-                                    <!-- <li class="ml-auto">10:00 am</li> -->
+                                    <li class="mr-5">{{ formatDate(event?.start) }}</li>
+                                    <li class="">{{ event?.location }}</li>
                                 </ul>
-                                <img src="../../../assets/img/video.svg" alt="" >
                             </div>
                         </div>
                     </div>
+
+                    
                 </div>
             </div>
 

@@ -25,4 +25,10 @@ export class EventService {
     return this.http.post<any>(url, payload, { headers, responseType: 'json' });
   }
 
+  deleteEvent(token: string, eventId: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `events/${eventId}`;
+    return this.http.delete<any>(url, { headers, responseType: 'json' });
+  }
+
 }

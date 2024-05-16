@@ -1,7 +1,7 @@
 <div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-16 flex flex-col bg-white max-w-2xl rounded-4xl">
     <div class="w-full p-1 pt-3">
-		<p class="font-bold text-center text-xl">{{dialogData.title | translate}}</p>
-		<p class="text-gray-700 mb-6 mt-5 text-center text-lg">{{dialogData.description | translate}}</p>
+		<p class="font-bold text-center text-xl">{{ dialogData.title }}</p>
+		<p class="text-gray-700 mb-6 mt-5 text-center text-lg">{{ dialogData.description }}</p>
 	</div>
 
     <div class="flex justify-end border-t-2 border-[#E5E5E5] mt-3 pt-5">
@@ -11,7 +11,7 @@
             {{'CANCEL' | translate}}
         </button>
         <button
-            (click)="onLogout()"
+            (click)="dispatcher(dialogData.route)"
             class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5 ml-5">
             {{'YES' | translate}}
         </button>

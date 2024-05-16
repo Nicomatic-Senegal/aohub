@@ -69,10 +69,8 @@ export class ProjectsComponent implements OnInit {
 
   performSearch(page: number, size: number, query: string) {
     if (query) {
-      this.projectService.getMyProjects(this.token, page, size, query).subscribe({
+      this.projectService.getMyParticipations(this.token, page, size, query).subscribe({
         next: (data) => {
-          console.log(data);
-          
           this.listProject = [];
           this.listProject.push(data.projects);
           this.listProject = this.listProject.flatMap(data => data);
@@ -111,7 +109,7 @@ export class ProjectsComponent implements OnInit {
 
   loadMyProjects(page: number, size: number) {
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyProjects(this.token, page, size, '').subscribe({
+    this.projectService.getMyParticipations(this.token, page, size, '').subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);

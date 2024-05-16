@@ -40,12 +40,18 @@ export class TopBarComponent {
   }
 
   logout() {
-    const title = "Êtes-vous sûr de vouloir vous deconnecter ?";
-    const description = "";
+    let title = "Déconnexion";
+    let description = "Êtes-vous sûr de vouloir vous deconnecter ?";
+
+    title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
+    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
+
+    let route = "logout";
+
     this.dialog.open(PopupComponent, {
       hasBackdrop: true,
       data: {
-        title, description
+        title, description, route
       },
       panelClass: 'custom-dialog-container'
     });

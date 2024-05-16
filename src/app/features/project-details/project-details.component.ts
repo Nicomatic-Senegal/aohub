@@ -10,6 +10,7 @@ import { UserService } from '../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { PopupAddEventComponent } from '../popup-add-event/popup-add-event.component';
 import { EventService } from '../services/event/event.service';
+import { PopupComponent } from '../popup/popup.component';
 
 @Component({
   selector: 'app-project-details',
@@ -23,6 +24,7 @@ export class ProjectDetailsComponent implements OnInit {
   currentConnectedUser?: any;
   isCurrentUserApplicant = false;
   events: any;
+  showDeleteIcon: boolean = false;
 
   constructor(public dialog: MatDialog, 
     private authService: AuthService,
@@ -107,7 +109,6 @@ export class ProjectDetailsComponent implements OnInit {
   getAllEvents() {
     this.eventService.getAllEvents(this.token).subscribe({
       next: (data) =>{
-        console.log(data);
         this.events = data;
       },
       error: (err) => {
@@ -123,13 +124,39 @@ export class ProjectDetailsComponent implements OnInit {
   addEvenementDialog() {
     const project = this.project;
     const token = this.token;
-    this.dialog.open(PopupAddEventComponent, {
+    const dialogRef = this.dialog.open(PopupAddEventComponent, {
       data: {
         project, token
       }
     })
+    dialogRef.componentInstance.eventAdded.subscribe((newEventData) => {
+      this.events = [...this.events, newEventData];
+      
+    });
+  
   }
+
+  deleteEvent(event: Event) {
+    let title = "Supprimer évènement";
+    let description = "Êtes-vous sûr de vouloir supprimer cet évènement ?";
+
+    title = localStorage.getItem('language') === 'en' ? 'Delete event' : 'Supprimer évènement';
+    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete this event ?' : 'Êtes-vous sûr de vouloir supprimer cet évènement ?';
     
+    let route = "deleteEvent";
+
+    let token = this.token;
+    
+    const dialogRef = this.dialog.open(PopupComponent, {
+      data: {
+        title, description, route, event, token
+      }
+    })
+    dialogRef.componentInstance.eventRemoved.subscribe((eventId) => {
+      this.events = this.events.filter((event: { id: any; }) => event.id !== eventId);
+    });
+  }
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });

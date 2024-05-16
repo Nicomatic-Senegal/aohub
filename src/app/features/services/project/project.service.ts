@@ -48,7 +48,7 @@ export class ProjectService {
       );
   }
 
-  getMyProjects(token: string, page: number, size: number, query: string): Observable<any> {
+  getMyParticipations(token: string, page: number, size: number, query: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = `${this.apiBaseUrl}projects/my-participations?query=${query}&page=${page}&size=${size}&sort=id,desc`;
 
