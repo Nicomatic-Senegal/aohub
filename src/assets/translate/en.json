@@ -233,5 +233,6 @@
   "ADD_EVENT": "Add event",
   "EVENT_TITLE": "Event title",
   "EVENT_DATE": "Event date",
-  "EVENT_TIME": "Event time"
+  "EVENT_TIME": "Event time",
+  "ADD": "Add"
 }

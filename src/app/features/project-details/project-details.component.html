@@ -107,13 +107,13 @@
         </div>
         <div class="upper-home-right w-[30%] mr-2">
             <div class="rounded-xl bg-white px-4 pt-4 pb-3 mb-5 mt-3 shadow-lg">
-                <div class="flex items-center justify-between bloc mb-2">
+                <div class="flex items-center justify-between mb-2">
                     <p class="font-semibold font-md text-[#121212]">{{'EVENTS' | translate}}</p>
                     <button 
-                        class="flex items-center text-white bg-gray-400 rounded-full px-2 py-1 text-xs"
+                        class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
                         (click)="addEvenementDialog()">
-                        <i class="material-icons text-white">add</i> 
-                        <span class="ml-1">Ajouter un évènement</span>
+                        <i class="material-icons">add</i> 
+                        <span class="ml-1">{{'ADD' | translate}}</span>
                     </button>
                 </div>
                 <div class="overflow-auto no-scrollbar max-h-60">
@@ -142,7 +142,15 @@
             </div>
 
             <div class="carnet rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mr-2 shadow-lg text-[#121212]">
-                <p class="font-dmsans text-md mb-3 font-semibold">{{'PARTICIPANTS' | translate}}</p>
+                <div class="flex items-center justify-between mb-2">
+                    <p class="font-dmsans text-md mb-3 font-semibold">{{'PARTICIPANTS' | translate}}</p>
+                    <button 
+                        class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
+                        (click)="addEvenementDialog()">
+                        <i class="material-icons">add</i> 
+                        <span class="ml-1">{{'ADD' | translate}}</span>
+                    </button>
+                </div>
                 <div class="overflow-auto no-scrollbar max-h-80">
                     <div 
                         *ngFor="let member of project?.teamMembers" 

@@ -233,5 +233,6 @@
   "ADD_EVENT": "Ajouter un évènement",
   "EVENT_TITLE": "Intitulé de l'évènement",
   "EVENT_DATE": "Date de l'évènement",
-  "EVENT_TIME": "Heure de l'évènement"
+  "EVENT_TIME": "Heure de l'évènement",
+  "ADD": "Ajouter"
 }
