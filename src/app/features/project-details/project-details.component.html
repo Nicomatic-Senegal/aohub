@@ -111,6 +111,7 @@
                     <p class="font-semibold font-md text-[#121212]">{{'EVENTS' | translate}}</p>
                     <button 
                         class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
+                        *ngIf="project?.applicant?.id === currentConnectedUser?.id"
                         (click)="addEvenementDialog()">
                         <i class="material-icons">add</i> 
                         <span class="ml-1">{{'ADD' | translate}}</span>
@@ -124,7 +125,7 @@
                         <div class="ml-2 flex flex-col justify-between w-full relative">
                             <div class="flex justify-between w-full">
                                 <p class="font-dmsans text-md">{{event?.title}}</p>
-                                <div *ngIf="event.showDeleteIcon" class="cursor-pointer mr-3" (click)="deleteEvent(event)">
+                                <div *ngIf="event.showDeleteIcon && project?.applicant?.id === currentConnectedUser?.id" class="cursor-pointer mr-3" (click)="deleteEvent(event)">
                                     <i class="fa-solid fa-trash-can hover:text-red-500"></i>
                                 </div>
                             </div>
@@ -146,6 +147,7 @@
                     <p class="font-dmsans text-md mb-3 font-semibold">{{'PARTICIPANTS' | translate}}</p>
                     <button 
                         class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
+                        *ngIf="project?.applicant?.id === currentConnectedUser?.id"
                         (click)="addParticipantDialog()">
                         <i class="material-icons">add</i> 
                         <span class="ml-1">{{'ADD' | translate}}</span>
