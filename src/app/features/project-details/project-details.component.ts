@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PopupAddEventComponent } from '../popup-add-event/popup-add-event.component';
 import { EventService } from '../services/event/event.service';
 import { PopupComponent } from '../popup/popup.component';
+import { PopupAddParticipantComponent } from '../popup-add-participant/popup-add-participant.component';
 
 @Component({
   selector: 'app-project-details',
@@ -155,6 +156,21 @@ export class ProjectDetailsComponent implements OnInit {
     dialogRef.componentInstance.eventRemoved.subscribe((eventId) => {
       this.events = this.events.filter((event: { id: any; }) => event.id !== eventId);
     });
+  }
+
+  addParticipantDialog() {
+    const token = this.token;
+    const project = this.project;
+
+    const dialogRef = this.dialog.open(PopupAddParticipantComponent, {
+      data: {
+        token, project
+      }
+    })
+    dialogRef.componentInstance.participantAdded.subscribe((newEventData) => {
+      console.log(newEventData);
+      this.project = newEventData;
+    })
   }
 
   formatDate(dateString: string): string {

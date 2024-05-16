@@ -49,6 +49,7 @@ import { AngularD3CloudModule } from 'angular-d3-cloud';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { ProjectTrackingComponent } from './project-tracking/project-tracking.component';
 import { PopupAddEventComponent } from './popup-add-event/popup-add-event.component';
+import { PopupAddParticipantComponent } from './popup-add-participant/popup-add-participant.component';
 
 registerSwiperElements();
 
@@ -83,7 +84,8 @@ registerSwiperElements();
     OpinionComponent,
     ActivityComponent,
     ProjectTrackingComponent,
-    PopupAddEventComponent
+    PopupAddEventComponent,
+    PopupAddParticipantComponent
   ],
   imports: [
     NgApexchartsModule,

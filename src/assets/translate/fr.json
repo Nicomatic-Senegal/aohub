@@ -231,8 +231,10 @@
   "ON_HOLD": "En attente",
   "ARCHIVED": "Archivé",
   "ADD_EVENT": "Ajouter un évènement",
+  "ADD_MEMBER": "Ajouter un nouveau membre",
   "EVENT_TITLE": "Intitulé de l'évènement",
   "EVENT_DATE": "Date de l'évènement",
   "EVENT_TIME": "Heure de l'évènement",
-  "ADD": "Ajouter"
+  "ADD": "Ajouter",
+  "ADD_USER_DESCRIPTION": "Merci de renseigner l'e-mail de l'utilisateur que vous voulez ajouter au projet"
 }
