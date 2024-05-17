@@ -34,6 +34,7 @@ export class ProjectDetailsComponent implements OnInit {
     private toastr: ToastrService) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
+    
   }
 
   ngOnInit(): void {
@@ -42,8 +43,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   loadCurrentConnectedUser() {
     const userData = localStorage.getItem("currentConnectedUser");
-    console.log(userData);
-    
+
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
       // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;

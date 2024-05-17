@@ -26,20 +26,20 @@
                 
                 <div class="flex items-start justify-between mt-7 w-full">
                     <div class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'RESPONSIBLE' | translate}}</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.applicant?.user?.firstName}}</p>
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-1">{{'RESPONSIBLE' | translate}}</p>
                         <div class="flex items-center"> 
                             <img 
                                 class="w-10 h-10 rounded-full" 
                                 src="{{ project?.applicant?.imageBase64Content ? project?.applicant?.imageBase64Content : '../../../assets/icons/icon-user.png' }}"
                                 alt="">
-                            <p class="text-[#737373] font-dmsans text-sm font-xs ml-3">{{project?.enterprise?.name}}</p>
-                        </div>
+                            <p class="text-[#737373] font-dmsans text-md">{{project?.applicant?.user?.firstName}}</p>
+                            </div>
+                            <p class="text-[#737373] font-dmsans text-md font-xs">{{project?.applicant?.enterprise?.name}}</p>
                     </div>
                 
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'CUSTOMER' | translate}}</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.client}}</p>
+                        <p class="text-[#737373] font-dmsans text-md mr-5">{{project?.client}}</p>
                     </div>
                 
                     <div class="flex flex-col flex-1">
@@ -49,19 +49,16 @@
                             class="text-[#737373] font-dmsans text-md">{{market?.name}}
                         </p>
                     </div>
-                
-                    <div *ngIf="project?.needType == 'CONTRACT'" class="flex flex-col flex-1">
-                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'CONTRACT_DURACTION' | translate}}</p>
-                        <p class="text-[#737373] font-dmsans text-md">{{project?.duration}}</p>
-                    </div>
                 </div>         
                 
                 <div class="flex items-start justify-between mt-7 w-full">
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'PROFESSIONS' | translate}}</p>
-                        <select class="text-[#737373] font-dmsans text-md">
-                            <option *ngFor="let domain of project?.domains" >{{domain?.name}}</option>
-                        </select>
+                        <div class="flex pr-3">
+                            <select class="text-[#737373] font-dmsans text-md">
+                                <option *ngFor="let domain of project?.domains" >{{domain?.name}}</option>
+                            </select>
+                        </div>
                     </div>
                 
                     <div class="flex flex-col flex-1">
@@ -75,7 +72,7 @@
                     </div>
                 </div>  
 
-                <div class="flex items-end justify-between mt-7">
+                <div class="flex items-end justify-between mt-10">
                     <div class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'BUDGET' | translate}}</p>
                         <p class="text-[#737373] font-dmsans text-md">{{project?.budget}}</p>
@@ -86,13 +83,17 @@
                         <p class="text-[#737373] font-dmsans text-md">{{project?.globalVolume}}</p>
                     </div>
 
-                    <div class="flex flex-col flex-1">
+                    <div *ngIf="project?.needType == 'CONTRACT'" class="flex flex-col flex-1">
+                        <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'CONTRACT_DURACTION' | translate}}</p>
+                        <p class="text-[#737373] font-dmsans text-md">{{project?.duration}}</p>
+                    </div>
+
+                    <div *ngIf="project?.needType !== 'CONTRACT'" class="flex flex-col flex-1">
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3"></p>
                         <p class="text-[#737373] font-dmsans text-md"></p>
                     </div>
                 </div>
                 
-
                 <div *ngIf="project?.applicant?.id === currentConnectedUser?.id" class="flex items-start justify-end mt-10 w-full">
                     <div class="flex flex-col flex-1">
                         <button (click)="modifyProject(project)" class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5 mr-10">{{'MODIFY_PROJECT' | translate}}</button>
@@ -102,7 +103,6 @@
                         <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">{{'DELETE_PROJECT' | translate}}</button>
                     </div>
                 </div>                
-
             </div>
         </div>
         <div class="upper-home-right w-[30%] mr-2">
@@ -137,8 +137,6 @@
                             </div>
                         </div>
                     </div>
-
-                    
                 </div>
             </div>
 

@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../services/project/project.service';
-import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../interfaces/project.model';
 import { Market } from '../interfaces/market.model';
+import { Domain } from '../interfaces/domain.model';
 
 @Component({
   selector: 'app-popup-modify-project',
@@ -18,6 +18,8 @@ export class PopupModifyProjectComponent implements OnInit {
   token: string;
   markets: Market[] = [];
   projectUpdated: Project;
+  domains: Domain[] = [];
+  domainChoosen: Array<string> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,6 +31,9 @@ export class PopupModifyProjectComponent implements OnInit {
 
     this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
+    
+    this.domainChoosen = this.dialogData.project.domains.map((domain: { name: any; }) => domain.name);
+
     this.modifyProjectForm = this.fb.group({
       intitule: new FormControl(dialogData.project.title, [Validators.required]),
       description: new FormControl(dialogData.project.description, [Validators.required]),
@@ -39,21 +44,31 @@ export class PopupModifyProjectComponent implements OnInit {
       latestDeadline: new FormControl(dialogData.project.latestDeadline),
       budget: new FormControl(dialogData.project.budget, [Validators.required]),
       globalVolume: new FormControl(dialogData.project.globalVolume, [Validators.required]),
-    })
+    });
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
         this.markets = data;
-
       },
       error: (err) => {
-        console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception des marchés", {
           timeOut: 3000,
           positionClass: 'toast-right-right',
        });
       }
-    })
+    });
+
+    this.projectService.getAllDomains(this.token).subscribe({
+      next: (data) => {
+        this.domains = data;
+      },
+      error: (err) => {
+        this.toastr.error(err.error.detail, "Erreur sur la réception des domaines", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      }
+    });
 
   }
 
@@ -75,6 +90,7 @@ export class PopupModifyProjectComponent implements OnInit {
     this.projectUpdated.latestDeadline = formValue?.latestDeadline;
     this.projectUpdated.budget = formValue?.budget;
     this.projectUpdated.globalVolume = formValue.globalVolume;
+    this.projectUpdated.domains = this.domains.filter(domain => this.domainChoosen.includes(domain.name));
 
     const filteredMarkets = this.markets.filter((market => market.name == formValue.market));
     this.projectUpdated.markets = filteredMarkets;
@@ -91,6 +107,16 @@ export class PopupModifyProjectComponent implements OnInit {
         });
       }
     })
+  }
+
+  onSelectDomain(value: any) {
+    if (this.domainChoosen.indexOf(value) === -1) {
+      this.domainChoosen.push(value);
+    }
+  }
+
+  removeDomain(item: string) {
+    this.domainChoosen.splice(this.domainChoosen.indexOf(item), 1);
   }
 
 }
