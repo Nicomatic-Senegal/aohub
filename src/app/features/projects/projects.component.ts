@@ -7,9 +7,7 @@ import { UserService } from '../services/user/user.service';
 import { PartnerDTO } from '../interfaces/partner.model';
 import { Project } from '../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
-import { Market } from '../interfaces/market.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { format } from 'date-fns';
 
 @Component({
   selector: 'app-projects',
@@ -245,5 +243,17 @@ export class ProjectsComponent implements OnInit {
     }
     this.sortMyProjects();
   }
+
+  formatDate(date: Date | undefined): string {
+    if (!date) {
+        return ''; 
+    }
+    let language = 'fr-Fr';
+    if (localStorage.getItem('language') === 'en') {
+        language = 'en-En';
+    }
+    const dateToFormat = new Date(date);
+    return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
+}
 
 }

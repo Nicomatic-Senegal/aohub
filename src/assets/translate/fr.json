@@ -135,7 +135,7 @@
   "DEADLINE_RATHER_REQUIRED": "Le delai au plus tôt est requis du projet est requis",
   "DEADLINE": "Délai au plus tard",
   "DEADLINE_REQUIRED": "Le delai au plus tard du projet est requis",
-  "EARLEAST_DEADLINE": "Délai au plus tôt",
+  "EARLIEST_DEADLINE": "Délai au plus tôt",
   "LATEST_DEADLINE": "Délai au plus tard",
   "CHOOSE_NEED_TYPE": "Choisissez le type de besoin",
   "CONTRACTUAL": "Contractuel",
