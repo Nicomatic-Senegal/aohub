@@ -214,6 +214,7 @@
   "MONTH": "mois",
   "AVAILABLE_OPPORTUNITIES": "Opportunités disponibles",
   "ACTIVITY_EVOLUTION": "Evolution de l’activité",
+  "NO_ACTIVITY_EVOLUTION": "Aucune donnée d'évolution de l'activité disponible !",
   "JANUARY": "Janvier",
   "FEBRUARY": "Février",
   "MARCH": "Mars",
@@ -227,7 +228,7 @@
   "NOVEMBER": "Novembre",
   "DECEMBER": "Décembre",
   "IN_PROGRESS": "En cours",
-  "FINISHED": "Fini",
+  "FINISHED": "Terminée",
   "ON_HOLD": "En attente",
   "ARCHIVED": "Archivé",
   "ADD_EVENT": "Ajouter un évènement",
@@ -236,5 +237,11 @@
   "EVENT_DATE": "Date de l'évènement",
   "EVENT_TIME": "Heure de l'évènement",
   "ADD": "Ajouter",
-  "ADD_USER_DESCRIPTION": "Merci de renseigner l'e-mail de l'utilisateur que vous voulez ajouter au projet"
+  "ADD_USER_DESCRIPTION": "Merci de renseigner l'e-mail de l'utilisateur que vous voulez ajouter au projet",
+  "CREATIONN_DATE": "Date de création",
+  "TOP_CLIENTS": "Top clients",
+  "TOP_PROJECTS": "Top projets",
+  "NO_TOP_CLIENT": "Aucun client trouvé !",
+  "NO_TOP_PROJECT": "Aucun projet trouvé !",
+  "STATUS": "Status"
 }

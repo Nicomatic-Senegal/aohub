@@ -16,10 +16,10 @@
                     </div>
                     <div class="ml-auto">
                         <div class="">
-                            <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs">In Progress 🚀</div>
-                            <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full px-2 py-1 text-xs">Completed ✅</div>
-                            <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">On Hold ⏸️</div>
-                            <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full px-2 py-1 text-xs">Archived 📁</div>
+                            <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs">{{'IN_PROGRESS' | translate}} 🚀</div>
+                            <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full px-2 py-1 text-xs">{{'FINISHED' | translate}} ✅</div>
+                            <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">{{'ON_HOLD' | translate}} ⏸️</div>
+                            <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full px-2 py-1 text-xs">{{'ARCHIVED' | translate}} 📁</div>
                         </div>
                     </div>
                 </div>

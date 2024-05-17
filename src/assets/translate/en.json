@@ -110,8 +110,8 @@
   "MODIFY_PROJECT": "Modify project",
   "PROFILE": "Profile",
   "SUBMIT_PROJECT": "Submit project",
-  "PROJECT_TITLED": "Project titled",
-  "PROJECT_TITLED_REQUIRED": "Project titled is required",
+  "PROJECT_TITLED": "Project title",
+  "PROJECT_TITLED_REQUIRED": "Project title is required",
   "CUSTOMER": "Customer",
   "CUSTOMER_REQUIRED": "Project customer is required",
   "DESCRIPTION_REQUIRED": "Project description is required",
@@ -214,6 +214,7 @@
   "MONTH": "month",
   "AVAILABLE_OPPORTUNITIES": "Available opportunities",
   "ACTIVITY_EVOLUTION": "Activity evolution",
+  "NO_ACTIVITY_EVOLUTION": "No activity development data available !",
   "JANUARY": "January",
   "FEBRUARY": "February",
   "MARCH": "March",
@@ -236,5 +237,11 @@
   "EVENT_DATE": "Event date",
   "EVENT_TIME": "Event time",
   "ADD": "Add",
-  "ADD_USER_DESCRIPTION": "Please enter the email of the user you want to add to the project"
+  "ADD_USER_DESCRIPTION": "Please enter the email of the user you want to add to the project",
+  "CREATIONN_DATE": "Creation date",
+  "TOP_CLIENTS": "Top clients",
+  "TOP_PROJECTS": "Top projects",
+  "NO_TOP_CLIENT": "No customers found !",
+  "NO_TOP_PROJECT": "No projects found !",
+  "STATUS": "Status"
 }

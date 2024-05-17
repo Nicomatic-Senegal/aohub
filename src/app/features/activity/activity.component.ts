@@ -34,24 +34,8 @@ export class ActivityComponent {
     nbProject: [],
     dates: []
   };
-  months: string[] = [
-    "JANUARY",
-    "FEBRUARY",
-    "MARCH",
-    "APRIL",
-    "MAY",
-    "JUNE",
-    "JULY",
-    "AUGUST",
-    "SEPTEMBER",
-    "OCTOBER",
-    "NOVEMBER",
-    "DECEMBER"
-  ];
-  years = [
-    "2012", "2013", "2014", "2015", "2016", "2017",
-    "2018", "2019", "2020", "2021", "2022", "2023", "2024"
-  ];
+  months: string[] = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ];
+  years = ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"];
 
   data: any;
   @ViewChild("chart") chart!: ChartComponent;
@@ -158,7 +142,6 @@ export class ActivityComponent {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
         this.allEnterprise = data;
-        // this.selectedEnterprise = this.allEnterprise[0].id;
         this.loadEnterpriseProjects(this.selectedEnterprise);
       },
       error: (err) => {
@@ -265,6 +248,15 @@ export class ActivityComponent {
   sortProjectsByEnterprise(id: number) {
     this.selectedEnterprise = id;
     this.loadEnterpriseProjects(this.selectedEnterprise);
+  }
+
+  formatDate(date: Date): string {
+    let language = 'fr-Fr';
+    if(localStorage.getItem('language') === 'en') {
+      language = 'en-En';
+    }
+    const dateToFormat = new Date(date);
+    return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
 }

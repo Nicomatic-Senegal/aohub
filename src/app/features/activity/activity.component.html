@@ -2,8 +2,8 @@
   <app-side-bar class="app-side" [screen]="'/activity'"></app-side-bar>
   <div class="head-home" >
     <app-top-bar class="w-full flex-grow-1 " title="{{'ACTIVITIES' | translate}}"></app-top-bar>
-    <div class="div-center overflow-y-scroll">
-      <div class=" w-full h-full px-2 pb-7 pt-2 overflow-y-scroll">
+    <div class="div-center overflow-auto">
+      <div class="rounded-xl w-full h-full bg-white overflow-auto px-2 pb-7 pt-2">
         <div class="flex">
           <div class="w-full flex-col p-5">
             <div class="dropdown mr-5">
@@ -58,43 +58,33 @@
               </div>
             </div>
           </div>
-          <!-- <div class="flex-col mr-5 mt-2">
-            <div class="search-container flex items-center justify-between border-solid text-[#ccc] border border-[#D0D0D0] p-1 rounded-xl shadow-md h-10">
-              <input
-                type="search"
-                class="search-input focus:outline-none text-[#444] px-3 w-60"
-                placeholder="{{'SEARCH' | translate}}..."
-                #searchInput>
-              <i class="fas fa-search search-icon cursor-pointer p-1"></i>
-            </div>
-          </div> -->
         </div>
         <div class="flex">
-          <div class="flex justify-between items-center mx-4 px-2 py-2 w-full ">
-            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+          <div class="flex justify-between items-center mx-4 py-2 w-full">
+            <div class="flex items-end justify-between mr-10 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col justify-between">
-                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_LOADING' | translate}} </p>
+                <p class="text-[#555] font-dmsans text-xl">{{'PROJECT_LOADING' | translate}} </p>
                 <p class="font-dmsans font-extrabold text-black text-2xl align-bottom">{{nbProjectsInProgres}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/projet-en-cours-a.svg" alt="">
             </div>
-            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+            <div class="flex items-end justify-between mr-10 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col ">
-                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_ABORTED' | translate}} </p>
+                <p class="text-[#555] font-dmsans text-xl">{{'PROJECT_ABORTED' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsArchived}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/projet-rejete-a.svg" alt="">
             </div>
-            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+            <div class="flex items-end justify-between mr-10 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col ">
-                <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_OVER' | translate}} </p>
+                <p class="text-[#555] font-dmsans text-xl">{{'PROJECT_OVER' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsFinished}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/projet-termine-a.svg" alt="">
             </div>
-            <div class="flex items-end justify-between mr-2 shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
+            <div class="flex items-end justify-between mr-5 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col ">
-                <p class="text-[#888] font-dmsans text-lg">{{'AVAILABLE_OPPORTUNITIES' | translate}} </p>
+                <p class="text-[#555] font-dmsans text-xl">{{'AVAILABLE_OPPORTUNITIES' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsOnHold}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/opportunites-dispo-a.svg" alt="">
@@ -102,37 +92,46 @@
           </div>
         </div>
 
-        <div class="flex justify-between mx-6 mt-10 w-full">
-          <div class="w-[48%]">
-            <p class="text-base font-dmsans text-[#3B8682] font-semibold">{{'ACTIVITY_EVOLUTION' | translate}}</p>
-            <div class=" bg-white shadow-xl rounded-xl p-4">
-              <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
-                {{'NO_PROJECT' | translate}}
+        <div class="flex justify-between mt-10 w-full">
+          <div class="w-[45%] ml-5">
+            <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'ACTIVITY_EVOLUTION' | translate}}</p>
+            <div *ngIf="listProject.length === 0" class="flex items-center p-5 mb-4 text-md text-gray-800 rounded-lg bg-gray-50 mt-3" role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                <span class="font-medium">{{'NO_ACTIVITY_EVOLUTION' | translate}}</span>
               </div>
+            </div>
+            <div *ngIf="listProject.length > 0" class=" bg-white shadow-xl rounded-xl p-4">
               <apx-chart
-              *ngIf="listProject.length > 0"
-              [series]="chartOptions.series!"
-              [chart]="chartOptions.chart!"
-              [xaxis]="chartOptions.xaxis!"
-              [stroke]="chartOptions.stroke!"
-              [dataLabels]="chartOptions.dataLabels!"
-              [yaxis]="chartOptions.yaxis!"
-              [labels]="chartOptions.labels!"
-              [legend]="chartOptions.legend!"
-              [title]="chartOptions.title!"
-              [subtitle]="chartOptions.subtitle!"
-            ></apx-chart>
+                [series]="chartOptions.series!"
+                [chart]="chartOptions.chart!"
+                [xaxis]="chartOptions.xaxis!"
+                [stroke]="chartOptions.stroke!"
+                [dataLabels]="chartOptions.dataLabels!"
+                [yaxis]="chartOptions.yaxis!"
+                [labels]="chartOptions.labels!"
+                [legend]="chartOptions.legend!"
+                [title]="chartOptions.title!"
+                [subtitle]="chartOptions.subtitle!"
+              ></apx-chart>
             </div>
           </div>
-          <div class="w-[48%] mr-6">
-            <p class="text-base font-dmsans text-[#3B8682] font-semibold">Top clients</p>
-            <div class="bg-white shadow-xl rounded-xl flex justify-start items-start p-4 " id="container">
-              <!-- app.component.html -->
-              <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
-                {{'NO_PROJECT' | translate}}
+          <div class="w-[45%] mr-5">
+            <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'TOP_CLIENTS' | translate}}</p>
+            <div *ngIf="listProject.length === 0" class="flex items-center p-5 mb-4 text-md text-gray-800 rounded-lg bg-gray-50 mt-3" role="alert">
+              <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+              </svg>
+              <span class="sr-only">Info</span>
+              <div>
+                <span class="font-medium">{{'NO_TOP_CLIENT' | translate}}</span>
               </div>
+            </div>
+            <div *ngIf="listProject.length > 0" class="bg-white shadow-xl rounded-xl flex justify-start items-start p-4 " id="container">
               <angular-d3-cloud
-              *ngIf="listProject.length > 0"
               [data]="data"
               font="serif"
               [padding]="0"
@@ -145,33 +144,46 @@
           </div>
         </div>
 
-        <div class="w-full mx-6 mt-10">
-          <p class="text-base font-dmsans text-[#3B8682] font-semibold">Top projets</p>
-          <div class=" bg-white shadow-xl rounded-xl p-4">
-            <p class="text-base font-dmsans text-black font-semibold">Projets</p>
-            <div *ngIf="listProject.length === 0" class="font-dmsans text-black font-bold text-base">
-              {{'NO_PROJECT' | translate}}
+        <div class="w-full mt-10 pl-5 pr-3">
+          <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'TOP_PROJECTS' | translate}}</p>
+          <div *ngIf="listProject.length === 0" class="flex items-center p-5 mb-4 text-md text-gray-800 rounded-lg bg-gray-50 mt-3 w-[50%]" role="alert">
+            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+            </svg>
+            <span class="sr-only">Info</span>
+            <div>
+              <span class="font-medium">{{'NO_TOP_PROJECT' | translate}}</span>
             </div>
-            <table class="w-full mt-5" *ngIf="listProject.length > 0">
+          </div>
+          <div *ngIf="listProject.length > 0" class="bg-white shadow-xl rounded-xl p-4">
+            <table class="w-full" >
               <thead class="w-full">
-                <tr class="w-full text-base font-dmsans text-[#72767C] font-semibold border-t border-t-[F3F3F3] text-left">
-                  <th>Description</th>
-                  <th>Durée</th>
-                  <th>Responsable</th>
-                  <th>Date de création</th>
-                  <th>Status</th>
-                </tr>
+                  <tr class="w-full text-md font-dmsans text-[#72767C] font-semibold text-left">
+                      <th>{{'PROJECT_TITLED' | translate}}</th>
+                      <th>{{'RESPONSIBLE' | translate}}</th>
+                      <th>{{'CONTRACT_DURACTION' | translate}}</th>
+                      <th>{{'CREATIONN_DATE' | translate}}</th>
+                      <th>{{'STATUS' | translate}}</th>
+                  </tr>
               </thead>
-              <tbody class="w-full ">
-                <tr *ngFor="let row of listProject.slice(0, 5)" class="w-full text-base font-dmsans text-[#242731] font-semibold border-t border-t-[F3F3F3] text-left">
-                  <td>{{ row.description }}</td>
-                  <td>{{ row.duration }}</td>
-                  <td>{{ row.applicant?.user?.firstName }} {{row.applicant?.user?.lastName }}</td>
-                  <td>{{ row.createdAt }}</td>
-                  <td>{{ row.status?.toString()! | translate }}</td>
-                </tr>
+              <tbody class="w-full">
+                  <tr *ngFor="let project of listProject.slice(0, 4)" class="w-full text-md font-dmsans text-[#242731] border-t border-t-[F3F3F3] text-left">
+                      <td class="py-2">{{ project?.description }}</td>
+                      <td class="py-2">{{ project.applicant?.user?.firstName }} {{project.applicant?.user?.lastName }}</td>
+                      <td class="py-2">{{ formatDate(project.createdAt) }}</td>
+                      <td *ngIf="project?.duration" class="py-2">{{ project?.duration }} {{'YEARS' | translate}}</td>
+                      <td *ngIf="!project?.duration" class="py-2"> - </td>
+                      <td class="py-2 text-left">
+                          <div class="">
+                              <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                          </div>
+                      </td>
+                  </tr>
               </tbody>
-            </table>
+          </table>          
           </div>
         </div>
       </div>
