@@ -5,10 +5,22 @@
       <img src="../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class=" w-6 cursor-pointer" *ngIf="screenSize !== 'sm'">
     </div>
     <div>
-      <div class="">
-        <div *ngFor="let item of optionsTop" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
-          <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
-          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1] | translate}}</p>
+      <div>
+        <div 
+          *ngFor="let item of optionsTop" 
+          (click)="navigation(item[2])" 
+          [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <div 
+            >
+            <img 
+              src="{{screen === item[2] ? item[3] : item[0]}}" 
+              alt="" 
+              [ngClass]="(screenSize === 'sm' || !viewText) ? 'w-8 ml-5' : 'mr-2 w-5 '">
+          </div>
+          <p 
+            *ngIf="screenSize !== 'sm' && viewText">
+            {{item[1] | translate}}
+          </p>
         </div>
       </div>
     </div>
@@ -16,9 +28,17 @@
   <div class=" flex flex-col ">
     <div>
       <div class="">
-        <div *ngFor="let item of optionsBottom" (click)="navigation(item[2])" [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
-          <img src="{{screen === item[2] ? item[3] : item[0]}}" alt="" class="img-line-a">
-          <p *ngIf="screenSize !== 'sm' && viewText">{{item[1] | translate}}</p>
+        <div 
+          *ngFor="let item of optionsBottom" 
+          (click)="navigation(item[2])" 
+          [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <img 
+            src="{{screen === item[2] ? item[3] : item[0]}}" alt=""
+            [ngClass]="(screenSize === 'sm' || !viewText) ? 'w-8 ml-5' : 'mr-2 w-5 '">
+          <p 
+            *ngIf="screenSize !== 'sm' && viewText">
+            {{item[1] | translate}}
+          </p>
         </div>
       </div>
     </div>
