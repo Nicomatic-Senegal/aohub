@@ -116,26 +116,12 @@ export class ProjectsComponent implements OnInit {
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
-        this.totalItems = data.totalCount;
 
-        this.listProject.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
+        this.totalItems = data.totalCount;
+        this.nbProjectsInProgres = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
         console.log(err);
@@ -227,7 +213,12 @@ export class ProjectsComponent implements OnInit {
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
+
         this.totalItems = data.totalCount;
+        this.nbProjectsInProgres = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
         console.log(err);
