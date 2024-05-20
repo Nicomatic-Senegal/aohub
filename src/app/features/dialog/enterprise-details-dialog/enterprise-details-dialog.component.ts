@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EnterpriseDTO } from '../interfaces/enterprise.model';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class EnterpriseDetailsDialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EnterpriseDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any, 
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private authService: AuthService) {
       this.token = authService.isLogged()!;
     }

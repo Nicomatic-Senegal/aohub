@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PopupComponent } from 'src/app/features/popup/popup.component';
+import { PopupComponent } from 'src/app/features/all-popup/popup/popup.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -20,7 +20,7 @@ export class TopBarComponent {
   }
 
   constructor(
-    private translate: TranslateService, 
+    private translate: TranslateService,
     private authService: AuthService,
     public dialog: MatDialog) {
     authService.isLogged()!;

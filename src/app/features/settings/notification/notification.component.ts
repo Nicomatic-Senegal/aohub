@@ -3,15 +3,15 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
-import { NotificationDto } from '../interfaces/notification-model';
-import { NotificationService } from '../services/notification-service/notification-service.service';
+import { NotificationDto } from '../../interfaces/notification-model';
+import { NotificationService } from '../../services/notification-service/notification-service.service';
 
 @Component({
   selector: 'app-parametre-notification',
-  templateUrl: './parametre-notification.component.html',
-  styleUrls: ['./parametre-notification.component.scss']
+  templateUrl: './notification.component.html',
+  styleUrls: ['./notification.component.scss']
 })
-export class ParametreNotificationComponent {
+export class NotificationComponent {
   token!: string;
   currentConnectedUser: any;
   notifSetting: NotificationDto = {

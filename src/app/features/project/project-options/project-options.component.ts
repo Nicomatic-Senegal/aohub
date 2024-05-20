@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { ProjectService } from '../services/project/project.service';
-import { Project } from '../interfaces/project.model';
+import { ProjectService } from '../../services/project/project.service';
+import { Project } from '../../interfaces/project.model';
 
 @Component({
   selector: 'app-project-options',

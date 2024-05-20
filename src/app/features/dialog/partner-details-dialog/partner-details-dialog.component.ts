@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { PartnerDTO } from '../interfaces/partner.model';
-import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { PartnerDTO } from '../../interfaces/partner.model';
+import { EnterpriseService } from '../../services/enterprise/enterprise.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { EnterpriseDTO } from '../interfaces/enterprise.model';
-import { PartnerService } from '../services/partner/partner.service';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
+import { PartnerService } from '../../services/partner/partner.service';
 
 @Component({
   selector: 'app-partner-details-dialog',
@@ -42,7 +42,7 @@ export class PartnerDetailsDialogComponent {
           console.log(err);
         }
       })
-      
+
     }
 
     onClose() {

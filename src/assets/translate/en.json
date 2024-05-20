@@ -243,5 +243,7 @@
   "TOP_PROJECTS": "Top projects",
   "NO_TOP_CLIENT": "No customers found !",
   "NO_TOP_PROJECT": "No projects found !",
-  "STATUS": "Status"
+  "STATUS": "Status",
+  "TOP_MARKETS": "Top markets",
+  "NO_TOP_MARKET": "No markets found !"
 }

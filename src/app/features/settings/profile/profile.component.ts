@@ -2,20 +2,20 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { EnterpriseDTO } from '../interfaces/enterprise.model';
-import { EnterpriseService } from '../services/enterprise/enterprise.service';
-import { UserService } from '../services/user/user.service';
-import { PartnerDTO } from '../interfaces/partner.model';
-import { EmployeePostDTO } from '../interfaces/employee.model';
-import { PartnerProfileVM } from '../interfaces/partner-profile-vm.model';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
+import { EnterpriseService } from '../../services/enterprise/enterprise.service';
+import { UserService } from '../../services/user/user.service';
+import { PartnerDTO } from '../../interfaces/partner.model';
+import { EmployeePostDTO } from '../../interfaces/employee.model';
+import { PartnerProfileVM } from '../../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-parametre-profil',
-  templateUrl: './parametre-profil.component.html',
-  styleUrls: ['./parametre-profil.component.scss']
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
-export class ParametreProfilComponent implements OnInit {
+export class ProfileComponent implements OnInit {
   isPasswordVisible: boolean = false;
   isAlreadySignedUp: boolean = false;
   profilForm!: FormGroup;

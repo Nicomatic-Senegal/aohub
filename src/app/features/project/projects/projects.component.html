@@ -12,7 +12,7 @@
               </div>
               <div class="dropdown-content w-60 h-80">
                 <div class="demo-inline-calendar-card flex w-full h-60">
-                  <mat-calendar class="custom-calendar w-full h-60" 
+                  <mat-calendar class="custom-calendar w-full h-60"
                     [(selected)]="selectedDate" (selectedChange)="onSelectDate($event)">
                   </mat-calendar>
                 </div>
@@ -23,8 +23,8 @@
                 <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-spinner mr-2"></i>Status <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
-                <a 
-                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
+                <a
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isStatusSelected('IN_PROGRESS')"
                   (click)="selectStatus('IN_PROGRESS')">
                   <span class="mr-3 w-2">
@@ -32,8 +32,8 @@
                   </span>
                   {{'PROJECT_LOADING' | translate}}
                 </a>
-                <a 
-                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
+                <a
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isStatusSelected('FINISHED')"
                   (click)="selectStatus('FINISHED')">
                   <span class="mr-3 w-2">
@@ -48,10 +48,10 @@
                 <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'MARKET' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
-                <a 
+                <a
                   *ngFor="let market of listMarkets"
-                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer" 
-                  [class.selected]="isMarketSelected(market)" 
+                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
+                  [class.selected]="isMarketSelected(market)"
                   (click)="selectMarket(market)">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isMarketSelected(market) ? 'inline-block' : 'none' }"></i>
@@ -75,31 +75,31 @@
         <div class="flex">
           <div class="flex justify-between items-center mx-4 px-5 py-2 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-2xl shadow-custom">
             <div class="flex items-center mr-2 bg-red-100">
-              <img class="mr-2 w-14" src="../../../assets/img/projet tous.svg" alt="">
+              <img class="mr-2 w-14" src="../../../../assets/img/projet%20tous.svg" alt="">
               <div class="flex flex-col ">
                 <p class="text-[#888] font-dmsans text-lg">{{'ALL_PROJECTS' | translate}} </p>
                 <p class="font-dmsans font-extrabold text-black text-2xl">{{totalItems}}</p>
               </div>
             </div>
-            <img src="../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
+            <img src="../../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
             <div class="flex items-center mr-2">
-              <img class="mr-2 w-14" src="../../../assets/img/projet en cours.svg" alt="">
+              <img class="mr-2 w-14" src="../../../../assets/img/projet%20en%20cours.svg" alt="">
               <div class="flex flex-col ">
                 <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_LOADING' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsInProgres}}</p>
               </div>
             </div>
-            <img src="../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
+            <img src="../../../../assets/img/sep-vertical.svg" alt="" class="mr-2">
             <div class="flex items-center mr-2">
-              <img class="mr-2 w-14" src="../../../assets/img/projet terminer.svg" alt="">
+              <img class="mr-2 w-14" src="../../../../assets/img/projet%20terminer.svg" alt="">
               <div class="flex flex-col ">
                 <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_OVER' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsFinished}}</p>
               </div>
             </div>
-            <img src="../../../assets/img/sep-vertical.svg" class="mr-2" alt="">
+            <img src="../../../../assets/img/sep-vertical.svg" class="mr-2" alt="">
             <div class="flex items-center">
-              <img class="mr-2 w-14" src="../../../assets/img/projet annuler.svg" alt="">
+              <img class="mr-2 w-14" src="../../../../assets/img/projet%20annuler.svg" alt="">
               <div class="flex flex-col ">
                 <p class="text-[#888] font-dmsans text-lg">{{'PROJECT_ABORTED' | translate}} </p>
                 <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsOnHold + nbProjectsArchived}}</p>
@@ -116,7 +116,7 @@
         </div>
 
         <div class="flex flex-wrap mt-8 mx-3 gap-7">
-          <div 
+          <div
             *ngFor="let project of listProject"
             class="bg-white shadow-xl rounded-xl px-5 pt-4 pb-1 w-[48%] mb-3 transform transition-transform hover:scale-105 cursor-pointer" (click)="displayProjectDetails(project.id)">
             <div class="flex">
@@ -130,8 +130,8 @@
             <p class="font-dmsans text-base text-[#7D7D7D] mb-2">{{project?.description}}</p>
             <div class="flex justify-between mb-2 items-center">
               <div class="flex items-center">
-                  <img [src]="project?.applicant?.enterprise?.imageUrl || '../../../assets/icons/icon-enterprise.webp'" 
-                      alt="{{project?.applicant?.enterprise?.imageUrl}} icon" 
+                  <img [src]="project?.applicant?.enterprise?.imageUrl || '../../../assets/icons/icon-enterprise.webp'"
+                      alt="{{project?.applicant?.enterprise?.imageUrl}} icon"
                       class="mr-2 w-10 h-10">
                   <p class="font-dmsans text-base">{{project?.applicant?.enterprise?.name}}</p>
               </div>
@@ -140,12 +140,12 @@
               </div>
               <div class="flex items-center">
                   <p class="font-dmsans text-base">{{formatDate(project?.deadlinePositioning)}}</p>
-                  <img src="../../../assets/img/tiret-rond.svg" class="ml-2" alt="">
+                  <img src="../../../../assets/img/tiret-rond.svg" class="ml-2" alt="">
               </div>
             </div>
             <div class="flex flex-wrap justify-between">
               <div class="flex flex-wrap">
-                  <div 
+                  <div
                       *ngFor="let market of project?.markets"
                       class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl mr-3 mb-3 px-5 py-1 text-center font-dmsans text-sm">{{market.name}}</div>
               </div>

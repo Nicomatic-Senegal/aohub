@@ -1,12 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ProjectService } from '../services/project/project.service';
+import { ProjectService } from '../../services/project/project.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Project } from '../interfaces/project.model';
-import { Market } from '../interfaces/market.model';
-import { Domain } from '../interfaces/domain.model';
+import { Project } from '../../interfaces/project.model';
+import { Market } from '../../interfaces/market.model';
+import { Domain } from '../../interfaces/domain.model';
 
 @Component({
   selector: 'app-popup-modify-project',
@@ -31,7 +31,7 @@ export class PopupModifyProjectComponent implements OnInit {
 
     this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
-    
+
     this.domainChoosen = this.dialogData.project.domains.map((domain: { name: any; }) => domain.name);
 
     this.modifyProjectForm = this.fb.group({

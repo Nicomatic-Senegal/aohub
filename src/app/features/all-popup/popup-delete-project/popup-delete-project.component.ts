@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { ProjectService } from '../services/project/project.service';
+import { ProjectService } from '../../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -32,7 +32,7 @@ export class PopupDeleteProjectComponent implements OnInit {
     if (this.selectedReason === 'other') {
       reasonToSend = this.otherReason;
     } else {
-      reasonToSend = this.selectedReason || ''; 
+      reasonToSend = this.selectedReason || '';
     }
     this.projectService.deleteProject(token, projectId, reasonToSend).subscribe({
       next: (data) => {

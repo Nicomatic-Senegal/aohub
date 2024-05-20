@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Project } from '../interfaces/project.model';
-import { EventService } from '../services/event/event.service';
+import { Project } from '../../interfaces/project.model';
+import { EventService } from '../../services/event/event.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,7 +19,7 @@ export class PopupAddEventComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<PopupAddEventComponent>,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private eventService: EventService,
     private toastr: ToastrService
     ) {

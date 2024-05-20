@@ -1,17 +1,17 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
+import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { PopupDeleteProjectComponent } from '../popup-delete-project/popup-delete-project.component';
+import { PopupDeleteProjectComponent } from '../../all-popup/popup-delete-project/popup-delete-project.component';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PartnerDetailsDialogComponent } from '../partner-details-dialog/partner-details-dialog.component';
-import { PopupModifyProjectComponent } from '../popup-modify-project/popup-modify-project.component';
-import { Project } from '../interfaces/project.model';
-import { UserService } from '../services/user/user.service';
+import { PartnerDetailsDialogComponent } from '../../dialog/partner-details-dialog/partner-details-dialog.component';
+import { PopupModifyProjectComponent } from '../../all-popup/popup-modify-project/popup-modify-project.component';
+import { Project } from '../../interfaces/project.model';
+import { UserService } from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { PopupAddEventComponent } from '../popup-add-event/popup-add-event.component';
-import { EventService } from '../services/event/event.service';
-import { PopupComponent } from '../popup/popup.component';
-import { PopupAddParticipantComponent } from '../popup-add-participant/popup-add-participant.component';
+import { PopupAddEventComponent } from '../../all-popup/popup-add-event/popup-add-event.component';
+import { EventService } from '../../services/event/event.service';
+import { PopupComponent } from '../../all-popup/popup/popup.component';
+import { PopupAddParticipantComponent } from '../../all-popup/popup-add-participant/popup-add-participant.component';
 
 @Component({
   selector: 'app-project-details',
@@ -27,14 +27,14 @@ export class ProjectDetailsComponent implements OnInit {
   events: any;
   showDeleteIcon: boolean = false;
 
-  constructor(public dialog: MatDialog, 
+  constructor(public dialog: MatDialog,
     private authService: AuthService,
-    private userService: UserService, 
+    private userService: UserService,
     private eventService: EventService,
     private toastr: ToastrService) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
-    
+
   }
 
   ngOnInit(): void {
@@ -50,7 +50,7 @@ export class ProjectDetailsComponent implements OnInit {
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
-          this.currentConnectedUser = data;    
+          this.currentConnectedUser = data;
           // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;
         },
         error: (err) => {
@@ -132,9 +132,9 @@ export class ProjectDetailsComponent implements OnInit {
     })
     dialogRef.componentInstance.eventAdded.subscribe((newEventData) => {
       this.events = [...this.events, newEventData];
-      
+
     });
-  
+
   }
 
   deleteEvent(event: Event) {
@@ -143,11 +143,11 @@ export class ProjectDetailsComponent implements OnInit {
 
     title = localStorage.getItem('language') === 'en' ? 'Delete event' : 'Supprimer évènement';
     description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete this event ?' : 'Êtes-vous sûr de vouloir supprimer cet évènement ?';
-    
+
     let route = "deleteEvent";
 
     let token = this.token;
-    
+
     const dialogRef = this.dialog.open(PopupComponent, {
       data: {
         title, description, route, event, token

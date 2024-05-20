@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { BaseAppService } from '../../core/services/base-app/base-app.service';
-import { confirmedValidator } from '../interfaces/utils';
-import { UserService } from '../services/user/user.service';
+import { BaseAppService } from '../../../core/services/base-app/base-app.service';
+import { confirmedValidator } from '../../interfaces/utils';
+import { UserService } from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
-import { PasswordChangeDTO } from '../interfaces/password-dto.model';
+import { PasswordChangeDTO } from '../../interfaces/password-dto.model';
 
 @Component({
   selector: 'app-parametre-mot-de-passe',
-  templateUrl: './parametre-mot-de-passe.component.html',
-  styleUrls: ['./parametre-mot-de-passe.component.scss']
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss']
 })
-export class ParametreMotDePasseComponent implements OnInit {
+export class ChangePasswordComponent implements OnInit {
   token!: string;
   changePasswordForm!: FormGroup;
   page: number = 0;

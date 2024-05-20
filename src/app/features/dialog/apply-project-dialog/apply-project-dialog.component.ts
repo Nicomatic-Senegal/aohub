@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProjectService } from '../services/project/project.service';
+import { ProjectService } from '../../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
-import { Project } from '../interfaces/project.model';
-import { EventSchedule } from '../interfaces/event-schedule';
+import { Project } from '../../interfaces/project.model';
+import { EventSchedule } from '../../interfaces/event-schedule';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -17,7 +17,7 @@ export class ApplyProjectDialogComponent implements OnInit {
   token: string;
   project!: Project;
   selectedCreneaux: EventSchedule[] = [];
-  
+
   listEventSchedule: EventSchedule[] = [];
 
   constructor(

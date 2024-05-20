@@ -22,7 +22,7 @@ export class NotificationService {
 
   updateSetting(token: string, payload: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'notification-settings';
+    const url = this.apiBaseUrl + 'notification-settings/' + payload.id;
 
     return this.http.put<any>(url, payload, { headers, responseType: 'json' })
   }

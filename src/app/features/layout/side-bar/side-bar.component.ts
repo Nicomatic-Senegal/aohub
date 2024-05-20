@@ -1,9 +1,9 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { UserService } from '../services/user/user.service';
-import { PartnerDTO } from '../interfaces/partner.model';
-import { OpinionComponent } from '../opinion/opinion.component';
+import { UserService } from '../../services/user/user.service';
+import { PartnerDTO } from '../../interfaces/partner.model';
+import { OpinionComponent } from '../../opinion/opinion.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -2,8 +2,8 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
-import { Project } from '../interfaces/project.model';
-import { ProjectService } from '../services/project/project.service';
+import { Project } from '../../interfaces/project.model';
+import { ProjectService } from '../../services/project/project.service';
 
 @Component({
   selector: 'app-popup-add-participant',
@@ -19,7 +19,7 @@ export class PopupAddParticipantComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     public dialogRef: MatDialogRef<PopupAddParticipantComponent>,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private toastr: ToastrService,
     private projectService: ProjectService
     ) {

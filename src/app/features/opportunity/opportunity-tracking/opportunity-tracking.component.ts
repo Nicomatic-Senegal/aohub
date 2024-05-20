@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { ProjectService } from '../services/project/project.service';
-import { Project } from '../interfaces/project.model';
-import { PositioningDTO, PositioningStatus } from '../interfaces/positioning-dto.model';
-import { Disponibility } from '../interfaces/disponibility.model';
-import { digitOnly } from '../interfaces/utils';
+import { ProjectService } from '../../services/project/project.service';
+import { Project } from '../../interfaces/project.model';
+import { PositioningDTO, PositioningStatus } from '../../interfaces/positioning-dto.model';
+import { Disponibility } from '../../interfaces/disponibility.model';
+import { digitOnly } from '../../interfaces/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({

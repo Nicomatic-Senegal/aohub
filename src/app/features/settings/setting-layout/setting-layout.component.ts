@@ -2,15 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { EnterpriseService } from '../services/enterprise/enterprise.service';
+import { EnterpriseService } from '../../services/enterprise/enterprise.service';
 import { BaseAppService } from 'src/app/core/services/base-app/base-app.service';
 
 @Component({
   selector: 'app-parametres',
-  templateUrl: './parametres.component.html',
-  styleUrls: ['./parametres.component.scss']
+  templateUrl: './setting-layout.component.html',
+  styleUrls: ['./setting-layout.component.scss']
 })
-export class ParametresComponent {
+export class SettingLayoutComponent {
   screen: number = 1;
   token!: string;
 

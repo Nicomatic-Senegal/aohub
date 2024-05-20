@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ParametresComponent } from './parametres.component';
+import { SettingLayoutComponent } from './setting-layout.component';
 
 describe('ParametresComponent', () => {
-  let component: ParametresComponent;
-  let fixture: ComponentFixture<ParametresComponent>;
+  let component: SettingLayoutComponent;
+  let fixture: ComponentFixture<SettingLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ParametresComponent ]
+      declarations: [ SettingLayoutComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ParametresComponent);
+    fixture = TestBed.createComponent(SettingLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

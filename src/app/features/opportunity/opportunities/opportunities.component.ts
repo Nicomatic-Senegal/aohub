@@ -1,16 +1,16 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ProjectService } from '../services/project/project.service';
+import { ProjectService } from '../../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { Project } from '../interfaces/project.model';
-import { PartnerService } from '../services/partner/partner.service';
+import { Project } from '../../interfaces/project.model';
+import { PartnerService } from '../../services/partner/partner.service';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ShowMoreDialogComponent } from '../show-more-dialog/show-more-dialog.component';
-import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
-import { UserService } from '../services/user/user.service';
-import { PartnerDTO } from '../interfaces/partner.model';
+import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
+import { ApplyProjectDialogComponent } from '../../dialog/apply-project-dialog/apply-project-dialog.component';
+import { UserService } from '../../services/user/user.service';
+import { PartnerDTO } from '../../interfaces/partner.model';
 
 @Component({
   selector: 'app-opportunities',
@@ -56,7 +56,7 @@ export class OpportunitiesComponent {
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
-          this.currentConnectedUser = data; 
+          this.currentConnectedUser = data;
         },
         error: (err) => {
           console.log(err);
@@ -98,7 +98,7 @@ export class OpportunitiesComponent {
 
         });
         this.totalItems = data.totalCount;
-        
+
       },
       error: (err) => {
         console.log(err);
@@ -198,7 +198,7 @@ export class OpportunitiesComponent {
 
   async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
     console.log(project);
-    
+
     try {
       const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
       if (data) {

@@ -9,10 +9,10 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-mot-de-passe-oublie-processus',
-  templateUrl: './mot-de-passe-oublie-processus.component.html',
-  styleUrls: ['./mot-de-passe-oublie-processus.component.scss']
+  templateUrl: './forget-password.component.html',
+  styleUrls: ['./forget-password.component.scss']
 })
-export class MotDePasseOublieProcessusComponent {
+export class ForgetPasswordComponent {
   page: number = 0;
   isPasswordVisible: boolean = false;
   isConfirmPasswordVisible: boolean = false;

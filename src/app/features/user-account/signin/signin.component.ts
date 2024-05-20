@@ -5,14 +5,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { ToastrService } from 'ngx-toastr';
 import { LoginVM } from 'src/app/core/interfaces/login-vm.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { UserService } from '../services/user/user.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-connexion',
-  templateUrl: './connexion.component.html',
-  styleUrls: ['./connexion.component.scss']
+  templateUrl: './signin.component.html',
+  styleUrls: ['./signin.component.scss']
 })
-export class ConnexionComponent {
+export class SigninComponent {
   isPasswordVisible: boolean = false;
   user: LoginVM = new LoginVM();
   loginForm: FormGroup;

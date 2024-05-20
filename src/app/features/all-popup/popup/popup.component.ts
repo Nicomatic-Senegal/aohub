@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { EventService } from '../services/event/event.service';
+import { EventService } from '../../services/event/event.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PopupComponent implements OnInit {
   @Output() eventRemoved = new EventEmitter<any>();
-  
+
   constructor(
     public dialogRef: MatDialogRef<PopupComponent>,
     private authService: AuthService,

@@ -23,7 +23,7 @@
                 </a>
               </div>
             </div>
-            <div class="dropdown mr-5">
+            <!-- <div class="dropdown mr-5">
               <div class=" px-2 border border-[#888] rounded-xl">
                 <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'MONTH' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
@@ -39,7 +39,7 @@
                   {{month | translate}}
                 </a>
               </div>
-            </div>
+            </div> -->
             <div class="dropdown mr-5">
               <div class=" px-2 border border-[#888] rounded-xl">
                 <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEAR' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
@@ -120,18 +120,20 @@
             </div>
           </div>
           <div class="w-[45%] mr-5">
-            <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'TOP_CLIENTS' | translate}}</p>
+            <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'TOP_MARKETS' | translate}}</p>
             <div *ngIf="listProject.length === 0" class="flex items-center p-5 mb-4 text-md text-gray-800 rounded-lg bg-gray-50 mt-3" role="alert">
               <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
               </svg>
               <span class="sr-only">Info</span>
               <div>
-                <span class="font-medium">{{'NO_TOP_CLIENT' | translate}}</span>
+                <span class="font-medium">{{'NO_TOP_MARKET' | translate}}</span>
               </div>
             </div>
             <div *ngIf="listProject.length > 0" class="bg-white shadow-xl rounded-xl flex justify-start items-start p-4 " id="container">
               <angular-d3-cloud
+              [width]="400"
+              [height]="400"
               [data]="data"
               font="serif"
               [padding]="0"
@@ -161,8 +163,8 @@
                   <tr class="w-full text-md font-dmsans text-[#72767C] font-semibold text-left">
                       <th>{{'PROJECT_TITLED' | translate}}</th>
                       <th>{{'RESPONSIBLE' | translate}}</th>
-                      <th>{{'CONTRACT_DURACTION' | translate}}</th>
                       <th>{{'CREATIONN_DATE' | translate}}</th>
+                      <th>{{'CONTRACT_DURACTION' | translate}}</th>
                       <th>{{'STATUS' | translate}}</th>
                   </tr>
               </thead>
@@ -183,7 +185,7 @@
                       </td>
                   </tr>
               </tbody>
-          </table>          
+          </table>
           </div>
         </div>
       </div>

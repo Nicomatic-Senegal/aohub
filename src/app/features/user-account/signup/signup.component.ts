@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { BaseAppService } from '../../core/services/base-app/base-app.service';
+import { BaseAppService } from '../../../core/services/base-app/base-app.service';
 import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
-import { EnterpriseService } from '../services/enterprise/enterprise.service';
-import { EnterpriseDTO } from '../interfaces/enterprise.model';
-import { confirmedValidator, digitOnly } from '../interfaces/utils';
+import { EnterpriseService } from '../../services/enterprise/enterprise.service';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
+import { confirmedValidator, digitOnly } from '../../interfaces/utils';
 import { ToastrService } from 'ngx-toastr';
-import { EmployeePostDTO } from '../interfaces/employee.model';
+import { EmployeePostDTO } from '../../interfaces/employee.model';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-inscription',
-  templateUrl: './inscription.component.html',
-  styleUrls: ['./inscription.component.scss']
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss']
 })
-export class InscriptionComponent implements OnInit {
+export class SignupComponent implements OnInit {
   isPasswordVisible: boolean = false;
   isAlreadySignedUp: boolean = false;
   registerForm!: FormGroup;

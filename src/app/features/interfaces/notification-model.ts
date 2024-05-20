@@ -1,6 +1,9 @@
 export interface NotificationDto {
+  id?: number,
   opportunityEmail: boolean
   reminderEmail: boolean
   assigningEmail: boolean
-  partner: number
+  partner: {
+    id: number
+  }
 }

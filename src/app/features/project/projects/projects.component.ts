@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { ProjectService } from '../services/project/project.service';
-import { UserService } from '../services/user/user.service';
-import { PartnerDTO } from '../interfaces/partner.model';
-import { Project } from '../interfaces/project.model';
+import { ProjectService } from '../../services/project/project.service';
+import { UserService } from '../../services/user/user.service';
+import { PartnerDTO } from '../../interfaces/partner.model';
+import { Project } from '../../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
@@ -48,8 +48,8 @@ export class ProjectsComponent implements OnInit {
     }
     this.loadCurrentConnectedUser();
     this.loadAllMarket();
-    this.loadMyProjects(this.currentPage - 1, this.itemPerPage); 
-       
+    this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
+
   }
 
   ngAfterViewInit() {
@@ -88,11 +88,11 @@ export class ProjectsComponent implements OnInit {
     const userData = localStorage.getItem("currentConnectedUser");
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
-      
+
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
-          this.currentConnectedUser = data; 
+          this.currentConnectedUser = data;
         },
         error: (err) => {
           console.log(err);
@@ -203,9 +203,9 @@ export class ProjectsComponent implements OnInit {
     }
 
     if(this.selectedMarkets.length === 0 && this.selectStatus.length === 0) {
-      this.loadMyProjects(this.currentPage - 1, this.itemPerPage); 
+      this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
     }
-    
+
 
     this.listProject.splice(0, this.listProject.length);
     this.projectService.getMyFilteredProjects(this.token, this.currentPage - 1, this.itemPerPage, selectedMarket, selectedStatus, '2024-05-12').subscribe({
@@ -246,7 +246,7 @@ export class ProjectsComponent implements OnInit {
 
   formatDate(date: Date | undefined): string {
     if (!date) {
-        return ''; 
+        return '';
     }
     let language = 'fr-Fr';
     if (localStorage.getItem('language') === 'en') {

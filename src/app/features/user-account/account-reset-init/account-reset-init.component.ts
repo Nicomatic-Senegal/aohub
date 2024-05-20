@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { KeyAndPasswordVM } from '../interfaces/key-and-password-vm.model';
+import { KeyAndPasswordVM } from '../../interfaces/key-and-password-vm.model';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { confirmedValidator } from '../interfaces/utils';
+import { confirmedValidator } from '../../interfaces/utils';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

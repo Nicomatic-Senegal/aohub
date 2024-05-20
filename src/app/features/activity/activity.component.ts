@@ -34,12 +34,13 @@ export class ActivityComponent {
     nbProject: [],
     dates: []
   };
+  curveTitle!: string;
   months: string[] = ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER" ];
-  years = ["2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024"];
+  years = ["2020", "2021", "2022", "2023", "2024"];
 
   data: any;
   @ViewChild("chart") chart!: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  public chartOptions!: Partial<ChartOptions>;
 
   constructor(
     private projectService: ProjectService,
@@ -50,60 +51,12 @@ export class ActivityComponent {
     private authService: AuthService) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
-
-      this.chartOptions = {
-        series: [
-          {
-            name: "Marché",
-            data: series.monthDataSeries1.prices
-          }
-        ],
-        chart: {
-          type: "area",
-          height: 390,
-          zoom: {
-            enabled: false
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          curve: "straight"
-        },
-
-        title: {
-          text: "Analyse des marchés",
-          align: "left"
-        },
-        subtitle: {
-          text: "Les marchés",
-          align: "left"
-        },
-        labels: series.monthDataSeries1.dates,
-        xaxis: {
-          type: "datetime"
-        },
-        yaxis: {
-          opposite: true
-        },
-        legend: {
-          horizontalAlign: "left"
-        }
-      };
   }
 
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
     this.loadAllEnterprises();
-
-    console.log(this.loadAllWords());
-
-    this.data = this.loadAllWords().map(function (d) {
-        return { text: d, value: 20};
-      });
-
-    // Highcharts.chart('container', this.options);
+    this.loadAllProjects();
   }
 
   rotation(word: any, index: number) {
@@ -142,7 +95,6 @@ export class ActivityComponent {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
         this.allEnterprise = data;
-        this.loadEnterpriseProjects(this.selectedEnterprise);
       },
       error: (err) => {
         console.log(err);
@@ -166,6 +118,7 @@ export class ActivityComponent {
 
         this.allProjects = data;
         this.listProject = this.allProjects.slice();
+        this.drawCurve();
         this.data = this.loadAllWords().map(function (d) {
           return { text: d, value: 20};
         });
@@ -197,6 +150,142 @@ export class ActivityComponent {
        });
       }
     });
+  }
+
+  loadAllProjects() {
+    this.listProject.splice(0, this.listProject.length);
+    this.nbProjectsArchived = 0;
+    this.nbProjectsFinished = 0;
+    this.nbProjectsInProgres = 0;
+    this.nbProjectsOnHold = 0;
+    this.projectService.getAllProjectsNoPagination(this.token).subscribe({
+      next: (data) => {
+        console.log(data);
+
+        this.allProjects = data.projects;
+        this.listProject = this.allProjects.slice();
+        this.drawCurve();
+        this.data = this.loadAllWords().map(function (d) {
+          return { text: d, value: 20};
+        });
+
+        this.listProject.forEach(project => {
+          switch(project.status) {
+            case 'IN_PROGRESS':
+              this.nbProjectsInProgres++;
+              break;
+            case 'FINISHED':
+              this.nbProjectsFinished++;
+              break;
+            case 'ON_HOLD':
+              this.nbProjectsOnHold++;
+              break;
+            case 'ARCHIVED':
+              this.nbProjectsArchived++;
+              break;
+            default:
+              break;
+          }
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+       });
+      }
+    });
+  }
+
+  curveSetup() {
+    if (this.selectedYears.length === 0) {
+      this.projectCurve.dates = this.years;
+      const yearCount: number[] = Array(this.years.length).fill(0);
+
+      this.listProject.forEach(projet => {
+        const indexOfYear = this.years.indexOf(projet.createdAt.toString().split('-')[0]);
+
+        if (indexOfYear !== -1)
+          yearCount[indexOfYear]++;
+      });
+
+      this.projectCurve.nbProject = yearCount;
+      this.curveTitle = this.years.toString().replaceAll("[,]", "");
+    }
+    else if (this.selectedYears.length === 1) {
+      this.projectCurve.dates = this.months.map(month => month.substring(0, 3));
+      const monthCounts: number[] = Array(12).fill(0);
+
+      this.listProject.forEach(projet => {
+        const month = parseInt(projet.createdAt.toString().split('-')[1]) - 1;
+        monthCounts[month]++;
+      });
+
+      this.projectCurve.nbProject = monthCounts;
+      this.curveTitle = this.selectedYears[0];
+    }
+    else {
+      this.projectCurve.dates = this.selectedYears;
+      const yearCount: number[] = Array(this.selectedYears.length).fill(0);
+
+      this.listProject.forEach(projet => {
+        const indexOfYear = this.selectedYears.indexOf(projet.createdAt.toString().split('-')[0]);
+
+        if (indexOfYear !== -1)
+          yearCount[indexOfYear]++;
+      });
+
+      this.projectCurve.nbProject = yearCount;
+      console.log(this.projectCurve);
+
+      this.curveTitle = this.selectedYears.toString().replaceAll("[,]", "");
+    }
+  }
+
+  drawCurve() {
+    this.curveSetup();
+
+    this.chartOptions = {
+      series: [
+        {
+          name: "Marché",
+          data: this.projectCurve.nbProject
+        }
+      ],
+      chart: {
+        type: "area",
+        height: 390,
+        zoom: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: "straight"
+      },
+
+      title: {
+        text: "Analyse des projets",
+        align: "left"
+      },
+      subtitle: {
+        text: this.curveTitle,
+        align: "left"
+      },
+      labels: this.projectCurve.dates,
+      xaxis: {
+        type: "category"
+      },
+      yaxis: {
+        opposite: true
+      },
+      legend: {
+        horizontalAlign: "left"
+      }
+    };
   }
 
   isMonthSelected(month: string): boolean {
@@ -239,15 +328,43 @@ export class ActivityComponent {
     }
 
     if (this.selectedYears.length === 0) {
-      this.loadEnterpriseProjects(this.selectedEnterprise);
+      this.loadAllProjects();
     } else {
+      this.nbProjectsArchived = 0;
+      this.nbProjectsFinished = 0;
+      this.nbProjectsInProgres = 0;
+      this.nbProjectsOnHold = 0;
       this.listProject = this.allProjects.filter(project => this.selectedYears.includes(project.createdAt.toString().split("-")[0]));
+      this.listProject.forEach(project => {
+        switch(project.status) {
+          case 'IN_PROGRESS':
+            this.nbProjectsInProgres++;
+            break;
+          case 'FINISHED':
+            this.nbProjectsFinished++;
+            break;
+          case 'ON_HOLD':
+            this.nbProjectsOnHold++;
+            break;
+          case 'ARCHIVED':
+            this.nbProjectsArchived++;
+            break;
+          default:
+            break;
+        }
+      });
+      this.drawCurve();
     }
   }
 
   sortProjectsByEnterprise(id: number) {
-    this.selectedEnterprise = id;
-    this.loadEnterpriseProjects(this.selectedEnterprise);
+    if (this.selectedEnterprise === id) {
+      this.selectedEnterprise = -1;
+      this.loadAllProjects();
+    } else {
+      this.selectedEnterprise = id;
+      this.loadEnterpriseProjects(this.selectedEnterprise);
+    }
   }
 
   formatDate(date: Date): string {
