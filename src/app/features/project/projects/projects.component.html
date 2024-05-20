@@ -6,20 +6,17 @@
       <div class="projet-container rounded-xl w-full h-full bg-white overflow-auto px-2 pb-7 pt-2">
         <div class="flex">
           <div class="w-full flex-col p-5">
+              <mat-form-field class="border border-[#888] rounded-xl mr-5">
+                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+                  <input matStartDate formControlName="start">
+                  <input matEndDate formControlName="end">
+                </mat-date-range-input>
+                <mat-hint class="text-[#888] font-dmsans text-sm">mm/dd/yyyy – mm/dd/yyyy</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
             <div class="dropdown mr-5">
-              <div class=" px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>Date <i class="fas fa-chevron-down ml-2"></i></button>
-              </div>
-              <div class="dropdown-content w-60 h-80">
-                <div class="demo-inline-calendar-card flex w-full h-60">
-                  <mat-calendar class="custom-calendar w-full h-60"
-                    [(selected)]="selectedDate" (selectedChange)="onSelectDate($event)">
-                  </mat-calendar>
-                </div>
-              </div>
-            </div>
-            <div class="dropdown mr-5">
-              <div class=" px-2 border border-[#888] rounded-xl">
+              <div class="px-2 border border-[#888] rounded-xl">
                 <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-spinner mr-2"></i>Status <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">

@@ -63,9 +63,9 @@ export class ProjectService {
       );
   }
 
-  getMyFilteredProjects(token: string, page: number, size: number, marketId: string[], status: string[], createdAfter: string): Observable<any> {
+  getMyFilteredProjects(token: string, page: number, size: number, marketId: string[], status: string[], createdAfter: string, createdBefore: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = `${this.apiBaseUrl}projects/filter?marketIds=${marketId}&statuses=${status}&createdAfter=${createdAfter}&page=${page}&size=${size}&sort=id,desc`;
+    const url = `${this.apiBaseUrl}projects/filter?marketIds=${marketId}&statuses=${status}&createdAfter=${createdAfter}&createdBefore=${createdBefore}&page=${page}&size=${size}&sort=id,desc`;
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(

@@ -8,6 +8,7 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { Project } from '../../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-projects',
@@ -30,6 +31,10 @@ export class ProjectsComponent implements OnInit {
   selectedStatus: string[] = [];
   selectedMarkets: string[] = [];
   listMarkets: any;
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -206,9 +211,19 @@ export class ProjectsComponent implements OnInit {
       this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
     }
 
+    let startDateString = '';
+    let endDateString = '';
+    let startDate = this.range.get('start')?.value;
+    let endDate = this.range.get('end')?.value;
+    if (startDate instanceof Date) {
+      startDateString = startDate.toISOString().split('T')[0];
+    }
+    if (endDate instanceof Date) {
+      endDateString = endDate.toISOString().split('T')[0];
+    }
 
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyFilteredProjects(this.token, this.currentPage - 1, this.itemPerPage, selectedMarket, selectedStatus, '2024-05-12').subscribe({
+    this.projectService.getMyFilteredProjects(this.token, this.currentPage - 1, this.itemPerPage, selectedMarket, selectedStatus, startDateString, endDateString).subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
