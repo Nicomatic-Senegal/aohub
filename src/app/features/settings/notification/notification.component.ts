@@ -18,7 +18,9 @@ export class ParametreNotificationComponent {
     opportunityEmail: false,
     reminderEmail: false,
     assigningEmail: false,
-    partner: 0
+    partner: {
+      id: 0
+    }
   };
 
   constructor(private route: Router, private authService: AuthService, private notificationService: NotificationService){
@@ -31,28 +33,42 @@ export class ParametreNotificationComponent {
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
       if (this.currentConnectedUser.notificationSettings && this.currentConnectedUser.notificationSettings.length != 0) {
-        this.notifSetting = this.currentConnectedUser.notificationSettings[0];
+        this.notifSetting.id = this.currentConnectedUser.notificationSettings[0].id;
+        this.notifSetting.assigningEmail = this.currentConnectedUser.notificationSettings[0].assigningEmail;
+        this.notifSetting.opportunityEmail = this.currentConnectedUser.notificationSettings[0].opportunityEmail;
+        this.notifSetting.reminderEmail = this.currentConnectedUser.notificationSettings[0].id;
+        this.notifSetting.partner.id = this.currentConnectedUser.notificationSettings[0].partner.id;
       }
       console.log(this.notifSetting);
     }
   }
 
   changeSetting(value: number) {
-    console.log(this.notifSetting);
     switch(value) {
       case 1: this.notifSetting.assigningEmail = !this.notifSetting.assigningEmail; break;
       case 2: this.notifSetting.opportunityEmail = !this.notifSetting.opportunityEmail; break;
       case 3: this.notifSetting.reminderEmail = !this.notifSetting.reminderEmail; break;
     }
 
-    if (this.notifSetting.partner === 0) {
-      this.notifSetting.partner = this.currentConnectedUser.id;
-      this.notificationService.setSetting(this.token, this.notifSetting);
+    if (this.notifSetting.partner.id === 0) {
+      this.notifSetting.partner.id = this.currentConnectedUser.id;
+      this.notificationService.setSetting(this.token, this.notifSetting).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.notifSetting = data;
+        }
+      });
     } else {
-      this.notificationService.updateSetting(this.token, this.notifSetting);
+      console.log(this.notifSetting);
+
+      this.notificationService.updateSetting(this.token, this.notifSetting).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.notifSetting = data;
+        }
+      });
     }
     this.currentConnectedUser.notificationSettings[0] = this.notifSetting;
-    console.log(this.currentConnectedUser);
 
     localStorage.setItem("currentConnectedUser", JSON.stringify(this.currentConnectedUser));
   }
