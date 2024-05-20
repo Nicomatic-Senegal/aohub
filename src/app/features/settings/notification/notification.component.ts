@@ -32,12 +32,14 @@ export class NotificationComponent {
 
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
+      console.log(this.currentConnectedUser);
+
       if (this.currentConnectedUser.notificationSettings && this.currentConnectedUser.notificationSettings.length != 0) {
         this.notifSetting.id = this.currentConnectedUser.notificationSettings[0].id;
         this.notifSetting.assigningEmail = this.currentConnectedUser.notificationSettings[0].assigningEmail;
         this.notifSetting.opportunityEmail = this.currentConnectedUser.notificationSettings[0].opportunityEmail;
         this.notifSetting.reminderEmail = this.currentConnectedUser.notificationSettings[0].id;
-        this.notifSetting.partner.id = this.currentConnectedUser.notificationSettings[0].partner.id;
+        this.notifSetting.partner.id = this.currentConnectedUser.id;
       }
       console.log(this.notifSetting);
     }

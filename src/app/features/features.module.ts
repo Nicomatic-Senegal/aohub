@@ -51,6 +51,12 @@ import { ProjectTrackingComponent } from './project/project-tracking/project-tra
 import { PopupAddEventComponent } from './all-popup/popup-add-event/popup-add-event.component';
 import { PopupAddParticipantComponent } from './all-popup/popup-add-participant/popup-add-participant.component';
 import { LayoutComponent } from './layout/layout/layout.component';
+import { InitPhaseComponent } from './dialog/init-phase/init-phase.component';
+import { PreSalesComponent } from './dialog/pre-sales/pre-sales.component';
+import { FeasibilityPhaseComponent } from './dialog/feasibility-phase/feasibility-phase.component';
+import { StudyPhaseComponent } from './dialog/study-phase/study-phase.component';
+import { IndustrializationPhaseComponent } from './dialog/industrialization-phase/industrialization-phase.component';
+import { ProdDeploymentPhaseComponent } from './dialog/prod-deployment-phase/prod-deployment-phase.component';
 
 registerSwiperElements();
 
@@ -87,7 +93,13 @@ registerSwiperElements();
     ProjectTrackingComponent,
     PopupAddEventComponent,
     PopupAddParticipantComponent,
-    LayoutComponent
+    LayoutComponent,
+    InitPhaseComponent,
+    PreSalesComponent,
+    FeasibilityPhaseComponent,
+    StudyPhaseComponent,
+    IndustrializationPhaseComponent,
+    ProdDeploymentPhaseComponent
   ],
   imports: [
     NgApexchartsModule,
