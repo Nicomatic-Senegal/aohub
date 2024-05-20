@@ -241,8 +241,9 @@
   "CREATIONN_DATE": "Date de création",
   "TOP_CLIENTS": "Top clients",
   "TOP_PROJECTS": "Top projets",
+  "LATEST_PROJECT": "Derniers projets",
   "NO_TOP_CLIENT": "Aucun client trouvé !",
-  "NO_TOP_PROJECT": "Aucun projet trouvé !",
+  "NO_LATEST_PROJECT": "Aucun projet trouvé !",
   "STATUS": "Status",
   "TOP_MARKETS": "Top marchés",
   "NO_TOP_MARKET": "Aucun marchés trouvé !"

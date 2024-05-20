@@ -147,14 +147,14 @@
         </div>
 
         <div class="w-full mt-10 pl-5 pr-3">
-          <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'TOP_PROJECTS' | translate}}</p>
+          <p class="text-lg font-dmsans text-[#3B8682] font-semibold">{{'LATEST_PROJECT' | translate}}</p>
           <div *ngIf="listProject.length === 0" class="flex items-center p-5 mb-4 text-md text-gray-800 rounded-lg bg-gray-50 mt-3 w-[50%]" role="alert">
             <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
               <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
             </svg>
             <span class="sr-only">Info</span>
             <div>
-              <span class="font-medium">{{'NO_TOP_PROJECT' | translate}}</span>
+              <span class="font-medium">{{'NO_LATEST_PROJECT' | translate}}</span>
             </div>
           </div>
           <div *ngIf="listProject.length > 0" class="bg-white shadow-xl rounded-xl p-4">
@@ -163,6 +163,7 @@
                   <tr class="w-full text-md font-dmsans text-[#72767C] font-semibold text-left">
                       <th>{{'PROJECT_TITLED' | translate}}</th>
                       <th>{{'RESPONSIBLE' | translate}}</th>
+                      <th>{{'ENTERPRISE' | translate}}</th>
                       <th>{{'CREATIONN_DATE' | translate}}</th>
                       <th>{{'CONTRACT_DURACTION' | translate}}</th>
                       <th>{{'STATUS' | translate}}</th>
@@ -172,6 +173,7 @@
                   <tr *ngFor="let project of listProject.slice(0, 4)" class="w-full text-md font-dmsans text-[#242731] border-t border-t-[F3F3F3] text-left">
                       <td class="py-2">{{ project?.description }}</td>
                       <td class="py-2">{{ project.applicant?.user?.firstName }} {{project.applicant?.user?.lastName }}</td>
+                      <td class="py-2"> {{project.applicant?.enterprise?.name }}</td>
                       <td class="py-2">{{ formatDate(project.createdAt) }}</td>
                       <td *ngIf="project?.duration" class="py-2">{{ project?.duration }} {{'YEARS' | translate}}</td>
                       <td *ngIf="!project?.duration" class="py-2"> - </td>
