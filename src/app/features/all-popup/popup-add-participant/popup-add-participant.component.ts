@@ -39,7 +39,7 @@ export class PopupAddParticipantComponent implements OnInit {
 
   submit() {
     console.log(this.addParticipantForm.value);
-    this.projectService.endpointDeLanine(this.dialogData.token, this.dialogData.project, this.dialogData.project.id).subscribe({
+    this.projectService.addParticipant(this.dialogData.token, this.dialogData.project, this.dialogData.project.id).subscribe({
       next: (data) => {
         console.log(data);
         this.toastr.success("success", "L'utilisateur a été ajouté avec succès au projet", {

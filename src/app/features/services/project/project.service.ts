@@ -198,9 +198,9 @@ export class ProjectService {
     return this.http.put<void>(url, project, {headers, responseType: 'json'});
   }
 
-  endpointDeLanine(token: string, project: Project, email: string): Observable<void> {
+  addParticipant(token: string, project: Project, email: string): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `projects/${project}`;
+    const url = this.apiBaseUrl + `projects/${project.id}/add-team-member/${email}`;
 
     return this.http.post<void>(url, project, {headers, responseType: 'json'});
   }
