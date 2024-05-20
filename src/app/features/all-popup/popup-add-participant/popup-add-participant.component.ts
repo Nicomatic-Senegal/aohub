@@ -38,8 +38,9 @@ export class PopupAddParticipantComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.addParticipantForm.value);
-    this.projectService.addParticipant(this.dialogData.token, this.dialogData.project, this.addParticipantForm.get('email')?.value).subscribe({
+    const email = this.addParticipantForm.get('email')?.value;
+
+    this.projectService.addParticipant(this.dialogData.token, this.dialogData?.project?.id, email).subscribe({
       next: (data) => {
         console.log(data);
         this.toastr.success("success", "L'utilisateur a été ajouté avec succès au projet", {

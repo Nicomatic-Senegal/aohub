@@ -198,10 +198,11 @@ export class ProjectService {
     return this.http.put<void>(url, project, {headers, responseType: 'json'});
   }
 
-  addParticipant(token: string, project: Project, email: string): Observable<void> {
+  addParticipant(token: string, projectId: string, email: string): Observable<void> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `projects/${project.id}/add-team-member/${email}`;
+    const url = this.apiBaseUrl + `projects/${projectId}/add-team-member`;
+    const body = { email };
 
-    return this.http.post<void>(url, project, {headers, responseType: 'json'});
+    return this.http.post<void>(url, body, {headers, responseType: 'json'});
   }
 }
