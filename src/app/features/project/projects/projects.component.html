@@ -6,24 +6,41 @@
       <div class="projet-container rounded-xl w-full h-full bg-white overflow-auto px-2 pb-7 pt-2">
         <div class="flex">
           <div class="w-full flex-col p-5">
-              <mat-form-field class="border border-[#888] rounded-xl mr-5">
-                <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-                  <input matStartDate formControlName="start">
-                  <input matEndDate formControlName="end">
-                </mat-date-range-input>
-                <mat-hint class="text-[#888] font-dmsans text-sm">mm/dd/yyyy – mm/dd/yyyy</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-              </mat-form-field>
+            <div class="dropdown mr-2">
+              <input
+                type="date"
+                class="font-dmsans text-sm px-2 border rounded-xl"
+                [ngClass]="selectedStartDate.length > 0 ? 'border-[#3B8682] text-[#3B8682]' : 'border-[#888] text-[#888]'"
+                (keydown.enter)="$event.preventDefault()"
+                (change)="onStartDateChange($event)"/>
+            </div>
+            <div class="relative inline-block mr-2 text-[#888] font-dmsans text-lg">
+              <p> - </p>
+            </div>
             <div class="dropdown mr-5">
-              <div class="px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-spinner mr-2"></i>Status <i class="fas fa-chevron-down ml-2"></i></button>
+              <input
+                type="date"
+                class="font-dmsans text-sm px-2 border rounded-xl"
+                [ngClass]="selectedEndDate.length > 0 ? 'border-[#3B8682] text-[#3B8682]' : 'border-[#888] text-[#888]'"
+                (keydown.enter)="$event.preventDefault()"
+                (change)="onEndDateChange($event)"/>
+            </div>
+            <div class="dropdown mr-5">
+              <div
+                [ngClass]="selectedStatus.length > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                class="px-2 border rounded-xl">
+                <button
+                  [ngClass]="selectedStatus.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm">
+                  <i class="fas fa-spinner mr-2"></i>
+                  Status <i class="fas fa-chevron-down ml-2"></i>
+                </button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isStatusSelected('IN_PROGRESS')"
-                  (click)="selectStatus('IN_PROGRESS')">
+                  (click)="onSelectStatus('IN_PROGRESS')">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isStatusSelected('IN_PROGRESS') ? 'inline-block' : 'none' }"></i>
                   </span>
@@ -32,7 +49,7 @@
                 <a
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isStatusSelected('FINISHED')"
-                  (click)="selectStatus('FINISHED')">
+                  (click)="onSelectStatus('FINISHED')">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isStatusSelected('FINISHED') ? 'inline-block' : 'none' }"></i>
                   </span>
@@ -41,15 +58,19 @@
               </div>
             </div>
             <div class="dropdown mr-5">
-              <div class="px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'MARKET' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              <div
+                [ngClass]="selectedMarkets.length > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                class="px-2 border rounded-xl">
+                <button
+                  [ngClass]="selectedMarkets.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'MARKET' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
                   *ngFor="let market of listMarkets"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isMarketSelected(market)"
-                  (click)="selectMarket(market)">
+                  (click)="onSelectMarket(market)">
                   <span class="mr-3 w-2">
                     <i class="fas fa-check" [ngStyle]="{ 'display': isMarketSelected(market) ? 'inline-block' : 'none' }"></i>
                   </span>

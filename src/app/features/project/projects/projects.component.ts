@@ -7,8 +7,6 @@ import { UserService } from '../../services/user/user.service';
 import { PartnerDTO } from '../../interfaces/partner.model';
 import { Project } from '../../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-projects',
@@ -27,14 +25,11 @@ export class ProjectsComponent implements OnInit {
   nbProjectsFinished: number = 0;
   nbProjectsOnHold: number = 0;
   nbProjectsArchived: number = 0;
-  selectedDate: string = new Date().toISOString().slice(0, 10);
   selectedStatus: string[] = [];
   selectedMarkets: string[] = [];
+  selectedStartDate: string = '';
+  selectedEndDate: string = '';
   listMarkets: any;
-  range = new FormGroup({
-    start: new FormControl<Date | null>(null),
-    end: new FormControl<Date | null>(null),
-  });
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
@@ -72,7 +67,7 @@ export class ProjectsComponent implements OnInit {
 
   performSearch(page: number, size: number, query: string) {
     if (query) {
-      this.projectService.getMyParticipations(this.token, page, size, query).subscribe({
+      this.projectService.getMyParticipations(this.token, page, size, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, query).subscribe({
         next: (data) => {
           this.listProject = [];
           this.listProject.push(data.projects);
@@ -112,7 +107,7 @@ export class ProjectsComponent implements OnInit {
 
   loadMyProjects(page: number, size: number) {
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyParticipations(this.token, page, size, '').subscribe({
+    this.projectService.getMyParticipations(this.token, page, size, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
@@ -156,62 +151,21 @@ export class ProjectsComponent implements OnInit {
     this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
   }
 
-  changeFilter(value: string, flagUrl: string) {
-  }
-
   displayProjectDetails(id: number) {
     this.router.navigate(['/project-options'], { queryParams: { id: id } });
   }
 
-  isStatusSelected(status: string): boolean {
-    return this.selectedStatus.includes(status);
-  }
-
-  isMarketSelected(market: any): boolean {
-    return this.selectedMarkets.includes(market.id);
-  }
-
-  onSelectDate(event: MatDatepickerInputEvent<Date>) {
-    if (event.value !== null) {
-      const date = new Date(event + '');
-      const isoString = date.toISOString().slice(0, 10);
-      this.selectedDate = isoString;
-    } else {
-      this.sortMyProjects();
-    }
-  }
-
   sortMyProjects() {
-    let selectedMarket: string[] = [];
-    let selectedStatus: string[] = [];
-
-    if(this.selectedMarkets.length !== 0) {
-      selectedMarket = this.selectedMarkets;
-    }
-
-    if(this.selectedStatus.length !== 0) {
-      selectedStatus = this.selectedStatus;
-    }
-
-    if(this.selectedMarkets.length === 0 && this.selectStatus.length === 0) {
+    if(this.selectedMarkets.length === 0 && this.selectedStatus.length === 0 && this.selectedStartDate.length === 0 && this.selectedEndDate.length === 0) {
       this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
     }
 
-    let startDateString = '';
-    let endDateString = '';
-    let startDate = this.range.get('start')?.value;
-    let endDate = this.range.get('end')?.value;
-    if (startDate instanceof Date) {
-      startDateString = startDate.toISOString().split('T')[0];
-    }
-    if (endDate instanceof Date) {
-      endDateString = endDate.toISOString().split('T')[0];
-    }
-
     this.listProject.splice(0, this.listProject.length);
-    this.projectService.getMyFilteredProjects(this.token, this.currentPage - 1, this.itemPerPage, selectedMarket, selectedStatus, startDateString, endDateString).subscribe({
+
+    this.projectService.getMyParticipations(this.token, this.currentPage - 1, this.itemPerPage, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
       next: (data) => {
         this.listProject.push(data.projects);
+
         this.listProject = this.listProject.flatMap(data => data);
 
         this.totalItems = data.totalCount;
@@ -224,13 +178,13 @@ export class ProjectsComponent implements OnInit {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
       }
     });
   }
 
-  selectStatus(status: string) {
+  onSelectStatus(status: string) {
     const index = this.selectedStatus.indexOf(status);
     if (index !== -1) {
       this.selectedStatus.splice(index, 1);
@@ -240,7 +194,7 @@ export class ProjectsComponent implements OnInit {
     this.sortMyProjects();
   }
 
-  selectMarket(market: any) {
+  onSelectMarket(market: any) {
     const index = this.selectedMarkets.indexOf(market.id);
     if (index !== -1) {
       this.selectedMarkets.splice(index, 1);
@@ -248,6 +202,26 @@ export class ProjectsComponent implements OnInit {
       this.selectedMarkets.push(market.id);
     }
     this.sortMyProjects();
+  }
+
+  onStartDateChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.selectedStartDate = inputElement.value;
+    this.sortMyProjects();
+  }
+
+  onEndDateChange(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    this.selectedEndDate = inputElement.value;
+    this.sortMyProjects();
+  }
+
+  isStatusSelected(status: string): boolean {
+    return this.selectedStatus.includes(status);
+  }
+
+  isMarketSelected(market: any): boolean {
+    return this.selectedMarkets.includes(market.id);
   }
 
   formatDate(date: Date | undefined): string {
@@ -260,6 +234,6 @@ export class ProjectsComponent implements OnInit {
     }
     const dateToFormat = new Date(date);
     return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
-}
+  }
 
 }
