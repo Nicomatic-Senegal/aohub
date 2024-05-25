@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDeleteProjectComponent } from '../../all-popup/popup-delete-project/popup-delete-project.component';
@@ -18,14 +18,12 @@ import { PopupAddParticipantComponent } from '../../all-popup/popup-add-particip
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss']
 })
-export class ProjectDetailsComponent implements OnInit {
+export class ProjectDetailsComponent implements OnChanges {
 
   @Input() project: any;
   token: string;
   currentConnectedUser?: any;
-  isCurrentUserApplicant = false;
   events: any;
-  showDeleteIcon: boolean = false;
 
   constructor(public dialog: MatDialog,
     private authService: AuthService,
@@ -34,11 +32,13 @@ export class ProjectDetailsComponent implements OnInit {
     private toastr: ToastrService) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
-
   }
 
-  ngOnInit(): void {
-    this.getAllEvents();
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['project'] && !changes['project'].firstChange) {
+      console.log(this.project);
+      this.getAllEvents();
+    }
   }
 
   loadCurrentConnectedUser() {
@@ -46,12 +46,10 @@ export class ProjectDetailsComponent implements OnInit {
 
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
-      // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
           this.currentConnectedUser = data;
-          // this.isCurrentUserApplicant = this.currentConnectedUser.id === this.project?.applicant?.id;
         },
         error: (err) => {
           console.log(err);
@@ -75,6 +73,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   modifyProject(project: Project) {
+    console.log(this.project)
     this.dialog.open(PopupModifyProjectComponent, {
       hasBackdrop: true,
       data: {
@@ -108,7 +107,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
 
   getAllEvents() {
-    this.eventService.getAllEvents(this.token).subscribe({
+    this.eventService.getEventsByProjectId(this.token, this.project?.id).subscribe({
       next: (data) =>{
         this.events = data;
       },

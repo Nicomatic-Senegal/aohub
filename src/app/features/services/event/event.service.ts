@@ -9,13 +9,13 @@ import { environment } from 'src/environments/environment';
 export class EventService {
   apiBaseUrl: string | undefined;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.apiBaseUrl = environment.apiBaseUrl;
   }
 
-  getAllEvents(token: string): Observable<any> {
+  getEventsByProjectId(token: string, projectId?: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'events';
+    const url = this.apiBaseUrl + `events/project/${projectId}`;
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
