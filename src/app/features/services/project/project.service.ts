@@ -7,6 +7,8 @@ import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto } from '../../interfaces/attachment-dto.model';
 import { PositioningDTO } from '../../interfaces/positioning-dto.model';
 import { Market } from '../../interfaces/market.model';
+import { PhaseDTO } from '../../interfaces/phase.model';
+import { TaskDTO } from '../../interfaces/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -200,5 +202,19 @@ export class ProjectService {
     const body = { email };
 
     return this.http.post<void>(url, body, {headers, responseType: 'json'});
+  }
+
+  updatePhase(token: string, phase: PhaseDTO): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `phases/${phase.id}`;
+
+    return this.http.put<any>(url, phase, {headers, responseType: 'json'});
+  }
+
+  updateTask(token: string, task: TaskDTO): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `tasks/${task.id}`;
+
+    return this.http.put<any>(url, task, {headers, responseType: 'json'});
   }
 }

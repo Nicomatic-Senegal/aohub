@@ -7,7 +7,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Reunion d'init</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(0)?.tasks?.at(0)! , project.phases?.at(0)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -18,9 +18,9 @@
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center">
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
-            <p class="text-[#696969] text-sm font-dmsans">Validation des partenaires</p>
+            <p class="text-[#696969] text-sm font-dmsans" >Validation des partenaires</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(0)?.tasks?.at(1)! , project.phases?.at(0)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -31,9 +31,9 @@
         <div class="flex items-center justify-between mb-2">
           <div class="flex items-center">
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
-            <p class="text-[#696969] text-sm font-dmsans">Chiffrage de l'étude</p>
+            <p class="text-[#696969] text-sm font-dmsans" >Chiffrage de l'étude</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(0)?.tasks?.at(2)! , project.phases?.at(0)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <div class="bg-[#E68A00] w-1/2 h-1"></div>
@@ -49,7 +49,7 @@
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
             <p class="text-[#696969] text-sm font-dmsans">Premier concept 3D</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(2)?.tasks?.at(0)! , project.phases?.at(2)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -62,7 +62,7 @@
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
             <p class="text-[#696969] text-sm font-dmsans">Validation faisabilité technique</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"  (click)="openInitDialog(project.phases?.at(2)?.tasks?.at(1)! , project.phases?.at(2)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <div class="bg-[#E68A00] w-1/2 h-1"></div>
@@ -75,7 +75,7 @@
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
             <p class="text-[#696969] text-sm font-dmsans">Validation du chiffrage</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(2)?.tasks?.at(2)! , project.phases?.at(2)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -88,7 +88,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Réalisation première maquette</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(2)?.tasks?.at(3)! , project.phases?.at(2)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -104,7 +104,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Qualifier les outils</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(4)?.tasks?.at(0)! , project.phases?.at(4)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -117,7 +117,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Réalisation des pré séries</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(4)?.tasks?.at(1)! , project.phases?.at(4)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -130,7 +130,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Standardisation du produit</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(4)?.tasks?.at(2)! , project.phases?.at(4)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -143,7 +143,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Création des games de contrôle</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(4)?.tasks?.at(3)! , project.phases?.at(4)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -153,22 +153,22 @@
     </div>
   </div>
   <div class="flex mt-10">
-    <div (click)="openPreSalesDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-20% via-[#F0F0F0] via-50% to-[#F0F0F0] t0-70% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(0)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-20% via-[#F0F0F0] via-50% to-[#F0F0F0] t0-70% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Avant vente
     </div>
-    <div (click)="openInitDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(1)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Init
     </div>
-    <div (click)="openFeasabilityDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(2)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Faisabilité
     </div>
-    <div (click)="openStudyDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(3)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Étude
     </div>
-    <div (click)="openIndustrializationDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(4)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Industrialisation
     </div>
-    <div (click)="openProdDeploymentDialog()" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+    <div (click)="openPreSalesDialog(project.phases?.at(5)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
       Mise en production
     </div>
   </div>
@@ -182,7 +182,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Rédaction cahier des charges</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(1)?.tasks?.at(0)! , project.phases?.at(1)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -195,7 +195,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Planning</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(1)?.tasks?.at(1)! , project.phases?.at(1)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -208,7 +208,7 @@
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
             <p class="text-[#696969] text-sm font-dmsans">Enveloppe budget</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(1)?.tasks?.at(2)! , project.phases?.at(1)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <div class="bg-[#E68A00] w-1/2 h-1"></div>
@@ -221,7 +221,7 @@
             <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div>
             <p class="text-[#696969] text-sm font-dmsans">Étude marché</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(1)?.tasks?.at(3)! , project.phases?.at(1)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -238,7 +238,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Figer concept</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(3)?.tasks?.at(0)! , project.phases?.at(3)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -251,7 +251,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Réalisation prototype fonctionnel</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(3)?.tasks?.at(1)! , project.phases?.at(3)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -264,7 +264,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Phase qualification labo</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(3)?.tasks?.at(2)! , project.phases?.at(3)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -277,7 +277,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Validation matrice conformité normes</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(3)?.tasks?.at(3)! , project.phases?.at(3)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -294,7 +294,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Réalisation du FAI</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(5)?.tasks?.at(0)! , project.phases?.at(5)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -307,7 +307,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Réalisation des séries</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(5)?.tasks?.at(1)! , project.phases?.at(5)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->
@@ -320,7 +320,7 @@
             <!-- <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1"></div> -->
             <p class="text-[#696969] text-sm font-dmsans">Validation du process</p>
           </div>
-          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2"><i class="fas fa-chevron-right"></i></div>
+          <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(project.phases?.at(5)?.tasks?.at(2)! , project.phases?.at(5)!)"><i class="fas fa-chevron-right"></i></div>
         </div>
         <div class="h-1 w-full flex">
           <!-- <div class="bg-[#E68A00] w-1/2 h-1"></div> -->

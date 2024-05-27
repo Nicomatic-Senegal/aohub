@@ -13,7 +13,7 @@ import { Project } from '../../interfaces/project.model';
 export class ProjectOptionsComponent implements OnInit {
   screen: number = 1;
   token: string;
-  project?: Project;
+  project!: Project;
 
   constructor(
     private projectService: ProjectService,
@@ -38,6 +38,7 @@ export class ProjectOptionsComponent implements OnInit {
     this.projectService.getProjectById(token, projectId).subscribe({
       next: (data) => {
         this.project = data;
+
       },
       error: (err) => {
         console.log(err);

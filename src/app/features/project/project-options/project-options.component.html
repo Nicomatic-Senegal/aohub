@@ -32,7 +32,7 @@
           <app-project-details [project]="project"></app-project-details>
         </div>
         <div *ngIf="screen === 2" >
-          <app-project-tracking></app-project-tracking>
+          <app-project-tracking [project]="project"></app-project-tracking>
         </div>
         <div *ngIf="screen === 3" >
           <app-opportunity-tracking></app-opportunity-tracking>

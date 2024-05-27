@@ -88,7 +88,17 @@ export class ActivityComponent {
   }
 
   loadAllWords() {
-    return this.allProjects.map(project => project.markets?.at(0)?.name);
+    const listMarket = this.allProjects.map(project => project.markets?.at(0)?.name);
+    const listMarketWithOcc = this.countOccurrences(listMarket.filter((str): str is string => str !== undefined));
+    const listWord: [string, number][] = Object.entries(listMarketWithOcc);
+    return listWord;
+  }
+
+  countOccurrences(arr: string[]): { [key: string]: number } {
+    return arr.reduce((acc: { [key: string]: number }, str: string) => {
+        acc[str] = (acc[str] || 0) + 1;
+        return acc;
+    }, {});
   }
 
   loadAllEnterprises() {
@@ -119,8 +129,8 @@ export class ActivityComponent {
         this.allProjects = data;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
-        this.data = this.loadAllWords().map(function (d) {
-          return { text: d, value: 20};
+        this.data = this.loadAllWords().map(function (word) {
+          return { text: word[0], value: word[1] * 10};
         });
 
         this.listProject.forEach(project => {
@@ -165,8 +175,8 @@ export class ActivityComponent {
         this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
-        this.data = this.loadAllWords().map(function (d) {
-          return { text: d, value: 20};
+        this.data = this.loadAllWords().map(function (word) {
+          return { text: word[0], value: word[1] * 10};
         });
 
         this.listProject.forEach(project => {
@@ -226,7 +236,7 @@ export class ActivityComponent {
       this.curveTitle = this.selectedYears[0];
     }
     else {
-      this.projectCurve.dates = this.selectedYears;
+      this.projectCurve.dates = this.selectedYears.sort((a, b) => parseInt(a) - parseInt(b));
       const yearCount: number[] = Array(this.selectedYears.length).fill(0);
 
       this.listProject.forEach(projet => {
