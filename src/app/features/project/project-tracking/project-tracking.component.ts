@@ -34,6 +34,16 @@ export class ProjectTrackingComponent implements OnInit {
     console.log(this.project);
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['project'] && !changes['project'].firstChange) {
+      this.project.phases?.sort((a, b) => a.id! - b.id!);
+      this.project.phases?.forEach(p => {
+        p.tasks?.sort((a, b) => a.id! - b.id!);
+      });
+      console.log(this.project);
+    }
+  }
+
   openPreSalesDialog(phase: PhaseDTO) {
     const teamMembers = this.project.teamMembers
     const project = this.project;
@@ -58,31 +68,18 @@ export class ProjectTrackingComponent implements OnInit {
     })
   }
 
-  openFeasabilityDialog() {
-    this.dialog.open(PreSalesComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container'
-    })
+  isExpired(dateString: Date)  {
+    if (!dateString)
+      return false;
+    const today = new Date();
+    const endDate = new Date(dateString.toString());
+
+    return today > endDate;
   }
 
-  openIndustrializationDialog() {
-    this.dialog.open(PreSalesComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container'
-    })
-  }
-
-  openProdDeploymentDialog() {
-    this.dialog.open(PreSalesComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container'
-    })
-  }
-
-  openStudyDialog() {
-    this.dialog.open(PreSalesComponent, {
-      hasBackdrop: true,
-      panelClass: 'custom-dialog-container'
-    })
+  isTaskDone(done: boolean | undefined) {
+    if (!done)
+      return false;
+    return done;
   }
 }

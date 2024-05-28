@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class=" w-1/3" *ngIf="isPhaseNotAssignedToUser()">
-        <input type="text" [disabled]="true" placeholder="{{task.assignee.user.firstName}} {{task.assignee.user.lastName}}" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/80 focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full">
+        <input type="text" [autofocus]="false" [disabled]="true" placeholder="{{task.assignee.user.firstName}} {{task.assignee.user.lastName}}" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/80 focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full">
       </div>
     </div>
 
