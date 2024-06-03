@@ -1,0 +1,31 @@
+<div class="div-center w-full h-full px-10 pb-7 py-2 flex flex-col bg-white max-w-4xl rounded-2xl">
+    <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
+		<h4 class="text-[#408A7E] text-xl font-semibold">{{'ADD_EVENT' | translate}} </h4>
+	</div>
+
+    <form [formGroup]="addEventForm" class="w-full">
+          <div class="flex flex-wrap -mx-2">
+            <div class="w-full mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_TITLE' | translate}}</label>
+                <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="title">
+                <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
+                    {{'PROJECT_TITLED_REQUIRED' | translate}}.
+                </div>
+            </div>
+            <div class="w-full mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_DATE' | translate}}</label>
+                <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="start">
+            </div>
+            <div class="w-full mb-4 md:mb-4 px-5">
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EVENT_TIME' | translate}}</label>
+                <input type="time" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="timeEvent">
+            </div>
+        </div>
+
+          <div class="w-full flex justify-center mt-8">
+            <button (click)="submit()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+                {{'SAVE' | translate}}
+            </button>
+        </div>
+    </form>
+</div>

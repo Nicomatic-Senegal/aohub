@@ -6,6 +6,9 @@ import { Project } from '../../interfaces/project.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto } from '../../interfaces/attachment-dto.model';
 import { PositioningDTO } from '../../interfaces/positioning-dto.model';
+import { Market } from '../../interfaces/market.model';
+import { PhaseDTO } from '../../interfaces/phase.model';
+import { TaskDTO } from '../../interfaces/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,10 +35,50 @@ export class ProjectService {
       );
   }
 
-  getProjectById(id: number): Observable<Project> {
-    const token: string | null = localStorage.getItem('token');
+  getAllProjectsNoPagination(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + `projects/${id}`;
+    const url = `${this.apiBaseUrl}projects?sort=id,desc`;
+
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const projects = response.body;
+          return { projects, totalCount };
+        })
+      );
+  }
+
+  getMyParticipations(token: string, page: number, size: number, marketId: string[], status: string[], createdAfter: string, createdBefore: string, query: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = `${this.apiBaseUrl}projects/my-participations?marketIds=${marketId}&statuses=${status}&createdAfter=${createdAfter}&createdBefore=${createdBefore}&query=${query}&page=${page}&size=${size}&sort=id,desc`;
+
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
+          const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
+          const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Archived-Count');
+
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
+          const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
+          const totalOnHoldCount = totalOnHoldCountHeader ? parseInt(totalOnHoldCountHeader, 10) : 0;
+          const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
+
+          const projects = response.body;
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalOnHoldCount, totalArchivedCount };
+        })
+      );
+  }
+
+  getProjectById(token: string, projectId: string): Observable<Project> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}`;
 
     return this.http.get<Project>(url, { headers, responseType: 'json' });
   }
@@ -47,11 +90,11 @@ export class ProjectService {
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
-  getAllMarkets(token: string): Observable<any> {
+  getAllMarkets(token: string): Observable<Array<Market>> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'markets';
+    const url = this.apiBaseUrl + 'markets?page=0&size=100';
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Array<Market>>(url, { headers, responseType: 'json' });
   }
 
   positioning(token: string, payload: any): Observable<any> {
@@ -70,7 +113,14 @@ export class ProjectService {
 
   getAllMyProjects(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/my-projects?sort=id,desc';
+    const url = this.apiBaseUrl + 'projects/my-projects?query=&sort=id,desc';
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  getAllProjectsEnterprise(token: string, idEnterprise: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise;
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
@@ -129,5 +179,42 @@ export class ProjectService {
     const url = this.apiBaseUrl + `positionings/project/${projectId}/all`;
 
     return this.http.get<PositioningDTO[]>(url, { headers, responseType: 'json' });
+  }
+
+  deleteProject(token: string, projectId: number, reasonToSend: string): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}`;
+    const requestBody = {id:projectId, reason: reasonToSend };
+
+    return this.http.delete<void>(url, {headers, body: requestBody, responseType: 'json'});
+  }
+
+  updateProject(token: string, project: Project, projectId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}`;
+
+    return this.http.put<void>(url, project, {headers, responseType: 'json'});
+  }
+
+  addParticipant(token: string, projectId: string, email: string): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}/add-team-member`;
+    const body = { email };
+
+    return this.http.post<void>(url, body, {headers, responseType: 'json'});
+  }
+
+  updatePhase(token: string, phase: PhaseDTO): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `phases/${phase.id}`;
+
+    return this.http.put<any>(url, phase, {headers, responseType: 'json'});
+  }
+
+  updateTask(token: string, task: TaskDTO): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `tasks/${task.id}`;
+
+    return this.http.put<any>(url, task, {headers, responseType: 'json'});
   }
 }

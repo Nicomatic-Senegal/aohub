@@ -1,0 +1,35 @@
+<div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-16 flex flex-col bg-white max-w-2xl rounded-4xl">
+    <div class="w-full p-1 pt-3">
+		<p class="font-bold text-center text-xl">{{dialogData.title | translate}}</p>
+		<p class="text-gray-700 mb-6 mt-5 text-center text-lg">{{dialogData.description | translate}}</p>
+
+        <label class="block text-md font-bold mb-2" for="reason">
+            {{ 'SELECT_STOP_REASON' | translate }}
+        </label>
+        <select id="reason" class="block w-full bg-gray-100 border border-gray-300 p-2 rounded-md mb-4" (change)="onReasonChange($event)">
+            <option value="not_enough_staff">{{ 'NOT_ENOUGH_STAFF' | translate }}</option>
+            <option value="client_out_of_budget">{{ 'CLIENT_OUT_OF_BUDGET' | translate }}</option>
+            <option value="business_needs_not_covered">{{ 'BUSINESS_NEEDS_NOT_COVERED' | translate }}</option>
+            <option value="vague_objectives">{{ 'VAGUE_OBJECTIVES' | translate }}</option>
+            <option value="exotic_requirements">{{ 'EXOTIC_REQUIREMENTS' | translate }}</option>
+            <option value="inappropriate_timing">{{ 'INAPPROPRIATE_TIMING' | translate }}</option>
+            <option value="other">{{ 'OTHER' | translate }}</option>
+        </select>
+        <input [(ngModel)]="otherReason" *ngIf="selectedReason === 'other'" id="otherReason" type="text" class="block w-full border border-gray-300 p-2 rounded-md mb-4" placeholder="{{ 'ENTER_REASON' | translate }}">
+	</div>
+
+    <div class="flex justify-end border-t-2 border-[#E5E5E5] mt-3 pt-5">
+        <button
+            (click)="onCloseDialog()"
+            class="bg-[#ABABAB] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5">
+            {{'CANCEL' | translate}}
+        </button>
+        <button
+            [disabled]="selectedReason === 'other' && otherReason.trim() === ''"
+            [ngClass]="{'bg-gray-400 cursor-not-allowed': selectedReason === 'other' && otherReason.trim() === ''}"
+            (click)="onDelete(dialogData.token, dialogData.project.id)"
+            class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5 ml-5">
+            {{'DELETE' | translate}}
+        </button>
+    </div>
+</div>

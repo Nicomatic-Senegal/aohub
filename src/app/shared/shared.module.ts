@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { SharedRoutingModule } from './shared-routing.module';
 import { SelectionnerLangueComponent } from './selectionner-langue/selectionner-langue.component';
-import { SideBarComponent } from '../features/side-bar/side-bar.component';
+import { SideBarComponent } from '../features/layout/side-bar/side-bar.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';

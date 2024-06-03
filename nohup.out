@@ -295,7 +295,7 @@ Lazy Chunk Files      | Names                    |  Raw Size | Estimated Transfe
 
 Build at: 2024-04-03T21:01:04.618Z - Hash: 3db76b7e413223e8 - Time: 12245ms
 
-Error: src/app/features/parametre-profil/parametre-profil.component.ts:46:7 - error TS2322: Type '{ id: number; title: string; description: string; }' is not assignable to type 'EmployeePostDTO'.
+Error: src/app/features/parametre-profil/profile.component.ts:46:7 - error TS2322: Type '{ id: number; title: string; description: string; }' is not assignable to type 'EmployeePostDTO'.
   Object literal may only specify known properties, and 'id' does not exist in type 'EmployeePostDTO'.
 
 46       id: 0,
@@ -457,7 +457,7 @@ Build at: 2024-04-03T21:18:11.167Z - Hash: ea3e328df4bc7869 - Time: 13075ms
 
 ./src/app/features/opportunities/opportunities.component.ts:3:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/opportunities'
 
-./src/app/features/parametres/parametres.component.ts:8:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/parametres'
+./src/app/features/parametres/setting-layout.component.ts:8:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/parametres'
 
 ./src/app/features/project-submission/project-submission.component.ts:6:0-63 - Error: Module not found: Error: Can't resolve '../../shared/side-bar/side-bar.component' in '/home/trivial/inhub-ui/src/app/features/project-submission'
 
@@ -1404,7 +1404,7 @@ Build at: 2024-04-07T01:38:17.339Z - Hash: e01313314e1fbd71 - Time: 14988ms
 
 ✔ Compiled successfully.
 npm ERR! Missing script: "prod"
-npm ERR! 
+npm ERR!
 npm ERR! To see a list of scripts, run:
 npm ERR!   npm run
 

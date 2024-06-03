@@ -13,10 +13,8 @@ export class EnterpriseService {
     this.apiBaseUrl = environment.apiBaseUrl; }
 
   getAllEnterprises(): Observable<any> {
-    const token: string | null = localStorage.getItem('token');
     let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
     const url = this.apiBaseUrl + 'enterprises';
-    console.log('register. baseurl: ' + this.apiBaseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 
@@ -27,10 +25,8 @@ export class EnterpriseService {
   }
 
   getAllEmployeePost(): Observable<any> {
-    const token: string | null = localStorage.getItem('token');
     let headers = new HttpHeaders({ 'Content-Type': 'application/json'});
     const url = this.apiBaseUrl + 'employee-posts';
-    console.log('register. baseurl: ' + this.apiBaseUrl);
     return this.http.get<any>(url, { headers, responseType: 'json' });
   }
 }

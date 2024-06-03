@@ -1,0 +1,55 @@
+<div class="flex flex-col justify-between border-r border-[#737373]/43 h-full ">
+  <div>
+    <div class="flex justify-between items-center mb-5 px-2 py-3 md:py-5 md:pl-5 md:pr-5">
+      <img src="../../../../assets/img/New%20Logo%20inhub%20.png" alt="" class="w-20 md:w-35 " >
+      <img src="../../../../assets/img/hamburger.svg" alt="" (click)="onHamburger()" class=" w-6 cursor-pointer" *ngIf="screenSize !== 'sm'">
+    </div>
+    <div>
+      <div>
+        <div 
+          *ngFor="let item of optionsTop" 
+          (click)="navigation(item[2])" 
+          [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <div 
+            >
+            <img 
+              src="{{screen === item[2] ? item[3] : item[0]}}" 
+              alt="" 
+              [ngClass]="(screenSize === 'sm' || !viewText) ? 'w-8 ml-5' : 'mr-2 w-5 '">
+          </div>
+          <p 
+            *ngIf="screenSize !== 'sm' && viewText">
+            {{item[1] | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" flex flex-col ">
+    <div>
+      <div class="">
+        <div 
+          *ngFor="let item of optionsBottom" 
+          (click)="navigation(item[2])" 
+          [ngClass]="screen === item[2] ? 'div-line-a-active' : 'div-line-a'">
+          <img 
+            src="{{screen === item[2] ? item[3] : item[0]}}" alt=""
+            [ngClass]="(screenSize === 'sm' || !viewText) ? 'w-8 ml-5' : 'mr-2 w-5 '">
+          <p 
+            *ngIf="screenSize !== 'sm' && viewText">
+            {{item[1] | translate}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="flex border-t-2 border-[#E5E5E5] py-5">
+      <div class="flex mx-2 md:mx-5 pr-5">
+        <img [src]="picture || '../../../assets/icons/icon-user.png'" alt="" class="mr-2 w-10 h-10 rounded-full bg-[#AAAAAA]">
+        <div *ngIf="screenSize !== 'sm' && viewText">
+          <p class="font-poppins text-black text-sm"> {{fullName}}</p>
+          <p class="font-dmsans text-[#6C6C6C] text-xs">{{email}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

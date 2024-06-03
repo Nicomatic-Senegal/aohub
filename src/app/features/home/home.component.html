@@ -37,7 +37,7 @@
                 <swiper-slide
                   *ngFor="let enterprise of enterprises"
                   (click)="openEnterpriseDetailsDialog(enterprise)">
-                  <img [src]="enterprise.imageBase64Content || '../../../assets/icons/icon-enterprise.webp'" alt="{{enterprise.name}} icon" />
+                  <img [src]="enterprise.imageUrl || '../../../assets/icons/icon-enterprise.webp'" alt="{{enterprise.name}} icon" />
                 </swiper-slide>
               </swiper-container>
             </div>

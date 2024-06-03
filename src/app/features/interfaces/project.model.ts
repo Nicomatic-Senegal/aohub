@@ -3,6 +3,7 @@ import { Disponibility } from "./disponibility.model";
 import { Domain } from "./domain.model";
 import { Market } from "./market.model";
 import { PartnerDTO } from "./partner.model";
+import { PhaseDTO } from "./phase.model";
 
 
 export interface Project {
@@ -27,5 +28,6 @@ export interface Project {
     title?: string;
     deadlinePositioning?: Date;
     createdAt: Date;
+    phases?: PhaseDTO[];
 }
 

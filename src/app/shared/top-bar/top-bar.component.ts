@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PopupComponent } from 'src/app/features/popup/popup.component';
+import { PopupComponent } from 'src/app/features/all-popup/popup/popup.component';
 
 @Component({
   selector: 'app-top-bar',
@@ -20,7 +20,7 @@ export class TopBarComponent {
   }
 
   constructor(
-    private translate: TranslateService, 
+    private translate: TranslateService,
     private authService: AuthService,
     public dialog: MatDialog) {
     authService.isLogged()!;
@@ -40,12 +40,18 @@ export class TopBarComponent {
   }
 
   logout() {
-    const title = "Êtes-vous sûr de vouloir vous deconnecter ?";
-    const description = "";
+    let title = "Déconnexion";
+    let description = "Êtes-vous sûr de vouloir vous deconnecter ?";
+
+    title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
+    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
+
+    let route = "logout";
+
     this.dialog.open(PopupComponent, {
       hasBackdrop: true,
       data: {
-        title, description
+        title, description, route
       },
       panelClass: 'custom-dialog-container'
     });

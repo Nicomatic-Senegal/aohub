@@ -41,3 +41,7 @@
 .toggle-password {
   @apply absolute top-1/2 right-4 transform -translate-y-1/2 cursor-pointer text-[#98A2B3]
 }
+
+.custom-dialog-container {
+  @apply w-[60%] 
+}

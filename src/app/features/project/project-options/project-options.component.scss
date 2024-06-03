@@ -1,0 +1,19 @@
+.main {
+  @apply flex w-full h-full
+}
+
+.app-side {
+  @apply  h-full
+}
+
+.head-home{
+  @apply flex flex-col h-full flex-grow w-[90%]
+}
+
+.div-center {
+  @apply w-full h-full px-2 px-10 py-2 py-5 flex flex-col bg-[#1E1E1E]/5
+}
+
+.input {
+  @apply text-[#408A7E] w-20 text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 mr-3 bg-transparent
+}
