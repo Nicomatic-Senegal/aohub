@@ -79,7 +79,7 @@ export class OpportunitiesComponent {
           const deadlinePositioning = new Date(project.deadlinePositioning!);
 
           const differenceInMilliseconds = deadlinePositioning.getTime() - currentDate.getTime();
-          const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+          const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) + 1;
 
           const createdAt = new Date(project.createdAt);
 
