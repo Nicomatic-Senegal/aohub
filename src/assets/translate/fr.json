@@ -73,6 +73,7 @@
   "RESPONSIBLE": "Responsable",
   "NEED_TYPE": "Type du besoin",
   "START_DATE": "Date de début",
+  "END_DATE": "Date de fin",
   "PROJECT_DURATION": "Durée du projet",
   "CONTRACT_DURACTION": "Durée du contrat",
   "YEAR": "année",
@@ -132,7 +133,7 @@
   "BUDGET_REQUIRED": "Le Budget du projet est requis",
   "BUDGET": "Budget",
   "DEADLINE_RATHER": "Délai au plus tôt",
-  "DEADLINE_RATHER_REQUIRED": "Le delai au plus tôt est requis du projet est requis",
+  "DEADLINE_RATHER_REQUIRED": "Le delai au plus tôt du projet est requis",
   "DEADLINE": "Délai au plus tard",
   "DEADLINE_REQUIRED": "Le delai au plus tard du projet est requis",
   "EARLIEST_DEADLINE": "Délai au plus tôt",
@@ -274,5 +275,15 @@
   "study": "Étude",
   "feasibility": "Faisabilité",
   "pre-sale": "Pré-vente",
-  "init": "Initialisation"
+  "init": "Initialisation",
+  "FULLY_VALIDATE_PROJECT": "Validez-vous intégralement cette phase du projet ?",
+  "STOP_PROJECT_STAGE": "Arrêtez-vous ce projet à ce stade ?",
+  "ASSIGN_PHASE": "Affecter la responsabilité de cette phase  à",
+  "PARTNER_REQUIRED": "Le partnaire est requis.",
+  "ASSIGN_TASK": "Affecter tâche",
+  "TASK": "Tâche",
+  "TASKS": "Tâches",
+  "ASSIGN_TASK_RESPONSABILITY": "Affecter la responsabilité de cette tâche  à",
+  "COMPLETED_TASK": "Avez-vous terminé cette tâche ?",
+  "STATUS_REQUIRED": "L'etat est requis."
 }

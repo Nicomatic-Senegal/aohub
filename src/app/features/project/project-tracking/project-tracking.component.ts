@@ -58,7 +58,8 @@ export class ProjectTrackingComponent implements OnInit {
   }
 
   openInitDialog(task: TaskDTO, phase: PhaseDTO) {
-    const teamMembers = this.project.teamMembers
+    const teamMembers = this.project.teamMembers;
+    phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
     this.dialog.open(InitPhaseComponent, {
       hasBackdrop: true,
       data: {
@@ -68,18 +69,30 @@ export class ProjectTrackingComponent implements OnInit {
     })
   }
 
-  isExpired(dateString: Date)  {
+  isExpired(dateString: Date, taskStatus: boolean)  {
     if (!dateString)
       return false;
     const today = new Date();
     const endDate = new Date(dateString.toString());
 
-    return today > endDate;
+    return today > endDate && !taskStatus;
   }
 
   isTaskDone(done: boolean | undefined) {
     if (!done)
       return false;
     return done;
+  }
+
+  sortTaskByDone(tasks: TaskDTO[]) {
+    return tasks.map(task => task.done).sort((a, b) => {
+      if (a === b) {
+        return 0;
+      } else if (a) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
   }
 }

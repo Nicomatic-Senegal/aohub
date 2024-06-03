@@ -5,7 +5,7 @@
         <div class="mb-2" *ngFor="let task of phase.tasks">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center">
-              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!)"></div>
+              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
               <p class="text-[#696969] text-sm font-dmsans text-wrap">{{task.label! | translate}} </p>
             </div>
             <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>
@@ -21,23 +21,9 @@
 
   </div>
   <div class="flex mt-10">
-    <div (click)="openPreSalesDialog(project.phases?.at(0)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-20% via-[#F0F0F0] via-50% to-[#F0F0F0] t0-70% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Avant vente
-    </div>
-    <div (click)="openPreSalesDialog(project.phases?.at(1)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Init
-    </div>
-    <div (click)="openPreSalesDialog(project.phases?.at(2)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#00CE2D] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Faisabilité
-    </div>
-    <div (click)="openPreSalesDialog(project.phases?.at(3)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Étude
-    </div>
-    <div (click)="openPreSalesDialog(project.phases?.at(4)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Industrialisation
-    </div>
-    <div (click)="openPreSalesDialog(project.phases?.at(5)!)" class="cursor-pointer h-24 w-[14%] bg-gradient-to-r from-[#F0F0F0] from-10% via-[#F0F0F0] via-30% to-[#F0F0F0] t0-60% shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      Mise en production
+    <div *ngFor="let phase of project.phases" (click)="openPreSalesDialog(phase)" class="relative cursor-pointer h-24 w-[14%] shadow-custom font-dmsans text-base text-black flex justify-center items-center">
+      <p class="absolute z-10">{{phase?.label! | translate}}</p>
+      <div *ngFor="let done of sortTaskByDone(phase.tasks!)" class=" h-full relative" [ngClass]="[phase.tasks?.length === 3 ? 'w-1/3' : 'w-1/4' , done ? 'bg-[#00CE2D]' : 'bg-[#F0F0F0]']"></div>
     </div>
   </div>
   <div class=" flex w-full mt-10">
@@ -46,7 +32,7 @@
         <div class="mb-2" *ngFor="let task of phase.tasks">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center">
-              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!)"></div>
+              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
               <p class="text-[#696969] text-sm font-dmsans text-wrap">{{task.label! | translate}} </p>
             </div>
             <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>

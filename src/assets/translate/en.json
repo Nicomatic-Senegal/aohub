@@ -73,6 +73,7 @@
   "RESPONSIBLE": "Responsible",
   "NEED_TYPE": "Need type",
   "START_DATE": "Start date",
+  "END_DATE": "End date",
   "PROJECT_DURATION": "Project duration",
   "CONTRACT_DURACTION": "Contract duration",
   "YEAR": "year",
@@ -274,5 +275,15 @@
   "study": "Study",
   "feasibility": "Feasibility",
   "pre-sale": "Pre sale",
-  "init": "Init"
+  "init": "Init",
+  "FULLY_VALIDATE_PROJECT": "Do you fully validate this phase of the project?",
+  "STOP_PROJECT_STAGE": "Are you stopping this project at this stage?",
+  "ASSIGN_PHASE": "Assign the responsibility of this phase to",
+  "PARTNER_REQUIRED": "The partner is required.",
+  "ASSIGN_TASK": "Assign task",
+  "TASK": "Task",
+  "TASKS": "Tasks",
+  "ASSIGN_TASK_RESPONSABILITY": "Assign the responsibility of this task to",
+  "COMPLETED_TASK": "Have you completed this task?",
+  "STATUS_REQUIRED": "Status is required."
 }

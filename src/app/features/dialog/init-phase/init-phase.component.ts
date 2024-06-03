@@ -112,6 +112,12 @@ export class InitPhaseComponent {
       next: (data) => {
         console.log(data);
         this.task = data;
+        this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
+
+        this.projectService.updatePhase(this.token, this.phase).subscribe({
+
+        });
+
         this.toastr.success("La tache a bien été mise à jour", "Succés Update", {
           timeOut: 3000,
           positionClass: 'toast-top-right',

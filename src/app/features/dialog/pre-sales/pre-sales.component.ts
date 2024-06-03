@@ -165,8 +165,11 @@ export class PreSalesComponent {
     }
   }
 
-  isNotApplicant() {
+  isPhaseNotAssignedToUser() {
+    return this.currentConnectedUser.id !== this.phase.assignee?.id;
+  }
 
+  isNotApplicant() {
     return this.currentConnectedUser.id !== this.project.applicant?.id;
   }
 
