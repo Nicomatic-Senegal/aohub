@@ -57,6 +57,7 @@ import { FeasibilityPhaseComponent } from './dialog/feasibility-phase/feasibilit
 import { StudyPhaseComponent } from './dialog/study-phase/study-phase.component';
 import { IndustrializationPhaseComponent } from './dialog/industrialization-phase/industrialization-phase.component';
 import { ProdDeploymentPhaseComponent } from './dialog/prod-deployment-phase/prod-deployment-phase.component';
+import {NgxImageCompressService} from "ngx-image-compress";
 
 registerSwiperElements();
 
@@ -129,6 +130,7 @@ registerSwiperElements();
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }, // Utilisez la langue de votre choix, par exemple 'fr-FR' pour le français
     { provide: DateAdapter, useClass: CustomDateAdapter },
+    NgxImageCompressService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
