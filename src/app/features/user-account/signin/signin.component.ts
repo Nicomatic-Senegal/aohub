@@ -83,9 +83,9 @@ export class SigninComponent {
           },
           error: (err) => {
             console.log(err);
-            this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            this.toastr.error(err.error.detail, "Une erreur est survenue lors de la réception de l'utilisateur connecté", {
               timeOut: 3000,
-              positionClass: 'toast-right-center',
+              positionClass: 'toast-top-right',
            });
           }
         })
@@ -93,9 +93,9 @@ export class SigninComponent {
       error: (err) => {
         console.log(err);
 
-        this.toastr.error(err.error.detail, "Error Authentication", {
+        this.toastr.error(err.error.detail, "Une erreur est survenue lors de la connexion", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
 
       }

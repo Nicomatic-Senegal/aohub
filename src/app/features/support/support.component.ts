@@ -37,7 +37,7 @@ export class SupportComponent implements OnInit {
 
   sendEmail() {
     const payload = {
-      support: this.supportForm.value.intitule,
+      subject: this.supportForm.value.intitule,
       content: this.supportForm.value.description
     }
     console.log(payload);

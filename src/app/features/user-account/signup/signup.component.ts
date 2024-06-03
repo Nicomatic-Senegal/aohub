@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { BaseAppService } from '../../../core/services/base-app/base-app.service';
 import { ManagedUserVM } from 'src/app/core/interfaces/managed-user-vm.model';
 import { EnterpriseService } from '../../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../../interfaces/enterprise.model';
@@ -96,7 +95,6 @@ export class SignupComponent implements OnInit {
 
   toggleConfirmPasswordVisibility(): void {
     this.isConfirmPasswordVisible = !this.isConfirmPasswordVisible;
-    console.log("here i am");
   }
 
   seConnecter() {
@@ -114,22 +112,20 @@ export class SignupComponent implements OnInit {
     this.user.password = formValue.password;
     this.user.langKey = "fr";
     this.user.employeePostTitle = formValue.role;
-    console.log(this.user);
 
     this.authService.register(this.user).subscribe({
       next: (data) => {
-        this.toastr.success("Vous allez recevoir un mail de validation.", "Succés", {
+        this.toastr.success("Vous allez recevoir un mail de validation.", "Succès", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
         this.registerForm.reset();
-        // this.seConnecter();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Error pendant l'inscription", {
+        this.toastr.error(err.error.detail, "Une erreur est survenue lors de votre inscription.", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
       }
     });

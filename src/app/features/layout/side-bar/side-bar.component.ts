@@ -5,6 +5,7 @@ import { UserService } from '../../services/user/user.service';
 import { PartnerDTO } from '../../interfaces/partner.model';
 import { OpinionComponent } from '../../opinion/opinion.component';
 import { MatDialog } from '@angular/material/dialog';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-side-bar',
@@ -37,31 +38,43 @@ export class SideBarComponent implements OnInit {
     this.viewText = !this.viewText;
   }
 
-  constructor(private route: Router, private authService: AuthService, private userService: UserService, public dialog: MatDialog) {
-    // Initialisez la taille de l'écran lors du chargement de la page
-    console.log(window.innerWidth);
+  constructor(private route: Router,
+              private authService: AuthService,
+              private userService: UserService,
+              public dialog: MatDialog,
+              private toastr: ToastrService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
     this.updateScreenSize(window.innerWidth);
   }
   ngOnInit(): void {
-    this.userService.getUser(this.token).subscribe({
-      next: (data: PartnerDTO) => {
-        this.fullName = data.user.firstName + ' ' + data.user.lastName;
-        this.email = data.user.login;
-        this.picture = data.imageBase64Content;
-      },
-      error: (err) => {
-        console.log(err);
-
-      }
-    });
+    const userData = localStorage.getItem("currentConnectedUser");
+    if (userData) {
+      const currentConnectedUser = JSON.parse(userData);
+      this.fullName = currentConnectedUser?.firstName + " " + currentConnectedUser?.lastName;
+      this.email = currentConnectedUser?.email;
+      this.picture = currentConnectedUser?.imageBase64Content;
+    } else {
+      this.userService.getUser(this.token).subscribe({
+        next: (data) => {
+          this.fullName = data?.user?.firstName + " " + data?.user?.lastName;
+          this.email = data?.user?.email;
+          this.picture = data?.user?.imageBase64Content;
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
+            timeOut: 3000,
+            positionClass: 'toast-right-right',
+          });
+        }
+      })
+    }
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    // Mettez à jour la taille de l'écran lors du redimensionnement de la fenêtre
     this.updateScreenSize(event.target.innerWidth);
   }
 
@@ -73,10 +86,6 @@ export class SideBarComponent implements OnInit {
     } else {
       this.screenSize = 'sm';
     }
-  }
-
-  humburger() {
-
   }
 
   navigation(link: string) {

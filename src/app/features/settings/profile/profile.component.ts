@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -9,6 +9,7 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { EmployeePostDTO } from '../../interfaces/employee.model';
 import { PartnerProfileVM } from '../../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
+import {NgxImageCompressService} from "ngx-image-compress";
 
 @Component({
   selector: 'app-parametre-profil',
@@ -16,8 +17,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  isPasswordVisible: boolean = false;
-  isAlreadySignedUp: boolean = false;
   profilForm!: FormGroup;
   listEmployeePost: Array<EmployeePostDTO> = [];
   listEnterprise: Array<EnterpriseDTO> = [];
@@ -75,6 +74,7 @@ export class ProfileComponent implements OnInit {
     private enterpriseService: EnterpriseService,
     private userService: UserService,
     private toastr: ToastrService,
+    private imgCompressService: NgxImageCompressService
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -93,7 +93,6 @@ export class ProfileComponent implements OnInit {
     });
 
     this.login = localStorage.getItem("login")!;
-    console.log(this.token);
 
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
@@ -113,7 +112,6 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-
       }
     });
 
@@ -149,32 +147,37 @@ export class ProfileComponent implements OnInit {
     this.userToUpdate.enterpriseName = formValue.enterpriseName;
     this.userToUpdate.employeePostTitle = formValue.role;
     this.userToUpdate.interestTopicLabels = formValue.centreInteret;
-    if (this.picture)
-      this.userToUpdate.imageBase64Content = this.picture ;
-    else
+    this.userToUpdate.imageBase64Content = this.picture;
+    if (!this.picture)
       this.userToUpdate.imageBase64Content = this.user.imageBase64Content;
-    console.log(this.userToUpdate);
 
     this.updateUser(this.userToUpdate);
   }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
-    const reader = new FileReader();
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imgCompressService
+          .compressFile(event.target.result, -1, 50, 50)
+          .then(result => {
+            this.picture = result;
+            var sizeOfCompressedImage = 0;
+            sizeOfCompressedImage = this.imgCompressService.byteCount(result)/(1024*1024);
+            if (sizeOfCompressedImage > 2) {
+              this.picture = '';
+              this.toastr.error("Image trop grande. Taille idéale de 2Mb ou moins", "Erreur", {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              });
+            }
+          });
+      }
 
-    reader.onload = () => {
-      console.log(file);
-
-      const base64String = reader.result as string;
-      // console.log(base64String);
-      // this.profilForm.get('image')?.setValue(file.name);
-      this.pictureToShow = file.name;
-      this.picture = base64String;
-      console.log(this.picture);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
+      if (file) {
+        reader.readAsDataURL(file);
+      }
     }
   }
 
@@ -214,19 +217,31 @@ export class ProfileComponent implements OnInit {
   updateUser(userToUpdate: any) {
     this.userService.updateUser(this.token, userToUpdate).subscribe({
       next: (data) => {
-        console.log(data);
         this.user = data;
-        this.toastr.success("profil modifié avec succés.", "Succés", {
+        this.toastr.success("Profil modifié avec succès.", "Succès", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
        window.location.reload();
+
+        const userSessionData = {
+          id: data.id,
+          firstName: data?.user?.firstName,
+          lastName: data?.user?.lastName,
+          email: data?.user?.login,
+          phoneNumber: data?.phoneNumber,
+          langKey: data?.user?.langKey,
+          imageBase64Content: data?.imageBase64Content,
+          notificationSettings: data?.notificationSettings,
+          enterprise: data?.enterprise
+        };
+        localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
+        this.toastr.error("Une erreur est survenue lors de la modification du profil.", "Erreur", {
           timeOut: 3000,
-          positionClass: 'toast-top-center',
+          positionClass: 'toast-top-right',
        });
       }
     });
