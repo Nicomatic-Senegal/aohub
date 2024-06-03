@@ -2,7 +2,7 @@ name: Notify Jenkins
 
 on: 
   push:
-    branches: ['dev']
+    branches: ['main']
 
 jobs:
   curl:
@@ -18,4 +18,4 @@ jobs:
           jenkins_password: ${{ secrets.JENKINS_PASSWORD }}
         with:
           args: |
-            -u \"$jenkins_username:$jenkins_password\" \"http://$jenkins_server_ip/job/Dev%20-%20Frontend%20-%20Inhub%20Plateform/build?token=$authentication_token\"
+            -u \"$jenkins_username:$jenkins_password\" \"http://$jenkins_server_ip/job/Prod%20-%20Frontend%20-%20Inhub%20Plateform/build?token=$authentication_token\"
