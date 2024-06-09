@@ -192,7 +192,7 @@
     symbol-observable "4.0.0"
     yargs "17.7.2"
 
-"@angular/common@^16.0.0", "@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^16.0.0 || ^17.0.0-0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@>=16.0.0-0", "@angular/common@16.2.12":
+"@angular/common@^16.0.0", "@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^16.0.0 || ^17.0.0-0", "@angular/common@>=13.0.0", "@angular/common@>=14.0.0", "@angular/common@>=16.0.0", "@angular/common@>=16.0.0-0", "@angular/common@16.2.12", "@angular/common@x.x.x":
   version "16.2.12"
   resolved "https://registry.npmjs.org/@angular/common/-/common-16.2.12.tgz"
   integrity sha512-B+WY/cT2VgEaz9HfJitBmgdk4I333XG/ybC98CMC4Wz8E49T8yzivmmxXB3OD6qvjcOB6ftuicl6WBqLbZNg2w==
@@ -220,7 +220,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^16.0.0", "@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^16.0.0 || ^17.0.0-0", "@angular/core@^16.2.12", "@angular/core@>=13.0.0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@16.2.12":
+"@angular/core@^16.0.0", "@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^16.0.0 || ^17.0.0-0", "@angular/core@^16.2.12", "@angular/core@>=13.0.0", "@angular/core@>=16.0.0", "@angular/core@>=16.0.0-0", "@angular/core@16.2.12", "@angular/core@x.x.x":
   version "16.2.12"
   resolved "https://registry.npmjs.org/@angular/core/-/core-16.2.12.tgz"
   integrity sha512-GLLlDeke/NjroaLYOks0uyzFVo6HyLl7VOm0K1QpLXnYvW63W9Ql/T3yguRZa7tRkOAeFZ3jw+1wnBD4O8MoUA==
@@ -5884,6 +5884,13 @@ ng-gallery@^11.0.0:
   dependencies:
     tslib "^2.3.1"
 
+ngx-image-compress@^15.1.6:
+  version "15.1.6"
+  resolved "https://registry.npmjs.org/ngx-image-compress/-/ngx-image-compress-15.1.6.tgz"
+  integrity sha512-kMoK06er6vLV7/3Ly3S8Eef4mADZHU2A+JeBAt56nOV7iAzz6GolT2cNq40XR5hFpthcnzHs7aIcl4Sr84xK6w==
+  dependencies:
+    tslib "^2.5.0"
+
 ngx-mat-timepicker@^16.0.0:
   version "16.0.0"
   resolved "https://registry.npmjs.org/ngx-mat-timepicker/-/ngx-mat-timepicker-16.0.0.tgz"
@@ -7592,7 +7599,7 @@ ts-luxon@^4.3.2:
   resolved "https://registry.npmjs.org/ts-luxon/-/ts-luxon-4.5.2.tgz"
   integrity sha512-PqVfo1yiwAa1nYeyK/k4rOgHPGIqJQpGbOMA/+nLcpS2aXEO2mTSvBKUjPyo1PWCTD2/K2iH4OuRo3md344IoA==
 
-tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.4.1, tslib@^2.5.2:
+tslib@^2.0.0, tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.3.1, tslib@^2.4.1, tslib@^2.5.0, tslib@^2.5.2:
   version "2.6.2"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==

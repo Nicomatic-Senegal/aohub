@@ -2,13 +2,13 @@
   <div class=" flex w-full">
     <ng-container *ngFor="let phase of project.phases; let i = index">
       <div class="w-[14%] flex flex-col justify-end" *ngIf="i % 2 === 0">
-        <div class="mb-2" *ngFor="let task of phase.tasks">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center">
-              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
-              <p class="text-[#696969] text-sm font-dmsans text-wrap">{{task.label! | translate}} </p>
+        <div class="mb-2 w-full" *ngFor="let task of phase.tasks">
+          <div class="flex items-center justify-between mb-2 w-full">
+            <div class="flex items-center w-full">
+              <div class="rounded-full w-1 h-1 bg-[#EE1B22] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
+              <p class="text-[#696969] text-sm font-dmsans text-wrap w-[90%]">{{task.label! | translate}} </p>
             </div>
-            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>
+            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2 shadow-xl shadow-[#c6bfbf]" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>
           </div>
           <div class="h-1 w-full flex">
             <div class="bg-[#D9D9D9] w-full h-1" *ngIf="!isTaskDone(task.done)"></div>
@@ -22,20 +22,24 @@
   </div>
   <div class="flex mt-10">
     <div *ngFor="let phase of project.phases" (click)="openPreSalesDialog(phase)" class="relative cursor-pointer h-24 w-[14%] shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      <p class="absolute z-10">{{phase?.label! | translate}}</p>
-      <div *ngFor="let done of sortTaskByDone(phase.tasks!)" class=" h-full relative" [ngClass]="[phase.tasks?.length === 3 ? 'w-1/3' : 'w-1/4' , done ? 'bg-[#00CE2D]' : 'bg-[#F0F0F0]']"></div>
+      <p class="absolute z-10 p-2">{{phase?.label! | translate}}</p>
+      <div
+      *ngFor="let done of sortTaskByDone(phase.tasks!); let j = index"
+      class=" h-full relative" [ngClass]="[phase.tasks?.length === 3 ? 'w-1/3' : 'w-1/4' , classToApply(phase.tasks!, j)]"
+    >
+    </div>
     </div>
   </div>
   <div class=" flex w-full mt-10">
     <ng-container *ngFor="let phase of project.phases; let i = index">
       <div class="w-[14%] flex flex-col justify-start" *ngIf="i % 2 !== 0">
-        <div class="mb-2" *ngFor="let task of phase.tasks">
-          <div class="flex items-center justify-between mb-2">
-            <div class="flex items-center">
-              <div class="rounded-full w-1 h-1 bg-[#E68A00] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
+        <div class="mb-2 w-full" *ngFor="let task of phase.tasks">
+          <div class="flex items-center justify-between mb-2 w-full">
+            <div class="flex items-center ">
+              <div class="rounded-full w-1 h-1 bg-[#EE1B22] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
               <p class="text-[#696969] text-sm font-dmsans text-wrap">{{task.label! | translate}} </p>
             </div>
-            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>
+            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2 shadow-xl shadow-[#c6bfbf]" (click)="openInitDialog(task, phase)"><i class="fas fa-chevron-right"></i></div>
           </div>
           <div class="h-1 w-full flex">
             <div class="bg-[#D9D9D9] w-full h-1" *ngIf="!isTaskDone(task.done)"></div>

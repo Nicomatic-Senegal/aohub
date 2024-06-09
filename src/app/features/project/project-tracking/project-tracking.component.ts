@@ -95,4 +95,20 @@ export class ProjectTrackingComponent implements OnInit {
       }
     });
   }
+
+  nbTasksDone(tasks: TaskDTO[]) {
+    return tasks.filter(task => task.done === true).length;
+  }
+
+  classToApply(tasks: TaskDTO[], j: number) {
+    return j + 1 < this.nbTasksDone(tasks) ?
+      'bg-[#00CE2D]' :
+      ( j + 1 > this.nbTasksDone(tasks) ?
+        'bg-[#F0F0F0]' :
+        (j + 1 !== tasks?.length ?
+          'bg-gradient-to-r from-[#00CE2D] to-[#F0F0F0]' :
+          'bg-[#00CE2D]'
+        )
+      )
+  }
 }

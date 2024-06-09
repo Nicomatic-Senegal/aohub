@@ -108,27 +108,27 @@ export class PreSalesComponent {
       next: (data) => {
         console.log(data);
         this.phase = data;
-        this.phase.tasks?.forEach(task => {
-          task.endDate = this.phase.endDate;
-          task.startDate = this.phase.startDate;
-          task.assignee = this.phase.assignee!;
-          task.phase = {id: this.phase.id};
-          this.projectService.updateTask(this.token, task).subscribe({
-            next: (data) => {
-              console.log(data);
+        // this.phase.tasks?.forEach(task => {
+        //   task.endDate = this.phase.endDate;
+        //   task.startDate = this.phase.startDate;
+        //   task.assignee = this.phase.assignee!;
+        //   task.phase = {id: this.phase.id};
+        //   this.projectService.updateTask(this.token, task).subscribe({
+        //     next: (data) => {
+        //       console.log(data);
 
-              task = data;
+        //       task = data;
 
-            },
-            error: (err) => {
-              console.log(err);
-              this.toastr.error(err.error.detail, "Erreur sur la mise jour de la tache", {
-                timeOut: 3000,
-                positionClass: 'toast-top-center',
-             });
-            }
-          });
-        });
+        //     },
+        //     error: (err) => {
+        //       console.log(err);
+        //       this.toastr.error(err.error.detail, "Erreur sur la mise jour de la tache", {
+        //         timeOut: 3000,
+        //         positionClass: 'toast-top-center',
+        //      });
+        //     }
+        //   });
+        // });
         this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
           timeOut: 3000,
           positionClass: 'toast-top-right',

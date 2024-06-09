@@ -39,7 +39,7 @@ export class InitPhaseComponent {
 
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
-    console.log(this.dialogData.task);
+    console.log(this.dialogData.phase);
     this.phase = this.dialogData.phase;
     this.task = this.dialogData.task;
     this.task.phase = {id: this.phase.id};
@@ -112,11 +112,19 @@ export class InitPhaseComponent {
       next: (data) => {
         console.log(data);
         this.task = data;
-        this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
+        console.log("*********************************");
+        console.log(this.phase);
 
-        this.projectService.updatePhase(this.token, this.phase).subscribe({
+        // this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
 
-        });
+        // this.projectService.updatePhase(this.token, this.phase).subscribe({
+        //   next: (data) => {
+        //     console.log("-------------------------------");
+
+        //     console.log(this.phase);
+
+        //   }
+        // });
 
         this.toastr.success("La tache a bien été mise à jour", "Succés Update", {
           timeOut: 3000,
