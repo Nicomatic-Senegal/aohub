@@ -56,7 +56,7 @@ export class InitPhaseComponent {
     this.taskForm.setValue ({
       startDate: this.task.startDate,
       endDate: this.task.endDate,
-      affectedPart: this.teamMembers.map(member => member.id).indexOf(this.phase.assignee?.id!),
+      affectedPart: this.teamMembers.map(member => member.id).indexOf(this.task.assignee?.id!),
       done1: this.task.done ? true : false,
       done2: this.task.done ? false : true,
     });
@@ -112,8 +112,6 @@ export class InitPhaseComponent {
       next: (data) => {
         console.log(data);
         this.task = data;
-        console.log("*********************************");
-        console.log(this.phase);
 
         // this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
 
@@ -130,6 +128,8 @@ export class InitPhaseComponent {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
+
+       window.location.reload();
       },
       error: (err) => {
         console.log(err);

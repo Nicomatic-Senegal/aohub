@@ -10,6 +10,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PartnerDTO } from '../../interfaces/partner.model';
 import { Project } from '../../interfaces/project.model';
 import { UserService } from '../../services/user/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-pre-sales',
@@ -75,24 +76,57 @@ export class PreSalesComponent {
         console.log(data);
 
         this.phase = data;
-        this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
 
+        const taskUpdateObservables = this.phase.tasks?.map(task => {
+          task.done = true;
+          task.phase = { id: this.phase.id };
+          return this.projectService.updateTask(this.token, task);
+        }) || [];
+
+        forkJoin(taskUpdateObservables).subscribe({
+          next: (results) => {
+            console.log(results);
+
+            results.forEach((updatedTask, index) => {
+              this.phase.tasks![index] = updatedTask;
+            });
+
+            this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+
+            this.refreshPage();
+          },
+          error: (err) => {
+            console.log(err);
+            this.toastr.error(err.error.detail, "Erreur sur la mise jour des tâches", {
+              timeOut: 3000,
+              positionClass: 'toast-top-center',
+            });
+          }
+        });
       },
       error: (err) => {
         console.log(err);
         this.toastr.error(err.error.detail, "Erreur sur la mise jour de la phase", {
           timeOut: 3000,
           positionClass: 'toast-top-center',
-       });
+        });
       }
     });
   }
 
-  onStopProject() {
+  refreshPage() {
+    window.location.reload();
+  }
 
+
+  onStopProject() {
+    // this.phase.
+    this.projectService.updatePhase(this.token, this.phase).subscribe({
+
+    });
   }
 
   submitAffectation() {
@@ -108,31 +142,13 @@ export class PreSalesComponent {
       next: (data) => {
         console.log(data);
         this.phase = data;
-        // this.phase.tasks?.forEach(task => {
-        //   task.endDate = this.phase.endDate;
-        //   task.startDate = this.phase.startDate;
-        //   task.assignee = this.phase.assignee!;
-        //   task.phase = {id: this.phase.id};
-        //   this.projectService.updateTask(this.token, task).subscribe({
-        //     next: (data) => {
-        //       console.log(data);
 
-        //       task = data;
-
-        //     },
-        //     error: (err) => {
-        //       console.log(err);
-        //       this.toastr.error(err.error.detail, "Erreur sur la mise jour de la tache", {
-        //         timeOut: 3000,
-        //         positionClass: 'toast-top-center',
-        //      });
-        //     }
-        //   });
-        // });
         this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
+
+       this.refreshPage();
       },
       error: (err) => {
         console.log(err);
@@ -172,5 +188,6 @@ export class PreSalesComponent {
   isNotApplicant() {
     return this.currentConnectedUser.id !== this.project.applicant?.id;
   }
+
 
 }

@@ -1,4 +1,9 @@
 <div class="div-center w-full h-full px-10 pb-7 pt-5 md:py-4 md:px-6 flex flex-col bg-white">
+  <div class="flex justify-end">
+    <button class="text-black border-none outline-none w-5" (click)="closeDialog()">
+      <img src="../../../../assets/icons/close-dialog.svg" alt="">
+    </button>
+  </div>
 	<form [formGroup]="taskForm">
     <div class=" w-full p-1 py-5">
       <p class="text-[#408A7E] text-center text-2xl">Phase: {{phase.label! | translate}} </p>
@@ -12,7 +17,7 @@
           </div>
         </div>
         <div class=" w-1/3 flex items-center justify-end" *ngIf="isPhaseNotAssignedToUser()">
-          <p class="font-dmsans text-base font-semibold text-[#383838] mr-2">{{task.startDate || 'Pas affecté'}}</p>
+          <p class="font-dmsans italic text-base font-semibold text-[#383838] mr-2">{{task.startDate || 'Pas affecté'}}</p>
           <i class="fas fa-calendar"></i>
         </div>
       </div>
@@ -25,14 +30,14 @@
           </div>
         </div>
         <div class=" w-1/3 flex items-center justify-end" *ngIf="isPhaseNotAssignedToUser()">
-          <p class="font-dmsans text-base font-semibold text-[#383838] mr-2">{{task.endDate || 'Pas affecté'}}</p>
+          <p class="font-dmsans italic text-base font-semibold text-[#383838] mr-2">{{task.endDate || 'Pas affecté'}}</p>
           <i class="fas fa-calendar"></i>
         </div>
       </div>
     </div>
 
     <div class="flex justify-between mt-5 items-center w-full">
-      <p class="font-dmsans text-base w-1/2">{{'ASSIGN_TASK_RESPONSABILITY' | translate}} </p>
+      <p class="font-dmsans text-base w-[37%]">{{ !task.assignee ? ('ASSIGN_TASK_RESPONSABILITY' | translate) : 'Responsable'}} </p>
       <div class=" w-1/3" *ngIf="!isPhaseNotAssignedToUser()">
         <select  formControlName="affectedPart" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373]/80 focus:outline-[#D1E9FF] h-8 rounded-lg pl-3 mt-1 w-full">
           <option value="" disabled [selected]="true">{{'ASSIGN_TASK' | translate}} </option>
@@ -42,8 +47,23 @@
           {{'PARTNER_REQUIRED' | translate}}
         </div>
       </div>
-      <div class=" w-1/3 flex items-center justify-end" *ngIf="isPhaseNotAssignedToUser()">
-        <p class="font-dmsans text-base font-semibold text-[#383838] mr-2">{{!task.assignee ? 'Pas affecté' : (task.assignee.user.firstName + ' ' + task.assignee.user.lastName)}} </p>
+      <div class=" w-[60%] flex items-center justify-end" *ngIf="isPhaseNotAssignedToUser() && task.assignee">
+        <div class="flex w-[60%] items-center text-wrap">
+          <img class="w-8 mr-2" [src]="task.assignee.enterprise.imageBase64Content || '../../../../../../assets/icons/icon-enterprise.webp'" alt="">
+          <div class="overflow-auto w-full">
+            <p class="">{{task.assignee.user.firstName + ' ' + task.assignee.user.lastName}} </p>
+            <p class="">{{task.assignee.user.email}} </p>
+          </div>
+        </div>
+        <div class="w-[37%] items-center text-wrap flex justify-end">
+          <div>
+            <p>{{task.assignee.enterprise.name}} </p>
+            <p>{{task.assignee.phoneNumber}} </p>
+          </div>
+        </div>
+      </div>
+      <div class=" w-1/3 flex items-center justify-end" *ngIf="isPhaseNotAssignedToUser() && !task.assignee">
+        <p class="font-dmsans italic text-base font-semibold text-[#383838] mr-2">{{'Pas affecté'}} </p>
       </div>
     </div>
 
