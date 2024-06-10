@@ -92,6 +92,7 @@
   "CHANGE_PASSWORD_DESC": "Veuillez saisir votre mot de passe actuel pour en choisir un nouveau",
   "ACTU_PASSWORD": "Actuel mot de passe",
   "MODIFY": "Modifier",
+  "NOTIFICATIONS": "Notifications",
   "NOTIFICATION_SETTING": "Paramètres de notification",
   "NOTIFICATION_SETTING_DESC": "Nous pourrions toujours vous envoyer des notifications importantes concernant des opportunités en dehors de vos paramètres de notification",
   "NOTIFICATION_OPPORTUNITY": "Il s'agit de notifications concernant de nouvelles opportunités",
