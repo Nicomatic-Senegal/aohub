@@ -7,6 +7,7 @@ import { Project } from '../../interfaces/project.model';
 import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
 import { TaskDialogComponent } from '../../dialog/task-dialog/task-dialog.component';
+import { ProjectDocumentsDialogComponent } from '../../dialog/project-documents-dialog/project-documents-dialog.component';
 
 @Component({
   selector: 'app-project-tracking',
@@ -110,5 +111,16 @@ export class ProjectTrackingComponent implements OnInit {
           'bg-[#00CE2D]'
         )
       )
+  }
+
+  openDocumentDialog() {
+    const project = this.project;
+
+    this.dialog.open(ProjectDocumentsDialogComponent, {
+      hasBackdrop: true,
+      data: { project
+      },
+      panelClass: 'custom-dialog-container'
+    });
   }
 }

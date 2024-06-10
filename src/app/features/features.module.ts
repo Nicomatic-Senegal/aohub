@@ -55,6 +55,7 @@ import { TaskDialogComponent } from './dialog/task-dialog/task-dialog.component'
 import { PhaseDialogComponent } from './dialog/phase-dialog/phase-dialog.component';
 import { StopProjectDialogComponent } from './dialog/stop-project-dialog/stop-project-dialog.component';
 import {NgxImageCompressService} from "ngx-image-compress";
+import { ProjectDocumentsDialogComponent } from './dialog/project-documents-dialog/project-documents-dialog.component';
 
 registerSwiperElements();
 
@@ -94,7 +95,8 @@ registerSwiperElements();
     LayoutComponent,
     TaskDialogComponent,
     PhaseDialogComponent,
-    StopProjectDialogComponent
+    StopProjectDialogComponent,
+    ProjectDocumentsDialogComponent
   ],
   imports: [
     NgApexchartsModule,

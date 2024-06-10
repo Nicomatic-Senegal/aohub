@@ -224,4 +224,11 @@ export class ProjectService {
 
     return this.http.post<any>(url, reasons, {headers, responseType: 'json'});
   }
+
+  getProjectAttachments(token: string, projectId: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `attachments/project/${projectId}`;
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
 }
