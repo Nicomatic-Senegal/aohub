@@ -131,7 +131,7 @@ export class PhaseDialogComponent {
   }
 
   refreshPage() {
-    window.location.reload();
+    this.router.navigate(['/project-options'], { queryParams: { param1: '2' } });
   }
 
 

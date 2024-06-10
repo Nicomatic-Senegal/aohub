@@ -14,6 +14,7 @@ export class ProjectOptionsComponent implements OnInit {
   screen: number = 1;
   token: string;
   project!: Project;
+  param1: string | null = null;
 
   constructor(
     private projectService: ProjectService,
@@ -30,8 +31,13 @@ export class ProjectOptionsComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
         const projectId = params['id'];
+        this.param1 = params['param1'];
         this.getProjectById(this.token, projectId);
     });
+    console.log(this.param1);
+
+    if (this.param1)
+      this.screen = 2;
   }
 
   getProjectById(token: string, projectId: string) {

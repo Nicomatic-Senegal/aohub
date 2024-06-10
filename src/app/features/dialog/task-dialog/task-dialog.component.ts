@@ -83,6 +83,10 @@ export class TaskDialogComponent {
     }
   }
 
+  refreshPage() {
+    this.router.navigate(['/project-options'], { queryParams: { param1: '2' } });
+  }
+
   handleChange(fieldName: string) {
     const otherField = fieldName === 'done1' ? 'done2' : 'done1';
     if (this.taskForm.get(fieldName)?.value) {
@@ -129,7 +133,7 @@ export class TaskDialogComponent {
           positionClass: 'toast-top-right',
        });
 
-       window.location.reload();
+       this.refreshPage();
       },
       error: (err) => {
         console.log(err);

@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../../services/project/project.service';
@@ -49,7 +49,6 @@ export class ProjectsComponent implements OnInit {
     this.loadCurrentConnectedUser();
     this.loadAllMarket();
     this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-
   }
 
   ngAfterViewInit() {
