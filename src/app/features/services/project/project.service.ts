@@ -217,4 +217,11 @@ export class ProjectService {
 
     return this.http.put<any>(url, task, {headers, responseType: 'json'});
   }
+
+  stopProject(token: string, projectId: number, reasons: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}/stop`;
+
+    return this.http.post<any>(url, reasons, {headers, responseType: 'json'});
+  }
 }

@@ -38,23 +38,23 @@ export class StopProjectDialogComponent {
     } else {
       reasonToSend = this.selectedReason || '';
     }
-    // this.projectService.deleteProject(token, projectId, reasonToSend).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.router.navigate(['/projects']);
-    //     this.toastr.success("Ce projet a été supprimé avec succès", "Succès", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-right',
-    //    });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.toastr.error(err.error.detail, "Erreur lors de la suppression du projet", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-right',
-    //    });
-    //   }
-    // });
+    this.projectService.stopProject(token, projectId, reasonToSend).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.router.navigate(['/projects']);
+        this.toastr.success("Ce projet a été arrété avec succès", "Succès", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "Erreur lors de l'arrêt du projet", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+      }
+    });
     this.onCloseDialog();
     console.log(reasonToSend);
   }
