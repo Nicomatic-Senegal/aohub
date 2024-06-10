@@ -19,7 +19,7 @@ export class SideBarComponent implements OnInit {
     ["../../../assets/img/projects.svg", "MY PROJECTS", "/projects", "../../../assets/img/projects-red.svg"],
     ["../../../assets/img/opportunity.svg", "OPPORTUNITIES", "/opportunities", "../../../assets/img/opportunity-red.svg"],
     ["../../../assets/img/activity.svg", "Activités", "/activity", "../../../assets/img/activity-red.svg"],
-    // ["../../../assets/img/notification.svg", "Notifications", "/notification", "../../../assets/img/notification-red.svg"]
+    ["../../../assets/img/notification.svg", "Notifications", "/notifications", "../../../assets/img/notification-red.svg"]
   ];
 
   optionsBottom = [

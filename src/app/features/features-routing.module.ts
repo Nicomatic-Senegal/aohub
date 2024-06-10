@@ -10,12 +10,11 @@ import { HomeComponent } from './home/home.component';
 import { OpportunitiesComponent } from './opportunity/opportunities/opportunities.component';
 import { ProjectSubmissionComponent } from './project/project-submission/project-submission.component';
 import { ApplyProjectDialogComponent } from './dialog/apply-project-dialog/apply-project-dialog.component';
-import { OpportunityTrackingComponent } from './opportunity/opportunity-tracking/opportunity-tracking.component';
 import { SupportComponent } from './support/support.component';
-import { ProjectDetailsComponent } from './project/project-details/project-details.component';
 import { ProjectsComponent } from './project/projects/projects.component';
 import { ProjectOptionsComponent } from './project/project-options/project-options.component';
 import { ActivityComponent } from './activity/activity.component';
+import {NotificationsComponent} from "./notifications/notifications.component";
 
 const routes: Routes = [
   { path: 'signup', component: SignupComponent },
@@ -32,7 +31,8 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'support', component: SupportComponent },
   { path: 'project-options', component: ProjectOptionsComponent },
-  { path: 'activity', component: ActivityComponent }
+  { path: 'activity', component: ActivityComponent },
+  { path: 'notifications', component: NotificationsComponent }
 ];
 
 @NgModule({
