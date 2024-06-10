@@ -285,5 +285,6 @@
   "TASKS": "Tasks",
   "ASSIGN_TASK_RESPONSABILITY": "Assign the responsibility of this task to",
   "COMPLETED_TASK": "Have you completed this task?",
-  "STATUS_REQUIRED": "Status is required."
+  "STATUS_REQUIRED": "Status is required.",
+  "STOP": "Arrêter"
 }

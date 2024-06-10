@@ -29,5 +29,7 @@ export interface Project {
     deadlinePositioning?: Date;
     createdAt: Date;
     phases?: PhaseDTO[];
+    stopped?: boolean;
+    stopReason?: string;
 }
 

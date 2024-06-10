@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InitPhaseComponent } from './init-phase.component';
+import { TaskDialogComponent } from './task-dialog.component';
 
 describe('InitPhaseComponent', () => {
-  let component: InitPhaseComponent;
-  let fixture: ComponentFixture<InitPhaseComponent>;
+  let component: TaskDialogComponent;
+  let fixture: ComponentFixture<TaskDialogComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [InitPhaseComponent]
+      declarations: [TaskDialogComponent]
     });
-    fixture = TestBed.createComponent(InitPhaseComponent);
+    fixture = TestBed.createComponent(TaskDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

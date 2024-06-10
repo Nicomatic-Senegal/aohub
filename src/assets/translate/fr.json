@@ -285,5 +285,6 @@
   "TASKS": "Tâches",
   "ASSIGN_TASK_RESPONSABILITY": "Affecter la responsabilité de cette tâche  à",
   "COMPLETED_TASK": "Avez-vous terminé cette tâche ?",
-  "STATUS_REQUIRED": "L'etat est requis."
+  "STATUS_REQUIRED": "L'etat est requis.",
+  "STOP": "Stop"
 }

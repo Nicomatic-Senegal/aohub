@@ -13,10 +13,10 @@ import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-init-phase',
-  templateUrl: './init-phase.component.html',
-  styleUrls: ['./init-phase.component.scss']
+  templateUrl: './task-dialog.component.html',
+  styleUrls: ['./task-dialog.component.scss']
 })
-export class InitPhaseComponent {
+export class TaskDialogComponent {
   token: string;
   task!: TaskDTO;
   taskForm!: FormGroup;

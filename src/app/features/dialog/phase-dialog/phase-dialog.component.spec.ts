@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PreSalesComponent } from './pre-sales.component';
+import { PhaseDialogComponent } from './phase-dialog.component';
 
 describe('PreSalesComponent', () => {
-  let component: PreSalesComponent;
-  let fixture: ComponentFixture<PreSalesComponent>;
+  let component: PhaseDialogComponent;
+  let fixture: ComponentFixture<PhaseDialogComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PreSalesComponent]
+      declarations: [PhaseDialogComponent]
     });
-    fixture = TestBed.createComponent(PreSalesComponent);
+    fixture = TestBed.createComponent(PhaseDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

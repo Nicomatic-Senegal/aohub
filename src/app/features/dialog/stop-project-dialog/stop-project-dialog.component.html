@@ -27,9 +27,9 @@
       <button
           [disabled]="selectedReason === 'other' && otherReason.trim() === ''"
           [ngClass]="{'bg-gray-400 cursor-not-allowed': selectedReason === 'other' && otherReason.trim() === ''}"
-          (click)="onDelete(dialogData.token, dialogData.project.id)"
+          (click)="onStop(dialogData.token, dialogData.project.id)"
           class="bg-[#EE1B22] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-5 ml-5">
-          {{'DELETE' | translate}}
+          {{'STOP' | translate}}
       </button>
   </div>
 </div>

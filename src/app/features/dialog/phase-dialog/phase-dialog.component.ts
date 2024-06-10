@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -11,13 +11,14 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { Project } from '../../interfaces/project.model';
 import { UserService } from '../../services/user/user.service';
 import { forkJoin } from 'rxjs';
+import { StopProjectDialogComponent } from '../stop-project-dialog/stop-project-dialog.component';
 
 @Component({
   selector: 'app-pre-sales',
-  templateUrl: './pre-sales.component.html',
-  styleUrls: ['./pre-sales.component.scss']
+  templateUrl: './phase-dialog.component.html',
+  styleUrls: ['./phase-dialog.component.scss']
 })
-export class PreSalesComponent {
+export class PhaseDialogComponent {
   token: string;
   phase!: PhaseDTO;
   phaseForm!: FormGroup;
@@ -31,6 +32,7 @@ export class PreSalesComponent {
     private projectService: ProjectService,
     private authService: AuthService,
     private userService: UserService,
+    private dialog: MatDialog,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any
@@ -65,6 +67,17 @@ export class PreSalesComponent {
 
   closeDialog() {
     this.dialogRef.close();
+  }
+
+  openStopProjectDialog() {
+    const project = this.project;
+    this.dialog.open(StopProjectDialogComponent, {
+      hasBackdrop: true,
+      data: {
+        project
+      },
+      panelClass: 'custom-dialog-container'
+    })
   }
 
   onFullyValidateProject() {
@@ -123,10 +136,7 @@ export class PreSalesComponent {
 
 
   onStopProject() {
-    // this.phase.
-    this.projectService.updatePhase(this.token, this.phase).subscribe({
-
-    });
+    this.openStopProjectDialog();
   }
 
   submitAffectation() {

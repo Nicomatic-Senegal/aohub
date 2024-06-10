@@ -2,11 +2,11 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PreSalesComponent } from '../../dialog/pre-sales/pre-sales.component';
+import { PhaseDialogComponent } from '../../dialog/phase-dialog/phase-dialog.component';
 import { Project } from '../../interfaces/project.model';
 import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
-import { InitPhaseComponent } from '../../dialog/init-phase/init-phase.component';
+import { TaskDialogComponent } from '../../dialog/task-dialog/task-dialog.component';
 
 @Component({
   selector: 'app-project-tracking',
@@ -44,11 +44,11 @@ export class ProjectTrackingComponent implements OnInit {
     }
   }
 
-  openPreSalesDialog(phase: PhaseDTO) {
+  openPhaseDialog(phase: PhaseDTO) {
     const teamMembers = this.project.teamMembers
     const project = this.project;
 
-    this.dialog.open(PreSalesComponent, {
+    this.dialog.open(PhaseDialogComponent, {
       hasBackdrop: true,
       data: {
         phase, teamMembers, project
@@ -57,10 +57,10 @@ export class ProjectTrackingComponent implements OnInit {
     })
   }
 
-  openInitDialog(task: TaskDTO, phase: PhaseDTO) {
+  openTaskDialog(task: TaskDTO, phase: PhaseDTO) {
     const teamMembers = this.project.teamMembers;
     phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
-    this.dialog.open(InitPhaseComponent, {
+    this.dialog.open(TaskDialogComponent, {
       hasBackdrop: true,
       data: {
         task, teamMembers, phase
