@@ -26,4 +26,32 @@ export class NotificationService {
 
     return this.http.put<any>(url, payload, { headers, responseType: 'json' })
   }
+
+  allNotifications(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `notifications/connected`;
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  allUnreadNotifications(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `notifications/count-unread`;
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  markAllNotificationsAsRead(token: string): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'notifications/mark-all-as-read';
+
+    return this.http.put<any>(url, { headers, responseType: 'json' })
+  }
+
+  markNotificaitonAsRead(token: string, notificationId: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'notification-settings/' + notificationId;
+
+    return this.http.put<any>(url, { headers, responseType: 'json' })
+  }
 }

@@ -36,7 +36,10 @@
         </div>
       </div>
       <div class=" w-[100px] min-h-[100px] mr-5">
-        <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="" (click)="uploadFile()">
+        <input type="file" multiple (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+        <label for="fileInput">
+          <img  class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="">
+        </label>
         <p class="font-dmsans text-sm text-black">Uploader des fichiers</p>
       </div>
     </div>
@@ -70,7 +73,10 @@
         </div>
       </div>
       <div class=" w-[100px] min-h-[100px] mr-5">
-        <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="" (click)="uploadFile()">
+        <input type="file" multiple (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+        <label for="fileInput1">
+          <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="">
+        </label>
         <p class="font-dmsans text-sm text-black">Uploader des fichiers plans</p>
       </div>
     </div>

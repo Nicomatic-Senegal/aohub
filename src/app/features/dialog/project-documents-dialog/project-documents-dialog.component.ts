@@ -22,6 +22,9 @@ export class ProjectDocumentsDialogComponent {
   currentConnectedUser?: any;
   allDocuments: Array<AttachmentDto> = [];
   hover: boolean = false;
+  filesChoosen: Array<string> = [];
+  plansChoosen: Array<string> = [];
+  allFiles: Array<AttachmentDto> = [];
 
   constructor(
     private router: Router,
@@ -106,7 +109,92 @@ export class ProjectDocumentsDialogComponent {
   }
 
   uploadFile() {
+    this.allFiles.forEach(file => {
+      file.project = this.project;
+      this.projectService.addProjectAttachments(this.token, file).subscribe({
+        next: (data) => {
+          console.log(data);
+          this.loadProjectDocuments();
+          this.toastr.success("Ce Document a été ajouté avec succès", "Succès", {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+         });
 
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastr.error("Erreur lors de l'ajout du document", "Erreur", {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+         });
+
+        }
+      });
+    });
+  }
+
+  onFileSelected(event: any, indice: number) {
+    const files: FileList = event.target.files;
+
+    if (indice === 1) {
+      // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
+      this.filesChoosen = [];
+    } else {
+      this.plansChoosen = [];
+    }
+
+    const fileLoadPromises = [];
+
+    for (let i = 0; i < files.length; i++) {
+        const file: File = files[i];
+        console.log('Nom du fichier:', file.name);
+        console.log('Type du fichier:', file.type);
+        console.log('Taille du fichier:', file.size, 'octets');
+
+        const reader = new FileReader();
+
+        const fileLoadPromise = new Promise<void>((resolve, reject) => {
+          reader.onload = () => {
+            const base64String = reader.result as string;
+
+            if (indice === 1) {
+                let attachment: AttachmentDto = {
+                    name: file.name,
+                    type: AttachmentType.NORMAL,
+                    fileSize: file.size,
+                    base64Content: base64String
+                };
+                this.filesChoosen.push(file.name);
+                this.allFiles.push(attachment);
+            } else {
+                let attachment: AttachmentDto = {
+                    name: file.name,
+                    type: AttachmentType.PLAN,
+                    fileSize: file.size,
+                    base64Content: base64String
+                };
+                this.plansChoosen.push(file.name);
+                this.allFiles.push(attachment);
+            }
+
+            resolve();
+          };
+
+          reader.onerror = reject;
+
+          if (file) {
+              reader.readAsDataURL(file);
+          }
+        });
+
+        fileLoadPromises.push(fileLoadPromise);
+    }
+
+    Promise.all(fileLoadPromises).then(() => {
+        this.uploadFile();
+    }).catch(error => {
+        console.error("Error loading files:", error);
+    });
   }
 
   loadCurrentConnectedUser() {
