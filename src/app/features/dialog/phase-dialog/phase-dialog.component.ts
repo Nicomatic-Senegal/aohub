@@ -109,6 +109,7 @@ export class PhaseDialogComponent {
               positionClass: 'toast-top-right',
             });
 
+            this.closeDialog();
             this.refreshPage();
           },
           error: (err) => {
@@ -131,7 +132,8 @@ export class PhaseDialogComponent {
   }
 
   refreshPage() {
-    this.router.navigate(['/project-options'], { queryParams: { param1: '2' } });
+    window.location.reload();
+    // this.router.navigate(['/project-options'], { queryParams: { id: this.project.id } });
   }
 
 
@@ -147,7 +149,6 @@ export class PhaseDialogComponent {
     console.log(this.phaseForm);
     console.log(this.phase);
 
-
     this.projectService.updatePhase(this.token, this.phase).subscribe({
       next: (data) => {
         console.log(data);
@@ -158,6 +159,7 @@ export class PhaseDialogComponent {
           positionClass: 'toast-top-right',
        });
 
+       this.closeDialog();
        this.refreshPage();
       },
       error: (err) => {

@@ -38,18 +38,23 @@ export class StopProjectDialogComponent {
     } else {
       reasonToSend = this.selectedReason || '';
     }
-    this.projectService.stopProject(token, projectId, reasonToSend).subscribe({
+
+    const reasons = {"reason": reasonToSend};
+    console.log(token);
+
+    this.projectService.stopProject(this.token, projectId, reasons).subscribe({
       next: (data) => {
         console.log(data);
-        this.router.navigate(['/projects']);
         this.toastr.success("Ce projet a été arrété avec succès", "Succès", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
+       this.dialogRef.close();
+       this.router.navigate(['/projects']);
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur lors de l'arrêt du projet", {
+        this.toastr.error("Erreur lors de l'arrêt du projet", "Erreur", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });

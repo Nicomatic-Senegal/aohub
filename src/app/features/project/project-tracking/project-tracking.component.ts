@@ -32,6 +32,7 @@ export class ProjectTrackingComponent implements OnInit {
     this.project.phases?.forEach(p => {
       p.tasks?.sort((a, b) => a.id! - b.id!);
     });
+
     console.log(this.project);
   }
 
@@ -46,7 +47,7 @@ export class ProjectTrackingComponent implements OnInit {
   }
 
   openPhaseDialog(phase: PhaseDTO) {
-    const teamMembers = this.project.teamMembers
+    const teamMembers = this.project.teamMembers;
     const project = this.project;
 
     this.dialog.open(PhaseDialogComponent, {
@@ -60,11 +61,12 @@ export class ProjectTrackingComponent implements OnInit {
 
   openTaskDialog(task: TaskDTO, phase: PhaseDTO) {
     const teamMembers = this.project.teamMembers;
+    const project = this.project;
     phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
     this.dialog.open(TaskDialogComponent, {
       hasBackdrop: true,
       data: {
-        task, teamMembers, phase
+        task, teamMembers, phase, project
       },
       panelClass: 'custom-dialog-container'
     })

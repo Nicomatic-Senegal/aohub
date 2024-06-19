@@ -43,5 +43,5 @@
 }
 
 .custom-dialog-container {
-  @apply w-[50%]
+  @apply w-[50%] max-h-[90%] overflow-auto
 }

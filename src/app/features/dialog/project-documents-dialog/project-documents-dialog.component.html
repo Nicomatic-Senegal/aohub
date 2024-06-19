@@ -1,4 +1,4 @@
-<div class="div-center w-full h-full px-10 pb-7 pt-5 md:py-4 md:px-6 flex flex-col bg-white">
+<div class="div-center w-full h-full px-10 pb-7 pt-5 md:py-4 md:px-6 flex flex-col bg-white overflow-auto">
   <div class="flex justify-end">
     <button class="text-black border-none outline-none w-7" (click)="closeDialog()">
       <img src="../../../../assets/icons/close-dialog.svg" alt="">
@@ -7,22 +7,71 @@
   <div class="border-b-2 border-[#E5E5E5] mb-4">
     <p class="text-black font-semibold font-dmsans">Documents du projet</p>
   </div>
-  <div class="my-10 flex items-center flex-wrap">
-    <div *ngFor="let file of allDocuments" (mouseover)="file.hover = true" (mouseout)="file.hover = false" class="relative">
-      <div class="preview-image w-[100px] h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:image/')">
-        <img [src]="file.safeUrl" alt="{{ file.name }}">
-      </div>
-      <div class="preview-pdf w-[100px] h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:application/pdf')">
-        <embed [src]="file.safeUrl" type="application/pdf" width="100px" height="100px">
-      </div>
-       <!-- Afficher les fichiers Excel -->
-      <!-- <div class=" w-[100px] h-[100px]" *ngIf="file.base64Content.startsWith('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')" [innerHTML]="getExcelContent(file)"></div> -->
+  <div class="border-b-2 border-[#E5E5E5] mb-4">
+    <div *ngIf="getAllNormalDoc().length === 0">
+      Aucun document normal dans ce projet.
+    </div>
+    <div class="my-10 flex items-start flex-wrap">
+      <div *ngFor="let file of getAllNormalDoc()"  class="relative">
+        <div class="preview-image w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:image/')">
+          <img class="mb-2"  [src]="file.safeUrl" alt="{{ file.name }}">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:application/pdf')">
+          <embed class="mb-2"  [src]="file.safeUrl" type="application/pdf" width="100px" height="100px">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="!file.base64Content.startsWith('data:image/') && !file.base64Content.startsWith('data:application/pdf')">
+          <img class="mb-2" src="../../../../assets/icons/doc-default.jpg" alt="">
+        </div>
+        <!-- Afficher les fichiers Excel -->
+        <!-- <div class=" w-[100px] h-[100px]" *ngIf="file.base64Content.startsWith('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')" [innerHTML]="getExcelContent(file)"></div> -->
 
-      <div class="flex justify-between bg-gray-100 float-start h-1/2 w-[100px]" *ngIf="file.base64Content.startsWith('data:image/') || file.base64Content.startsWith('data:application/pdf')">
-        <button class="w-7 h-7 bg-[#B41A2C]/15 rounded-full flex items-center justify-center">
-          <i class="fas fa-trash cursor-pointer text-[#B41A2C] " (click)="deleteFile(file)"></i>
-        </button>
-        <a [href]="file.safeUrl" download="{{ file.name }}" class="w-7 h-7 bg-[#1C3879]/15 rounded-full flex items-center justify-center"><i class="fas fa-download cursor-pointer text-[#1C3879]"></i></a>
+        <div class="flex justify-between bg-gray-100 float-start h-1/2 w-[100px]" >
+          <button class="w-7 h-7 bg-[#B41A2C]/15 rounded-full flex items-center justify-center">
+            <i class="fas fa-trash cursor-pointer text-[#B41A2C] " (click)="deleteFile(file)"></i>
+          </button>
+          <a [href]="file.safeUrl" download="{{ file.name }}" class="w-7 h-7 bg-[#1C3879]/15 rounded-full flex items-center justify-center"><i class="fas fa-download cursor-pointer text-[#1C3879]"></i></a>
+        </div>
+        <div class="w-[100px] text-black font-dmsans text-sm text-wrap overflow-clip">
+          {{file.name + '(' + file.fileSize/1000 + 'ko)'}}
+        </div>
+      </div>
+      <div class=" w-[100px] min-h-[100px] mr-5">
+        <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="" (click)="uploadFile()">
+        <p class="font-dmsans text-sm text-black">Uploader des fichiers</p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <div *ngIf="getAllPlanDoc().length === 0">
+      Aucun document plan dans ce projet.
+    </div>
+    <div class="my-10 flex items-start flex-wrap">
+      <div *ngFor="let file of getAllPlanDoc()"  class="relative">
+        <div class="preview-image w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:image/')">
+          <img class="mb-2"  [src]="file.safeUrl" alt="{{ file.name }}">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:application/pdf')">
+          <embed class="mb-2"  [src]="file.safeUrl" type="application/pdf" width="100px" height="100px">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="!file.base64Content.startsWith('data:image/') && !file.base64Content.startsWith('data:application/pdf')">
+          <img class="mb-2" src="../../../../assets/icons/doc-default.jpg" alt="">
+        </div>
+        <!-- Afficher les fichiers Excel -->
+        <!-- <div class=" w-[100px] h-[100px]" *ngIf="file.base64Content.startsWith('data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')" [innerHTML]="getExcelContent(file)"></div> -->
+
+        <div class="flex justify-between bg-gray-100 float-start h-1/2 w-[100px]" >
+          <button class="w-7 h-7 bg-[#B41A2C]/15 rounded-full flex items-center justify-center">
+            <i class="fas fa-trash cursor-pointer text-[#B41A2C] " (click)="deleteFile(file)"></i>
+          </button>
+          <a [href]="file.safeUrl" download="{{ file.name }}" class="w-7 h-7 bg-[#1C3879]/15 rounded-full flex items-center justify-center"><i class="fas fa-download cursor-pointer text-[#1C3879]"></i></a>
+        </div>
+        <div class="w-[100px] text-black font-dmsans text-sm text-wrap overflow-clip">
+          {{file.name + '(' + file.fileSize/1000 + 'ko)'}}
+        </div>
+      </div>
+      <div class=" w-[100px] min-h-[100px] mr-5">
+        <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="" (click)="uploadFile()">
+        <p class="font-dmsans text-sm text-black">Uploader des fichiers plans</p>
       </div>
     </div>
   </div>

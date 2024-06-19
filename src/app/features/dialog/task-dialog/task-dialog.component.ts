@@ -10,6 +10,7 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
 import { UserService } from '../../services/user/user.service';
+import { Project } from '../../interfaces/project.model';
 
 @Component({
   selector: 'app-init-phase',
@@ -21,6 +22,7 @@ export class TaskDialogComponent {
   task!: TaskDTO;
   taskForm!: FormGroup;
   phase!: PhaseDTO;
+  project!: Project;
   currentConnectedUser?: any;
   teamMembers: Array<PartnerDTO> = [];
 
@@ -42,6 +44,7 @@ export class TaskDialogComponent {
     console.log(this.dialogData.phase);
     this.phase = this.dialogData.phase;
     this.task = this.dialogData.task;
+    this.project = this.dialogData.project;
     this.task.phase = {id: this.phase.id};
     this.teamMembers = this.dialogData.teamMembers;
 
@@ -84,7 +87,8 @@ export class TaskDialogComponent {
   }
 
   refreshPage() {
-    this.router.navigate(['/project-options'], { queryParams: { param1: '2' } });
+    window.location.reload();
+    // this.router.navigate(['/project-options'], { queryParams: { id: this.project.id  } });
   }
 
   handleChange(fieldName: string) {
@@ -116,7 +120,7 @@ export class TaskDialogComponent {
       next: (data) => {
         console.log(data);
         this.task = data;
-
+        this.closeDialog();
         // this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
 
         // this.projectService.updatePhase(this.token, this.phase).subscribe({

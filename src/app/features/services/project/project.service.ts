@@ -218,7 +218,7 @@ export class ProjectService {
     return this.http.put<any>(url, task, {headers, responseType: 'json'});
   }
 
-  stopProject(token: string, projectId: number, reasons: string): Observable<any> {
+  stopProject(token: string, projectId: number, reasons: any): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + `projects/${projectId}/stop`;
 
@@ -230,5 +230,12 @@ export class ProjectService {
     const url = this.apiBaseUrl + `attachments/project/${projectId}`;
 
     return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  deleteAttachment(token: string, attachmentId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `attachments/${attachmentId}`;
+
+    return this.http.delete<void>(url, {headers, responseType: 'json'});
   }
 }

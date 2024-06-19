@@ -63,11 +63,11 @@ export class ProjectDocumentsDialogComponent {
   }
 
   getAllNormalDoc() {
-    return this.allDocuments.filter(doc => doc.type === AttachmentType.NORMAL);
+    return this.allDocuments.filter(doc => doc.type.toString() === "NORMAL");
   }
 
   getAllPlanDoc() {
-    return this.allDocuments.filter(doc => doc.type === AttachmentType.PLAN);
+    return this.allDocuments.filter(doc => doc.type.toString() === "PLAN");
   }
 
   getGoogleDocsViewerUrl(file: AttachmentDto): SafeResourceUrl {
@@ -83,6 +83,29 @@ export class ProjectDocumentsDialogComponent {
   }
 
   deleteFile(file: any) {
+    console.log(file);
+    this.projectService.deleteAttachment(this.token, file.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.loadProjectDocuments();
+        this.toastr.success("Ce Document a été supprimé avec succès", "Succès", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error("Erreur lors de la suppression du document", "Erreur", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+       });
+
+      }
+    })
+  }
+
+  uploadFile() {
 
   }
 
