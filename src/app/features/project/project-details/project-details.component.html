@@ -94,15 +94,32 @@
                     </div>
                 </div>
 
-                <div *ngIf="project?.applicant?.id === currentConnectedUser?.id" class="flex items-start justify-end mt-10 w-full">
-                    <div class="flex flex-col flex-1">
-                        <button (click)="modifyProject(project)" class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5 mr-10">{{'MODIFY_PROJECT' | translate}}</button>
-                    </div>
-
-                    <div class="flex flex-col flex-1">
-                        <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">{{'DELETE_PROJECT' | translate}}</button>
-                    </div>
+              <div class="flex flex-wrap items-start justify-end mt-10 w-full">
+                <div *ngIf="project?.applicant?.id === currentConnectedUser?.id; else singleButton" class="flex flex-wrap items-start justify-end w-full">
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1 sm:mr-2 mb-2 sm:mb-0">
+                    <button (click)="modifyProject(project)" class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'MODIFY_PROJECT' | translate}}
+                    </button>
+                  </div>
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1 sm:mr-2 mb-2 sm:mb-0">
+                    <button (click)="openFeedbackModal()" class="bg-[#FFA500] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'ADD_FEEDBACK' | translate}}
+                    </button>
+                  </div>
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1">
+                    <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'DELETE_PROJECT' | translate}}
+                    </button>
+                  </div>
                 </div>
+                <ng-template #singleButton>
+                  <div class="flex flex-col w-full">
+                    <button (click)="openFeedbackModal()" class="bg-[#FFA500] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'ADD_FEEDBACK' | translate}}
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
             </div>
         </div>
         <div class="upper-home-right w-[30%] mr-2">

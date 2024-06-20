@@ -1,0 +1,36 @@
+<div class="div-center w-full h-full px-4 pb-7 pt-1 flex flex-col bg-white max-w-4xl">
+  <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
+    <h4 class="text-[#408A7E] text-xl font-semibold">{{'SUBMIT_FEEDBACK' | translate}}</h4>
+  </div>
+
+  <form [formGroup]="feedbackForm" class="w-full">
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+        <label class="font-dmsans text-base text-[#333]">{{'PROJECT_EXPERIENCE' | translate}}</label>
+        <div class="w-full">
+          <select class="input text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="projectExperience">
+            <option [value]="'EXCELLENT'">{{'EXPERIENCE_EXCELLENT' | translate}}</option>
+            <option [value]="'GOOD'">{{'EXPERIENCE_GOOD' | translate}}</option>
+            <option [value]="'AVERAGE'">{{'EXPERIENCE_AVERAGE' | translate}}</option>
+            <option [value]="'POOR'">{{'EXPERIENCE_POOR' | translate}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
+        <label class="font-dmsans text-base text-[#333]">{{'FINANCIAL_FEEDBACK' | translate}}</label>
+        <input type="number" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="financialFeedback">
+
+      </div>
+      <div class="w-full mb-4 md:mb-4 px-5">
+        <label class="font-dmsans text-base text-[#333]">{{'PROJECT_FEEDBACK' | translate}}</label>
+        <textarea class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-30 rounded-lg p-3 mt-1 w-full" formControlName="projectFeedback"></textarea>
+      </div>
+    </div>
+
+    <div class="w-full flex justify-center mt-8">
+      <button (click)="submitFeedback()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+        {{'SAVE' | translate}}
+      </button>
+    </div>
+  </form>
+</div>

@@ -287,5 +287,14 @@
   "ASSIGN_TASK_RESPONSABILITY": "Assign the responsibility of this task to",
   "COMPLETED_TASK": "Have you completed this task?",
   "STATUS_REQUIRED": "Status is required.",
-  "STOP": "Arrêter"
+  "STOP": "Arrêter",
+  "SUBMIT_FEEDBACK": "Submit Feedback",
+  "PROJECT_EXPERIENCE": "Project Experience",
+  "FINANCIAL_FEEDBACK": "Financial Feedback",
+  "PROJECT_FEEDBACK": "Project Feedback",
+  "EXPERIENCE_EXCELLENT": "Excellent",
+  "EXPERIENCE_GOOD": "Good",
+  "EXPERIENCE_AVERAGE": "Average",
+  "EXPERIENCE_POOR": "Poor",
+  "ADD_FEEDBACK": "Add Feedback"
 }

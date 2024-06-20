@@ -31,13 +31,13 @@
                 <select class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="market">
                     <option *ngFor="let market of markets" [value]="market.name">{{market?.name}}</option>
                 </select>
-            </div>                
+            </div>
             <div *ngIf="dialogData.project.duration" class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'CONTRACT_DURACTION' | translate}}</label>
                 <input type="number" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="contractDuration">
             </div>
             <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
-                <label for="" class="font-dmsans text-base text-[#333]">{{'EARLEAST_DEADLINE' | translate}}</label>
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EARLIEST_DEADLINE' | translate}}</label>
                 <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="earliestDeadline">
             </div>
             <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">

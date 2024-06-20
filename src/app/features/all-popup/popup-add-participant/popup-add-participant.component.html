@@ -1,26 +1,30 @@
 <div class="div-center w-full h-full px-10 pb-7 py-2 flex flex-col bg-white max-w-4xl min-w-2xl rounded-2xl">
-    <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
-		<h4 class="text-[#408A7E] text-xl font-semibold">{{'ADD_MEMBER' | translate}} </h4>
-	</div>
+  <div class="w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
+    <h4 class="text-[#408A7E] text-xl font-semibold">{{'ADD_MEMBER' | translate}} </h4>
+  </div>
+  <form [formGroup]="addParticipantForm" class="w-full">
+    <div class="w-full p-1 pt-1 pb-2">
+      <p class="text-gray-700 mb-6 mt-5 text-center text-lg">{{ 'ADD_USER_DESCRIPTION' | translate }}</p>
+    </div>
+    <div class="flex flex-wrap -mx-2">
+      <div class="w-full mb-4 md:mb-4 px-5">
+        <label for="email" class="font-dmsans text-base text-[#333]">Email</label>
+        <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="email" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectUser($event.option.value)">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.email">
+            {{ option.email }}
+          </mat-option>
+        </mat-autocomplete>
+        <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
+          {{ 'EMAIL_REQUIRED' | translate }}.
+        </div>
+      </div>
+    </div>
 
-    <form [formGroup]="addParticipantForm" class="w-full">
-        <div class="w-full p-1 pt-1 pb-2">
-            <p class="text-gray-700 mb-6 mt-5 text-center text-lg">{{'ADD_USER_DESCRIPTION' | translate}}</p>
-        </div>
-        <div class="flex flex-wrap -mx-2">
-            <div class="w-full mb-4 md:mb-4 px-5">
-                <label for="" class="font-dmsans text-base text-[#333]">Email</label>
-                <input type="email" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="email">
-                <div *ngIf="getControl('intitule')?.invalid && (getControl('intitule')?.dirty || getControl('intitule')?.touched)" class="text-red-600 text-xs">
-                    {{'EMAIL_REQUIRED' | translate}}.
-                </div>
-            </div>
-        </div>
-
-        <div class="w-full flex justify-center mt-8">
-            <button type="submit" (click)="submit()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
-                {{'SAVE' | translate}}
-            </button>
-        </div>
-    </form>
+    <div class="w-full flex justify-center mt-8">
+      <button type="submit" (click)="submit()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+        {{ 'SAVE' | translate }}
+      </button>
+    </div>
+  </form>
 </div>

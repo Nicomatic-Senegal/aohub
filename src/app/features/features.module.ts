@@ -57,6 +57,12 @@ import { StopProjectDialogComponent } from './dialog/stop-project-dialog/stop-pr
 import {NgxImageCompressService} from "ngx-image-compress";
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ProjectDocumentsDialogComponent } from './dialog/project-documents-dialog/project-documents-dialog.component';
+import {AutocompleteLibModule} from "angular-ng-autocomplete";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatInputModule} from "@angular/material/input";
+import {ReactiveFormsModule} from "@angular/forms";
+import { PopupFeedbackComponent } from './all-popup/popup-feedback/popup-feedback.component';
+import {MatSelectModule} from "@angular/material/select";
 
 registerSwiperElements();
 
@@ -98,7 +104,8 @@ registerSwiperElements();
     PhaseDialogComponent,
     StopProjectDialogComponent,
     NotificationsComponent,
-    ProjectDocumentsDialogComponent
+    ProjectDocumentsDialogComponent,
+    PopupFeedbackComponent
   ],
   imports: [
     NgApexchartsModule,
@@ -124,6 +131,11 @@ registerSwiperElements();
         deps: [HttpClient]
       }
     }),
+    AutocompleteLibModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSelectModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' }, // Utilisez la langue de votre choix, par exemple 'fr-FR' pour le français

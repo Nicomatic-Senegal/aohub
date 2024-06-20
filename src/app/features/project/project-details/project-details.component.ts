@@ -12,6 +12,7 @@ import { PopupAddEventComponent } from '../../all-popup/popup-add-event/popup-ad
 import { EventService } from '../../services/event/event.service';
 import { PopupComponent } from '../../all-popup/popup/popup.component';
 import { PopupAddParticipantComponent } from '../../all-popup/popup-add-participant/popup-add-participant.component';
+import {PopupFeedbackComponent} from "../../all-popup/popup-feedback/popup-feedback.component";
 
 @Component({
   selector: 'app-project-details',
@@ -91,6 +92,17 @@ export class ProjectDetailsComponent implements OnChanges {
       hasBackdrop: true,
       data: {
         title, description, token, project
+      },
+      panelClass: 'custom-dialog-container'
+    });
+  }
+
+  openFeedbackModal(): void {
+    const token = this.token;
+    this.dialog.open(PopupFeedbackComponent, {
+      hasBackdrop: true,
+      data: {
+        token
       },
       panelClass: 'custom-dialog-container'
     });

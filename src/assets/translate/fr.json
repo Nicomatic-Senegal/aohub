@@ -287,5 +287,14 @@
   "ASSIGN_TASK_RESPONSABILITY": "Affecter la responsabilité de cette tâche  à",
   "COMPLETED_TASK": "Avez-vous terminé cette tâche ?",
   "STATUS_REQUIRED": "L'etat est requis.",
-  "STOP": "Stop"
+  "STOP": "Stop",
+  "SUBMIT_FEEDBACK": "Soumettre un feedback",
+  "PROJECT_EXPERIENCE": "Expérience du projet",
+  "FINANCIAL_FEEDBACK": "Retour financier",
+  "PROJECT_FEEDBACK": "Retour sur le projet",
+  "EXPERIENCE_EXCELLENT": "Excellent",
+  "EXPERIENCE_GOOD": "Bon",
+  "EXPERIENCE_AVERAGE": "Moyen",
+  "EXPERIENCE_POOR": "Médiocre",
+  "ADD_FEEDBACK": "Ajouter un feedback"
 }
