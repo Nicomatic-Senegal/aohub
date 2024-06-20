@@ -31,31 +31,26 @@ export class PopupFeedbackComponent {
 
   submitFeedback(): void {
     const feedback = {
-      projectFeedback: this.feedbackForm.get("projectFeedback")?.value,
-      financialFeedback: this.feedbackForm.get("financialFeedback")?.value,
-      projectExperience: this.feedbackForm.get("projectExperience")?.value
+      generalAppreciation: this.feedbackForm.get("projectFeedback")?.value,
+      finances: this.feedbackForm.get("financialFeedback")?.value,
+      comment: this.feedbackForm.get("projectExperience")?.value
     }
-    // this.feedbackService.addFeedback(this.data.token, feedback).subscribe({
-    //   next: (data) => {
-    //     this.close();
-    //     this.toastr.success("Feedback ajouté avec succès", "Succès", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-right',
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.toastr.error(err.error.detail, "\"Une erreur s'est produite lors de l'ajout du feedback", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-right-right',
-    //     });
-    //   }
-    // })
-    this.close();
-    this.toastr.success("Feedback ajouté avec succès", "Succès", {
-      timeOut: 3000,
-      positionClass: 'toast-top-right',
-    });
+    this.feedbackService.addFeedback(this.data.token, feedback).subscribe({
+      next: (data) => {
+        this.close();
+        this.toastr.success("Feedback ajouté avec succès", "Succès", {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.toastr.error(err.error.detail, "\"Une erreur s'est produite lors de l'ajout du feedback", {
+          timeOut: 3000,
+          positionClass: 'toast-right-right',
+        });
+      }
+    })
   }
 
   close(): void {

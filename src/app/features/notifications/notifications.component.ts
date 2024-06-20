@@ -48,8 +48,6 @@ export class NotificationsComponent implements OnInit {
         this.notifications = data.notifications;
         this.totalItems = data.totalCount;
         this.groupNotificationsByDate();
-        console.log(this.notifications)
-        console.log(this.totalItems)
       },
       error: (err) => {
         console.log(err);
