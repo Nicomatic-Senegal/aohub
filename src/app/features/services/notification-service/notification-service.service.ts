@@ -45,13 +45,15 @@ export class NotificationService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'notifications/mark-all-as-read';
 
-    return this.http.put<any>(url, { headers, responseType: 'json' })
+    return this.http.put<any>(url, {}, { headers, responseType: 'json' })
   }
 
-  markNotificaitonAsRead(token: string, notificationId: number): Observable<any> {
+  markNotificationAsRead(token: string, notificationId: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'notification-settings/' + notificationId;
+    console.log(token);
 
-    return this.http.put<any>(url, { headers, responseType: 'json' })
+    const url = this.apiBaseUrl + 'notifications/mark-as-read/' + notificationId;
+
+    return this.http.put<any>(url, {}, { headers, responseType: 'json' })
   }
 }

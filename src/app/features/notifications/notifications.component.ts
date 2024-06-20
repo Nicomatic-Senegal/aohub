@@ -1,4 +1,10 @@
 import {Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/core/services/auth/auth.service';
+import { ProjectService } from '../services/project/project.service';
+import { NotificationService } from '../services/notification-service/notification-service.service';
+import { Notification } from '../interfaces/notification-dto.model';
 
 @Component({
   selector: 'app-notifications',
@@ -6,69 +12,42 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
-  groupedNotifications: { [key: string]: any[] } = {};
-  ngOnInit() {
-    this.groupNotificationsByDate();
+
+  groupedNotifications: { [key: string]: Array<Notification> } = {};
+  notifications: Array<Notification> = [];
+  token: string;
+  unreadNotif: number = 0;
+
+  constructor(
+    private projectService: ProjectService,
+    private toastr: ToastrService,
+    private router: Router,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService
+    ) {
+      authService.loggedOut();
+      this.token = authService.isLogged()!;
   }
 
-  notifications = [
-    {
-      title: 'Notification de Nouvelle Soumission',
-      message: 'Notification pour informer les utilisateurs concernés de la soumission d\'un nouveau projet avec un résumé des détails clés...',
-      time: 'Il y a 4h',
-      date: new Date(),
-      isRead: false
-    },
-    {
-      title: 'Notification de Clôture des Soumissions',
-      message: 'Alertes pour indiquer la fin de la période de soumission et le début du processus de filtrage',
-      time: 'Il y a 2h',
-      date: new Date(),
-      isRead: false
-    },
-    {
-      title: 'Notification de Réunion Planifiée',
-      message: 'Confirmation de la planification d\'une réunion avec les détails du projet',
-      time: 'Il y a 2h',
-      date: new Date(),
-      isRead: false
-    },
-    {
-      title: 'Notification de Nouvelle Soumission',
-      message: 'Notification pour informer les utilisateurs concernés de la soumission d\'un nouveau projet avec un résumé des détails clés...',
-      time: 'Il y a 4h',
-      date: new Date('2024-02-03'),
-      isRead: false
-    },
-    {
-      title: 'Notification de Sélection d\'Équipe Projet',
-      message: 'Avis aux membres de l\'équipe projet sélectionnée sur les prochaines étapes et les tâches à accomplir.',
-      time: '',
-      date: new Date('2024-02-03'),
-      isRead: false
-    },
-    {
-      title: 'Notification de Sélection d\'Équipe Projet',
-      message: 'Avis aux membres de l\'équipe projet sélectionnée sur les prochaines étapes et les tâches à accomplir.',
-      time: '',
-      date: new Date('2024-02-03'),
-      isRead: false
-    },
-    {
-      title: 'Notification de Sélection d\'Équipe Projet',
-      message: 'Avis aux membres de l\'équipe projet sélectionnée sur les prochaines étapes et les tâches à accomplir.',
-      time: '',
-      date: new Date('2024-02-01'),
-      isRead: false
-    },
-    {
-      title: 'Notification de Sélection d\'Équipe Projet',
-      message: 'Avis aux membres de l\'équipe projet sélectionnée sur les prochaines étapes et les tâches à accomplir.',
-      time: '',
-      date: new Date('2024-01-09'),
-      isRead: false
-    }
-  ];
+  ngOnInit() {
+    this.loadAllNotifications();
+    this.nbNotifNotRead();
+  }
+
+  loadAllNotifications() {
+    this.notificationService.allNotifications(this.token).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.notifications = data;
+        this.groupNotificationsByDate();
+      },
+      error: (err) => {
+        console.log(err);
+
+      }
+    })
+  }
 
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -84,7 +63,7 @@ export class NotificationsComponent implements OnInit {
 
   groupNotificationsByDate() {
     this.notifications.forEach(notification => {
-      const dateKey = this.isToday(notification.date) ? 'Aujourd\'hui' : this.formatDate(notification.date);
+      const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'Aujourd\'hui' : this.formatDate(new Date(notification.createdDate || ""));
       if (!this.groupedNotifications[dateKey]) {
         this.groupedNotifications[dateKey] = [];
       }
@@ -98,13 +77,35 @@ export class NotificationsComponent implements OnInit {
 
   markAllAsRead() {
     this.notifications.forEach(notification => {
-      notification.isRead = true;
+      notification.read = true;
     });
-    this.groupNotificationsByDate();
+    this.notificationService.markAllNotificationsAsRead(this.token).subscribe({
+      next: (data) => {
+        this.notifications = data;
+        this.nbNotifNotRead();
+        this.groupNotificationsByDate();
+      }
+    });
   }
 
-  markAsRead(notification: any) {
-    notification.isRead = true;
+  markAsRead(notification: Notification) {
+
+    notification.read = true;
+    this.notificationService.markNotificationAsRead(this.token, notification.id!).subscribe({
+      next: (data) => {
+        notification = data;
+        this.nbNotifNotRead();
+      }
+    });
+  }
+
+  nbNotifNotRead() {
+    this.notificationService.allUnreadNotifications(this.token).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.unreadNotif = data;
+      }
+    })
   }
 
 }

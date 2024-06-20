@@ -16,7 +16,7 @@
 
       <div class="rounded-xl w-full bg-white px-5 py-5 my-3">
         <div class="header flex items-center justify-between">
-          <p class="font-bold font-dmsans text-lg">Notifications (3 non lues)</p>
+          <p class="font-bold font-dmsans text-lg">Notifications ({{unreadNotif}} non lues)</p>
           <button (click)="markAllAsRead()" class="bg-[#A4C7FF] rounded-lg px-5 py-2 shadow-md font-dmsans text-base">Marquer tous comme lu</button>
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="rounded-xl w-full bg-white pl-5 pr-8 py-6 overflow-auto">
         <div *ngFor="let dateKey of getObjectKeys(groupedNotifications)">
           <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>
-          <div *ngFor="let notification of groupedNotifications[dateKey]" (click)="markAsRead(notification)" [ngClass]="{'bg-[#FAFAFA]': notification.isRead, 'bg-[#F2F7FF]': !notification.isRead}" class="rounded-xl w-full px-5 py-2 mt-4 mb-6 cursor-pointer">
+          <div *ngFor="let notification of groupedNotifications[dateKey]" (click)="markAsRead(notification)" [ngClass]="{'bg-[#FAFAFA]': notification.read, 'bg-[#F2F7FF]': !notification.read}" class="rounded-xl w-full px-5 py-2 mt-4 mb-6 cursor-pointer">
             <div class="flex justify-between items-center">
               <p class="font-dmsans font-semibold text-md text-[#272525]">{{ notification.title }}</p>
               <button id="dropdownMenuIconButton2" data-dropdown-toggle="dropdownDots" data-dropdown-placement="bottom-start" class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-transparent rounded-lg" type="button">
@@ -33,8 +33,8 @@
                 </svg>
               </button>
             </div>
-            <p class="font-dmsans text-sm text-[#272525]">{{ notification.message }}</p>
-            <p *ngIf="dateKey === 'Aujourd\'hui'" class="font-dmsans text-xs text-[#272525]">{{ notification.time }}</p>
+            <p class="font-dmsans text-sm text-[#272525]">{{ notification.content }}</p>
+            <p *ngIf="dateKey === 'Aujourd\'hui'" class="font-dmsans text-xs text-[#272525]">{{ notification.createdBy }}</p>
           </div>
         </div>
       </div>
