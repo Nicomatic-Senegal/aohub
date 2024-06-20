@@ -23,7 +23,13 @@
 
       <div class="rounded-xl w-full bg-white pl-5 pr-8 py-6 overflow-auto">
         <div *ngFor="let dateKey of getObjectKeys(groupedNotifications)">
-          <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>
+<!--          <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>-->
+          <ng-container *ngIf="dateKey !== 'Aujourd\'hui'; else todayDate" class="font-dmsans text-lg font-semibold text-[#272525]">
+            <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey  | date: 'dd MMM yyyy' }}</p>
+          </ng-container>
+          <ng-template #todayDate class="font-dmsans text-lg font-semibold text-[#272525]">
+            <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>
+          </ng-template>
           <div *ngFor="let notification of groupedNotifications[dateKey]" (click)="markAsRead(notification)" [ngClass]="{'bg-[#FAFAFA]': notification.read, 'bg-[#F2F7FF]': !notification.read}" class="rounded-xl w-full px-5 py-2 mt-4 mb-6 cursor-pointer">
             <div class="flex justify-between items-center">
               <p class="font-dmsans font-semibold text-md text-[#272525]">{{ notification.title }}</p>
@@ -34,9 +40,17 @@
               </button>
             </div>
             <p class="font-dmsans text-sm text-[#272525]">{{ notification.content }}</p>
-            <p *ngIf="dateKey === 'Aujourd\'hui'" class="font-dmsans text-xs text-[#272525]">{{ notification.createdBy }}</p>
+            <p *ngIf="dateKey === 'Aujourd\'hui'" class="font-dmsans text-xs text-[#272525]">{{ notification.createdDate | date: 'dd MMM yyyy'  }}</p>
           </div>
         </div>
+
+<!--        <app-paginator-->
+<!--          *ngIf="notifications?.length !== 0"-->
+<!--          [totalItems]="totalItems"-->
+<!--          [itemPerPage]="itemPerPage"-->
+<!--          [currentPage]="currentPage"-->
+<!--          (onClick)="changePage($event)">-->
+<!--        </app-paginator>-->
       </div>
     </div>
   </div>

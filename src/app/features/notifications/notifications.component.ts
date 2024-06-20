@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../services/project/project.service';
 import { NotificationService } from '../services/notification-service/notification-service.service';
 import { Notification } from '../interfaces/notification-dto.model';
+import {debounceTime, distinctUntilChanged, filter, fromEvent, tap} from "rxjs";
 
 @Component({
   selector: 'app-notifications',
@@ -17,6 +18,11 @@ export class NotificationsComponent implements OnInit {
   notifications: Array<Notification> = [];
   token: string;
   unreadNotif: number = 0;
+  searchData: Notification[] = [];
+  totalItems = 0;
+  itemPerPage = 40;
+  currentPage = 1;
+  @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
   constructor(
     private projectService: ProjectService,
@@ -31,27 +37,24 @@ export class NotificationsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadAllNotifications();
+    this.loadAllNotifications(this.currentPage - 1, this.itemPerPage);
     this.nbNotifNotRead();
   }
 
-  loadAllNotifications() {
-    this.notificationService.allNotifications(this.token).subscribe({
+  loadAllNotifications(page: number, size: number) {
+    this.notifications = [];
+    this.notificationService.allNotifications(this.token, page, size).subscribe({
       next: (data) => {
-        console.log(data);
-        this.notifications = data;
+        this.notifications = data.notifications;
+        this.totalItems = data.totalCount;
         this.groupNotificationsByDate();
+        console.log(this.notifications)
+        console.log(this.totalItems)
       },
       error: (err) => {
         console.log(err);
-
       }
     })
-  }
-
-  formatDate(date: Date): string {
-    const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    return date.toLocaleDateString('fr-FR', options);
   }
 
   isToday(date: Date): boolean {
@@ -63,7 +66,7 @@ export class NotificationsComponent implements OnInit {
 
   groupNotificationsByDate() {
     this.notifications.forEach(notification => {
-      const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'Aujourd\'hui' : this.formatDate(new Date(notification.createdDate || ""));
+      const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'Aujourd\'hui' : notification.createdDate;
       if (!this.groupedNotifications[dateKey]) {
         this.groupedNotifications[dateKey] = [];
       }
@@ -89,7 +92,6 @@ export class NotificationsComponent implements OnInit {
   }
 
   markAsRead(notification: Notification) {
-
     notification.read = true;
     this.notificationService.markNotificationAsRead(this.token, notification.id!).subscribe({
       next: (data) => {
@@ -102,10 +104,48 @@ export class NotificationsComponent implements OnInit {
   nbNotifNotRead() {
     this.notificationService.allUnreadNotifications(this.token).subscribe({
       next: (data) => {
-        console.log(data);
         this.unreadNotif = data;
       }
     })
+  }
+
+  ngAfterViewInit() {
+    fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
+      .pipe(
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((event:KeyboardEvent) => {
+          this.performSearch(this.searchInput.nativeElement.value);
+        })
+      )
+      .subscribe();
+  }
+
+  performSearch(query: string) {
+    if (query) {
+      this.notificationService.searchNotifications(this.token, query, 0, 100).subscribe({
+        next: (data) => {
+          this.notifications = [];
+          this.notifications.push(data.notifications);
+          this.notifications = this.notifications.flatMap(data => data);
+          this.totalItems = data.totalCount;
+          this.groupNotificationsByDate();
+          console.log(data);
+          console.log(this.totalItems);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    } else {
+      this.loadAllNotifications(0, 4);
+    }
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.loadAllNotifications(this.currentPage - 1, this.itemPerPage);
   }
 
 }
