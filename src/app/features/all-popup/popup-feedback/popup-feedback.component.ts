@@ -1,6 +1,8 @@
 import {Component, Inject} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {FeedbackService} from "../../services/feedback/feedback.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-popup-feedback',
@@ -13,23 +15,47 @@ export class PopupFeedbackComponent {
 
   constructor(
     public dialogRef: MatDialogRef<PopupFeedbackComponent>,
+    private feedbackService: FeedbackService,
+    private toastr: ToastrService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.feedbackForm = this.fb.group({
-      author: ['', Validators.required],
-      projectFeedback: [''],
-      projectExperience: ['', Validators.required],
-      financialFeedback: ['', [Validators.required, Validators.min(0)]]
+      projectFeedback: ['', Validators.required],
+      projectExperience: [''],
+      financialFeedback: ['']
     });
   }
 
   ngOnInit(): void {}
 
   submitFeedback(): void {
-    if (this.feedbackForm.valid) {
-      this.dialogRef.close(this.feedbackForm.value);
+    const feedback = {
+      projectFeedback: this.feedbackForm.get("projectFeedback")?.value,
+      financialFeedback: this.feedbackForm.get("financialFeedback")?.value,
+      projectExperience: this.feedbackForm.get("projectExperience")?.value
     }
+    // this.feedbackService.addFeedback(this.data.token, feedback).subscribe({
+    //   next: (data) => {
+    //     this.close();
+    //     this.toastr.success("Feedback ajouté avec succès", "Succès", {
+    //       timeOut: 3000,
+    //       positionClass: 'toast-top-right',
+    //     });
+    //   },
+    //   error: (err) => {
+    //     console.log(err);
+    //     this.toastr.error(err.error.detail, "\"Une erreur s'est produite lors de l'ajout du feedback", {
+    //       timeOut: 3000,
+    //       positionClass: 'toast-right-right',
+    //     });
+    //   }
+    // })
+    this.close();
+    this.toastr.success("Feedback ajouté avec succès", "Succès", {
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+    });
   }
 
   close(): void {

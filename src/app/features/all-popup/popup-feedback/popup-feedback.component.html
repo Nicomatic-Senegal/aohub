@@ -14,6 +14,9 @@
             <option [value]="'AVERAGE'">{{'EXPERIENCE_AVERAGE' | translate}}</option>
             <option [value]="'POOR'">{{'EXPERIENCE_POOR' | translate}}</option>
           </select>
+          <div *ngIf="feedbackForm.get('projectExperience')?.invalid && feedbackForm.get('projectExperience')?.touched" class="text-red-600 text-xs mt-1">
+            {{'PROJECT_EXPERIENCE_REQUIRED' | translate}}
+          </div>
         </div>
       </div>
       <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
@@ -28,7 +31,10 @@
     </div>
 
     <div class="w-full flex justify-center mt-8">
-      <button (click)="submitFeedback()" class="bg-[#408A7E] px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base">
+      <button (click)="submitFeedback()"
+        class="px-8 text-white rounded-lg py-2 shadow-md font-dmsans text-base"
+        [disabled]="!feedbackForm.get('projectExperience')?.value"
+        [ngClass]="{'bg-[#408A7E]': feedbackForm.get('projectExperience')?.value, 'bg-gray-400': !feedbackForm.get('projectExperience')?.value}">
         {{'SAVE' | translate}}
       </button>
     </div>

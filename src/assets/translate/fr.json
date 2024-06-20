@@ -296,5 +296,6 @@
   "EXPERIENCE_GOOD": "Bon",
   "EXPERIENCE_AVERAGE": "Moyen",
   "EXPERIENCE_POOR": "Médiocre",
-  "ADD_FEEDBACK": "Ajouter un feedback"
+  "ADD_FEEDBACK": "Ajouter un feedback",
+  "PROJECT_EXPERIENCE_REQUIRED": "L'expérience du projet est requise pour soumettre le feedback"
 }

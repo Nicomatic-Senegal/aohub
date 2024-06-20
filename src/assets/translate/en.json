@@ -296,5 +296,6 @@
   "EXPERIENCE_GOOD": "Good",
   "EXPERIENCE_AVERAGE": "Average",
   "EXPERIENCE_POOR": "Poor",
-  "ADD_FEEDBACK": "Add Feedback"
+  "ADD_FEEDBACK": "Add Feedback",
+  "PROJECT_EXPERIENCE_REQUIRED": "Project experience is required to submit feedback"
 }
