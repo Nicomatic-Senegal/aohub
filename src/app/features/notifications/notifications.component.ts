@@ -63,6 +63,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   groupNotificationsByDate() {
+    this.notifications.sort((a, b) => b.id! - a.id!);
     this.notifications.forEach(notification => {
       const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'Aujourd\'hui' : notification.createdDate;
       if (!this.groupedNotifications[dateKey]) {
