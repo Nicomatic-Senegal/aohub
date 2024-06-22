@@ -1,4 +1,4 @@
-<div class="div-center w-full h-full px-4 pb-7 pt-1 flex flex-col bg-white max-w-2xl min-w-lg">
+<div class="div-center w-full h-full px-4 pb-7 pt-1 flex flex-col bg-white min-w-lg">
     <div class="flex w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-7">
         <div class="flex items-center p-3">
             <img src="../../../assets/img/users.svg" alt="" class="mr-2">
@@ -8,7 +8,7 @@
             <img src="../../../assets/img/cancel.svg" alt="" class="">
         </div>
     </div>
-        
+
     <div class="flex justify-center items-center font-dmsans">
         <p class="text-center">Vos retours sont essentiels pour améliorer continuellement notre service et garantir une expérience utilisateur optimale</p>
     </div>
@@ -20,12 +20,12 @@
             <i class="fa fa-star cursor-pointer mr-5" [ngClass]="{'text-[#408A7E]': selectedStars >= 3, 'text-[#EEEEEE]': selectedStars < 3}" (click)="onRate(3)"></i>
             <i class="fa fa-star cursor-pointer mr-5" [ngClass]="{'text-[#408A7E]': selectedStars >= 4, 'text-[#EEEEEE]': selectedStars < 4}" (click)="onRate(4)"></i>
             <i class="fa fa-star cursor-pointer mr-5" [ngClass]="{'text-[#408A7E]': selectedStars >= 5, 'text-[#EEEEEE]': selectedStars < 5}" (click)="onRate(5)"></i>
-        </div>        
-    
+        </div>
+
         <div class="w-full mb-12">
             <textarea type="text" class="w-full h-[15vh] px-3 py-2 textarea bg-[#EBEBEB] border-2 border-[#B3B3B3] rounded-lg" placeholder="Ajouter un commentaire" [(ngModel)]="description"></textarea>
-        </div>        
-    
+        </div>
+
         <div class="w-full flex justify-center mb-5">
             <button type="submit" (click)="submit()" class="w-full bg-[#408A7E] text-white rounded-lg py-2 shadow-md font-dmsans text-base">
                 {{'SUBMIT' | translate}}
