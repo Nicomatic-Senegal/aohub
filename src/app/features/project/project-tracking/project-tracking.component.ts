@@ -103,6 +103,13 @@ export class ProjectTrackingComponent implements OnInit {
     return tasks.filter(task => task.done === true).length;
   }
 
+  areAllPhasesDone(): boolean {
+    if (!this.project || !this.project.phases) {
+      throw new Error('Project or phases are not defined');
+    }
+    return this.project.phases.every((phase: any) => this.nbTasksDone(phase.tasks) === phase.tasks.length);
+  }
+
   classToApply(tasks: TaskDTO[], j: number) {
     return j + 1 < this.nbTasksDone(tasks) ?
       'bg-[#00CE2D]' :

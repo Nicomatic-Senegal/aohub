@@ -37,6 +37,14 @@
     >
     </div>
     </div>
+    <div
+      *ngIf="project && project.phases && project.phases.length > 0"
+      class="transform translate-y-[-32%] border-t-[120px] border-t-transparent border-b-[120px] border-b-transparent border-l-[120px] border-l-[#F0F0F0]"
+      [ngClass]="{
+         'border-l-[#00CE2D]': areAllPhasesDone(),
+         'border-l-[#F0F0F0]': !areAllPhasesDone()
+       }">
+    </div>
   </div>
   <div class=" flex w-full mt-10">
     <ng-container *ngFor="let phase of project.phases; let i = index">
