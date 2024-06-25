@@ -164,6 +164,7 @@ export class ProjectDetailsComponent implements OnChanges {
         title, description, route, event, token
       }
     })
+
     dialogRef.componentInstance.eventRemoved.subscribe((eventId) => {
       this.events = this.events.filter((event: { id: any; }) => event.id !== eventId);
     });

@@ -10,6 +10,8 @@ import { EmployeePostDTO } from '../../interfaces/employee.model';
 import { PartnerProfileVM } from '../../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
 import {NgxImageCompressService} from "ngx-image-compress";
+import {PopupComponent} from "../../all-popup/popup/popup.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-parametre-profil',
@@ -74,7 +76,8 @@ export class ProfileComponent implements OnInit {
     private enterpriseService: EnterpriseService,
     private userService: UserService,
     private toastr: ToastrService,
-    private imgCompressService: NgxImageCompressService
+    private imgCompressService: NgxImageCompressService,
+    public dialog: MatDialog
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -182,36 +185,33 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeletePicture() {
-    this.userToUpdate.userLogin = this.user.user.login;
-    this.userToUpdate.userFirstName = this.user.user.firstName;
-    this.userToUpdate.userLastName = this.user.user.lastName;
-    this.userToUpdate.phoneNumber = this.user.phoneNumber;
-    this.userToUpdate.enterpriseName = this.user.enterprise.name;
-    this.userToUpdate.employeePostTitle = this.user.employeePost.title;
-    this.userToUpdate.interestTopicLabels = this.user.interestTopics;
-    this.userToUpdate.imageBase64Content = '';
-    this.updateUser(this.userToUpdate);
-    // let pic: PictureVm = {};
-    // pic.id = this.user.id;
-    // pic.imageBase64Content = '';
-    // this.userService.deletePicture(this.token, pic).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.user = data;
-    //     this.toastr.success("profil modifié avec succés.", "Succés", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-center',
-    //    });
-    //    window.location.reload();
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-center',
-    //    });
-    //   }
-    // });
+    let title = "Suppression";
+    let description = "Êtes-vous sûr de vouloir supprimer votre photo de profil ?";
+
+    title = localStorage.getItem('language') === 'en' ? 'Delete' : 'Suppression';
+    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete your profile picture ?' : 'Êtes-vous sûr de vouloir supprimer votre photo de profil ?';
+
+    let route = "deleteProfilePicture";
+
+    const dialogRef = this.dialog.open(PopupComponent, {
+      hasBackdrop: true,
+      data: {
+        title, description, route
+      },
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.componentInstance.profilePictureRemovedEvent.subscribe((status) => {
+      this.userToUpdate.userLogin = this.user.user.login;
+      this.userToUpdate.userFirstName = this.user.user.firstName;
+      this.userToUpdate.userLastName = this.user.user.lastName;
+      this.userToUpdate.phoneNumber = this.user.phoneNumber;
+      this.userToUpdate.enterpriseName = this.user.enterprise.name;
+      this.userToUpdate.employeePostTitle = this.user.employeePost.title;
+      this.userToUpdate.interestTopicLabels = this.user.interestTopics;
+      this.userToUpdate.imageBase64Content = '';
+      this.updateUser(this.userToUpdate);
+    });
   }
 
   updateUser(userToUpdate: any) {
