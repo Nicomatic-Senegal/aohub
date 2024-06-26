@@ -43,9 +43,19 @@ export class ProjectService {
       .pipe(
         map(response => {
           const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
+          const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
+          const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
+
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
+          const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
+          const totalOnHoldCount = totalOnHoldCountHeader ? parseInt(totalOnHoldCountHeader, 10) : 0;
+          const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
+
           const projects = response.body;
-          return { projects, totalCount };
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalOnHoldCount, totalArchivedCount };
         })
       );
   }
@@ -62,7 +72,7 @@ export class ProjectService {
           const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
           const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
           const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
-          const totalArchivedCountHeader = response.headers.get('X-Archived-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
 
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
           const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
@@ -122,7 +132,25 @@ export class ProjectService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise;
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
+          const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
+          const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
+
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
+          const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
+          const totalOnHoldCount = totalOnHoldCountHeader ? parseInt(totalOnHoldCountHeader, 10) : 0;
+          const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
+
+          const projects = response.body;
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalOnHoldCount, totalArchivedCount };
+        })
+      );
   }
 
   getPartnersInMyProjectsFiltred(token: string, idProject: number): Observable<any> {
@@ -237,5 +265,12 @@ export class ProjectService {
     const url = this.apiBaseUrl + `attachments/${attachmentId}`;
 
     return this.http.delete<void>(url, {headers, responseType: 'json'});
+  }
+
+  setProjectStatusToFinished(token: string, projectId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}/finish`;
+
+    return this.http.put<void>(url, {headers, responseType: 'json'});
   }
 }
