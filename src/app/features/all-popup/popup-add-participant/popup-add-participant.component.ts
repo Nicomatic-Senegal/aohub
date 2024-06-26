@@ -19,9 +19,10 @@ export class PopupAddParticipantComponent implements OnInit {
   project: Project;
   addParticipantForm: FormGroup;
   data: UserDTO[] = [];
-  options: UserDTO[] = [];
   myControl = new FormControl();
-  filteredOptions: Observable<UserDTO[]> = of();
+  email = new FormControl();
+  filteredOptions: Observable<String[]> = of();
+  allOptions: string[] = [];
 
   displayFn(user: UserDTO): string {
     return user && user.email ? user.email : '';
@@ -41,13 +42,23 @@ export class PopupAddParticipantComponent implements OnInit {
         email: ['', [Validators.email, Validators.required]]
       })
   }
+
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       debounceTime(300),
-      switchMap(value => this.userService.searchUsers(value, this.token)),
-      map(response => response)
+      switchMap(value => this.userService.searchUsers(value, this.token).pipe(
+        map(response => {
+          this.allOptions = response.map(user => user.email);
+          return this.filterOptions(value);
+        })
+      ))
     );
+  }
+
+  private filterOptions(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   selectUser(email: string): void {
