@@ -92,7 +92,7 @@
     <div class="flex justify-center mt-4 mb-4">
       <button
         (click)="submitTaskChange()"
-        [disabled]="(isTaskNotAssignedToUser() &&  isPhaseNotAssignedToUser()) || project.stopped"
+        [disabled]="(isTaskNotAssignedToUser() &&  isPhaseNotAssignedToUser()) || project.stopped || ['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)"
         type="submit"
         class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
         {{'VALID' | translate}}
