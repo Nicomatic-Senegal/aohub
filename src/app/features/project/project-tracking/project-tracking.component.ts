@@ -34,21 +34,6 @@ export class ProjectTrackingComponent implements OnInit {
     this.project.phases?.forEach(p => {
       p.tasks?.sort((a, b) => a.id! - b.id!);
     });
-
-    if (this.areAllPhasesDone()) {
-      this.setProjectStatusToFinished();
-    }
-  }
-
-  setProjectStatusToFinished() {
-    this.projectService.setProjectStatusToFinished(this.token, this.project?.id).subscribe({
-      next: (data) => {
-        console.log(data);
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDeleteProjectComponent } from '../../all-popup/popup-delete-project/popup-delete-project.component';
@@ -13,6 +13,7 @@ import { EventService } from '../../services/event/event.service';
 import { PopupComponent } from '../../all-popup/popup/popup.component';
 import { PopupAddParticipantComponent } from '../../all-popup/popup-add-participant/popup-add-participant.component';
 import {PopupFeedbackComponent} from "../../all-popup/popup-feedback/popup-feedback.component";
+import {ProjectService} from "../../services/project/project.service";
 
 @Component({
   selector: 'app-project-details',
@@ -30,16 +31,37 @@ export class ProjectDetailsComponent implements OnChanges {
     private authService: AuthService,
     private userService: UserService,
     private eventService: EventService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private projectService: ProjectService) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['project'] && !changes['project'].firstChange) {
-      console.log(this.project);
       this.getAllEvents();
+      if (this.areAllPhasesDone()) {
+        this.setProjectStatusToFinished();
+      }
     }
+  }
+
+  setProjectStatusToFinished() {
+    this.projectService.setProjectStatusToFinished(this.token, this.project?.id).subscribe({
+      next: (data) => {
+        this.project = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  areAllPhasesDone(): boolean {
+    if (!this.project || !this.project.phases) {
+      throw new Error('Project or phases are not defined');
+    }
+    return this.project.phases.every((phase: any) => phase.fullyValidated === true);
   }
 
   loadCurrentConnectedUser() {

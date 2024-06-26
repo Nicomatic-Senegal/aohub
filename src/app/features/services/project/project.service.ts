@@ -271,6 +271,6 @@ export class ProjectService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + `projects/${projectId}/finish`;
 
-    return this.http.put<void>(url, {headers, responseType: 'json'});
+    return this.http.put<void>(url, null, {headers, responseType: 'json'});
   }
 }
