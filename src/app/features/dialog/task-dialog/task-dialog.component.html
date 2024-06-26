@@ -91,7 +91,7 @@
 
     <div class="flex justify-center mt-4 mb-4">
       <button
-        (click)="submitAffectation()"
+        (click)="submitTaskChange()"
         [disabled]="(isTaskNotAssignedToUser() &&  isPhaseNotAssignedToUser()) || project.stopped"
         type="submit"
         class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
