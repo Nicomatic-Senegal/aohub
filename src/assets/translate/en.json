@@ -292,10 +292,10 @@
   "PROJECT_EXPERIENCE": "Project Experience",
   "FINANCIAL_FEEDBACK": "Financial Feedback",
   "PROJECT_FEEDBACK": "Project Feedback",
-  "EXPERIENCE_EXCELLENT": "Excellent",
-  "EXPERIENCE_GOOD": "Good",
-  "EXPERIENCE_AVERAGE": "Average",
-  "EXPERIENCE_POOR": "Poor",
+  "EXPERIENCE_EXCELLENT": "Very good experience, I recommend it",
+  "EXPERIENCE_GOOD": "Good experience, to do again",
+  "EXPERIENCE_AVERAGE": "It's over, without more",
+  "EXPERIENCE_POOR": "Bad experience: I won't do it again",
   "ADD_FEEDBACK": "Add Feedback",
   "PROJECT_EXPERIENCE_REQUIRED": "Project experience is required to submit feedback"
 }

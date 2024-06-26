@@ -292,10 +292,10 @@
   "PROJECT_EXPERIENCE": "Expérience du projet",
   "FINANCIAL_FEEDBACK": "Retour financier",
   "PROJECT_FEEDBACK": "Retour sur le projet",
-  "EXPERIENCE_EXCELLENT": "Excellent",
-  "EXPERIENCE_GOOD": "Bon",
-  "EXPERIENCE_AVERAGE": "Moyen",
-  "EXPERIENCE_POOR": "Médiocre",
+  "EXPERIENCE_EXCELLENT": "Très bonne expérience, je la recommande",
+  "EXPERIENCE_GOOD": "Bonnne expérience, à refaire",
+  "EXPERIENCE_AVERAGE": "C'est terminé, sans plus",
+  "EXPERIENCE_POOR": "Mauvaise expérience: je ne le ferai plus",
   "ADD_FEEDBACK": "Ajouter un feedback",
   "PROJECT_EXPERIENCE_REQUIRED": "L'expérience du projet est requise pour soumettre le feedback"
 }
