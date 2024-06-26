@@ -143,7 +143,6 @@ export class ProjectDetailsComponent implements OnChanges {
     })
     dialogRef.componentInstance.eventAdded.subscribe((newEventData) => {
       this.events = [...this.events, newEventData];
-
     });
 
   }

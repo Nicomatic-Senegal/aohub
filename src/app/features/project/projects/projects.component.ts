@@ -110,6 +110,7 @@ export class ProjectsComponent implements OnInit {
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
+        console.log(this.listProject)
 
         this.totalItems = data.totalCount;
         this.nbProjectsInProgres = data.totalInProgressCount;
