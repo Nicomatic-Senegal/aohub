@@ -11,7 +11,7 @@ import { Project } from '../../interfaces/project.model';
   styleUrls: ['./project-options.component.scss']
 })
 export class ProjectOptionsComponent implements OnInit {
-  screen: number = 2;
+  screen: number = 1;
   token: string;
   project!: Project;
 
@@ -24,7 +24,6 @@ export class ProjectOptionsComponent implements OnInit {
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
-
   }
 
   ngOnInit() {
@@ -38,7 +37,6 @@ export class ProjectOptionsComponent implements OnInit {
     this.projectService.getProjectById(token, projectId).subscribe({
       next: (data) => {
         this.project = data;
-
       },
       error: (err) => {
         console.log(err);

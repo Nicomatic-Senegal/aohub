@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,7 @@ export class TaskDialogComponent {
   project!: Project;
   currentConnectedUser?: any;
   teamMembers: Array<PartnerDTO> = [];
+  @Output() projectModified = new EventEmitter<any>();
 
   constructor(
     private router: Router,
@@ -106,7 +107,7 @@ export class TaskDialogComponent {
     this.dialogRef.close();
   }
 
-  submitAffectation() {
+  submitTaskChange() {
     const formValue = this.taskForm.value;
     this.task.startDate = formValue.startDate;
     this.task.endDate = formValue.endDate;
@@ -121,23 +122,26 @@ export class TaskDialogComponent {
         console.log(data);
         this.task = data;
         this.closeDialog();
-        // this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
+        this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
+        if (this.phase.progression === this.phase.tasks?.length)
+          this.phase.fullyValidated = true;
 
-        // this.projectService.updatePhase(this.token, this.phase).subscribe({
-        //   next: (data) => {
-        //     console.log("-------------------------------");
-
-        //     console.log(this.phase);
-
-        //   }
-        // });
+        this.projectService.updatePhase(this.token, this.phase).subscribe({
+          next: (data) => {
+            console.log("-------------------------------");
+            this.phase = data;
+            console.log(this.phase);
+          }
+        });
 
         this.toastr.success("La tache a bien été mise à jour", "Succés Update", {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
 
-       this.refreshPage();
+       this.projectModified.emit();
+       this.dialogRef.close();
+       //this.refreshPage();
       },
       error: (err) => {
         console.log(err);

@@ -42,34 +42,52 @@ export class ProjectTrackingComponent implements OnInit {
       this.project.phases?.forEach(p => {
         p.tasks?.sort((a, b) => a.id! - b.id!);
       });
-      console.log(this.project);
     }
   }
 
-  openPhaseDialog(phase: PhaseDTO) {
+  openPhaseDialog(phase: PhaseDTO, phaseIndex: number) {
     const teamMembers = this.project.teamMembers;
     const project = this.project;
 
-    this.dialog.open(PhaseDialogComponent, {
+    const dialogRef = this.dialog.open(PhaseDialogComponent, {
       hasBackdrop: true,
       data: {
         phase, teamMembers, project
       },
       panelClass: 'custom-dialog-container'
-    })
+    });
+    dialogRef.componentInstance.projectModified.subscribe((data) => {
+      if (data)
+        this.project.phases![phaseIndex] = data;
+    });
   }
 
-  openTaskDialog(task: TaskDTO, phase: PhaseDTO) {
+  openTaskDialog(task: TaskDTO, phase: PhaseDTO, phaseIndex: number, taskIndex: number) {
     const teamMembers = this.project.teamMembers;
     const project = this.project;
     phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
-    this.dialog.open(TaskDialogComponent, {
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
       hasBackdrop: true,
       data: {
         task, teamMembers, phase, project
       },
       panelClass: 'custom-dialog-container'
-    })
+    });
+    dialogRef.componentInstance.projectModified.subscribe((data) => {
+      if (data)
+        this.project.phases![phaseIndex].tasks![taskIndex] = data;
+    });
+  }
+
+  openDocumentDialog() {
+    const project = this.project;
+
+    this.dialog.open(ProjectDocumentsDialogComponent, {
+      hasBackdrop: true,
+      data: { project
+      },
+      panelClass: 'custom-dialog-container'
+    });
   }
 
   isExpired(dateString: Date, taskStatus: boolean)  {
@@ -120,16 +138,5 @@ export class ProjectTrackingComponent implements OnInit {
           'bg-[#00CE2D]'
         )
       )
-  }
-
-  openDocumentDialog() {
-    const project = this.project;
-
-    this.dialog.open(ProjectDocumentsDialogComponent, {
-      hasBackdrop: true,
-      data: { project
-      },
-      panelClass: 'custom-dialog-container'
-    });
   }
 }

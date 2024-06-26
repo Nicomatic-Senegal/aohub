@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,7 @@ export class PhaseDialogComponent {
   teamMembers: Array<PartnerDTO> = [];
   project!: Project;
   currentConnectedUser?: any;
+  @Output() projectModified = new EventEmitter<any>();
 
   constructor(
     private router: Router,
@@ -109,8 +110,9 @@ export class PhaseDialogComponent {
               positionClass: 'toast-top-right',
             });
 
+            this.projectModified.emit(this.phase);
             this.closeDialog();
-            this.refreshPage();
+            //this.refreshPage();
           },
           error: (err) => {
             console.log(err);
@@ -159,8 +161,9 @@ export class PhaseDialogComponent {
           positionClass: 'toast-top-right',
        });
 
+       this.projectModified.emit(this.phase);
        this.closeDialog();
-       this.refreshPage();
+       //this.refreshPage();
       },
       error: (err) => {
         console.log(err);
