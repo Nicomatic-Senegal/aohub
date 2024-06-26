@@ -11,7 +11,6 @@ import {ToastrService} from "ngx-toastr";
 })
 export class PopupFeedbackComponent {
   feedbackForm: FormGroup;
-  projectExperiences: string[] = ['Excellent', 'Good', 'Average', 'Poor'];
 
   constructor(
     public dialogRef: MatDialogRef<PopupFeedbackComponent>,
@@ -26,8 +25,6 @@ export class PopupFeedbackComponent {
       financialFeedback: ['']
     });
   }
-
-  ngOnInit(): void {}
 
   submitFeedback(): void {
     const feedback = {
@@ -45,7 +42,7 @@ export class PopupFeedbackComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "\"Une erreur s'est produite lors de l'ajout du feedback", {
+        this.toastr.error(err.error.detail, "Une erreur s'est produite lors de l'ajout du feedback", {
           timeOut: 3000,
           positionClass: 'toast-right-right',
         });
