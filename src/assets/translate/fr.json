@@ -297,5 +297,9 @@
   "EXPERIENCE_AVERAGE": "C'est terminé, sans plus",
   "EXPERIENCE_POOR": "Mauvaise expérience: je ne le ferai plus",
   "ADD_FEEDBACK": "Ajouter un feedback",
-  "PROJECT_EXPERIENCE_REQUIRED": "L'expérience du projet est requise pour soumettre le feedback"
+  "PROJECT_EXPERIENCE_REQUIRED": "L'expérience du projet est requise pour soumettre le feedback",
+  "DOCUMENTS_PROJECT": "Documents du projet",
+  "NO_NORMAL_DOCUMENT": "Aucun document normal dans ce projet",
+  "UPLOAD_PLAN_FILES": "Uploader des fichiers plans",
+  "UPLOAD_FILES": "Uploader des fichiers"
 }
