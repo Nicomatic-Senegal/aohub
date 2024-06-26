@@ -8,6 +8,7 @@ import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
 import { TaskDialogComponent } from '../../dialog/task-dialog/task-dialog.component';
 import { ProjectDocumentsDialogComponent } from '../../dialog/project-documents-dialog/project-documents-dialog.component';
+import {ProjectService} from "../../services/project/project.service";
 
 @Component({
   selector: 'app-project-tracking',
@@ -21,7 +22,8 @@ export class ProjectTrackingComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private projectService: ProjectService) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
 
@@ -32,8 +34,6 @@ export class ProjectTrackingComponent implements OnInit {
     this.project.phases?.forEach(p => {
       p.tasks?.sort((a, b) => a.id! - b.id!);
     });
-
-    console.log(this.project);
   }
 
   ngOnChanges(changes: SimpleChanges) {
