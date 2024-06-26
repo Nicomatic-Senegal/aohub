@@ -9,10 +9,16 @@
     <div class="flex flex-wrap -mx-2">
       <div class="w-full mb-4 md:mb-4 px-5">
         <label for="email" class="font-dmsans text-base text-[#333]">Email</label>
-        <input type="text" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="email" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="selectUser($event.option.value)">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option.email">
-            {{ option.email }}
+        <input type="text"
+          class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full"
+          formControlName="email"
+          [matAutocomplete]="auto"
+          matInput
+          [formControl]="myControl"
+        >
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectUser($event.option.value)">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }}
           </mat-option>
         </mat-autocomplete>
         <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
