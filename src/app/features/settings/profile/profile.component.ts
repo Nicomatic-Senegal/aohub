@@ -175,6 +175,7 @@ export class ProfileComponent implements OnInit {
                 positionClass: 'toast-top-right',
               });
             }
+            this.submit();
           });
       }
 
@@ -222,7 +223,6 @@ export class ProfileComponent implements OnInit {
           timeOut: 3000,
           positionClass: 'toast-top-right',
        });
-       window.location.reload();
 
         const userSessionData = {
           id: data.id,
@@ -236,6 +236,17 @@ export class ProfileComponent implements OnInit {
           enterprise: data?.enterprise
         };
         localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));
+
+        this.profilForm.setValue({
+          firstName: data?.user?.firstName,
+          lastName: data?.user?.lastName,
+          phoneNumber: data?.phoneNumber,
+          email: data?.user?.login,
+          enterpriseName: data?.enterprise?.name,
+          role: data?.user.employeePost?.title,
+          centreInteret: data?.user?.interestTopics,
+          image: data?.user?.imageBase64Content,
+        });
       },
       error: (err) => {
         console.log(err);
