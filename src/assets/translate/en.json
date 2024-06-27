@@ -301,5 +301,10 @@
   "DOCUMENTS_PROJECT": "Project documents",
   "NO_NORMAL_DOCUMENT": "No normal documents in this project",
   "UPLOAD_PLAN_FILES": "Upload plan files",
-  "UPLOAD_FILES": "Upload files"
+  "UPLOAD_FILES": "Upload files",
+  "MARK_ALL_AS_READ": "Mark all as read",
+  "UNREAD": "unread",
+  "TODAY": "Today",
+  "NO_NOTIFICATION": "No notifications found",
+  "NO_NOTIFICATION_DESC": "There are currently no notifications for you"
 }

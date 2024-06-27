@@ -20,7 +20,7 @@ export class NotificationsComponent implements OnInit {
   unreadNotif: number = 0;
   searchData: Notification[] = [];
   totalItems = 0;
-  itemPerPage = 40;
+  itemPerPage = 5;
   currentPage = 1;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
 
@@ -43,6 +43,7 @@ export class NotificationsComponent implements OnInit {
 
   loadAllNotifications(page: number, size: number) {
     this.notifications = [];
+    this.groupedNotifications = {};
     this.notificationService.allNotifications(this.token, page, size).subscribe({
       next: (data) => {
         this.notifications = data.notifications;
@@ -63,9 +64,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   groupNotificationsByDate() {
-    this.notifications.sort((a, b) => b.id! - a.id!);
     this.notifications.forEach(notification => {
-      const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'Aujourd\'hui' : notification.createdDate;
+      const dateKey = this.isToday(new Date(notification.createdDate || "")) ? 'TODAY' : notification.createdDate.split('T')[0];
       if (!this.groupedNotifications[dateKey]) {
         this.groupedNotifications[dateKey] = [];
       }
@@ -91,13 +91,15 @@ export class NotificationsComponent implements OnInit {
   }
 
   markAsRead(notification: Notification) {
-    notification.read = true;
-    this.notificationService.markNotificationAsRead(this.token, notification.id!).subscribe({
-      next: (data) => {
-        notification = data;
-        this.nbNotifNotRead();
-      }
-    });
+    if (!notification.read) {
+      notification.read = true;
+      this.notificationService.markNotificationAsRead(this.token, notification.id!).subscribe({
+        next: (data) => {
+          notification = data;
+          this.nbNotifNotRead();
+        }
+      });
+    }
   }
 
   nbNotifNotRead() {
@@ -123,22 +125,21 @@ export class NotificationsComponent implements OnInit {
 
   performSearch(query: string) {
     if (query) {
-      this.notificationService.searchNotifications(this.token, query, 0, 100).subscribe({
+      this.notificationService.searchNotifications(this.token, query, 0, 5).subscribe({
         next: (data) => {
           this.notifications = [];
           this.notifications.push(data.notifications);
           this.notifications = this.notifications.flatMap(data => data);
           this.totalItems = data.totalCount;
+          this.groupedNotifications = {};
           this.groupNotificationsByDate();
-          console.log(data);
-          console.log(this.totalItems);
         },
         error: (err) => {
           console.log(err);
         }
       })
     } else {
-      this.loadAllNotifications(0, 4);
+      this.loadAllNotifications(0, 5);
     }
   }
 

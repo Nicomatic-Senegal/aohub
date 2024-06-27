@@ -16,21 +16,30 @@
 
       <div class="rounded-xl w-full bg-white px-5 py-5 my-3">
         <div class="header flex items-center justify-between">
-          <p class="font-bold font-dmsans text-lg">Notifications ({{unreadNotif}} non lues)</p>
-          <button (click)="markAllAsRead()" class="bg-[#A4C7FF] rounded-lg px-5 py-2 shadow-md font-dmsans text-base">Marquer tous comme lu</button>
+          <p class="font-bold font-dmsans text-lg">Notifications ({{unreadNotif}} {{'UNREAD' | translate}})</p>
+          <button (click)="markAllAsRead()" class="bg-[#A4C7FF] rounded-lg px-5 py-2 shadow-md font-dmsans text-base">{{'MARK_ALL_AS_READ' | translate}}</button>
         </div>
       </div>
 
       <div class="rounded-xl w-full bg-white pl-5 pr-8 py-6 overflow-auto">
+        <div *ngIf="notifications?.length === 0" class="mt-[3%] mb-[3%] flex items-center justify-center">
+          <div class="text-center">
+            <p class="text-3xl font-bold mb-4">{{'NO_NOTIFICATION' | translate}} </p>
+            <p class="text-lg text-gray-600">{{'NO_NOTIFICATION_DESC' | translate}} </p>
+          </div>
+        </div>
         <div *ngFor="let dateKey of getObjectKeys(groupedNotifications)">
-<!--          <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>-->
-          <ng-container *ngIf="dateKey !== 'Aujourd\'hui'; else todayDate" class="font-dmsans text-lg font-semibold text-[#272525]">
+          <ng-container *ngIf="dateKey !== 'TODAY'; else todayDate" class="font-dmsans text-lg font-semibold text-[#272525]">
             <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey  | date: 'dd MMM yyyy' }}</p>
           </ng-container>
           <ng-template #todayDate class="font-dmsans text-lg font-semibold text-[#272525]">
-            <p class="font-dmsans text-lg font-semibold text-[#272525]">{{ dateKey }}</p>
+            <p class="font-dmsans text-lg font-semibold text-[#272525]">{{dateKey | translate}}</p>
           </ng-template>
-          <div *ngFor="let notification of groupedNotifications[dateKey]" (click)="markAsRead(notification)" [ngClass]="{'bg-[#FAFAFA]': notification.read, 'bg-[#F2F7FF]': !notification.read}" class="rounded-xl w-full px-5 py-2 mt-4 mb-6 cursor-pointer">
+          <div
+            *ngFor="let notification of groupedNotifications[dateKey]"
+            (click)="markAsRead(notification)"
+            [ngClass]="{'bg-[#FAFAFA]': notification.read, 'bg-[#F2F7FF]': !notification.read}"
+            class="rounded-xl w-full px-5 py-2 mt-4 mb-6 cursor-pointer">
             <div class="flex justify-between items-center">
               <p class="font-dmsans font-semibold text-md text-[#272525]">{{ notification.title }}</p>
               <button id="dropdownMenuIconButton2" data-dropdown-toggle="dropdownDots" data-dropdown-placement="bottom-start" class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-transparent rounded-lg" type="button">
@@ -40,17 +49,17 @@
               </button>
             </div>
             <p class="font-dmsans text-sm text-[#272525]">{{ notification.content }}</p>
-            <p *ngIf="dateKey === 'Aujourd\'hui'" class="font-dmsans text-xs text-[#272525]">{{ notification.createdDate | date: 'dd MMM yyyy'  }}</p>
+            <p *ngIf="dateKey === 'TODAY'" class="font-dmsans text-xs text-[#272525]">{{ notification.createdDate | date: 'dd MMM yyyy'  }}</p>
           </div>
         </div>
 
-<!--        <app-paginator-->
-<!--          *ngIf="notifications?.length !== 0"-->
-<!--          [totalItems]="totalItems"-->
-<!--          [itemPerPage]="itemPerPage"-->
-<!--          [currentPage]="currentPage"-->
-<!--          (onClick)="changePage($event)">-->
-<!--        </app-paginator>-->
+        <app-paginator
+          *ngIf="notifications?.length !== 0"
+          [totalItems]="totalItems"
+          [itemPerPage]="itemPerPage"
+          [currentPage]="currentPage"
+          (onClick)="changePage($event)">
+        </app-paginator>
       </div>
     </div>
   </div>
