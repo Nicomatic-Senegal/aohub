@@ -10,7 +10,7 @@
     </div>
 
     <div class="flex justify-center items-center font-dmsans">
-        <p class="text-center">Vos retours sont essentiels pour améliorer continuellement notre service et garantir une expérience utilisateur optimale</p>
+        <p class="text-center">{{'YOUR_OPINION_DESC' | translate}}</p>
     </div>
 
     <div class="px-10 md:px-15">
@@ -23,7 +23,7 @@
         </div>
 
         <div class="w-full mb-12">
-            <textarea type="text" class="w-full h-[15vh] px-3 py-2 textarea bg-[#EBEBEB] border-2 border-[#B3B3B3] rounded-lg" placeholder="Ajouter un commentaire" [(ngModel)]="description"></textarea>
+            <textarea type="text" class="w-full h-[15vh] px-3 py-2 textarea bg-[#EBEBEB] border-2 border-[#B3B3B3] rounded-lg" placeholder="{{'ADD_COMMENT' | translate}}" [(ngModel)]="description"></textarea>
         </div>
 
         <div class="w-full flex justify-center mb-5">

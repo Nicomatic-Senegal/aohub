@@ -6,6 +6,7 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { OpinionComponent } from '../../opinion/opinion.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ToastrService} from "ngx-toastr";
+import {NotificationService} from "../../services/notification-service/notification-service.service";
 
 @Component({
   selector: 'app-side-bar',
@@ -18,12 +19,12 @@ export class SideBarComponent implements OnInit {
     ["../../../assets/img/home.svg", "HOME", "/home", "../../../assets/img/home-red.svg"],
     ["../../../assets/img/projects.svg", "MY PROJECTS", "/projects", "../../../assets/img/projects-red.svg"],
     ["../../../assets/img/opportunity.svg", "OPPORTUNITIES", "/opportunities", "../../../assets/img/opportunity-red.svg"],
-    ["../../../assets/img/activity.svg", "Activités", "/activity", "../../../assets/img/activity-red.svg"],
-    ["../../../assets/img/notification.svg", "Notifications", "/notifications", "../../../assets/img/notification-red.svg"]
+    ["../../../assets/img/activity.svg", "ACTIVITY", "/activity", "../../../assets/img/activity-red.svg"],
+    ["../../../assets/img/notification.svg", "NOTIFICATIONS", "/notifications", "../../../assets/img/notification-red.svg"]
   ];
 
   optionsBottom = [
-    ["../../../assets/img/star.svg", "Avis", "OPINION", "../../../assets/img/star-red.svg"],
+    ["../../../assets/img/star.svg", "OPINION", "OPINION", "../../../assets/img/star-red.svg"],
     ["../../../assets/img/support.svg", "SUPPORT", "/support", "../../../assets/img/support-red.svg"],
     ["../../../assets/img/setting.svg", "SETTINGS", "/setting", "../../../assets/img/setting-red.svg"]
   ];
@@ -33,6 +34,7 @@ export class SideBarComponent implements OnInit {
   email!: string;
   picture!: string;
   @Input() screen!: string;
+  unreadNotificationCount: number = 0;
 
   onHamburger() {
     this.viewText = !this.viewText;
@@ -42,13 +44,15 @@ export class SideBarComponent implements OnInit {
               private authService: AuthService,
               private userService: UserService,
               public dialog: MatDialog,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private notificationService: NotificationService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
     this.updateScreenSize(window.innerWidth);
   }
   ngOnInit(): void {
+    this.nbNotificationsNotRead();
     const userData = localStorage.getItem("currentConnectedUser");
     if (userData) {
       const currentConnectedUser = JSON.parse(userData);
@@ -100,5 +104,13 @@ export class SideBarComponent implements OnInit {
     }
 
     this.route.navigate([link]);
+  }
+
+  nbNotificationsNotRead() {
+    this.notificationService.allUnreadNotifications(this.token).subscribe({
+      next: (data) => {
+        this.unreadNotificationCount = data;
+      }
+    })
   }
 }
