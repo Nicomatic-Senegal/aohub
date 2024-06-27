@@ -35,9 +35,9 @@ export class ProjectService {
       );
   }
 
-  getAllProjectsNoPagination(token: string): Observable<any> {
+  getAllProjectsWithHeaders(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = `${this.apiBaseUrl}projects?sort=id,desc`;
+    const url = `${this.apiBaseUrl}projects/counting-headers?sort=id,desc&page=0&size=1000`;
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(
@@ -130,7 +130,7 @@ export class ProjectService {
 
   getAllProjectsEnterprise(token: string, idEnterprise: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise;
+    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise + '&sort=id,desc&page=0&size=1000';
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(

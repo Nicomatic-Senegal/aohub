@@ -23,7 +23,7 @@ export class ActivityComponent implements OnInit {
   listProject: Project[] = [];
   allEnterprise: EnterpriseDTO[] = [];
   currentConnectedUser?: PartnerDTO;
-  nbProjectsInProgres: number = 0;
+  nbProjectsInProgress: number = 0;
   nbProjectsFinished: number = 0;
   nbProjectsOnHold: number = 0;
   nbProjectsArchived: number = 0;
@@ -125,35 +125,27 @@ export class ActivityComponent implements OnInit {
     this.listProject.splice(0, this.listProject.length);
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
-    this.nbProjectsInProgres = 0;
+    this.nbProjectsInProgress = 0;
     this.nbProjectsOnHold = 0;
     this.projectService.getAllProjectsEnterprise(this.token, idEnterprise).subscribe({
       next: (data) => {
-        this.allProjects = data;
+        console.log(data)
+        this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
         this.data = this.loadAllWords().map(function (word) {
           return { text: word[0], value: word[1] * 10};
         });
 
-        this.listProject.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
+        this.nbProjectsInProgress = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
+
+        console.log(this.nbProjectsInProgress)
+        console.log(this.nbProjectsFinished)
+        console.log(this.nbProjectsOnHold)
+        console.log(this.nbProjectsArchived)
       },
       error: (err) => {
         console.log(err);
@@ -171,9 +163,9 @@ export class ActivityComponent implements OnInit {
     this.listProject.splice(0, this.listProject.length);
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
-    this.nbProjectsInProgres = 0;
+    this.nbProjectsInProgress = 0;
     this.nbProjectsOnHold = 0;
-    this.projectService.getAllProjectsNoPagination(this.token).subscribe({
+    this.projectService.getAllProjectsWithHeaders(this.token).subscribe({
       next: (data) => {
         this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
@@ -182,24 +174,10 @@ export class ActivityComponent implements OnInit {
           return { text: word[0], value: word[1] * 10};
         });
 
-        this.listProject.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
+        this.nbProjectsInProgress = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
         console.log(err);
@@ -346,13 +324,13 @@ export class ActivityComponent implements OnInit {
     } else {
       this.nbProjectsArchived = 0;
       this.nbProjectsFinished = 0;
-      this.nbProjectsInProgres = 0;
+      this.nbProjectsInProgress = 0;
       this.nbProjectsOnHold = 0;
       this.listProject = this.allProjects.filter(project => this.selectedYears.includes(project.createdAt.toString().split("-")[0]));
       this.listProject.forEach(project => {
         switch(project.status) {
           case 'IN_PROGRESS':
-            this.nbProjectsInProgres++;
+            this.nbProjectsInProgress++;
             break;
           case 'FINISHED':
             this.nbProjectsFinished++;
