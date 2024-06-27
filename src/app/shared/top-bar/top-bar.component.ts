@@ -27,6 +27,7 @@ export class TopBarComponent {
     const language = localStorage.getItem("language");
     if (language) {
       this.translate.use(language);
+      if (language === 'en') this.flagUrl = '../../../assets/flags/en_flag.svg';
     } else {
       this.translate.use('fr');
     }
