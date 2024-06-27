@@ -11,6 +11,7 @@ import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { UserService } from '../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private partnerService: PartnerService,
     private enterpriseService: EnterpriseService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translateService: TranslateService
   ) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
@@ -61,10 +63,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
@@ -77,7 +81,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       },
       error: (error) => {
         console.log(error);
-
       }
     })
   }

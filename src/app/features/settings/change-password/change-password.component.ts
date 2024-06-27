@@ -7,6 +7,7 @@ import { confirmedValidator } from '../../interfaces/utils';
 import { UserService } from '../../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { PasswordChangeDTO } from '../../interfaces/password-dto.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-parametre-mot-de-passe',
@@ -26,7 +27,7 @@ export class ChangePasswordComponent implements OnInit {
     newPassword: ''
   };
 
-  constructor(private toastr: ToastrService, private route: Router, private userService: UserService, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService){
+  constructor(private toastr: ToastrService, private route: Router, private userService: UserService, private authService: AuthService, private fb: FormBuilder, private baseApp: BaseAppService, private translateService: TranslateService){
     authService.loggedOut();
     this.token = authService.isLogged()!;
   }
@@ -63,17 +64,21 @@ export class ChangePasswordComponent implements OnInit {
     this.passwordDto.newPassword = this.changePasswordForm.value.password;
     this.userService.changePassword(this.token,this.passwordDto ).subscribe({
       next: (data) => {
-        this.toastr.success("Mot de passe modifié avec succés.", "Succés", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['SUCCESS_UPDATE_PASSWORD', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_UPDATE_PASSWORD'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
        this.changePasswordForm.reset();
       },
       error: (err) => {
-        this.toastr.error("une erreur est survenue lors de la modification du mot de passe.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_UPDATE_PASSWORD', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PASSWORD'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }

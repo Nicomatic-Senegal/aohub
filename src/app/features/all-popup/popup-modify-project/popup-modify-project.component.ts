@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../interfaces/project.model';
 import { Market } from '../../interfaces/market.model';
 import { Domain } from '../../interfaces/domain.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-modify-project',
@@ -27,7 +28,9 @@ export class PopupModifyProjectComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<PopupModifyProjectComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
+  ) {
 
     this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
@@ -51,10 +54,12 @@ export class PopupModifyProjectComponent implements OnInit {
         this.markets = data;
       },
       error: (err) => {
-        this.toastr.error(err.error.detail, "Erreur sur la réception des marchés", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
-       });
+        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -63,10 +68,12 @@ export class PopupModifyProjectComponent implements OnInit {
         this.domains = data;
       },
       error: (err) => {
-        this.toastr.error(err.error.detail, "Erreur sur la réception des domaines", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_DOMAINS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -101,9 +108,11 @@ export class PopupModifyProjectComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la mise à jour des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
+        this.translateService.get(['ERROR_UPDATE_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { SupportService } from '../services/support/support.service';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-support',
@@ -15,11 +16,13 @@ export class SupportComponent implements OnInit {
   token: string;
 
   constructor(
-    private toastr: ToastrService, 
-    private route: Router, 
-    private fb: FormBuilder, 
+    private toastr: ToastrService,
+    private route: Router,
+    private fb: FormBuilder,
     private authService: AuthService,
-    private supportService: SupportService) {
+    private supportService: SupportService,
+    private translateService: TranslateService
+  ) {
       this.token = authService.isLogged()!;
   }
 
@@ -40,24 +43,25 @@ export class SupportComponent implements OnInit {
       subject: this.supportForm.value.intitule,
       content: this.supportForm.value.description
     }
-    console.log(payload);
-    
     this.supportService.sendMailToSupport(this.token, payload).subscribe({
       next: (data) => {
-        console.log(data);
-        this.toastr.success("Votre message a été bien envoyé à l'équipe support: ", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_SUBMIT_MESSAGE_SUPPORT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_SUBMIT_MESSAGE_SUPPORT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur survenue lors de l'envoie du message à l'équipe support", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_SUBMIT_MESSAGE_SUPPORT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_SUBMIT_MESSAGE_SUPPORT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }
-  
+
 }

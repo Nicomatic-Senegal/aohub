@@ -12,6 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 import {NgxImageCompressService} from "ngx-image-compress";
 import {PopupComponent} from "../../all-popup/popup/popup.component";
 import {MatDialog} from "@angular/material/dialog";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-parametre-profil',
@@ -77,7 +78,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService,
     private imgCompressService: NgxImageCompressService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private translateService: TranslateService
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -100,7 +102,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
         this.user = data;
-        console.log(this.user);
 
         this.profilForm.setValue({
           firstName: this.user.user.firstName,
@@ -115,6 +116,12 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -124,10 +131,12 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_ROLES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_ROLES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -170,9 +179,11 @@ export class ProfileComponent implements OnInit {
             sizeOfCompressedImage = this.imgCompressService.byteCount(result)/(1024*1024);
             if (sizeOfCompressedImage > 2) {
               this.picture = '';
-              this.toastr.error("Image trop grande. Taille idéale de 2Mb ou moins", "Erreur", {
-                timeOut: 3000,
-                positionClass: 'toast-top-right',
+              this.translateService.get(['ERROR_IMAGE_TO_BIG', 'ERROR_TITLE']).subscribe(translations => {
+                this.toastr.error(translations['ERROR_IMAGE_TO_BIG'], translations['ERROR_TITLE'], {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                });
               });
             }
             this.submit();
@@ -186,11 +197,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeletePicture() {
-    let title = "Suppression";
-    let description = "Êtes-vous sûr de vouloir supprimer votre photo de profil ?";
-
-    title = localStorage.getItem('language') === 'en' ? 'Delete' : 'Suppression';
-    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete your profile picture ?' : 'Êtes-vous sûr de vouloir supprimer votre photo de profil ?';
+    let title = localStorage.getItem('language') === 'en' ? 'Delete' : 'Suppression';
+    let description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete your profile picture ?' : 'Êtes-vous sûr de vouloir supprimer votre photo de profil ?';
 
     let route = "deleteProfilePicture";
 
@@ -219,10 +227,12 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.token, userToUpdate).subscribe({
       next: (data) => {
         this.user = data;
-        this.toastr.success("Profil modifié avec succès.", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_UPDATE_PROFILE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['SUCCESS_UPDATE_PROFILE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
 
         const userSessionData = {
           id: data.id,
@@ -250,10 +260,12 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error("Une erreur est survenue lors de la modification du profil.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_UPDATE_PROFILE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PROFILE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }

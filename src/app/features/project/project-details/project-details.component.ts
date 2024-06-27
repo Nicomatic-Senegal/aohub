@@ -14,6 +14,7 @@ import { PopupComponent } from '../../all-popup/popup/popup.component';
 import { PopupAddParticipantComponent } from '../../all-popup/popup-add-participant/popup-add-participant.component';
 import {PopupFeedbackComponent} from "../../all-popup/popup-feedback/popup-feedback.component";
 import {ProjectService} from "../../services/project/project.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-project-details',
@@ -32,7 +33,9 @@ export class ProjectDetailsComponent implements OnChanges {
     private userService: UserService,
     private eventService: EventService,
     private toastr: ToastrService,
-    private projectService: ProjectService) {
+    private projectService: ProjectService,
+    private translateService: TranslateService
+  ) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
   }
@@ -76,10 +79,12 @@ export class ProjectDetailsComponent implements OnChanges {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
@@ -147,9 +152,11 @@ export class ProjectDetailsComponent implements OnChanges {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception des évènements", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+        this.translateService.get(['ERROR_FETCHING_EVENTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_EVENTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })

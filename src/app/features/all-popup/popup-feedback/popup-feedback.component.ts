@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {FeedbackService} from "../../services/feedback/feedback.service";
 import {ToastrService} from "ngx-toastr";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-feedback',
@@ -17,8 +18,9 @@ export class PopupFeedbackComponent {
     private feedbackService: FeedbackService,
     private toastr: ToastrService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private translateService: TranslateService
+) {
     this.feedbackForm = this.fb.group({
       projectFeedback: ['', Validators.required],
       projectExperience: [''],
@@ -35,16 +37,20 @@ export class PopupFeedbackComponent {
     this.feedbackService.addFeedback(this.data.token, feedback).subscribe({
       next: (data) => {
         this.close();
-        this.toastr.success("Feedback ajouté avec succès", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+        this.translateService.get(['SUCCESS_ADD_FEEDBACK', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_ADD_FEEDBACK'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Une erreur s'est produite lors de l'ajout du feedback", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
+        this.translateService.get(['ERROR_ADD_FEEDBACK', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_ADD_FEEDBACK'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })

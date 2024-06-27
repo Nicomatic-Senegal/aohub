@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-delete-project',
@@ -20,7 +21,9 @@ export class PopupDeleteProjectComponent implements OnInit {
     public dialogRef: MatDialogRef<PopupDeleteProjectComponent>,
     private authService: AuthService,
     private router: Router,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
+  ) {
   }
 
   ngOnInit(): void {
@@ -38,21 +41,24 @@ export class PopupDeleteProjectComponent implements OnInit {
       next: (data) => {
         console.log(data);
         this.router.navigate(['/projects']);
-        this.toastr.success("Ce projet a été supprimé avec succès", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_DELETE_PROJECT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_DELETE_PROJECT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur lors de la suppression du projet", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_DELETE_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_DELETE_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
     this.onCloseDialog();
-    console.log(reasonToSend);
   }
 
   onCloseDialog() {

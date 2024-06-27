@@ -41,11 +41,8 @@ export class TopBarComponent {
   }
 
   logout() {
-    let title = "Déconnexion";
-    let description = "Êtes-vous sûr de vouloir vous deconnecter ?";
-
-    title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
-    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
+    let title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
+    let description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
 
     let route = "logout";
 

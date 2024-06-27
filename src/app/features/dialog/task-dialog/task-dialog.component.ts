@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -11,13 +11,14 @@ import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
 import { UserService } from '../../services/user/user.service';
 import { Project } from '../../interfaces/project.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-init-phase',
   templateUrl: './task-dialog.component.html',
   styleUrls: ['./task-dialog.component.scss']
 })
-export class TaskDialogComponent {
+export class TaskDialogComponent implements OnInit {
   token: string;
   task!: TaskDTO;
   taskForm!: FormGroup;
@@ -35,14 +36,14 @@ export class TaskDialogComponent {
     private userService: UserService,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
   ) {
     this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
-    console.log(this.dialogData.phase);
     this.phase = this.dialogData.phase;
     this.task = this.dialogData.task;
     this.project = this.dialogData.project;
@@ -78,18 +79,15 @@ export class TaskDialogComponent {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
-  }
-
-  refreshPage() {
-    window.location.reload();
-    // this.router.navigate(['/project-options'], { queryParams: { id: this.project.id  } });
   }
 
   handleChange(fieldName: string) {
@@ -113,13 +111,9 @@ export class TaskDialogComponent {
     this.task.endDate = formValue.endDate;
     this.task.assignee = this.teamMembers[parseInt(formValue.affectedPart)];
     this.task.done = formValue.done1;
-    console.log(this.taskForm);
-    console.log(this.task);
-
 
     this.projectService.updateTask(this.token, this.task).subscribe({
       next: (data) => {
-        console.log(data);
         this.task = data;
         this.closeDialog();
         this.phase.progression = this.phase.tasks?.filter(t => t.done).length;
@@ -128,27 +122,28 @@ export class TaskDialogComponent {
 
         this.projectService.updatePhase(this.token, this.phase).subscribe({
           next: (data) => {
-            console.log("-------------------------------");
             this.phase = data;
-            console.log(this.phase);
           }
         });
 
-        this.toastr.success("La tache a bien été mise à jour", "Succés Update", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_UPDATE_TASK', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_UPDATE_TASK'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
 
        this.projectModified.emit();
        this.dialogRef.close();
-       //this.refreshPage();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la mise jour de la phase", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_UPDATE_PHASE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PHASE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }

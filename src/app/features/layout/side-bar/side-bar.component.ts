@@ -2,11 +2,11 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { UserService } from '../../services/user/user.service';
-import { PartnerDTO } from '../../interfaces/partner.model';
 import { OpinionComponent } from '../../opinion/opinion.component';
 import { MatDialog } from '@angular/material/dialog';
 import {ToastrService} from "ngx-toastr";
 import {NotificationService} from "../../services/notification-service/notification-service.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-side-bar',
@@ -45,7 +45,8 @@ export class SideBarComponent implements OnInit {
               private userService: UserService,
               public dialog: MatDialog,
               private toastr: ToastrService,
-              private notificationService: NotificationService) {
+              private notificationService: NotificationService,
+              private translateService: TranslateService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
@@ -68,9 +69,11 @@ export class SideBarComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
           });
         }
       })

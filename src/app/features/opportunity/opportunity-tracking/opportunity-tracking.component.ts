@@ -8,6 +8,7 @@ import { PositioningDTO, PositioningStatus } from '../../interfaces/positioning-
 import { Disponibility } from '../../interfaces/disponibility.model';
 import { digitOnly } from '../../interfaces/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-opportunity-tracking',
@@ -31,7 +32,9 @@ export class OpportunityTrackingComponent implements OnInit {
     private toastr: ToastrService,
     private route: Router,
     private authService: AuthService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private translateService: TranslateService
+  ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
       this.myForm = this.fb.group({
@@ -68,36 +71,39 @@ export class OpportunityTrackingComponent implements OnInit {
 
         this.projectService.extendDeadlineForOpportunity(this.token, payload, id).subscribe({
           next: (data) => {
-            this.toastr.success("Vous avez rallongé la durée du projet de: " + nbDays + " jours.", "Succès", {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-           });
-            console.log(data);
+            this.translateService.get(['SUCCESS_EXTEND_PROJECT_DURATION', 'SUCCESS_TITLE'], { nbDays }).subscribe(translations => {
+              this.toastr.success(translations['SUCCESS_EXTEND_PROJECT_DURATION'], translations['SUCCESS_TITLE'], {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              });
+            });
           },
           error: (error) => {
             console.log(error);
           }
         });
       } else {
-        this.toastr.error("Vous avez déjà rajouté plus de 30 jours à ce projet", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_ALREADY_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_ALREADY_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
 
-    } else{
-      this.toastr.error("Vous ne pouvez pas rajouter plus de 30 jours au projet", "Erreur", {
-        timeOut: 3000,
-        positionClass: 'toast-top-right',
-     });
+    } else {
+      this.translateService.get(['ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION', 'ERROR_TITLE']).subscribe(translations => {
+        this.toastr.error(translations['ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION'], translations['ERROR_TITLE'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      });
     }
   }
 
   loadProject() {
     this.projectService.getAllMyProjects(this.token).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.listProject = data;
 
         this.listProject.forEach(project => {
@@ -112,15 +118,15 @@ export class OpportunityTrackingComponent implements OnInit {
         });
 
         this.totalItems = this.listProject.length
-        // TODO: Utiliser forkJoin pour attendre que toutes les requêtes se terminent
-
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -138,16 +144,21 @@ export class OpportunityTrackingComponent implements OnInit {
         this.loadProject();
       },
       error: (err) => {
-        this.toastr.error("Erreur pendant la validation.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
+        console.log(err)
+        this.translateService.get(['ERROR_VALIDATE_PARTNER', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_VALIDATE_PARTNER'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       },
       complete: () => {
-        this.toastr.success("vous avez validé le partenaire.", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
+        this.translateService.get(['SUCCESS_VALIDATE_PARTNER', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_VALIDATE_PARTNER'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -159,26 +170,26 @@ export class OpportunityTrackingComponent implements OnInit {
         this.loadProject();
       },
       error: (err) => {
-        this.toastr.error("Erreur pendant la rejection.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
+        this.translateService.get(['ERROR_REJECT_PARTNER', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_REJECT_PARTNER'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       },
       complete: () => {
-        this.toastr.success("vous avez rejeté le partenaire.", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-right-center',
-       });
+        this.translateService.get(['SUCCESS_REJECT_PARTNER', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_REJECT_PARTNER'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
 
   onKeyPress(event: KeyboardEvent) {
     digitOnly(event);
-  }
-
-  onValidRallonge() {
-
   }
 
   status(value?: PositioningStatus, ) {
@@ -199,6 +210,4 @@ export class OpportunityTrackingComponent implements OnInit {
   changePage(page: number) {
     this.currentPage = page;
   }
-
-
 }

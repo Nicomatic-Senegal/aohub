@@ -1,5 +1,4 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -10,13 +9,14 @@ import { Project } from '../../interfaces/project.model';
 import { UserService } from '../../services/user/user.service';
 import { AttachmentDto, AttachmentType } from '../../interfaces/attachment-dto.model';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-project-documents-dialog',
   templateUrl: './project-documents-dialog.component.html',
   styleUrls: ['./project-documents-dialog.component.scss']
 })
-export class ProjectDocumentsDialogComponent {
+export class ProjectDocumentsDialogComponent implements OnInit {
   token: string;
   project!: Project;
   currentConnectedUser?: any;
@@ -34,16 +34,15 @@ export class ProjectDocumentsDialogComponent {
     private authService: AuthService,
     private dialog: MatDialog,
     private userService: UserService,
-
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
   ) {
     this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
-    console.log(this.dialogData.project);
     this.project = this.dialogData.project;
 
     this.loadProjectDocuments();
@@ -56,7 +55,6 @@ export class ProjectDocumentsDialogComponent {
   loadProjectDocuments() {
     this.projectService.getProjectAttachments(this.token, this.project.id).subscribe({
       next: (data) => {
-        console.log(data);
         this.allDocuments = data;
         this.allDocuments.forEach(doc => {
           doc.safeUrl = this.sanitizer.bypassSecurityTrustResourceUrl(doc.base64Content)
@@ -86,24 +84,25 @@ export class ProjectDocumentsDialogComponent {
   }
 
   deleteFile(file: any) {
-    console.log(file);
     this.projectService.deleteAttachment(this.token, file.id).subscribe({
       next: (data) => {
-        console.log(data);
         this.loadProjectDocuments();
-        this.toastr.success("Ce Document a été supprimé avec succès", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_DELETE_DOCUMENT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_DELETE_DOCUMENT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
 
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error("Erreur lors de la suppression du document", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
-
+        this.translateService.get(['ERROR_DELETE_DOCUMENT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_DELETE_DOCUMENT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }
@@ -113,21 +112,23 @@ export class ProjectDocumentsDialogComponent {
       file.project = this.project;
       this.projectService.addProjectAttachments(this.token, file).subscribe({
         next: (data) => {
-          console.log(data);
           this.loadProjectDocuments();
-          this.toastr.success("Ce Document a été ajouté avec succès", "Succès", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['SUCCESS_ADD_DOCUMENT', 'SUCCESS_TITLE']).subscribe(translations => {
+            this.toastr.success(translations['SUCCESS_ADD_DOCUMENT'], translations['SUCCESS_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
 
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error("Erreur lors de l'ajout du document", "Erreur", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
-
+          this.translateService.get(['ERROR_ADD_DOCUMENT', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_ADD_DOCUMENT'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       });
     });
@@ -137,7 +138,6 @@ export class ProjectDocumentsDialogComponent {
     const files: FileList = event.target.files;
 
     if (indice === 1) {
-      // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
       this.filesChoosen = [];
     } else {
       this.plansChoosen = [];
@@ -147,9 +147,6 @@ export class ProjectDocumentsDialogComponent {
 
     for (let i = 0; i < files.length; i++) {
         const file: File = files[i];
-        console.log('Nom du fichier:', file.name);
-        console.log('Type du fichier:', file.type);
-        console.log('Taille du fichier:', file.size, 'octets');
 
         const reader = new FileReader();
 
@@ -209,10 +206,12 @@ export class ProjectDocumentsDialogComponent {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }

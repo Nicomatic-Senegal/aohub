@@ -7,6 +7,7 @@ import { ProjectService } from '../../services/project/project.service';
 import {debounceTime, map, Observable, of, startWith, switchMap} from "rxjs";
 import {UserService} from "../../services/user/user.service";
 import {UserDTO} from "../../interfaces/user-dto.model";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-add-participant',
@@ -34,7 +35,8 @@ export class PopupAddParticipantComponent implements OnInit {
     private fb: FormBuilder,
     private toastr: ToastrService,
     private projectService: ProjectService,
-    private userService: UserService
+    private userService: UserService,
+    private translateService: TranslateService
     ) {
       this.token = this.dialogData.token;
       this.project = this.dialogData.project;
@@ -79,19 +81,23 @@ export class PopupAddParticipantComponent implements OnInit {
     this.projectService.addParticipant(this.dialogData.token, this.dialogData?.project?.id, email).subscribe({
       next: (data) => {
         console.log(data);
-        this.toastr.success("success", "L'utilisateur a été ajouté avec succès au projet", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_ADD_USER_TO_PROJECT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_ADD_USER_TO_PROJECT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
        this.participantAdded.emit(data);
        this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur l'ajout de l'utilisateur au projet", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_ADD_USER_TO_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_ADD_USER_TO_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }

@@ -11,6 +11,7 @@ import { Disponibility } from '../../interfaces/disponibility.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto, AttachmentType } from '../../interfaces/attachment-dto.model';
 import { digitOnly } from '../../interfaces/utils';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-project-submission',
@@ -51,7 +52,7 @@ export class ProjectSubmissionComponent implements OnInit {
   allFiles: Array<AttachmentDto> = [];
   displayContractDuration: boolean = false;
 
-  constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
+  constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService, private translateService: TranslateService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
@@ -125,21 +126,30 @@ export class ProjectSubmissionComponent implements OnInit {
     this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
         this.domains = data;
-        console.log(this.domains);
-
       },
       error: (err) => {
-
+        console.log(err);
+        this.translateService.get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_DOMAINS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
         this.markets = data;
-        console.log(this.markets);
       },
       error: (err) => {
-
+        console.log(err);
+        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -167,12 +177,13 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.projectSubmissionForm.value);
     if (this.projectSubmissionForm.invalid || this.domainChoosen.length === 0 || this.allDateChoosen.length === 0) {
-      this.toastr.error("veillez bien remplir tous les champs correctement", "Erreur soumission projet", {
-        timeOut: 3000,
-        positionClass: 'toast-top-center',
-     });
+      this.translateService.get(['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION', 'ERROR_PROJECT_SUBMISSION_TITLE']).subscribe(translations => {
+        this.toastr.error(translations['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION'], translations['ERROR_PROJECT_SUBMISSION_TITLE'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      });
     }
     else {
 
@@ -195,30 +206,30 @@ export class ProjectSubmissionComponent implements OnInit {
 
       this.projectService.addProject(this.token, this.project).subscribe({
         next: (data) => {
-          console.log(data);
           this.allFiles.forEach(file => {
             file.project = data;
             this.projectService.addProjectAttachments(this.token, file).subscribe({
               next: (data) => {
-                console.log(data);
-
               },
               error: (err) => {
-
               }
             });
           });
-          this.toastr.success("La soumission du projet a bien été effectué", "Succés", {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-         });
+          this.translateService.get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE']).subscribe(translations => {
+            this.toastr.success(translations['SUCCESS_PROJECT_SUBMISSION'], translations['SUCCESS_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
          this.step++;
         },
         error: (err) => {
-          this.toastr.error("La soumission du projet a échoué", "Erreur soumission projet", {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-         });
+          this.translateService.get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_PROJECT_SUBMISSION'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       });
     }
@@ -237,9 +248,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
   ajouterDate() {
     const [heures, minutes] = this.projectSubmissionForm.value.heure.split(':').map(Number);
-    console.log(this.selectedDate + ' ' + heures + '-- ' + minutes);
     this.selectedDate?.setHours(heures, minutes);
-    console.log(this.selectedDate);
     if (this.allDateChoosen.indexOf(this.selectedDate?.toISOString()!) === -1)
       this.allDateChoosen.push(this.selectedDate?.toISOString()!);
   }
@@ -250,8 +259,6 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   onSelectDomain(value: any) {
-    console.log(value);
-
     if (this.domainChoosen.indexOf(value) === -1)
       this.domainChoosen.push(value);
     console.log(this.domainChoosen);
@@ -287,7 +294,6 @@ export class ProjectSubmissionComponent implements OnInit {
       console.log('Nom du fichier:', file.name);
       console.log('Type du fichier:', file.type);
       console.log('Taille du fichier:', file.size, 'octets');
-      // Vous pouvez envoyer chaque fichier à votre backend ou effectuer toute autre action nécessaire ici
       const reader = new FileReader();
 
       reader.onload = () => {

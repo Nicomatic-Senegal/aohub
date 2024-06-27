@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output } from '@angular/core';
+import {Component, EventEmitter, Inject, OnInit, Output} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -12,13 +12,14 @@ import { Project } from '../../interfaces/project.model';
 import { UserService } from '../../services/user/user.service';
 import { forkJoin } from 'rxjs';
 import { StopProjectDialogComponent } from '../stop-project-dialog/stop-project-dialog.component';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-pre-sales',
   templateUrl: './phase-dialog.component.html',
   styleUrls: ['./phase-dialog.component.scss']
 })
-export class PhaseDialogComponent {
+export class PhaseDialogComponent implements OnInit {
   token: string;
   phase!: PhaseDTO;
   phaseForm!: FormGroup;
@@ -36,14 +37,14 @@ export class PhaseDialogComponent {
     private dialog: MatDialog,
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
   ) {
     this.token = authService.isLogged()!;
   }
 
   ngOnInit(): void {
-      this.loadCurrentConnectedUser();
-    console.log(this.dialogData.project);
+    this.loadCurrentConnectedUser();
     this.project = this.dialogData.project;
     this.phase = this.dialogData.phase;
     this.phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
@@ -87,8 +88,6 @@ export class PhaseDialogComponent {
 
     this.projectService.updatePhase(this.token, this.phase).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.phase = data;
 
         const taskUpdateObservables = this.phase.tasks?.map(task => {
@@ -99,45 +98,42 @@ export class PhaseDialogComponent {
 
         forkJoin(taskUpdateObservables).subscribe({
           next: (results) => {
-            console.log(results);
-
             results.forEach((updatedTask, index) => {
               this.phase.tasks![index] = updatedTask;
             });
 
-            this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
+            this.translateService.get(['SUCCESS_UPDATE_PHASE', 'SUCCESS_TITLE']).subscribe(translations => {
+              this.toastr.success(translations['SUCCESS_UPDATE_PHASE'], translations['SUCCESS_TITLE'], {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              });
             });
 
             this.projectModified.emit(this.phase);
             this.closeDialog();
-            //this.refreshPage();
           },
           error: (err) => {
             console.log(err);
-            this.toastr.error(err.error.detail, "Erreur sur la mise jour des tâches", {
-              timeOut: 3000,
-              positionClass: 'toast-top-center',
+            this.translateService.get(['ERROR_UPDATE_TASKS', 'ERROR_TITLE']).subscribe(translations => {
+              this.toastr.error(translations['ERROR_UPDATE_TASKS'], translations['ERROR_TITLE'], {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              });
             });
           }
         });
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la mise jour de la phase", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
+        this.translateService.get(['ERROR_UPDATE_PHASE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PHASE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     });
   }
-
-  refreshPage() {
-    window.location.reload();
-    // this.router.navigate(['/project-options'], { queryParams: { id: this.project.id } });
-  }
-
 
   onStopProject() {
     this.openStopProjectDialog();
@@ -153,24 +149,26 @@ export class PhaseDialogComponent {
 
     this.projectService.updatePhase(this.token, this.phase).subscribe({
       next: (data) => {
-        console.log(data);
         this.phase = data;
 
-        this.toastr.success("La phase a bien été mise à jour", "Succés Update", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_UPDATE_PHASE', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_UPDATE_PHASE'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
 
        this.projectModified.emit(this.phase);
        this.closeDialog();
-       //this.refreshPage();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la mise jour de la phase", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_UPDATE_PHASE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PHASE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -187,10 +185,12 @@ export class PhaseDialogComponent {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }

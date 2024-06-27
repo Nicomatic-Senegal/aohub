@@ -96,10 +96,12 @@ export class ForgetPasswordComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur pendant l'envoie du mail", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_SENDING_MAIL', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_SENDING_MAIL'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }

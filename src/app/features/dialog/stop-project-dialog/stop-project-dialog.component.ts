@@ -1,17 +1,18 @@
-import { Component, Inject } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../../services/project/project.service';
 import { ApplyProjectDialogComponent } from '../apply-project-dialog/apply-project-dialog.component';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-feasibility-phase',
   templateUrl: './stop-project-dialog.component.html',
   styleUrls: ['./stop-project-dialog.component.scss']
 })
-export class StopProjectDialogComponent {
+export class StopProjectDialogComponent implements OnInit {
   token: string;
   selectedReason?: string;
   otherReason: string = '';
@@ -22,7 +23,8 @@ export class StopProjectDialogComponent {
     private projectService: ProjectService,
     private authService: AuthService,
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
   ) {
     this.token = authService.isLogged()!;
   }
@@ -40,24 +42,26 @@ export class StopProjectDialogComponent {
     }
 
     const reasons = {"reason": reasonToSend};
-    console.log(token);
 
     this.projectService.stopProject(this.token, projectId, reasons).subscribe({
       next: (data) => {
-        console.log(data);
-        this.toastr.success("Ce projet a été arrété avec succès", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_STOP_PROJECT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_STOP_PROJECT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
        this.dialogRef.close();
        this.router.navigate(['/projects']);
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error("Erreur lors de l'arrêt du projet", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_STOP_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_STOP_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
     this.onCloseDialog();

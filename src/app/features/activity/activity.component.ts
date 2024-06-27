@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -10,13 +10,14 @@ import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { ChartComponent } from 'ng-apexcharts';
 import { ChartOptions, ProjectCurve, series } from '../interfaces/chart-options';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
 })
-export class ActivityComponent {
+export class ActivityComponent implements OnInit {
   token: string;
   allProjects: Project[] = [];
   listProject: Project[] = [];
@@ -48,7 +49,9 @@ export class ActivityComponent {
     private toastr: ToastrService,
     private router: Router,
     private enterpriseService: EnterpriseService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private translateService: TranslateService
+    ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
   }
@@ -75,15 +78,15 @@ export class ActivityComponent {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
-    console.log(this.currentConnectedUser);
-
     this.selectedEnterprise = this.currentConnectedUser?.enterprise.id!;
   }
 
@@ -108,10 +111,12 @@ export class ActivityComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_COMPANIES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_COMPANIES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -124,8 +129,6 @@ export class ActivityComponent {
     this.nbProjectsOnHold = 0;
     this.projectService.getAllProjectsEnterprise(this.token, idEnterprise).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.allProjects = data;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
@@ -154,10 +157,12 @@ export class ActivityComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -170,8 +175,6 @@ export class ActivityComponent {
     this.nbProjectsOnHold = 0;
     this.projectService.getAllProjectsNoPagination(this.token).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
@@ -200,10 +203,12 @@ export class ActivityComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -247,7 +252,6 @@ export class ActivityComponent {
       });
 
       this.projectCurve.nbProject = yearCount;
-      console.log(this.projectCurve);
 
       this.curveTitle = this.selectedYears.toString().replaceAll("[,]", "");
     }
