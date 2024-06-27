@@ -52,7 +52,7 @@
       </div>
     </div>
     <div class="flex border-t-2 border-[#E5E5E5] py-5">
-      <div class="flex mx-2 md:mx-5 pr-5">
+      <div class="flex mx-2 md:mx-5 pr-5 cursor-pointer" (click)="navigation('/setting')">
         <img [src]="picture || '../../../assets/icons/icon-user.png'" alt="" class="mr-2 w-10 h-10 rounded-full bg-[#AAAAAA]">
         <div *ngIf="screenSize !== 'sm' && viewText">
           <p class="font-poppins text-black text-sm"> {{fullName}}</p>
