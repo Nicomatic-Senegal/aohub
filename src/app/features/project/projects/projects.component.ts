@@ -115,7 +115,6 @@ export class ProjectsComponent implements OnInit {
       next: (data) => {
         this.listProject.push(data.projects);
         this.listProject = this.listProject.flatMap(data => data);
-        console.log(this.listProject)
 
         this.totalItems = data.totalCount;
         this.nbProjectsInProgres = data.totalInProgressCount;
@@ -167,32 +166,32 @@ export class ProjectsComponent implements OnInit {
   sortMyProjects() {
     if(this.selectedMarkets.length === 0 && this.selectedStatus.length === 0 && this.selectedStartDate.length === 0 && this.selectedEndDate.length === 0) {
       this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-    }
+    } else {
+      this.listProject.splice(0, this.listProject.length);
 
-    this.listProject.splice(0, this.listProject.length);
+      this.projectService.getMyParticipations(this.token, this.currentPage - 1, this.itemPerPage, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
+        next: (data) => {
+          this.listProject.push(data.projects);
 
-    this.projectService.getMyParticipations(this.token, this.currentPage - 1, this.itemPerPage, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
-      next: (data) => {
-        this.listProject.push(data.projects);
+          this.listProject = this.listProject.flatMap(data => data);
 
-        this.listProject = this.listProject.flatMap(data => data);
-
-        this.totalItems = data.totalCount;
-        this.nbProjectsInProgres = data.totalInProgressCount;
-        this.nbProjectsFinished = data.totalFinishedCount;
-        this.nbProjectsOnHold = data.totalOnHoldCount;
-        this.nbProjectsArchived = data.totalArchivedCount;
-      },
-      error: (err) => {
-        console.log(err);
-        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+          this.totalItems = data.totalCount;
+          this.nbProjectsInProgres = data.totalInProgressCount;
+          this.nbProjectsFinished = data.totalFinishedCount;
+          this.nbProjectsOnHold = data.totalOnHoldCount;
+          this.nbProjectsArchived = data.totalArchivedCount;
+        },
+        error: (err) => {
+          console.log(err);
+          this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
           });
-        });
-      }
-    });
+        }
+      });
+    }
   }
 
   onSelectStatus(status: string) {
