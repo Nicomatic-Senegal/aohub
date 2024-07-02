@@ -7,8 +7,13 @@
         <div class="flex">
           <div class="w-full flex-col p-5">
             <div class="dropdown mr-5">
-              <div class="px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'ENTERPRISE' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              <div
+                [ngClass]="selectedEnterprise > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                   class="px-2 border rounded-xl">
+                <button
+                  [ngClass]="selectedEnterprise > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm">
+                  <i class="fas fa-globe mr-2"></i>{{'ENTERPRISE' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
@@ -24,8 +29,10 @@
               </div>
             </div>
             <div class="dropdown mr-5">
-              <div class=" px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEAR' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              <div [ngClass]="selectedYears.length > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                   class="px-2 border rounded-xl">
+                <button [ngClass]="selectedYears.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEAR' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
