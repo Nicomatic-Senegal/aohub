@@ -372,5 +372,7 @@
   "ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION": "You cannot add more than 30 days to the project",
 
   "WARNING_CHOOSE_SLOT": "Please choose at least one slot",
-  "WARNING_TITLE": "Warning!"
+  "WARNING_TITLE": "Warning!",
+
+  "SELECT_ALL": "Select all"
 }

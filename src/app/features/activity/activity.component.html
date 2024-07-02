@@ -29,6 +29,15 @@
               </div>
               <div class="dropdown-content mr-5">
                 <a
+                  class="flex items-center text-sm text-black font-dmsans font-bold px-3 py-2 cursor-pointer w-full"
+                  [class.selected]="isAllSelected()"
+                  (click)="toggleSelectAll()">
+                  <span class="mr-3 w-2">
+                      <i class="fas fa-check" [ngStyle]="{ 'display': isAllSelected() ? 'inline-block' : 'none' }"></i>
+                  </span>
+                  {{'SELECT_ALL' | translate}}
+                </a>
+                <a
                   *ngFor="let year of years"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
                   [class.selected]="isYearSelected(year)"

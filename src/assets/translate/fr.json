@@ -372,5 +372,7 @@
   "ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION": "Vous ne pouvez pas rajouter plus de 30 jours au projet",
 
   "WARNING_CHOOSE_SLOT": "Veuillez choisir au moins un créneau",
-  "WARNING_TITLE": "Attention !"
+  "WARNING_TITLE": "Attention !",
+
+  "SELECT_ALL": "Séléctionner tout"
 }

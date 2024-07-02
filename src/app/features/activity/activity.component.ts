@@ -59,7 +59,7 @@ export class ActivityComponent implements OnInit {
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
     this.loadAllEnterprises();
-    this.loadAllProjects();
+    this.loadEnterpriseProjects(this.selectedEnterprise);
   }
 
   rotation(word: any, index: number) {
@@ -141,11 +141,6 @@ export class ActivityComponent implements OnInit {
         this.nbProjectsFinished = data.totalFinishedCount;
         this.nbProjectsOnHold = data.totalOnHoldCount;
         this.nbProjectsArchived = data.totalArchivedCount;
-
-        console.log(this.nbProjectsInProgress)
-        console.log(this.nbProjectsFinished)
-        console.log(this.nbProjectsOnHold)
-        console.log(this.nbProjectsArchived)
       },
       error: (err) => {
         console.log(err);
@@ -292,6 +287,36 @@ export class ActivityComponent implements OnInit {
     return this.selectedEnterprise === enterprise;
   }
 
+  isAllSelected(): boolean {
+    return this.selectedYears.length === this.years.length;
+  }
+
+  toggleSelectAll(): void {
+    if (this.isAllSelected()) {
+      this.deselectAll();
+    } else {
+      this.selectAll();
+    }
+  }
+
+  selectAll(): void {
+    this.selectedYears = [...this.years];
+    if (this.selectedEnterprise == -1) {
+      this.loadAllProjects();
+    } else {
+      this.loadEnterpriseProjects(this.selectedEnterprise);
+    }
+  }
+
+  deselectAll(): void {
+    this.selectedYears = [];
+    if (this.selectedEnterprise == -1) {
+      this.loadAllProjects();
+    } else {
+      this.loadEnterpriseProjects(this.selectedEnterprise);
+    }
+  }
+
   sortProjectsByMonth(month: string) {
     const index = this.selectedMonth.indexOf(month);
     if (index !== -1) {
@@ -320,7 +345,12 @@ export class ActivityComponent implements OnInit {
     }
 
     if (this.selectedYears.length === 0) {
-      this.loadAllProjects();
+      if (this.selectedEnterprise == -1) {
+        this.loadAllProjects();
+      } else {
+        this.loadEnterpriseProjects(this.selectedEnterprise);
+      }
+
     } else {
       this.nbProjectsArchived = 0;
       this.nbProjectsFinished = 0;
