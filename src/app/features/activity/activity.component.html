@@ -179,9 +179,9 @@
                       <td class="py-2 text-left">
                           <div class="">
                               <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
                           </div>
                       </td>
                   </tr>
