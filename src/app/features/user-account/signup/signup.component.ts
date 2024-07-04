@@ -24,6 +24,15 @@ export class SignupComponent implements OnInit {
   user: ManagedUserVM = new ManagedUserVM();
   token!: string;
   isConfirmPasswordVisible: boolean = false;
+  roleTranslationMap: Record<string, string> = {
+    'Responsable produit': 'ROLE_PRODUCT_MANAGER',
+    'Commercial': 'ROLE_SALES',
+    'Acheteur': 'ROLE_BUYER',
+    'Négociateur': 'ROLE_NEGOTIATOR',
+    'Designer': 'ROLE_DESIGNER',
+    'Directeur': 'ROLE_DIRECTOR',
+    'Autre': 'OTHER'
+  };
 
   constructor(
     private toastr: ToastrService,
@@ -34,7 +43,6 @@ export class SignupComponent implements OnInit {
     private translateService: TranslateService
     ) {
     const language = localStorage.getItem("language");
-    console.log(language);
 
     if (language) {
       this.translateService.use(language);
@@ -74,8 +82,11 @@ export class SignupComponent implements OnInit {
     });
 
     this.enterpriseService.getAllEmployeePost().subscribe({
-      next: (data) => {
-        this.listEmployeePost = data;
+      next: (data: EmployeePostDTO[]) => {
+        this.listEmployeePost = data.map((item: EmployeePostDTO) => ({
+          ...item,
+          translatedTitle: this.roleTranslationMap[item.title] || item.title
+        }));
       },
       error: (err) => {
         console.log(err);
