@@ -298,6 +298,7 @@
   "FULLY_VALIDATE_PROJECT": "Validez-vous intégralement cette phase du projet ?",
   "STOP_PROJECT_STAGE": "Arrêtez-vous ce projet à ce stade ?",
   "ASSIGN_PHASE": "Affecter la responsabilité de cette phase  à",
+  "ASSIGN_PHASE_TO": "'Phase affectée à",
   "PARTNER_REQUIRED": "Le partnaire est requis.",
   "ASSIGN_TASK": "Affecter tâche",
   "TASK": "Tâche",
@@ -388,5 +389,6 @@
   "WARNING_CHOOSE_SLOT": "Veuillez choisir au moins un créneau",
   "WARNING_TITLE": "Attention !",
 
-  "SELECT_ALL": "Séléctionner tout"
+  "SELECT_ALL": "Séléctionner tout",
+  "UNASSIGNED": "Pas affecté"
 }

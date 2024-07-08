@@ -298,6 +298,7 @@
   "FULLY_VALIDATE_PROJECT": "Do you fully validate this phase of the project?",
   "STOP_PROJECT_STAGE": "Are you stopping this project at this stage?",
   "ASSIGN_PHASE": "Assign the responsibility of this phase to",
+  "ASSIGN_PHASE_TO": "'Phase assign to",
   "PARTNER_REQUIRED": "The partner is required.",
   "ASSIGN_TASK": "Assign task",
   "TASK": "Task",
@@ -388,5 +389,6 @@
   "WARNING_CHOOSE_SLOT": "Please choose at least one slot",
   "WARNING_TITLE": "Warning!",
 
-  "SELECT_ALL": "Select all"
+  "SELECT_ALL": "Select all",
+  "UNASSIGNED": "Unassigned"
 }
