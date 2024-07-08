@@ -1,4 +1,4 @@
-<div class="rounded-2xl bg-white h-full w-full p-3 overflow-auto">
+<div class="rounded-2xl bg-white 90vh w-full p-5 overflow-auto">
   <div *ngIf="!project" class="mt-[10%] mb-[10%] flex items-center justify-center">
     <div class="text-center">
       <p class="text-3xl font-bold mb-4">{{'NO_PROJECT' | translate}}</p>
@@ -16,7 +16,7 @@
           <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status!)" type="submit" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md ml-10">{{'VALID' | translate}} </button>
         </form>
       </div>
-      <table class="table-fixed">
+      <table class="table-fixed overflow-auto">
         <thead>
           <tr>
             <th>{{'FIRSTNAME' | translate}} - {{'LASTNAME' | translate}}</th>

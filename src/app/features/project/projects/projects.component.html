@@ -165,7 +165,7 @@
               <div class="flex flex-wrap">
                   <div
                       *ngFor="let market of project?.markets"
-                      class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl mr-3 mb-3 px-5 py-1 text-center font-dmsans text-sm">{{market.name}}</div>
+                      class="text-[#06A6FF] bg-[#B8E5FF]/60 rounded-xl mr-3 mb-3 px-5 py-1 text-center font-dmsans text-sm">{{translateMarket(market.name) | translate}}</div>
               </div>
               <div class="">
                   <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs">{{'IN_PROGRESS' | translate}}</div>

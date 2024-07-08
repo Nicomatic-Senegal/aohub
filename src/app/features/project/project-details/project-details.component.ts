@@ -27,6 +27,41 @@ export class ProjectDetailsComponent implements OnChanges {
   token: string;
   currentConnectedUser?: any;
   events: any;
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
+  roleTranslationMap: Record<string, string> = {
+    "Responsable produit" : "ROLE_PRODUCT_MANAGER",
+    "Commercial": "ROLE_SALES",
+    "Acheteur": "ROLE_BUYER",
+    "Négociateur": "ROLE_NEGOTIATOR",
+    "Designer": "ROLE_DESIGNER",
+    "Directeur": "ROLE_DIRECTOR",
+    "Autre": "OTHER"
+  };
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
   constructor(public dialog: MatDialog,
     private authService: AuthService,
@@ -47,6 +82,7 @@ export class ProjectDetailsComponent implements OnChanges {
         this.setProjectStatusToFinished();
       }
     }
+    console.log(this.project)
   }
 
   setProjectStatusToFinished() {
@@ -225,4 +261,15 @@ export class ProjectDetailsComponent implements OnChanges {
     return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
+  }
+
+  translateRole(role: string) {
+    return this.roleTranslationMap[role] || role;
+  }
 }

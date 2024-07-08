@@ -12,7 +12,7 @@
                 <div class="w-full justify-center mt-2">
                     <p class="mb-2 text-lg font-bold tracking-tight text-[#408A7E] text-center">{{partner.user.firstName}} {{partner.user.lastName}}</p>
                 </div>
-                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'ROLE' | translate}}: </span>{{partner.employeePost.title}}</p>
+                <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'ROLE' | translate}}: </span>{{translateRole(partner.employeePost.title) | translate}}</p>
                 <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">Email: </span> {{partner.user.email}}</p>
                 <p class="mb-3 font-normal text-gray-700"> <span class="font-bold">{{'TELEPHONE' | translate}}: </span> {{partner.phoneNumber}}</p>
             </div>

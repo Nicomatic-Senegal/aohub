@@ -15,6 +15,15 @@ export class PartnerDetailsDialogComponent {
   partner!: PartnerDTO;
   token: string;
   enterprise!: EnterpriseDTO;
+  roleTranslationMap: Record<string, string> = {
+    "Responsable produit" : "ROLE_PRODUCT_MANAGER",
+    "Commercial": "ROLE_SALES",
+    "Acheteur": "ROLE_BUYER",
+    "Négociateur": "ROLE_NEGOTIATOR",
+    "Designer": "ROLE_DESIGNER",
+    "Directeur": "ROLE_DIRECTOR",
+    "Autre": "OTHER"
+  };
 
   constructor(public dialogRef: MatDialogRef<PartnerDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
@@ -48,4 +57,8 @@ export class PartnerDetailsDialogComponent {
     onClose() {
       this.dialogRef.close();
     }
+
+  translateRole(role: string) {
+    return this.roleTranslationMap[role] || role;
+  }
 }

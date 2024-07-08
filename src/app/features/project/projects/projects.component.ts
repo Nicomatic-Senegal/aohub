@@ -32,6 +32,21 @@ export class ProjectsComponent implements OnInit {
   selectedEndDate: string = '';
   listMarkets: any;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
   constructor(
     private projectService: ProjectService,
@@ -244,6 +259,10 @@ export class ProjectsComponent implements OnInit {
     }
     const dateToFormat = new Date(date);
     return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
   }
 
 }
