@@ -20,7 +20,6 @@ import {EmployeePostDTO} from "../../interfaces/employee.model";
   styleUrls: ['./project-submission.component.scss']
 })
 export class ProjectSubmissionComponent implements OnInit {
-
   step: number = 1;
   minDate!: Date;
   titleSteps = ["MODALITY", "ATTACHMENTS", "LAUNCH", "TO_END"];
@@ -31,11 +30,6 @@ export class ProjectSubmissionComponent implements OnInit {
     ["../../../assets/img/success-grey.svg", "../../../assets/img/success-green.svg"]
   ];
   projectSubmissionForm: FormGroup;
-
-  heureDebutNumber!: number;
-  minuteDebutNumber!: number;
-  heureFinNumber!: number;
-  minuteFinNumber!: number;
   minDateFinString!: string;
   startDateToString!: string;
   endDateToString!: string;
@@ -62,6 +56,21 @@ export class ProjectSubmissionComponent implements OnInit {
     "Découpe": "CUTTING_STAMPING",
     "Électronique": "ELECTRONICS",
     "Découpe laser": "LASER_CUTTING"
+  };
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
   };
 
   constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService, private translateService: TranslateService) {
@@ -130,7 +139,6 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
-        this.domains = data;
         this.domains = data.map((item: Domain) => ({
           ...item,
           translatedName: this.domainTranslationMap[item.name] || item.name
@@ -149,7 +157,10 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
-        this.markets = data;
+        this.markets = data.map((item: Market) => ({
+          ...item,
+          translatedName: this.marketTranslationMap[item.name] || item.name
+        }));
       },
       error: (err) => {
         console.log(err);
@@ -270,8 +281,6 @@ export class ProjectSubmissionComponent implements OnInit {
   onSelectDomain(value: any) {
     if (this.domainChoosen.indexOf(value) === -1)
       this.domainChoosen.push(value);
-    console.log(this.domainChoosen);
-
   }
 
   removeDomain(item: string) {
@@ -299,14 +308,10 @@ export class ProjectSubmissionComponent implements OnInit {
 
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
-      console.log('Nom du fichier:', file.name);
-      console.log('Type du fichier:', file.type);
-      console.log('Taille du fichier:', file.size, 'octets');
       const reader = new FileReader();
 
       reader.onload = () => {
         const base64String = reader.result as string;
-        // console.log(base64String);
         if (indice === 1) {
           let attachment: AttachmentDto = {
             name: file.name,
