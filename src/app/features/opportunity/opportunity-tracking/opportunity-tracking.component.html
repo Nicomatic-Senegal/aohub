@@ -1,19 +1,19 @@
 <div class="rounded-2xl bg-white h-full w-full p-3 overflow-auto">
-  <div *ngIf="listProject.length === 0" class="mt-[10%] mb-[10%] flex items-center justify-center">
+  <div *ngIf="!project" class="mt-[10%] mb-[10%] flex items-center justify-center">
     <div class="text-center">
       <p class="text-3xl font-bold mb-4">{{'NO_PROJECT' | translate}}</p>
       <p class="text-lg text-gray-600">{{'NO_PROJECT_OWNED' | translate}}</p>
     </div>
   </div>
-  <ng-container *ngFor="let project of paginatedProjects; let i = index">
-    <div *ngIf="listProject.length !== 0" class="">
-      <p class="text-[#408A7E] text-xl font-semibold font-dmsans mt-10">{{'NAVIGATED_LIST' | translate}}: <span class="font-bold">{{project.title}}</span></p>
+  <ng-container>
+    <div *ngIf="project" class="">
+      <p class="text-[#408A7E] text-xl font-semibold font-dmsans mt-10">{{'NAVIGATED_LIST' | translate}}: <span class="font-bold">{{project?.title}}</span></p>
       <div class="w-full rounded-lg mt-3 mb-5 flex items-center">
         <p class=" text-md font-semibold text-[#161616] font-dmsans mr-5">{{'EXTEND_DATE_NAVIGAION' | translate}} :</p>
         <form [formGroup]="myForm" (ngSubmit)="extendDeadlineForOpportunity(project.id, project.deadlinePositioning!, project.createdAt!)" class="flex items-center">
           <input type="number" formControlName="nbDays" class="input" min="1" max="30" (keypress)="onKeyPress($event)">
-          <label for="nbDays" class="text-base font-dmsans text-black">jour(s)</label>
-          <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)" type="submit" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md ml-10">{{'VALID' | translate}} </button>
+          <label class="text-base font-dmsans text-black">jour(s)</label>
+          <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status!)" type="submit" class="rounded-lg text-base text-white font-dmsans px-6 py-1 bg-[#408A7E] shadow-md ml-10">{{'VALID' | translate}} </button>
         </form>
       </div>
       <table class="table-fixed">
@@ -32,7 +32,7 @@
             <td>
               <div class="dropdown-wrapper">
                 <select>
-                  <option *ngFor="let item of getAllDisponibility(item.disponibilities)" [value]="item">{{ item | date: 'EEE, dd MMM à HH:mm' : 'fr' }}</option>
+                  <option *ngFor="let item of getAllDisponibility(item.disponibilities)" [value]="item">{{ formatDate(item) }}</option>
                 </select>
               </div>
             </td>
@@ -54,14 +54,5 @@
       </table>
       <div class="border-b-2 border-[#737373]/40 text-[#737373] w-full my-5"></div>
     </div>
-
   </ng-container>
-
-  <app-paginator
-    *ngIf="listProject.length !== 0"
-    [totalItems]="totalItems"
-    [itemPerPage]="itemPerPage"
-    [currentPage]="currentPage"
-    (onClick)="changePage($event)">
-  </app-paginator>
 </div>

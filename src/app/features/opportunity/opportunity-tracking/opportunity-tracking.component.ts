@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -17,14 +17,13 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class OpportunityTrackingComponent implements OnInit {
   token!: string;
-  listProject: Project[] = [];
-  listPositionners: Map<string, PositioningDTO[]> = new Map<string, PositioningDTO[]>();
+  project!: Project;
   positioners: Array<Array<PositioningDTO>> = [];
   totalItems = 4;
   itemPerPage = 2;
   currentPage = 1;
-
   myForm: FormGroup;
+  @Input() projectId: string = '';
 
 
   constructor(
@@ -40,11 +39,16 @@ export class OpportunityTrackingComponent implements OnInit {
       this.myForm = this.fb.group({
         nbDays: [1, [Validators.required, Validators.min(1), Validators.max(30)]]
       });
-
   }
 
   ngOnInit(): void {
     this.loadProject();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['projectId'] && !changes['projectId'].firstChange) {
+      this.loadProject();
+    }
   }
 
   extendDeadlineForOpportunity(id: number, deadlinePositioningStr: Date, createdAtStr: Date): void {
@@ -102,22 +106,17 @@ export class OpportunityTrackingComponent implements OnInit {
   }
 
   loadProject() {
-    this.projectService.getAllMyProjects(this.token).subscribe({
+    this.projectService.getProjectById(this.token, this.projectId).subscribe({
       next: (data) => {
-        this.listProject = data;
-
-        this.listProject.forEach(project => {
-          this.projectService.getPartnersInMyProjects(this.token, project.id).subscribe({
-            next: (data1) => {
-                this.positioners[project.id] = data1;
-            },
-            error: (err) => {
-                console.error(err);
-            }
-          });
+        this.project = data;
+        this.projectService.getPartnersInMyProjects(this.token, this.project?.id).subscribe({
+          next: (data1) => {
+            this.positioners[this.project?.id] = data1;
+          },
+          error: (err) => {
+            console.error(err);
+          }
         });
-
-        this.totalItems = this.listProject.length
       },
       error: (err) => {
         console.log(err);
@@ -200,14 +199,22 @@ export class OpportunityTrackingComponent implements OnInit {
       }
   }
 
-  get paginatedProjects() {
-    const start = (this.currentPage - 1) * (this.itemPerPage);
-    const end = start + this.itemPerPage;
-
-    return this.listProject.slice(start, end);
-  }
-
-  changePage(page: number) {
-    this.currentPage = page;
+  formatDate(date: Date | undefined): string {
+    if (!date) {
+      return '';
+    }
+    let language = 'fr-Fr';
+    if (localStorage.getItem('language') === 'en') {
+      language = 'en-En';
+    }
+    const dateToFormat = new Date(date);
+    return dateToFormat.toLocaleString(language, {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
 }
