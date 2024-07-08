@@ -80,7 +80,7 @@
         <label for="" class="label-line-form">{{'ROLE' | translate}} </label>
         <div class="w-[60%]">
           <select class="input-line-form" formControlName="role" >
-            <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
+            <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{translateRole(item.title) | translate}}</option>
           </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
             {{'ROLE_REQUIRED' | translate}}.

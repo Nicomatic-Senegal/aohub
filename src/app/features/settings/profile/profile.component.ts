@@ -69,6 +69,15 @@ export class ProfileComponent implements OnInit {
   login!: string;
   picture!: string;
   pictureToShow!: string;
+  roleTranslationMap: Record<string, string> = {
+    "Responsable produit" : "ROLE_PRODUCT_MANAGER",
+    "Commercial": "ROLE_SALES",
+    "Acheteur": "ROLE_BUYER",
+    "Négociateur": "ROLE_NEGOTIATOR",
+    "Designer": "ROLE_DESIGNER",
+    "Directeur": "ROLE_DIRECTOR",
+    "Autre": "OTHER"
+  };
 
   constructor(
     private route: Router,
@@ -268,6 +277,10 @@ export class ProfileComponent implements OnInit {
         });
       }
     });
+  }
+
+  translateRole(role: string) {
+    return this.roleTranslationMap[role] || role;
   }
 
 }
