@@ -25,9 +25,8 @@ export class ActivityComponent implements OnInit {
   currentConnectedUser?: PartnerDTO;
   nbProjectsInProgress: number = 0;
   nbProjectsFinished: number = 0;
-  nbProjectsOnHold: number = 0;
+  nbAvailableOpportunities: number = 0;
   nbProjectsArchived: number = 0;
-  selectedDate: Date | null = new Date();
   selectedEnterprise!: number;
   selectedMonth: string[] = [];
   selectedYears: string[] = [];
@@ -126,7 +125,7 @@ export class ActivityComponent implements OnInit {
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
     this.nbProjectsInProgress = 0;
-    this.nbProjectsOnHold = 0;
+    this.nbAvailableOpportunities = 0;
     this.projectService.getAllProjectsEnterprise(this.token, idEnterprise).subscribe({
       next: (data) => {
         console.log(data)
@@ -139,7 +138,7 @@ export class ActivityComponent implements OnInit {
 
         this.nbProjectsInProgress = data.totalInProgressCount;
         this.nbProjectsFinished = data.totalFinishedCount;
-        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbAvailableOpportunities = data.totalAvailableOpportunitiesCount;
         this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
@@ -159,7 +158,7 @@ export class ActivityComponent implements OnInit {
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
     this.nbProjectsInProgress = 0;
-    this.nbProjectsOnHold = 0;
+    this.nbAvailableOpportunities = 0;
     this.projectService.getAllProjectsWithHeaders(this.token).subscribe({
       next: (data) => {
         this.allProjects = data.projects;
@@ -171,7 +170,7 @@ export class ActivityComponent implements OnInit {
 
         this.nbProjectsInProgress = data.totalInProgressCount;
         this.nbProjectsFinished = data.totalFinishedCount;
-        this.nbProjectsOnHold = data.totalOnHoldCount;
+        this.nbAvailableOpportunities = data.totalAvailableOpportunitiesCount;
         this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
@@ -355,7 +354,7 @@ export class ActivityComponent implements OnInit {
       this.nbProjectsArchived = 0;
       this.nbProjectsFinished = 0;
       this.nbProjectsInProgress = 0;
-      this.nbProjectsOnHold = 0;
+      this.nbAvailableOpportunities = 0;
       this.listProject = this.allProjects.filter(project => this.selectedYears.includes(project.createdAt.toString().split("-")[0]));
       this.listProject.forEach(project => {
         switch(project.status) {
@@ -366,7 +365,7 @@ export class ActivityComponent implements OnInit {
             this.nbProjectsFinished++;
             break;
           case 'ON_HOLD':
-            this.nbProjectsOnHold++;
+            this.nbAvailableOpportunities++;
             break;
           case 'ARCHIVED':
             this.nbProjectsArchived++;

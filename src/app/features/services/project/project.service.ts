@@ -45,17 +45,17 @@ export class ProjectService {
           const totalCountHeader = response.headers.get('X-Total-Count');
           const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
           const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
-          const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
+          const totalAvailableOpportunitiesCountHeader = response.headers.get('X-Available-Opportunities-Count');
           const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
 
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
           const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
           const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
-          const totalOnHoldCount = totalOnHoldCountHeader ? parseInt(totalOnHoldCountHeader, 10) : 0;
+          const totalAvailableOpportunitiesCount = totalAvailableOpportunitiesCountHeader ? parseInt(totalAvailableOpportunitiesCountHeader, 10) : 0;
           const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
 
           const projects = response.body;
-          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalOnHoldCount, totalArchivedCount };
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalAvailableOpportunitiesCount, totalArchivedCount };
         })
       );
   }
@@ -138,17 +138,17 @@ export class ProjectService {
           const totalCountHeader = response.headers.get('X-Total-Count');
           const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
           const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
-          const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
+          const totalAvailableOpportunitiesHeader = response.headers.get('X-Available-Opportunities-Count');
           const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
 
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
           const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
           const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
-          const totalOnHoldCount = totalOnHoldCountHeader ? parseInt(totalOnHoldCountHeader, 10) : 0;
+          const totalAvailableOpportunitiesCount = totalAvailableOpportunitiesHeader ? parseInt(totalAvailableOpportunitiesHeader, 10) : 0;
           const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
 
           const projects = response.body;
-          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalOnHoldCount, totalArchivedCount };
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalAvailableOpportunitiesCount, totalArchivedCount };
         })
       );
   }
