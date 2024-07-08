@@ -21,6 +21,32 @@ export class PopupModifyProjectComponent implements OnInit {
   projectUpdated: Project;
   domains: Domain[] = [];
   domainChoosen: Array<string> = [];
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -126,6 +152,14 @@ export class PopupModifyProjectComponent implements OnInit {
 
   removeDomain(item: string) {
     this.domainChoosen.splice(this.domainChoosen.indexOf(item), 1);
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
+  }
+
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
   }
 
 }
