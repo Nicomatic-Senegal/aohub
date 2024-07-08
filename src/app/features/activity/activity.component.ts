@@ -232,46 +232,47 @@ export class ActivityComponent implements OnInit {
   drawCurve() {
     this.curveSetup();
 
-    this.chartOptions = {
-      series: [
-        {
-          name: "Marché",
-          data: this.projectCurve.nbProject
-        }
-      ],
-      chart: {
-        type: "area",
-        height: 390,
-        zoom: {
+    this.translateService.get('PROJECT_ANALYSIS').subscribe(translatedTitle => {
+      this.chartOptions = {
+        series: [
+          {
+            name: "Marché",
+            data: this.projectCurve.nbProject
+          }
+        ],
+        chart: {
+          type: "area",
+          height: 390,
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
           enabled: false
+        },
+        stroke: {
+          curve: "straight"
+        },
+        title: {
+          text: translatedTitle,
+          align: "left"
+        },
+        subtitle: {
+          text: this.curveTitle,
+          align: "left"
+        },
+        labels: this.projectCurve.dates,
+        xaxis: {
+          type: "category"
+        },
+        yaxis: {
+          opposite: true
+        },
+        legend: {
+          horizontalAlign: "left"
         }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "straight"
-      },
-
-      title: {
-        text: "Analyse des projets",
-        align: "left"
-      },
-      subtitle: {
-        text: this.curveTitle,
-        align: "left"
-      },
-      labels: this.projectCurve.dates,
-      xaxis: {
-        type: "category"
-      },
-      yaxis: {
-        opposite: true
-      },
-      legend: {
-        horizontalAlign: "left"
-      }
-    };
+      };
+    });
   }
 
   isMonthSelected(month: string): boolean {

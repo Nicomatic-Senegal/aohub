@@ -391,5 +391,6 @@
   "WARNING_TITLE": "Attention !",
 
   "SELECT_ALL": "Séléctionner tout",
-  "UNASSIGNED": "Pas affecté"
+  "UNASSIGNED": "Pas affecté",
+  "PROJECT_ANALYSIS": "Analyse des projets"
 }

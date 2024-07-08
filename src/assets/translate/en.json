@@ -391,5 +391,6 @@
   "WARNING_TITLE": "Warning!",
 
   "SELECT_ALL": "Select all",
-  "UNASSIGNED": "Unassigned"
+  "UNASSIGNED": "Unassigned",
+  "PROJECT_ANALYSIS": "Project analysis"
 }
