@@ -319,6 +319,7 @@
   "PROJECT_EXPERIENCE_REQUIRED": "Project experience is required to submit feedback",
   "DOCUMENTS_PROJECT": "Project documents",
   "NO_NORMAL_DOCUMENT": "No normal documents in this project",
+  "NO_PLAN_DOCUMENT": "No plan documents in this project",
   "UPLOAD_PLAN_FILES": "Upload plan files",
   "UPLOAD_FILES": "Upload files",
   "MARK_ALL_AS_READ": "Mark all as read",
