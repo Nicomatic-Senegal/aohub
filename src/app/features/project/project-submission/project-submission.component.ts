@@ -351,4 +351,8 @@ export class ProjectSubmissionComponent implements OnInit {
       this.displayContractDuration = false;
     }
   }
+
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
+  }
 }
