@@ -75,7 +75,7 @@
                     <div class=" w-[60%] ">
                       <select  class="input" #domain (change)="onSelectDomain(domain.value)">
                         <option value="" disabled [selected]="true">{{'CHOOSE_JOB' | translate}}...</option>
-                        <option *ngFor="let item of domains" value="{{item.name}}" class="{{domainChoosen.indexOf(item.name) !== -1 ? 'text-[#AAAAAA]' : ''}}">{{item.name}}</option>
+                        <option *ngFor="let item of domains" value="{{item.name}}" class="{{domainChoosen.indexOf(item.name) !== -1 ? 'text-[#AAAAAA]' : ''}}"> {{ item.translatedName! | translate }}</option>
                       </select>
                       <div *ngIf="domainChoosen.length === 0" class="text-red-600 text-xs">
                         {{'JOB_REQUIRED' | translate}}.

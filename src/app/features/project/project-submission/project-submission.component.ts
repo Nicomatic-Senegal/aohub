@@ -12,6 +12,7 @@ import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto, AttachmentType } from '../../interfaces/attachment-dto.model';
 import { digitOnly } from '../../interfaces/utils';
 import {TranslateService} from "@ngx-translate/core";
+import {EmployeePostDTO} from "../../interfaces/employee.model";
 
 @Component({
   selector: 'app-project-submission',
@@ -51,6 +52,17 @@ export class ProjectSubmissionComponent implements OnInit {
   plansChoosen: Array<string> = [];
   allFiles: Array<AttachmentDto> = [];
   displayContractDuration: boolean = false;
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
 
   constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService, private translateService: TranslateService) {
     authService.loggedOut();
@@ -61,7 +73,6 @@ export class ProjectSubmissionComponent implements OnInit {
       intitule: new FormControl(null, [Validators.required]),
       client: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      // metier: new FormControl(null, [Validators.required]),
       confidentialite1: new FormControl(true, [Validators.required]),
       confidentialite2: new FormControl(false, [Validators.required]),
       marche: new FormControl(null, [Validators.required]),
@@ -70,20 +81,14 @@ export class ProjectSubmissionComponent implements OnInit {
       duree: new FormControl(null),
       volumeGlobal: new FormControl(null, [Validators.required]),
       budget: new FormControl(null, [Validators.required]),
-      // delaiPlusTot: new FormControl(null, [Validators.required]),
-      // delaiPlusTard: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
-      // fichiers: new FormControl(null, [Validators.required]),
-      // plans: new FormControl(null, [Validators.required]),
       heure: new FormControl(null, [Validators.required]),
-      // heureFin: new FormControl(null, [Validators.required]),
     });
 
     const dayStart = new Date();
     const dayEnd = new Date();
 
-    // Définissez l'heure, les minutes et les secondes à zéro
     dayStart.setHours(0, 0, 0, 0);
     dayEnd.setHours(23, 50, 0, 0);
 
@@ -126,6 +131,10 @@ export class ProjectSubmissionComponent implements OnInit {
     this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
         this.domains = data;
+        this.domains = data.map((item: Domain) => ({
+          ...item,
+          translatedName: this.domainTranslationMap[item.name] || item.name
+        }));
       },
       error: (err) => {
         console.log(err);
@@ -283,7 +292,6 @@ export class ProjectSubmissionComponent implements OnInit {
     const files: FileList = event.target.files;
 
     if (indice === 1) {
-      // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
       this.filesChoosen = [];
     } else {
       this.plansChoosen = [];
