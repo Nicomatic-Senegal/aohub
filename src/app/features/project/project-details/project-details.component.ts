@@ -213,9 +213,16 @@ export class ProjectDetailsComponent implements OnChanges {
     })
   }
 
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  formatDate(date: Date | undefined): string {
+    if (!date) {
+      return '';
+    }
+    let language = 'fr-Fr';
+    if (localStorage.getItem('language') === 'en') {
+      language = 'en-En';
+    }
+    const dateToFormat = new Date(date);
+    return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
 }
