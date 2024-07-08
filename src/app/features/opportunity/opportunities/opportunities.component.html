@@ -57,7 +57,7 @@
                   </p>
                 </div>
                 <div class="flex justify-between items-center pt-3 px-2 flex flex-wrap grid grid-cols-4 gap-2">
-                  <span *ngFor="let itemi of project?.domains" class="text-[#408A7E] text-sm bg-[#DBE9E6] me-2 px-3 py-1 rounded-2xl">{{itemi?.name}}</span>
+                  <span *ngFor="let itemi of project?.domains" class="text-[#408A7E] text-sm bg-[#DBE9E6] me-2 px-3 py-1 rounded-2xl">{{translateDomain(itemi.name) | translate}}</span>
                 </div>
               </div>
 
@@ -67,7 +67,7 @@
                 <div>
                   <div class="flex justify-between pb-2">
                     <p class="font-dmsans text-black font-bold text-base">{{'MARKET' | translate}} </p>
-                    <p class="font-dmsans text-[#121212] text-md font-medium">{{project?.markets?.[0]?.name}}</p>
+                    <p class="font-dmsans text-[#121212] text-md font-medium">{{translateMarket(project?.markets?.[0]?.name) | translate}}</p>
                   </div>
                   <div class="flex justify-between py-2">
                     <p class="font-dmsans text-black font-bold text-base">{{'OVERALL_VOLUME' | translate}} </p>

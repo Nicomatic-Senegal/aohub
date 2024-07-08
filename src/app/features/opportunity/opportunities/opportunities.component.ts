@@ -27,6 +27,32 @@ export class OpportunitiesComponent implements OnInit {
   mapDays: Map<number, any> = new Map<number, any>();
   mapAlreadyAppliedApplicant: Map<number, boolean> = new Map<number, boolean>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
   constructor(
     private projectService: ProjectService,
@@ -197,8 +223,6 @@ export class OpportunitiesComponent implements OnInit {
   }
 
   async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
-    console.log(project);
-
     try {
       const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
       if (data) {
@@ -213,6 +237,17 @@ export class OpportunitiesComponent implements OnInit {
       console.log(error);
       return false;
     }
+  }
+
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
+  }
+
+  translateMarket(market: string | undefined): string {
+    if (!market) {
+      return '';
+    }
+    return this.marketTranslationMap[market] || market;
   }
 
 }
