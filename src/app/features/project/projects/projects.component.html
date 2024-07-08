@@ -32,8 +32,7 @@
                 <button
                   [ngClass]="selectedStatus.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
                   class="flex items-center font-dmsans text-sm">
-                  <i class="fas fa-spinner mr-2"></i>
-                  Status <i class="fas fa-chevron-down ml-2"></i>
+                  <i class="fas fa-spinner mr-2"></i> {{ 'STATUS_PLURAL' | translate }} <i class="fas fa-chevron-down ml-2"></i>
                 </button>
               </div>
               <div class="dropdown-content mr-5">
@@ -63,7 +62,7 @@
                 class="px-2 border rounded-xl">
                 <button
                   [ngClass]="selectedMarkets.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
-                  class="flex items-center font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'MARKET' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+                  class="flex items-center font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'MARKETS' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a

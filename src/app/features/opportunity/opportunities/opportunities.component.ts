@@ -211,17 +211,6 @@ export class OpportunitiesComponent implements OnInit {
     return progressWidth;
   }
 
-  getTranslatedNeedType(needType: string): string {
-    switch (needType?.toUpperCase()) {
-        case 'CONTRACT':
-            return 'Contractuel';
-        case 'PUNCTUAL':
-            return 'Ponctuel';
-        default:
-            return needType;
-    }
-  }
-
   async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
     try {
       const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
