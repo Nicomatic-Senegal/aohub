@@ -29,15 +29,15 @@
             <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'MARKET' | translate}}</label>
                 <select class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="market">
-                    <option *ngFor="let market of markets" [value]="market.name">{{market?.name}}</option>
+                    <option *ngFor="let market of markets" [value]="market.name">{{translateMarket(market.name) | translate}}</option>
                 </select>
-            </div>                
+            </div>
             <div *ngIf="dialogData.project.duration" class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
                 <label for="" class="font-dmsans text-base text-[#333]">{{'CONTRACT_DURACTION' | translate}}</label>
                 <input type="number" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="contractDuration">
             </div>
             <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
-                <label for="" class="font-dmsans text-base text-[#333]">{{'EARLEAST_DEADLINE' | translate}}</label>
+                <label for="" class="font-dmsans text-base text-[#333]">{{'EARLIEST_DEADLINE' | translate}}</label>
                 <input type="date" class="text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" formControlName="earliestDeadline">
             </div>
             <div class="w-full md:w-[50%] mb-4 md:mb-4 px-5">
@@ -64,7 +64,7 @@
                     <label for="" class="font-dmsans text-base text-[#333]">{{'PROFESSIONS' | translate}} </label>
                     <div class=" w-full">
                         <select class="input text-[#000] text-sm font-dmsans outline outline-[1px] outline-[#737373] focus:outline-[#D1E9FF] h-10 rounded-lg pl-3 mt-1 w-full" #domain (change)="onSelectDomain(domain.value)">
-                            <option *ngFor="let item of domains" value="{{item.name}}" class="">{{item.name}}</option>
+                            <option *ngFor="let item of domains" value="{{item.name}}" class="">{{translateDomain(item.name) | translate}}</option>
                         </select>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                     <p class="font-dmsans text-base text-[#333]">{{'CHOOSEN_PROFESSIONS' | translate}} </p>
                     <div class="flex justify-between items-center w-full">
                         <div class="overflow-y-scroll border-[2px] border-[#777] w-full h-20 rounded-lg flex px-2 flex-wrap">
-                            <div *ngFor="let item of domainChoosen" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
+                            <div *ngFor="let item of domainChoosen" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{translateDomain(item) | translate}} <i class=" ml-2 fas fa-xmark" (click)="removeDomain(item)"></i></div>
                         </div>
                     </div>
                 </div>

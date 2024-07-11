@@ -7,6 +7,7 @@ import { UserService } from '../../services/user/user.service';
 import { PartnerDTO } from '../../interfaces/partner.model';
 import { Project } from '../../interfaces/project.model';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-projects',
@@ -31,13 +32,30 @@ export class ProjectsComponent implements OnInit {
   selectedEndDate: string = '';
   listMarkets: any;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
   constructor(
     private projectService: ProjectService,
     private userService: UserService,
     private toastr: ToastrService,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private translateService: TranslateService
+  ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
   }
@@ -49,7 +67,6 @@ export class ProjectsComponent implements OnInit {
     this.loadCurrentConnectedUser();
     this.loadAllMarket();
     this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
-
   }
 
   ngAfterViewInit() {
@@ -96,10 +113,12 @@ export class ProjectsComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
@@ -120,10 +139,12 @@ export class ProjectsComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -135,10 +156,12 @@ export class ProjectsComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des marchés", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -158,30 +181,32 @@ export class ProjectsComponent implements OnInit {
   sortMyProjects() {
     if(this.selectedMarkets.length === 0 && this.selectedStatus.length === 0 && this.selectedStartDate.length === 0 && this.selectedEndDate.length === 0) {
       this.loadMyProjects(this.currentPage - 1, this.itemPerPage);
+    } else {
+      this.listProject.splice(0, this.listProject.length);
+
+      this.projectService.getMyParticipations(this.token, this.currentPage - 1, this.itemPerPage, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
+        next: (data) => {
+          this.listProject.push(data.projects);
+
+          this.listProject = this.listProject.flatMap(data => data);
+
+          this.totalItems = data.totalCount;
+          this.nbProjectsInProgres = data.totalInProgressCount;
+          this.nbProjectsFinished = data.totalFinishedCount;
+          this.nbProjectsOnHold = data.totalOnHoldCount;
+          this.nbProjectsArchived = data.totalArchivedCount;
+        },
+        error: (err) => {
+          console.log(err);
+          this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
+        }
+      });
     }
-
-    this.listProject.splice(0, this.listProject.length);
-
-    this.projectService.getMyParticipations(this.token, this.currentPage - 1, this.itemPerPage, this.selectedMarkets, this.selectedStatus, this.selectedStartDate, this.selectedEndDate, '').subscribe({
-      next: (data) => {
-        this.listProject.push(data.projects);
-
-        this.listProject = this.listProject.flatMap(data => data);
-
-        this.totalItems = data.totalCount;
-        this.nbProjectsInProgres = data.totalInProgressCount;
-        this.nbProjectsFinished = data.totalFinishedCount;
-        this.nbProjectsOnHold = data.totalOnHoldCount;
-        this.nbProjectsArchived = data.totalArchivedCount;
-      },
-      error: (err) => {
-        console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
-      }
-    });
   }
 
   onSelectStatus(status: string) {
@@ -234,6 +259,10 @@ export class ProjectsComponent implements OnInit {
     }
     const dateToFormat = new Date(date);
     return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
   }
 
 }

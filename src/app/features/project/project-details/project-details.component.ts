@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupDeleteProjectComponent } from '../../all-popup/popup-delete-project/popup-delete-project.component';
@@ -12,6 +12,9 @@ import { PopupAddEventComponent } from '../../all-popup/popup-add-event/popup-ad
 import { EventService } from '../../services/event/event.service';
 import { PopupComponent } from '../../all-popup/popup/popup.component';
 import { PopupAddParticipantComponent } from '../../all-popup/popup-add-participant/popup-add-participant.component';
+import {PopupFeedbackComponent} from "../../all-popup/popup-feedback/popup-feedback.component";
+import {ProjectService} from "../../services/project/project.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-project-details',
@@ -24,21 +27,80 @@ export class ProjectDetailsComponent implements OnChanges {
   token: string;
   currentConnectedUser?: any;
   events: any;
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
+  roleTranslationMap: Record<string, string> = {
+    "Responsable produit" : "ROLE_PRODUCT_MANAGER",
+    "Commercial": "ROLE_SALES",
+    "Acheteur": "ROLE_BUYER",
+    "Négociateur": "ROLE_NEGOTIATOR",
+    "Designer": "ROLE_DESIGNER",
+    "Directeur": "ROLE_DIRECTOR",
+    "Autre": "OTHER"
+  };
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
   constructor(public dialog: MatDialog,
     private authService: AuthService,
     private userService: UserService,
     private eventService: EventService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private projectService: ProjectService,
+    private translateService: TranslateService
+  ) {
     this.token = authService.isLogged()!;
     this.loadCurrentConnectedUser();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['project'] && !changes['project'].firstChange) {
-      console.log(this.project);
       this.getAllEvents();
+      if (this.areAllPhasesDone()) {
+        this.setProjectStatusToFinished();
+      }
     }
+    console.log(this.project)
+  }
+
+  setProjectStatusToFinished() {
+    this.projectService.setProjectStatusToFinished(this.token, this.project?.id).subscribe({
+      next: (data) => {
+        this.project = data;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+
+  areAllPhasesDone(): boolean {
+    if (!this.project || !this.project.phases) {
+      throw new Error('Project or phases are not defined');
+    }
+    return this.project.phases.every((phase: any) => phase.fullyValidated === true);
   }
 
   loadCurrentConnectedUser() {
@@ -53,10 +115,12 @@ export class ProjectDetailsComponent implements OnChanges {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
@@ -96,6 +160,17 @@ export class ProjectDetailsComponent implements OnChanges {
     });
   }
 
+  openFeedbackModal(): void {
+    const token = this.token;
+    this.dialog.open(PopupFeedbackComponent, {
+      hasBackdrop: true,
+      data: {
+        token
+      },
+      panelClass: 'custom-dialog-container'
+    });
+  }
+
   openPartnerDetailsDialog(partner: any) {
     this.dialog.open(PartnerDetailsDialogComponent, {
       hasBackdrop: true,
@@ -113,9 +188,11 @@ export class ProjectDetailsComponent implements OnChanges {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception des évènements", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+        this.translateService.get(['ERROR_FETCHING_EVENTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_EVENTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })
@@ -131,7 +208,6 @@ export class ProjectDetailsComponent implements OnChanges {
     })
     dialogRef.componentInstance.eventAdded.subscribe((newEventData) => {
       this.events = [...this.events, newEventData];
-
     });
 
   }
@@ -152,6 +228,7 @@ export class ProjectDetailsComponent implements OnChanges {
         title, description, route, event, token
       }
     })
+
     dialogRef.componentInstance.eventRemoved.subscribe((eventId) => {
       this.events = this.events.filter((event: { id: any; }) => event.id !== eventId);
     });
@@ -172,9 +249,27 @@ export class ProjectDetailsComponent implements OnChanges {
     })
   }
 
-  formatDate(dateString: string): string {
-    const date = new Date(dateString);
-    return date.toLocaleString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' });
+  formatDate(date: Date | undefined): string {
+    if (!date) {
+      return '';
+    }
+    let language = 'fr-Fr';
+    if (localStorage.getItem('language') === 'en') {
+      language = 'en-En';
+    }
+    const dateToFormat = new Date(date);
+    return dateToFormat.toLocaleString(language, { day: '2-digit', month: 'long', year: 'numeric' });
   }
 
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
+  }
+
+  translateRole(role: string) {
+    return this.roleTranslationMap[role] || role;
+  }
 }

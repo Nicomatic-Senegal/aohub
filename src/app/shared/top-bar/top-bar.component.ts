@@ -27,6 +27,7 @@ export class TopBarComponent {
     const language = localStorage.getItem("language");
     if (language) {
       this.translate.use(language);
+      if (language === 'en') this.flagUrl = '../../../assets/flags/en_flag.svg';
     } else {
       this.translate.use('fr');
     }
@@ -40,11 +41,8 @@ export class TopBarComponent {
   }
 
   logout() {
-    let title = "Déconnexion";
-    let description = "Êtes-vous sûr de vouloir vous deconnecter ?";
-
-    title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
-    description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
+    let title = localStorage.getItem('language') === 'en' ? 'Déconnexion' : 'Disconnect';
+    let description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to logout ?' : 'Êtes-vous sûr de vouloir vous deconnecter ?';
 
     let route = "logout";
 

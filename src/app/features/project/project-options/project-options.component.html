@@ -35,7 +35,7 @@
           <app-project-tracking [project]="project"></app-project-tracking>
         </div>
         <div *ngIf="screen === 3" >
-          <app-opportunity-tracking></app-opportunity-tracking>
+          <app-opportunity-tracking [projectId]="project.id.toString()"></app-opportunity-tracking>
         </div>
       </div>
     </div>

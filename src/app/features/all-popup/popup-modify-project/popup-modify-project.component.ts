@@ -7,6 +7,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../interfaces/project.model';
 import { Market } from '../../interfaces/market.model';
 import { Domain } from '../../interfaces/domain.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-modify-project',
@@ -20,6 +21,32 @@ export class PopupModifyProjectComponent implements OnInit {
   projectUpdated: Project;
   domains: Domain[] = [];
   domainChoosen: Array<string> = [];
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -27,7 +54,9 @@ export class PopupModifyProjectComponent implements OnInit {
     private authService: AuthService,
     private toastr: ToastrService,
     public dialogRef: MatDialogRef<PopupModifyProjectComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
+  ) {
 
     this.projectUpdated = this.dialogData.project;
     this.token = authService.isLogged()!;
@@ -51,10 +80,12 @@ export class PopupModifyProjectComponent implements OnInit {
         this.markets = data;
       },
       error: (err) => {
-        this.toastr.error(err.error.detail, "Erreur sur la réception des marchés", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
-       });
+        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -63,10 +94,12 @@ export class PopupModifyProjectComponent implements OnInit {
         this.domains = data;
       },
       error: (err) => {
-        this.toastr.error(err.error.detail, "Erreur sur la réception des domaines", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_DOMAINS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -101,9 +134,11 @@ export class PopupModifyProjectComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la mise à jour des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
+        this.translateService.get(['ERROR_UPDATE_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })
@@ -117,6 +152,14 @@ export class PopupModifyProjectComponent implements OnInit {
 
   removeDomain(item: string) {
     this.domainChoosen.splice(this.domainChoosen.indexOf(item), 1);
+  }
+
+  translateMarket(market: string) {
+    return this.marketTranslationMap[market] || market;
+  }
+
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
   }
 
 }

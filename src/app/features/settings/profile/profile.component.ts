@@ -10,6 +10,9 @@ import { EmployeePostDTO } from '../../interfaces/employee.model';
 import { PartnerProfileVM } from '../../interfaces/partner-profile-vm.model';
 import { ToastrService } from 'ngx-toastr';
 import {NgxImageCompressService} from "ngx-image-compress";
+import {PopupComponent} from "../../all-popup/popup/popup.component";
+import {MatDialog} from "@angular/material/dialog";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-parametre-profil',
@@ -66,6 +69,15 @@ export class ProfileComponent implements OnInit {
   login!: string;
   picture!: string;
   pictureToShow!: string;
+  roleTranslationMap: Record<string, string> = {
+    "Responsable produit" : "ROLE_PRODUCT_MANAGER",
+    "Commercial": "ROLE_SALES",
+    "Acheteur": "ROLE_BUYER",
+    "Négociateur": "ROLE_NEGOTIATOR",
+    "Designer": "ROLE_DESIGNER",
+    "Directeur": "ROLE_DIRECTOR",
+    "Autre": "OTHER"
+  };
 
   constructor(
     private route: Router,
@@ -74,7 +86,9 @@ export class ProfileComponent implements OnInit {
     private enterpriseService: EnterpriseService,
     private userService: UserService,
     private toastr: ToastrService,
-    private imgCompressService: NgxImageCompressService
+    private imgCompressService: NgxImageCompressService,
+    public dialog: MatDialog,
+    private translateService: TranslateService
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
@@ -97,7 +111,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser(this.token).subscribe({
       next: (data) => {
         this.user = data;
-        console.log(this.user);
 
         this.profilForm.setValue({
           firstName: this.user.user.firstName,
@@ -112,6 +125,12 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
+        this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -121,10 +140,12 @@ export class ProfileComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_ROLES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_ROLES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
@@ -167,11 +188,14 @@ export class ProfileComponent implements OnInit {
             sizeOfCompressedImage = this.imgCompressService.byteCount(result)/(1024*1024);
             if (sizeOfCompressedImage > 2) {
               this.picture = '';
-              this.toastr.error("Image trop grande. Taille idéale de 2Mb ou moins", "Erreur", {
-                timeOut: 3000,
-                positionClass: 'toast-top-right',
+              this.translateService.get(['ERROR_IMAGE_TO_BIG', 'ERROR_TITLE']).subscribe(translations => {
+                this.toastr.error(translations['ERROR_IMAGE_TO_BIG'], translations['ERROR_TITLE'], {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                });
               });
             }
+            this.submit();
           });
       }
 
@@ -182,47 +206,42 @@ export class ProfileComponent implements OnInit {
   }
 
   onDeletePicture() {
-    this.userToUpdate.userLogin = this.user.user.login;
-    this.userToUpdate.userFirstName = this.user.user.firstName;
-    this.userToUpdate.userLastName = this.user.user.lastName;
-    this.userToUpdate.phoneNumber = this.user.phoneNumber;
-    this.userToUpdate.enterpriseName = this.user.enterprise.name;
-    this.userToUpdate.employeePostTitle = this.user.employeePost.title;
-    this.userToUpdate.interestTopicLabels = this.user.interestTopics;
-    this.userToUpdate.imageBase64Content = '';
-    this.updateUser(this.userToUpdate);
-    // let pic: PictureVm = {};
-    // pic.id = this.user.id;
-    // pic.imageBase64Content = '';
-    // this.userService.deletePicture(this.token, pic).subscribe({
-    //   next: (data) => {
-    //     console.log(data);
-    //     this.user = data;
-    //     this.toastr.success("profil modifié avec succés.", "Succés", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-center',
-    //    });
-    //    window.location.reload();
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.toastr.error("une erreur est survenue lors de la modification du profil.", "Erreur", {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-center',
-    //    });
-    //   }
-    // });
+    let title = localStorage.getItem('language') === 'en' ? 'Delete' : 'Suppression';
+    let description = localStorage.getItem('language') === 'en' ? 'Are you sure you want to delete your profile picture ?' : 'Êtes-vous sûr de vouloir supprimer votre photo de profil ?';
+
+    let route = "deleteProfilePicture";
+
+    const dialogRef = this.dialog.open(PopupComponent, {
+      hasBackdrop: true,
+      data: {
+        title, description, route
+      },
+      panelClass: 'custom-dialog-container'
+    });
+
+    dialogRef.componentInstance.profilePictureRemovedEvent.subscribe((status) => {
+      this.userToUpdate.userLogin = this.user.user.login;
+      this.userToUpdate.userFirstName = this.user.user.firstName;
+      this.userToUpdate.userLastName = this.user.user.lastName;
+      this.userToUpdate.phoneNumber = this.user.phoneNumber;
+      this.userToUpdate.enterpriseName = this.user.enterprise.name;
+      this.userToUpdate.employeePostTitle = this.user.employeePost.title;
+      this.userToUpdate.interestTopicLabels = this.user.interestTopics;
+      this.userToUpdate.imageBase64Content = '';
+      this.updateUser(this.userToUpdate);
+    });
   }
 
   updateUser(userToUpdate: any) {
     this.userService.updateUser(this.token, userToUpdate).subscribe({
       next: (data) => {
         this.user = data;
-        this.toastr.success("Profil modifié avec succès.", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
-       window.location.reload();
+        this.translateService.get(['SUCCESS_UPDATE_PROFILE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['SUCCESS_UPDATE_PROFILE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
 
         const userSessionData = {
           id: data.id,
@@ -236,15 +255,32 @@ export class ProfileComponent implements OnInit {
           enterprise: data?.enterprise
         };
         localStorage.setItem("currentConnectedUser", JSON.stringify(userSessionData));
+
+        this.profilForm.setValue({
+          firstName: data?.user?.firstName,
+          lastName: data?.user?.lastName,
+          phoneNumber: data?.phoneNumber,
+          email: data?.user?.login,
+          enterpriseName: data?.enterprise?.name,
+          role: data?.user.employeePost?.title,
+          centreInteret: data?.user?.interestTopics,
+          image: data?.user?.imageBase64Content,
+        });
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error("Une erreur est survenue lors de la modification du profil.", "Erreur", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_UPDATE_PROFILE', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_UPDATE_PROFILE'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
+  }
+
+  translateRole(role: string) {
+    return this.roleTranslationMap[role] || role;
   }
 
 }

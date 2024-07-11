@@ -4,6 +4,7 @@ import { SupportService } from '../services/support/support.service';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Feedback } from '../interfaces/feedback.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-opinion',
@@ -23,7 +24,9 @@ export class OpinionComponent {
   constructor(public dialogRef: MatDialogRef<OpinionComponent>,
     private authService: AuthService,
     private toastr: ToastrService,
-    private supportService: SupportService) {
+    private supportService: SupportService,
+    private translateService: TranslateService
+  ) {
       this.token = authService.isLogged()!;
   }
 
@@ -38,18 +41,21 @@ export class OpinionComponent {
 
     this.supportService.createNote(this.token, this.feedback).subscribe({
       next: (data) => {
-        //TODO: Discomment this
-        // this.toastr.success("Merci pour votre notation ! Votre feedback a été enregistré avec succès", "Succés", {
-        //   timeOut: 3000,
-        //   positionClass: 'toast-right-center',
-        // });
+        this.translateService.get(['SUCCESS_SUBMIT_FEEDBACK', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_SUBMIT_FEEDBACK'], translations['SUCCESS_TITLE'], {
+            timeOut: 4000,
+            positionClass: 'toast-top-right',
+          });
+        });
         this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur lors de la soumission de l'avis", {
-          timeOut: 3000,
-          positionClass: 'toast-right-right',
+        this.translateService.get(['ERROR_SUBMIT_FEEDBACK', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_SUBMIT_FEEDBACK'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })

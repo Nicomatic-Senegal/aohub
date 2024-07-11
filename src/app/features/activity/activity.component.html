@@ -7,8 +7,13 @@
         <div class="flex">
           <div class="w-full flex-col p-5">
             <div class="dropdown mr-5">
-              <div class="px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-globe mr-2"></i>{{'ENTERPRISE' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+              <div
+                [ngClass]="selectedEnterprise > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                   class="px-2 border rounded-xl">
+                <button
+                  [ngClass]="selectedEnterprise > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm">
+                  <i class="fas fa-globe mr-2"></i>{{'ENTERPRISE' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
@@ -23,28 +28,22 @@
                 </a>
               </div>
             </div>
-            <!-- <div class="dropdown mr-5">
-              <div class=" px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'MONTH' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
+            <div class="dropdown mr-5">
+              <div [ngClass]="selectedYears.length > 0 ? 'border-[#3B8682]' : 'border-[#888]'"
+                   class="px-2 border rounded-xl">
+                <button [ngClass]="selectedYears.length > 0 ? 'text-[#3B8682]' : 'text-[#888]'"
+                  class="flex items-center font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEARS' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
               </div>
               <div class="dropdown-content mr-5">
                 <a
-                  *ngFor="let month of months; let i = index"
-                  class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
-                  [class.selected]="isMonthSelected(month)"
-                  (click)="sortProjectsByMonth(month)">
+                  class="flex items-center text-sm text-black font-dmsans font-bold px-3 py-2 cursor-pointer w-full"
+                  [class.selected]="isAllSelected()"
+                  (click)="toggleSelectAll()">
                   <span class="mr-3 w-2">
-                    <i class="fas fa-check" [ngStyle]="{ 'display': isMonthSelected(month) ? 'inline-block' : 'none' }"></i>
+                      <i class="fas fa-check" [ngStyle]="{ 'display': isAllSelected() ? 'inline-block' : 'none' }"></i>
                   </span>
-                  {{month | translate}}
+                  {{'SELECT_ALL' | translate}}
                 </a>
-              </div>
-            </div> -->
-            <div class="dropdown mr-5">
-              <div class=" px-2 border border-[#888] rounded-xl">
-                <button class="flex items-center text-[#888] font-dmsans text-sm"><i class="fas fa-calendar-alt mr-2"></i>{{'YEAR' | translate}} <i class="fas fa-chevron-down ml-2"></i></button>
-              </div>
-              <div class="dropdown-content mr-5">
                 <a
                   *ngFor="let year of years"
                   class="flex items-center text-sm text-black font-dmsans px-3 py-2 cursor-pointer"
@@ -64,7 +63,7 @@
             <div class="flex items-end justify-between mr-10 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col justify-between">
                 <p class="text-[#555] font-dmsans text-xl">{{'PROJECT_LOADING' | translate}} </p>
-                <p class="font-dmsans font-extrabold text-black text-2xl align-bottom">{{nbProjectsInProgres}}</p>
+                <p class="font-dmsans font-extrabold text-black text-2xl align-bottom">{{nbProjectsInProgress}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/projet-en-cours-a.svg" alt="">
             </div>
@@ -85,7 +84,7 @@
             <div class="flex items-end justify-between mr-5 w-full shadow-2xl shadow-[#E2ECF9] bg-white rounded-xl shadow-custom p-3">
               <div class="flex flex-col ">
                 <p class="text-[#555] font-dmsans text-xl">{{'AVAILABLE_OPPORTUNITIES' | translate}} </p>
-                <p class="font-dmsans font-semibold text-black text-2xl">{{nbProjectsOnHold}}</p>
+                <p class="font-dmsans font-semibold text-black text-2xl">{{nbAvailableOpportunities}}</p>
               </div>
               <img class="w-8 self-end" src="../../../assets/img/opportunites-dispo-a.svg" alt="">
             </div>
@@ -180,9 +179,9 @@
                       <td class="py-2 text-left">
                           <div class="">
                               <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
-                              <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
+                              <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white text-center rounded-full py-1 text-sm">{{ project.status?.toString()! | translate }}</div>
                           </div>
                       </td>
                   </tr>

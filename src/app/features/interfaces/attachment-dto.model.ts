@@ -1,3 +1,4 @@
+import { SafeResourceUrl } from "@angular/platform-browser";
 import { Project } from "./project.model";
 
 export enum AttachmentType {
@@ -10,5 +11,7 @@ export interface AttachmentDto {
   type: AttachmentType,
   fileSize: number,
   base64Content: string,
-  project?: Project
+  project?: Project,
+  safeUrl?: SafeResourceUrl,
+  hover?: boolean,
 }

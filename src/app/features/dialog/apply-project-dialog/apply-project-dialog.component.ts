@@ -6,6 +6,7 @@ import { Project } from '../../interfaces/project.model';
 import { EventSchedule } from '../../interfaces/event-schedule';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-apply-project-dialog',
@@ -26,7 +27,8 @@ export class ApplyProjectDialogComponent implements OnInit {
     private projectService: ProjectService,
     private authService: AuthService,
     public dialogRef: MatDialogRef<ApplyProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
   ) {
     this.token = authService.isLogged()!;
   }
@@ -46,25 +48,30 @@ export class ApplyProjectDialogComponent implements OnInit {
 
       this.projectService.positioning(this.token, payload).subscribe({
         next: (data) => {
-          this.toastr.success("Vous vous êtes positionné au projet avec succès", "Succès !", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+          this.translateService.get(['SUCCESS_APPLY_TO_PROJECT', 'SUCCESS_TITLE']).subscribe(translations => {
+            this.toastr.success(translations['SUCCESS_APPLY_TO_PROJECT'], translations['SUCCESS_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
           });
           this.dialogRef.close({ positionApplied: true });
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur !", {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+          this.translateService.get(['ERROR_APPLY_TO_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_APPLY_TO_PROJECT'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
           });
-
         }
       })
     } else {
-      this.toastr.warning("Veuillez choisir au moins un créneau", "Attention !", {
-        timeOut: 3000,
-        positionClass: 'toast-top-right',
+      this.translateService.get(['WARNING_CHOOSE_SLOT', 'WARNING_TITLE']).subscribe(translations => {
+        this.toastr.warning(translations['WARNING_CHOOSE_SLOT'], translations['WARNING_TITLE'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
       });
     }
   }
@@ -109,7 +116,6 @@ export class ApplyProjectDialogComponent implements OnInit {
 
         return;
     } else {
-        // this.selectedCreneaux.splice(index, 1);
         this.selectedCreneaux = this.selectedCreneaux.filter(item => item !== this.selectedCreneaux[index]);
     }
   }

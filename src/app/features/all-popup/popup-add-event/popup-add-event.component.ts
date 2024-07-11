@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../interfaces/project.model';
 import { EventService } from '../../services/event/event.service';
 import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup-add-event',
@@ -21,7 +22,8 @@ export class PopupAddEventComponent implements OnInit {
     public dialogRef: MatDialogRef<PopupAddEventComponent>,
     private fb: FormBuilder,
     private eventService: EventService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translateService: TranslateService
     ) {
       this.token = this.dialogData.token;
       this.project = this.dialogData.project;
@@ -51,18 +53,22 @@ export class PopupAddEventComponent implements OnInit {
 
     this.eventService.addEvent(this.token, payload).subscribe({
       next: (data) => {
-        this.toastr.success("Cet évènement a été ajouté avec succès", "Succès !", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+        this.translateService.get(['SUCCESS_ADD_EVENT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_ADD_EVENT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
         this.eventAdded.emit(data);
         this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur lors de l'ajout de l'évènement", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+        this.translateService.get(['ERROR_ADD_EVENT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_ADD_EVENT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
         });
       }
     })

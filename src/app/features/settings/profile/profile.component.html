@@ -1,4 +1,4 @@
-<div class="flex flex-col md:flex-row justify-between border-b-2 border-[#E5E5E5] w-full py-3 items-center">
+<div class="flex flex-col md:flex-row justify-between border-b-2 border-[#E5E5E5] w-full pb-3 items-center">
   <div class="div-title">
     <p >{{'PERSONNAL_INFOS' | translate}} </p>
     <p >{{'UPDATE_INFOS_DESC' | translate}} </p>
@@ -13,19 +13,19 @@
     <div class=" flex flex-col items-center md:flex-row my-5 pb-5 border-b-2 border-[#E5E5E5]">
       <div class="md:mr-20">
         <div>
-          <img [src]="user.imageBase64Content || '../../../assets/icons/icon-user.png'" alt="" class="w-12 h-12 rounded-full bg-[#AAAAAA] self-start mr-5">
+          <img [src]="user.imageBase64Content || '../../../assets/icons/icon-user.png'" alt="" class="w-12 h-12 rounded-full bg-[#AAAAAA] self-start">
           <p class="text-[#000] text-base font-medium font-dmsans">{{'YOUR_PICTURE' | translate}} </p>
           <p class="text-[#344054] text-sm font-dmsans">{{'YOUR_PICTURE_DESC' | translate}} </p>
         </div>
       </div>
-      <div class="w-full mt-5 md:mt-0 md:w-[60%] mb-10">
-        <div class="flex w-full mb-5">
+      <div class="w-full mt-5 md:mt-0 md:w-[60%]">
+        <div class="flex w-full">
           <input type="file" formControlName="image" (change)="onFileSelected($event)" id="fileInput" class="hidden"/>
-          <label for="fileInput" class=" bg-[#408A7E] text-white shadow-md py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md mr-5 cursor-pointer">
+          <label for="fileInput" class=" bg-[#408A7E] text-white shadow-md py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md mr-7 cursor-pointer">
             <i class="fas fa-edit" > </i>
             &nbsp;{{'MODIFY_PICTURE' | translate}}
           </label>
-          <button (click)="onDeletePicture()" class=" bg-[#EE1B22] shadow-md text-white py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md mr-5">
+          <button (click)="onDeletePicture()" class=" bg-[#EE1B22] shadow-md text-white py-2 px-5 h-10 flex items-center font-dmsans text-base rounded-md">
             <i class="fa-regular fa-trash-can"></i>
             &nbsp;{{'DELETE_PICTURE' | translate}}
           </button>
@@ -60,12 +60,6 @@
         <label for="" class="label-line-form">Email</label>
         <div class="w-[60%]">
           <input type="email" readonly  formControlName="email"  class="input-line-form-readonly">
-          <!-- <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-red-600 text-xs">
-            L'Email est requis.
-          </div>
-          <div *ngIf="getControl('email')?.errors?.['email']" class="text-red-600 text-xs">
-            Veller renseigner un email valide.
-          </div> -->
         </div>
       </div>
     </div>
@@ -86,7 +80,7 @@
         <label for="" class="label-line-form">{{'ROLE' | translate}} </label>
         <div class="w-[60%]">
           <select class="input-line-form" formControlName="role" >
-            <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{item.title}}</option>
+            <option *ngFor="let item of listEmployeePost" value="{{item.title}}">{{translateRole(item.title) | translate}}</option>
           </select>
           <div *ngIf="getControl('role')?.invalid && (getControl('role')?.dirty || getControl('role')?.touched)" class="text-red-600 text-xs">
             {{'ROLE_REQUIRED' | translate}}.
@@ -100,34 +94,10 @@
           <label for="" class="label-line-form">{{'ENTERPRISE' | translate}} </label>
           <div class="w-[60%]">
             <input type="text" readonly  formControlName="enterpriseName" placeholder="Inhub" class="input-line-form-readonly">
-            <!-- <div *ngIf="getControl('enterpriseName')?.invalid && (getControl('enterpriseName')?.dirty || getControl('enterpriseName')?.touched)" class="text-red-600 text-xs">
-              L'Entreprise est requis.
-            </div> -->
           </div>
         </div>
       </div>
     </div>
-    <!-- <div class="div-line-form">
-      <div class=" w-1/2 flex justify-between items-center">
-        <label for="" class="label-line-form">Sujets d’intérêts</label>
-        <div class="w-[60%]">
-          <select formControlName="centreInteret" class="input-line-form">
-            <option value="" disabled [selected]="true">Choisissez une option...</option>
-            <option value="mecanique">Mecanique</option>
-            <option value="electronique">Electronique</option>
-            <option value="aeoronotique">Aeronotique</option>
-          </select>
-          <div *ngIf="getControl('centreInteret')?.invalid && (getControl('centreInteret')?.dirty || getControl('centreInteret')?.touched)" class="text-red-600 text-xs">
-            Le centre d'interêt est requis.
-          </div>
-        </div>
-      </div>
-      <div class="ml-5 w-1/2 flex justify-between items-center">
-        <div class="border-[2px] border-[#737373]/20 w-full rounded-lg flex px-2 flex-wrap">
-          <div *ngFor="let item of centreInteret" class="rounded-lg p-3 text-[#408A7E] text-xs bg-[#DBE9E6] mr-3 h-6 flex items-center justify-between my-2"> {{item}} <i class=" ml-2 fas fa-xmark"></i></div>
-        </div>
-      </div>
-    </div> -->
   </form>
 </div>
 

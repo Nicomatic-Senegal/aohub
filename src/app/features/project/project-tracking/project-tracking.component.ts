@@ -2,11 +2,13 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
-import { PreSalesComponent } from '../../dialog/pre-sales/pre-sales.component';
+import { PhaseDialogComponent } from '../../dialog/phase-dialog/phase-dialog.component';
 import { Project } from '../../interfaces/project.model';
 import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
-import { InitPhaseComponent } from '../../dialog/init-phase/init-phase.component';
+import { TaskDialogComponent } from '../../dialog/task-dialog/task-dialog.component';
+import { ProjectDocumentsDialogComponent } from '../../dialog/project-documents-dialog/project-documents-dialog.component';
+import {ProjectService} from "../../services/project/project.service";
 
 @Component({
   selector: 'app-project-tracking',
@@ -20,7 +22,8 @@ export class ProjectTrackingComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private projectService: ProjectService) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
 
@@ -31,7 +34,6 @@ export class ProjectTrackingComponent implements OnInit {
     this.project.phases?.forEach(p => {
       p.tasks?.sort((a, b) => a.id! - b.id!);
     });
-    console.log(this.project);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -40,46 +42,101 @@ export class ProjectTrackingComponent implements OnInit {
       this.project.phases?.forEach(p => {
         p.tasks?.sort((a, b) => a.id! - b.id!);
       });
-      console.log(this.project);
     }
   }
 
-  openPreSalesDialog(phase: PhaseDTO) {
-    const teamMembers = this.project.teamMembers
+  openPhaseDialog(phase: PhaseDTO, phaseIndex: number) {
+    const teamMembers = this.project.teamMembers;
     const project = this.project;
 
-    this.dialog.open(PreSalesComponent, {
+    const dialogRef = this.dialog.open(PhaseDialogComponent, {
       hasBackdrop: true,
       data: {
         phase, teamMembers, project
       },
       panelClass: 'custom-dialog-container'
-    })
+    });
+    dialogRef.componentInstance.projectModified.subscribe((data) => {
+      if (data)
+        this.project.phases![phaseIndex] = data;
+    });
   }
 
-  openInitDialog(task: TaskDTO, phase: PhaseDTO) {
-    const teamMembers = this.project.teamMembers
-    this.dialog.open(InitPhaseComponent, {
+  openTaskDialog(task: TaskDTO, phase: PhaseDTO, phaseIndex: number, taskIndex: number) {
+    const teamMembers = this.project.teamMembers;
+    const project = this.project;
+    phase.project ={ id: this.project.id, createdAt: this.project.createdAt};
+    const dialogRef = this.dialog.open(TaskDialogComponent, {
       hasBackdrop: true,
       data: {
-        task, teamMembers, phase
+        task, teamMembers, phase, project
       },
       panelClass: 'custom-dialog-container'
-    })
+    });
+    dialogRef.componentInstance.projectModified.subscribe((data) => {
+      if (data)
+        this.project.phases![phaseIndex].tasks![taskIndex] = data;
+    });
   }
 
-  isExpired(dateString: Date)  {
+  openDocumentDialog() {
+    const project = this.project;
+
+    this.dialog.open(ProjectDocumentsDialogComponent, {
+      hasBackdrop: true,
+      data: { project
+      },
+      panelClass: 'custom-dialog-container'
+    });
+  }
+
+  isExpired(dateString: Date, taskStatus: boolean)  {
     if (!dateString)
       return false;
     const today = new Date();
     const endDate = new Date(dateString.toString());
 
-    return today > endDate;
+    return today > endDate && !taskStatus;
   }
 
   isTaskDone(done: boolean | undefined) {
     if (!done)
       return false;
     return done;
+  }
+
+  sortTaskByDone(tasks: TaskDTO[]) {
+    return tasks.map(task => task.done).sort((a, b) => {
+      if (a === b) {
+        return 0;
+      } else if (a) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+  }
+
+  nbTasksDone(tasks: TaskDTO[]) {
+    return tasks.filter(task => task.done === true).length;
+  }
+
+  areAllPhasesDone(): boolean {
+    if (!this.project || !this.project.phases) {
+      throw new Error('Project or phases are not defined');
+    }
+    return this.project.phases.every((phase: any) => this.nbTasksDone(phase.tasks) === phase.tasks.length);
+  }
+
+  classToApply(tasks: TaskDTO[], j: number) {
+    return j + 1 < this.nbTasksDone(tasks) ?
+      'bg-[#00CE2D]' :
+      ( j + 1 > this.nbTasksDone(tasks) ?
+        'bg-[#F0F0F0]' :
+        (j + 1 !== tasks?.length ?
+          'bg-gradient-to-r from-[#00CE2D] to-[#F0F0F0]' :
+          'bg-[#00CE2D]'
+        )
+      )
   }
 }

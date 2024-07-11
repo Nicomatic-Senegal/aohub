@@ -35,17 +35,27 @@ export class ProjectService {
       );
   }
 
-  getAllProjectsNoPagination(token: string): Observable<any> {
+  getAllProjectsWithHeaders(token: string): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = `${this.apiBaseUrl}projects?sort=id,desc`;
+    const url = `${this.apiBaseUrl}projects/counting-headers?sort=id,desc&page=0&size=1000`;
 
     return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
       .pipe(
         map(response => {
           const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
+          const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
+          const totalAvailableOpportunitiesCountHeader = response.headers.get('X-Available-Opportunities-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
+
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
+          const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
+          const totalAvailableOpportunitiesCount = totalAvailableOpportunitiesCountHeader ? parseInt(totalAvailableOpportunitiesCountHeader, 10) : 0;
+          const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
+
           const projects = response.body;
-          return { projects, totalCount };
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalAvailableOpportunitiesCount, totalArchivedCount };
         })
       );
   }
@@ -62,7 +72,7 @@ export class ProjectService {
           const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
           const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
           const totalOnHoldCountHeader = response.headers.get('X-On_Hold-Count');
-          const totalArchivedCountHeader = response.headers.get('X-Archived-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
 
           const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
           const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
@@ -120,9 +130,27 @@ export class ProjectService {
 
   getAllProjectsEnterprise(token: string, idEnterprise: number): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
-    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise;
+    const url = this.apiBaseUrl + 'projects/enterprise-projects?enterpriseId=' + idEnterprise + '&sort=id,desc&page=0&size=1000';
 
-    return this.http.get<any>(url, { headers, responseType: 'json' });
+    return this.http.get<Project[]>(url, { headers, responseType: 'json', observe: 'response' })
+      .pipe(
+        map(response => {
+          const totalCountHeader = response.headers.get('X-Total-Count');
+          const totalInProgressCountHeader = response.headers.get('X-In_Progress-Count');
+          const totalFinishedCountHeader = response.headers.get('X-Finished-Count');
+          const totalAvailableOpportunitiesHeader = response.headers.get('X-Available-Opportunities-Count');
+          const totalArchivedCountHeader = response.headers.get('X-Cancelled-Count');
+
+          const totalCount = totalCountHeader ? parseInt(totalCountHeader, 10) : 0;
+          const totalInProgressCount = totalInProgressCountHeader ? parseInt(totalInProgressCountHeader, 10) : 0;
+          const totalFinishedCount = totalFinishedCountHeader ? parseInt(totalFinishedCountHeader, 10) : 0;
+          const totalAvailableOpportunitiesCount = totalAvailableOpportunitiesHeader ? parseInt(totalAvailableOpportunitiesHeader, 10) : 0;
+          const totalArchivedCount = totalArchivedCountHeader ? parseInt(totalArchivedCountHeader, 10) : 0;
+
+          const projects = response.body;
+          return { projects, totalCount, totalInProgressCount, totalFinishedCount, totalAvailableOpportunitiesCount, totalArchivedCount };
+        })
+      );
   }
 
   getPartnersInMyProjectsFiltred(token: string, idProject: number): Observable<any> {
@@ -216,5 +244,33 @@ export class ProjectService {
     const url = this.apiBaseUrl + `tasks/${task.id}`;
 
     return this.http.put<any>(url, task, {headers, responseType: 'json'});
+  }
+
+  stopProject(token: string, projectId: number, reasons: any): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}/stop`;
+
+    return this.http.post<any>(url, reasons, {headers, responseType: 'json'});
+  }
+
+  getProjectAttachments(token: string, projectId: number): Observable<any> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `attachments/project/${projectId}`;
+
+    return this.http.get<any>(url, { headers, responseType: 'json' });
+  }
+
+  deleteAttachment(token: string, attachmentId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `attachments/${attachmentId}`;
+
+    return this.http.delete<void>(url, {headers, responseType: 'json'});
+  }
+
+  setProjectStatusToFinished(token: string, projectId: number): Observable<void> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + `projects/${projectId}/finish`;
+
+    return this.http.put<void>(url, null, {headers, responseType: 'json'});
   }
 }

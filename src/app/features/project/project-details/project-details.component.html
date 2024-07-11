@@ -16,8 +16,8 @@
                     </div>
                     <div class="ml-auto">
                         <div class="">
-                            <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs">{{'IN_PROGRESS' | translate}} 🚀</div>
-                            <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full px-2 py-1 text-xs">{{'FINISHED' | translate}} ✅</div>
+                            <div *ngIf="project?.status === 'IN_PROGRESS'" class="bg-yellow-400 text-white rounded-full px-2 py-1 text-xs">{{'IN_PROGRESS' | translate}}</div>
+                            <div *ngIf="project?.status === 'FINISHED'" class="bg-green-500 text-white rounded-full px-2 py-1 text-xs">{{'FINISHED' | translate}}</div>
                             <div *ngIf="project?.status === 'ON_HOLD'" class="bg-red-500 text-white rounded-full px-2 py-1 text-xs">{{'ON_HOLD' | translate}} ⏸️</div>
                             <div *ngIf="project?.status === 'ARCHIVED'" class="bg-gray-500 text-white rounded-full px-2 py-1 text-xs">{{'ARCHIVED' | translate}} 📁</div>
                         </div>
@@ -46,7 +46,7 @@
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'MARKET' | translate}}</p>
                         <p
                             *ngFor="let market of project?.markets"
-                            class="text-[#737373] font-dmsans text-md">{{market?.name}}
+                            class="text-[#737373] font-dmsans text-md">{{translateMarket(market?.name) | translate}}
                         </p>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">{{'PROFESSIONS' | translate}}</p>
                         <div class="flex pr-3">
                             <select class="text-[#737373] font-dmsans text-md">
-                                <option *ngFor="let domain of project?.domains" >{{domain?.name}}</option>
+                                <option *ngFor="let domain of project?.domains" >{{translateDomain(domain?.name) | translate}}</option>
                             </select>
                         </div>
                     </div>
@@ -94,23 +94,41 @@
                     </div>
                 </div>
 
-                <div *ngIf="project?.applicant?.id === currentConnectedUser?.id" class="flex items-start justify-end mt-10 w-full">
-                    <div class="flex flex-col flex-1">
-                        <button (click)="modifyProject(project)" class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5 mr-10">{{'MODIFY_PROJECT' | translate}}</button>
-                    </div>
-
-                    <div class="flex flex-col flex-1">
-                        <button (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5">{{'DELETE_PROJECT' | translate}}</button>
-                    </div>
+              <div class="flex flex-wrap items-start justify-end mt-10 w-full">
+                <div *ngIf="project?.applicant?.id === currentConnectedUser?.id; else singleButton" class="flex flex-wrap items-start justify-end w-full">
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1 sm:mr-2 mb-2 sm:mb-0">
+                    <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)" (click)="modifyProject(project)" class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'MODIFY_PROJECT' | translate}}
+                    </button>
+                  </div>
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1 sm:mr-2 mb-2 sm:mb-0">
+                    <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)" (click)="openFeedbackModal()" class="bg-[#FFA500] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'ADD_FEEDBACK' | translate}}
+                    </button>
+                  </div>
+                  <div class="flex flex-col w-full sm:w-auto sm:flex-1">
+                    <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)" (click)="deleteProject()" class="bg-[#EE1B22] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'DELETE_PROJECT' | translate}}
+                    </button>
+                  </div>
                 </div>
+                <ng-template #singleButton>
+                  <div class="flex flex-col w-full">
+                    <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)" (click)="openFeedbackModal()" class="bg-[#FFA500] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 w-full">
+                      {{'ADD_FEEDBACK' | translate}}
+                    </button>
+                  </div>
+                </ng-template>
+              </div>
             </div>
         </div>
         <div class="upper-home-right w-[30%] mr-2">
-            <div class="rounded-xl bg-white px-4 pt-4 pb-3 mb-5 mt-3 shadow-lg">
+            <div class="rounded-xl bg-white pl-5 pr-1 pt-4 pb-7 mb-5 mt-3 mr-2 shadow-lg">
                 <div class="flex items-center justify-between mb-2">
                     <p class="font-semibold font-md text-[#121212]">{{'EVENTS' | translate}}</p>
                     <button
-                        class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
+                      [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)"
+                        class="flex items-center text-[#737373] border-[#fff] border-2 hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
                         *ngIf="project?.applicant?.id === currentConnectedUser?.id"
                         (click)="addEvenementDialog()">
                         <i class="material-icons">add</i>
@@ -125,7 +143,7 @@
                         <div class="ml-2 flex flex-col justify-between w-full relative">
                             <div class="flex justify-between w-full">
                                 <p class="font-dmsans text-md">{{event?.title}}</p>
-                                <div *ngIf="event.showDeleteIcon && project?.applicant?.id === currentConnectedUser?.id" class="cursor-pointer mr-3" (click)="deleteEvent(event)">
+                                <div *ngIf="event.showDeleteIcon && project?.applicant?.id === currentConnectedUser?.id && !['finished', 'archived', 'ON_HOLD'].includes(project.status)" class="cursor-pointer mr-3" (click)="deleteEvent(event)">
                                     <i class="fa-solid fa-trash-can hover:text-red-500"></i>
                                 </div>
                             </div>
@@ -144,6 +162,7 @@
                 <div class="flex items-center justify-between mb-2">
                     <p class="font-dmsans text-md mb-3 font-semibold">{{'PARTICIPANTS' | translate}}</p>
                     <button
+                        [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project?.status)"
                         class="flex items-center text-[#737373] hover:border-[#737373] hover:border-2 rounded-full px-2 py-1 text-md"
                         *ngIf="project?.applicant?.id === currentConnectedUser?.id"
                         (click)="addParticipantDialog()">
@@ -151,28 +170,29 @@
                         <span class="ml-1">{{'ADD' | translate}}</span>
                     </button>
                 </div>
-                <div class="overflow-auto no-scrollbar max-h-80">
-                    <div
-                        *ngFor="let member of project?.teamMembers"
-                        class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3">
-                        <img
-                            class="w-8 h-8 rounded-full"
-                            src="{{ member?.imageBase64Content ? member?.imageBase64Content : '../../../assets/icons/icon-user.png' }}"
-                            alt="">
-                        <div class="font-dmsans flex flex-col justify-left items-start">
-                            <p class="text-md font-medium">{{member?.user?.firstName}} {{member?.user?.lastName}}</p>
-                            <p class="text-sm font-xs text-gray-400">{{member?.enterprise?.name}}</p>
-                        </div>
-                        <div class="flex flex-col justify-right items-start">
-                            <p class="text-sm font-xs text-gray-400">{{member?.employeePost?.title}}</p>
-                        </div>
-                        <div
-                            (click)="openPartnerDetailsDialog(member)"
-                            class="flex flex-col justify-right items-end ml-auto cursor-grab">
-                            <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
-                        </div>
+              <div class="overflow-auto no-scrollbar max-h-80">
+                <div
+                  *ngFor="let member of project?.teamMembers"
+                  class="flex items-center gap-4 rounded-lg mb-3 p-2 mt-3">
+                  <img
+                    class="w-8 h-8 rounded-full"
+                    src="{{ member?.imageBase64Content ? member?.imageBase64Content : '../../../assets/icons/icon-user.png' }}"
+                    alt="">
+                  <div class="font-dmsans flex flex-col justify-left items-start">
+                    <p class="text-md font-medium">{{ member?.user?.firstName }} {{ member?.user?.lastName }}</p>
+                    <div class="flex items-center gap-2">
+                      <p class="text-sm font-xs text-gray-400">{{ member?.enterprise?.name }}</p>
+                      <p class="text-sm font-xs text-gray-400">|</p>
+                      <p class="text-sm font-xs text-gray-400">{{ translateRole(member?.employeePost?.title) | translate }}</p>
                     </div>
+                  </div>
+                  <div
+                    (click)="openPartnerDetailsDialog(member)"
+                    class="flex flex-col justify-right items-end ml-auto cursor-grab">
+                    <i class="fa-regular fa-eye text-sm font-xs text-gray-400"></i>
+                  </div>
                 </div>
+              </div>
             </div>
         </div>
     </div>

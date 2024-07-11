@@ -1,0 +1,79 @@
+<div class="div-center w-full h-full px-10 pb-7 pt-5 md:py-4 md:px-6 flex flex-col bg-white overflow-auto">
+  <div class="flex justify-end">
+    <button class="text-black border-none outline-none w-7" (click)="closeDialog()">
+      <img src="../../../../assets/icons/close-dialog.svg" alt="">
+    </button>
+  </div>
+  <div class="border-b-2 border-[#E5E5E5] mb-4">
+    <p class="text-black font-semibold font-dmsans">{{'DOCUMENTS_PROJECT' | translate}}</p>
+  </div>
+  <div class="border-b-2 border-[#E5E5E5] mb-4">
+    <div *ngIf="getAllNormalDoc().length === 0">
+      {{'NO_NORMAL_DOCUMENT' | translate}}
+    </div>
+    <div class="my-10 flex items-start flex-wrap">
+      <div *ngFor="let file of getAllNormalDoc()"  class="relative">
+        <div class="preview-image w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:image/')">
+          <img class="mb-2"  [src]="file.safeUrl" alt="{{ file.name }}">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:application/pdf')">
+          <embed class="mb-2"  [src]="file.safeUrl" type="application/pdf" width="100px" height="100px">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="!file.base64Content.startsWith('data:image/') && !file.base64Content.startsWith('data:application/pdf')">
+          <img class="mb-2" src="../../../../assets/icons/doc-default.jpg" alt="">
+        </div>
+        <div class="flex justify-between bg-gray-100 float-start h-1/2 w-[100px]" >
+          <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)" (click)="deleteFile(file)" class="w-7 h-7 bg-[#B41A2C]/15 rounded-full flex items-center justify-center">
+            <i class="fas fa-trash cursor-pointer text-[#B41A2C] "></i>
+          </button>
+          <a [href]="file.safeUrl" download="{{ file.name }}" class="w-7 h-7 bg-[#1C3879]/15 rounded-full flex items-center justify-center"><i class="fas fa-download cursor-pointer text-[#1C3879]"></i></a>
+        </div>
+        <div class="w-[100px] text-black font-dmsans text-sm text-wrap overflow-clip">
+          {{file.name + '(' + file.fileSize/1000 + 'ko)'}}
+        </div>
+      </div>
+      <div class=" w-[100px] min-h-[100px] mr-5" *ngIf="!['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)">
+        <input type="file" multiple (change)="onFileSelected($event, 1)" id="fileInput" class="hidden"/>
+        <label for="fileInput">
+          <img  class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="">
+        </label>
+        <p class="font-dmsans text-sm text-black">{{'UPLOAD_FILES' | translate}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="mt-5">
+    <div *ngIf="getAllPlanDoc().length === 0">
+      {{'NO_PLAN_DOCUMENT' | translate}}
+    </div>
+    <div class="my-10 flex items-start flex-wrap">
+      <div *ngFor="let file of getAllPlanDoc()"  class="relative">
+        <div class="preview-image w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:image/')">
+          <img class="mb-2" [src]="file.safeUrl" alt="{{ file.name }}">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="file.base64Content.startsWith('data:application/pdf')">
+          <embed class="mb-2"  [src]="file.safeUrl" type="application/pdf" width="100px" height="100px">
+        </div>
+        <div class="preview-pdf w-[100px] min-h-[100px] mr-5" *ngIf="!file.base64Content.startsWith('data:image/') && !file.base64Content.startsWith('data:application/pdf')">
+          <img class="mb-2" src="../../../../assets/icons/doc-default.jpg" alt="">
+        </div>
+
+        <div class="flex justify-between bg-gray-100 float-start h-1/2 w-[100px]" >
+          <button [disabled]="['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)" (click)="deleteFile(file)" class="w-7 h-7 bg-[#B41A2C]/15 rounded-full flex items-center justify-center">
+            <i class="fas fa-trash cursor-pointer text-[#B41A2C] "></i>
+          </button>
+          <a [href]="file.safeUrl" download="{{ file.name }}" class="w-7 h-7 bg-[#1C3879]/15 rounded-full flex items-center justify-center"><i class="fas fa-download cursor-pointer text-[#1C3879]"></i></a>
+        </div>
+        <div class="w-[100px] text-black font-dmsans text-sm text-wrap overflow-clip">
+          {{file.name + '(' + file.fileSize/1000 + 'ko)'}}
+        </div>
+      </div>
+      <div class=" w-[100px] min-h-[100px] mr-5" *ngIf="!['FINISHED', 'ARCHIVED', 'ON_HOLD'].includes(project.status!)">
+        <input type="file" multiple (change)="onFileSelected($event, 2)" id="fileInput1" class="hidden"/>
+        <label for="fileInput1">
+          <img class="cursor-pointer mb-2" src="../../../../assets/icons/upload-file.svg" alt="">
+        </label>
+        <p class="font-dmsans text-sm text-black">{{'UPLOAD_PLAN_FILES' | translate}}</p>
+      </div>
+    </div>
+  </div>
+</div>

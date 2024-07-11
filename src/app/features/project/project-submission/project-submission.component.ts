@@ -11,6 +11,8 @@ import { Disponibility } from '../../interfaces/disponibility.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
 import { AttachmentDto, AttachmentType } from '../../interfaces/attachment-dto.model';
 import { digitOnly } from '../../interfaces/utils';
+import {TranslateService} from "@ngx-translate/core";
+import {EmployeePostDTO} from "../../interfaces/employee.model";
 
 @Component({
   selector: 'app-project-submission',
@@ -18,7 +20,6 @@ import { digitOnly } from '../../interfaces/utils';
   styleUrls: ['./project-submission.component.scss']
 })
 export class ProjectSubmissionComponent implements OnInit {
-
   step: number = 1;
   minDate!: Date;
   titleSteps = ["MODALITY", "ATTACHMENTS", "LAUNCH", "TO_END"];
@@ -29,11 +30,6 @@ export class ProjectSubmissionComponent implements OnInit {
     ["../../../assets/img/success-grey.svg", "../../../assets/img/success-green.svg"]
   ];
   projectSubmissionForm: FormGroup;
-
-  heureDebutNumber!: number;
-  minuteDebutNumber!: number;
-  heureFinNumber!: number;
-  minuteFinNumber!: number;
   minDateFinString!: string;
   startDateToString!: string;
   endDateToString!: string;
@@ -50,8 +46,34 @@ export class ProjectSubmissionComponent implements OnInit {
   plansChoosen: Array<string> = [];
   allFiles: Array<AttachmentDto> = [];
   displayContractDuration: boolean = false;
+  domainTranslationMap: Record<string, string> = {
+    "Décolletage" : "BAR_TURNING",
+    "Plasturgie": "PLASTICS_TRANSFORMATION",
+    "Traitement de surface": "SURFACE_TREATMENT",
+    "Assemblage": "ASSEMBLY",
+    "Usinage": "MACHINING",
+    "Produit standard": "STANDARD_PRODUCT",
+    "Découpe": "CUTTING_STAMPING",
+    "Électronique": "ELECTRONICS",
+    "Découpe laser": "LASER_CUTTING"
+  };
+  marketTranslationMap: Record<string, string> = {
+    "Automobile": "AUTOMOBILE",
+    "Aéronautique": "AERONAUTICS",
+    "Énergie": "ENERGY",
+    "Électronique": "ELECTRONICS",
+    "Spatial": "SPACE",
+    "R&D": "R_AND_D",
+    "Ingénierie": "ENGINEERING",
+    "Médical": "MEDICAL",
+    "Aérospatial": "AEROSPACE",
+    "Militaire": "MILITARY",
+    "Industriel": "INDUSTRIAL",
+    "Mobilité urbaine": "URBAN_MOBILITY",
+    "Autre": "OTHER"
+  };
 
-  constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService) {
+  constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService, private translateService: TranslateService) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
@@ -60,7 +82,6 @@ export class ProjectSubmissionComponent implements OnInit {
       intitule: new FormControl(null, [Validators.required]),
       client: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
-      // metier: new FormControl(null, [Validators.required]),
       confidentialite1: new FormControl(true, [Validators.required]),
       confidentialite2: new FormControl(false, [Validators.required]),
       marche: new FormControl(null, [Validators.required]),
@@ -69,20 +90,14 @@ export class ProjectSubmissionComponent implements OnInit {
       duree: new FormControl(null),
       volumeGlobal: new FormControl(null, [Validators.required]),
       budget: new FormControl(null, [Validators.required]),
-      // delaiPlusTot: new FormControl(null, [Validators.required]),
-      // delaiPlusTard: new FormControl(null, [Validators.required]),
       startDate: new FormControl(null, [Validators.required]),
       endDate: new FormControl(null, [Validators.required]),
-      // fichiers: new FormControl(null, [Validators.required]),
-      // plans: new FormControl(null, [Validators.required]),
       heure: new FormControl(null, [Validators.required]),
-      // heureFin: new FormControl(null, [Validators.required]),
     });
 
     const dayStart = new Date();
     const dayEnd = new Date();
 
-    // Définissez l'heure, les minutes et les secondes à zéro
     dayStart.setHours(0, 0, 0, 0);
     dayEnd.setHours(23, 50, 0, 0);
 
@@ -124,22 +139,37 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
-        this.domains = data;
-        console.log(this.domains);
-
+        this.domains = data.map((item: Domain) => ({
+          ...item,
+          translatedName: this.domainTranslationMap[item.name] || item.name
+        }));
       },
       error: (err) => {
-
+        console.log(err);
+        this.translateService.get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_DOMAINS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
-        this.markets = data;
-        console.log(this.markets);
+        this.markets = data.map((item: Market) => ({
+          ...item,
+          translatedName: this.marketTranslationMap[item.name] || item.name
+        }));
       },
       error: (err) => {
-
+        console.log(err);
+        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -167,12 +197,13 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.projectSubmissionForm.value);
     if (this.projectSubmissionForm.invalid || this.domainChoosen.length === 0 || this.allDateChoosen.length === 0) {
-      this.toastr.error("veillez bien remplir tous les champs correctement", "Erreur soumission projet", {
-        timeOut: 3000,
-        positionClass: 'toast-top-center',
-     });
+      this.translateService.get(['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION', 'ERROR_PROJECT_SUBMISSION_TITLE']).subscribe(translations => {
+        this.toastr.error(translations['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION'], translations['ERROR_PROJECT_SUBMISSION_TITLE'], {
+          timeOut: 3000,
+          positionClass: 'toast-top-right',
+        });
+      });
     }
     else {
 
@@ -195,30 +226,30 @@ export class ProjectSubmissionComponent implements OnInit {
 
       this.projectService.addProject(this.token, this.project).subscribe({
         next: (data) => {
-          console.log(data);
           this.allFiles.forEach(file => {
             file.project = data;
             this.projectService.addProjectAttachments(this.token, file).subscribe({
               next: (data) => {
-                console.log(data);
-
               },
               error: (err) => {
-
               }
             });
           });
-          this.toastr.success("La soumission du projet a bien été effectué", "Succés", {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-         });
+          this.translateService.get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE']).subscribe(translations => {
+            this.toastr.success(translations['SUCCESS_PROJECT_SUBMISSION'], translations['SUCCESS_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
          this.step++;
         },
         error: (err) => {
-          this.toastr.error("La soumission du projet a échoué", "Erreur soumission projet", {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-         });
+          this.translateService.get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_PROJECT_SUBMISSION'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       });
     }
@@ -237,9 +268,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
   ajouterDate() {
     const [heures, minutes] = this.projectSubmissionForm.value.heure.split(':').map(Number);
-    console.log(this.selectedDate + ' ' + heures + '-- ' + minutes);
     this.selectedDate?.setHours(heures, minutes);
-    console.log(this.selectedDate);
     if (this.allDateChoosen.indexOf(this.selectedDate?.toISOString()!) === -1)
       this.allDateChoosen.push(this.selectedDate?.toISOString()!);
   }
@@ -250,12 +279,8 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   onSelectDomain(value: any) {
-    console.log(value);
-
     if (this.domainChoosen.indexOf(value) === -1)
       this.domainChoosen.push(value);
-    console.log(this.domainChoosen);
-
   }
 
   removeDomain(item: string) {
@@ -276,7 +301,6 @@ export class ProjectSubmissionComponent implements OnInit {
     const files: FileList = event.target.files;
 
     if (indice === 1) {
-      // this.projectSubmissionForm.get('fichiers')?.setValue(file.name);
       this.filesChoosen = [];
     } else {
       this.plansChoosen = [];
@@ -284,15 +308,10 @@ export class ProjectSubmissionComponent implements OnInit {
 
     for (let i = 0; i < files.length; i++) {
       const file: File = files[i];
-      console.log('Nom du fichier:', file.name);
-      console.log('Type du fichier:', file.type);
-      console.log('Taille du fichier:', file.size, 'octets');
-      // Vous pouvez envoyer chaque fichier à votre backend ou effectuer toute autre action nécessaire ici
       const reader = new FileReader();
 
       reader.onload = () => {
         const base64String = reader.result as string;
-        // console.log(base64String);
         if (indice === 1) {
           let attachment: AttachmentDto = {
             name: file.name,
@@ -331,5 +350,9 @@ export class ProjectSubmissionComponent implements OnInit {
     } else {
       this.displayContractDuration = false;
     }
+  }
+
+  translateDomain(domain: string) {
+    return this.domainTranslationMap[domain] || domain;
   }
 }

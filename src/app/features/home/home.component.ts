@@ -11,6 +11,7 @@ import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { UserService } from '../services/user/user.service';
 import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   fullName!: string;
   searchData: PartnerDTO[] = [];
   enterprises: EnterpriseDTO[] = [];
-  currentIndex: number = 0;
   language: string = 'fr';
   currentConnectedUser?: any;
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
@@ -34,13 +34,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
     private partnerService: PartnerService,
     private enterpriseService: EnterpriseService,
     private dialog: MatDialog,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translateService: TranslateService
   ) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
   }
 
   ngOnInit() {
+    const language = localStorage.getItem("language");
+    if (language) {
+      this.language = language;
+    }
     this.loadCurrentConnectedUser();
     this.loadAllEnterprises();
   }
@@ -50,20 +55,20 @@ export class HomeComponent implements OnInit, AfterViewInit {
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
       this.fullName = this.currentConnectedUser?.firstName + " " + this.currentConnectedUser?.lastName;
-      this.language = this.currentConnectedUser?.langKey;
     } else {
       this.userService.getUser(this.token).subscribe({
         next: (data) => {
           this.currentConnectedUser = data;
           this.fullName = this.currentConnectedUser?.user?.firstName + " " + this.currentConnectedUser?.user?.lastName;
-          this.language = this.currentConnectedUser?.user?.langKey;
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
@@ -72,13 +77,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
   loadAllEnterprises() {
     this.enterpriseService.getAllEnterprises().subscribe({
       next: (data) => {
-        console.log(data);
-
         this.enterprises = data.filter((enterprise:any) => enterprise.name !== 'Autre');
       },
       error: (error) => {
         console.log(error);
-
       }
     })
   }
@@ -103,8 +105,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
         next: (data) => {
           this.searchData.push(data);
           this.searchData = this.searchData.flatMap(data => data);
-          console.log(this.searchData);
-
         },
         error: (err) => {
           console.log(err);
@@ -138,8 +138,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   onLanguageEvent(data: string) {
-    console.log(data);
-
     this.language = data;
   }
 

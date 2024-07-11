@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { EventService } from '../../services/event/event.service';
 import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-popup',
@@ -11,13 +12,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PopupComponent implements OnInit {
   @Output() eventRemoved = new EventEmitter<any>();
+  @Output() profilePictureRemovedEvent = new EventEmitter<any>();
 
   constructor(
     public dialogRef: MatDialogRef<PopupComponent>,
     private authService: AuthService,
     private eventService: EventService,
     private toastr: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public dialogData: any) {
+    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    private translateService: TranslateService
+  ) {
 
   }
 
@@ -30,7 +34,10 @@ export class PopupComponent implements OnInit {
         this.logout();
         break;
       case 'deleteEvent':
-        this.deleleEvent(this.dialogData.token, this.dialogData.event.id);
+        this.deleteEvent(this.dialogData.token, this.dialogData.event.id);
+        break;
+      case 'deleteProfilePicture':
+        this.deleteProfilePicture(this.dialogData.route);
         break;
       default:
         break;
@@ -42,24 +49,33 @@ export class PopupComponent implements OnInit {
     this.authService.logOut();
   }
 
-  deleleEvent(token: string, eventId: number) {
+  deleteEvent(token: string, eventId: number) {
     this.eventService.deleteEvent(token, eventId).subscribe({
       next: (data) => {
-        this.toastr.success("success", "L'évènement a été supprimé avec succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_DELETE_EVENT', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_DELETE_EVENT'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
        this.eventRemoved.emit(eventId);
        this.dialogRef.close();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la suppression de l'évènement", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_DELETE_EVENT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_DELETE_EVENT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
+  }
+
+  deleteProfilePicture(status: string) {
+    this.profilePictureRemovedEvent.emit(status);
+    this.dialogRef.close();
   }
 
   onCloseDialog() {

@@ -24,6 +24,15 @@ export class SignupComponent implements OnInit {
   user: ManagedUserVM = new ManagedUserVM();
   token!: string;
   isConfirmPasswordVisible: boolean = false;
+  roleTranslationMap: Record<string, string> = {
+    'Responsable produit': 'ROLE_PRODUCT_MANAGER',
+    'Commercial': 'ROLE_SALES',
+    'Acheteur': 'ROLE_BUYER',
+    'Négociateur': 'ROLE_NEGOTIATOR',
+    'Designer': 'ROLE_DESIGNER',
+    'Directeur': 'ROLE_DIRECTOR',
+    'Autre': 'OTHER'
+  };
 
   constructor(
     private toastr: ToastrService,
@@ -34,7 +43,6 @@ export class SignupComponent implements OnInit {
     private translateService: TranslateService
     ) {
     const language = localStorage.getItem("language");
-    console.log(language);
 
     if (language) {
       this.translateService.use(language);
@@ -64,23 +72,30 @@ export class SignupComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_COMPANIES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_COMPANIES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
 
     this.enterpriseService.getAllEmployeePost().subscribe({
-      next: (data) => {
-        this.listEmployeePost = data;
+      next: (data: EmployeePostDTO[]) => {
+        this.listEmployeePost = data.map((item: EmployeePostDTO) => ({
+          ...item,
+          translatedTitle: this.roleTranslationMap[item.title] || item.title
+        }));
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des roles", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_ROLES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_ROLES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -115,18 +130,22 @@ export class SignupComponent implements OnInit {
 
     this.authService.register(this.user).subscribe({
       next: (data) => {
-        this.toastr.success("Vous allez recevoir un mail de validation.", "Succès", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['SUCCESS_RECEIVE_VALIDATION_MAIL', 'SUCCESS_TITLE']).subscribe(translations => {
+          this.toastr.success(translations['SUCCESS_RECEIVE_VALIDATION_MAIL'], translations['SUCCESS_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
         this.registerForm.reset();
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Une erreur est survenue lors de votre inscription.", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
+        this.translateService.get(['ERROR_REGISTRATION', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_REGISTRATION'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }

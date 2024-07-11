@@ -5,6 +5,7 @@ import { PartnerDTO } from '../../interfaces/partner.model';
 import { environment } from 'src/environments/environment';
 import { PartnerProfileVM } from '../../interfaces/partner-profile-vm.model';
 import { PasswordChangeDTO } from '../../interfaces/password-dto.model';
+import {UserDTO} from "../../interfaces/user-dto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +39,11 @@ export class UserService {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
     const url = this.apiBaseUrl + 'account/change-password';
     return this.http.post<any>(url, passwordDto, { headers, responseType: 'json' });
+  }
+
+  searchUsers(query: string, token: string): Observable<UserDTO[]> {
+    let headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token });
+    const url = this.apiBaseUrl + 'users/_search?query=' + query;
+    return this.http.get<UserDTO[]>(url, { headers, responseType: 'json' });
   }
 }

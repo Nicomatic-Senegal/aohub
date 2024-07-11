@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subject, timer, takeUntil, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { KeyAndPasswordVM } from '../../interfaces/key-and-password-vm.model';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';

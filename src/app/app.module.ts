@@ -32,8 +32,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     }),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-middle-center', // Position du Toastr (au milieu de la page)
-      timeOut: 0, // Durée d'affichage illimitée
+      positionClass: 'toast-middle-center',
+      timeOut: 0,
       closeButton: true,
       tapToDismiss: true,
       preventDuplicates: true,
@@ -41,6 +41,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
       toastClass: 'ngx-toastr',
       messageClass: 'ngx-toastr-message',
       titleClass: 'ngx-toastr-title',
+      progressBar: true,
+      progressAnimation: 'decreasing'
     }),
     FontAwesomeModule
   ],

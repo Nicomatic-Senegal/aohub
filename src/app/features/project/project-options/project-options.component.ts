@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../../services/project/project.service';
 import { Project } from '../../interfaces/project.model';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-project-options',
@@ -20,11 +21,11 @@ export class ProjectOptionsComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private translateService: TranslateService
     ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
-
   }
 
   ngOnInit() {
@@ -38,14 +39,15 @@ export class ProjectOptionsComponent implements OnInit {
     this.projectService.getProjectById(token, projectId).subscribe({
       next: (data) => {
         this.project = data;
-
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la récupération du projet", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECT', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECT'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }

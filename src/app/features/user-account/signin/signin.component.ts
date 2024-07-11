@@ -19,7 +19,7 @@ export class SigninComponent {
   token!: string;
 
   constructor(
-    private translate: TranslateService,
+    private translateService: TranslateService,
     private toastr: ToastrService,
     private route: Router,
     private userService: UserService,
@@ -28,9 +28,9 @@ export class SigninComponent {
   ) {
     const language = localStorage.getItem("language");
     if (language) {
-      this.translate.use(language);
+      this.translateService.use(language);
     } else {
-      this.translate.use('fr');
+      this.translateService.use('fr');
     }
     this.loginForm = this.fb.group({
       username: new FormControl(null, [Validators.required, Validators.email]),
@@ -83,21 +83,22 @@ export class SigninComponent {
           },
           error: (err) => {
             console.log(err);
-            this.toastr.error(err.error.detail, "Une erreur est survenue lors de la réception de l'utilisateur connecté", {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
-           });
+            this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+              this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              });
+            });
           }
         })
       },
       error: (err) => {
-        console.log(err);
-
-        this.toastr.error(err.error.detail, "Une erreur est survenue lors de la connexion", {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
-       });
-
+        this.translateService.get(['ERROR_CONNECTION', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_CONNECTION'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     })
   }

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
@@ -10,23 +10,23 @@ import { EnterpriseDTO } from '../interfaces/enterprise.model';
 import { EnterpriseService } from '../services/enterprise/enterprise.service';
 import { ChartComponent } from 'ng-apexcharts';
 import { ChartOptions, ProjectCurve, series } from '../interfaces/chart-options';
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.scss']
 })
-export class ActivityComponent {
+export class ActivityComponent implements OnInit {
   token: string;
   allProjects: Project[] = [];
   listProject: Project[] = [];
   allEnterprise: EnterpriseDTO[] = [];
   currentConnectedUser?: PartnerDTO;
-  nbProjectsInProgres: number = 0;
+  nbProjectsInProgress: number = 0;
   nbProjectsFinished: number = 0;
-  nbProjectsOnHold: number = 0;
+  nbAvailableOpportunities: number = 0;
   nbProjectsArchived: number = 0;
-  selectedDate: Date | null = new Date();
   selectedEnterprise!: number;
   selectedMonth: string[] = [];
   selectedYears: string[] = [];
@@ -48,7 +48,9 @@ export class ActivityComponent {
     private toastr: ToastrService,
     private router: Router,
     private enterpriseService: EnterpriseService,
-    private authService: AuthService) {
+    private authService: AuthService,
+    private translateService: TranslateService
+    ) {
       authService.loggedOut();
       this.token = authService.isLogged()!;
   }
@@ -56,7 +58,7 @@ export class ActivityComponent {
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
     this.loadAllEnterprises();
-    this.loadAllProjects();
+    this.loadEnterpriseProjects(this.selectedEnterprise);
   }
 
   rotation(word: any, index: number) {
@@ -75,15 +77,15 @@ export class ActivityComponent {
         },
         error: (err) => {
           console.log(err);
-          this.toastr.error(err.error.detail, "Erreur sur la réception de l'utilisateur connecté", {
-            timeOut: 3000,
-            positionClass: 'toast-right-right',
-         });
+          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
+            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            });
+          });
         }
       })
     }
-    console.log(this.currentConnectedUser);
-
     this.selectedEnterprise = this.currentConnectedUser?.enterprise.id!;
   }
 
@@ -108,10 +110,12 @@ export class ActivityComponent {
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des entreprises", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_COMPANIES', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_COMPANIES'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -120,44 +124,31 @@ export class ActivityComponent {
     this.listProject.splice(0, this.listProject.length);
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
-    this.nbProjectsInProgres = 0;
-    this.nbProjectsOnHold = 0;
+    this.nbProjectsInProgress = 0;
+    this.nbAvailableOpportunities = 0;
     this.projectService.getAllProjectsEnterprise(this.token, idEnterprise).subscribe({
       next: (data) => {
-        console.log(data);
-
-        this.allProjects = data;
+        console.log(data)
+        this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
         this.data = this.loadAllWords().map(function (word) {
           return { text: word[0], value: word[1] * 10};
         });
 
-        this.listProject.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
+        this.nbProjectsInProgress = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbAvailableOpportunities = data.totalAvailableOpportunitiesCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -166,12 +157,10 @@ export class ActivityComponent {
     this.listProject.splice(0, this.listProject.length);
     this.nbProjectsArchived = 0;
     this.nbProjectsFinished = 0;
-    this.nbProjectsInProgres = 0;
-    this.nbProjectsOnHold = 0;
-    this.projectService.getAllProjectsNoPagination(this.token).subscribe({
+    this.nbProjectsInProgress = 0;
+    this.nbAvailableOpportunities = 0;
+    this.projectService.getAllProjectsWithHeaders(this.token).subscribe({
       next: (data) => {
-        console.log(data);
-
         this.allProjects = data.projects;
         this.listProject = this.allProjects.slice();
         this.drawCurve();
@@ -179,31 +168,19 @@ export class ActivityComponent {
           return { text: word[0], value: word[1] * 10};
         });
 
-        this.listProject.forEach(project => {
-          switch(project.status) {
-            case 'IN_PROGRESS':
-              this.nbProjectsInProgres++;
-              break;
-            case 'FINISHED':
-              this.nbProjectsFinished++;
-              break;
-            case 'ON_HOLD':
-              this.nbProjectsOnHold++;
-              break;
-            case 'ARCHIVED':
-              this.nbProjectsArchived++;
-              break;
-            default:
-              break;
-          }
-        });
+        this.nbProjectsInProgress = data.totalInProgressCount;
+        this.nbProjectsFinished = data.totalFinishedCount;
+        this.nbAvailableOpportunities = data.totalAvailableOpportunitiesCount;
+        this.nbProjectsArchived = data.totalArchivedCount;
       },
       error: (err) => {
         console.log(err);
-        this.toastr.error(err.error.detail, "Erreur sur la réception de la liste des projets", {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-       });
+        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
+          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
+            timeOut: 3000,
+            positionClass: 'toast-top-right',
+          });
+        });
       }
     });
   }
@@ -247,7 +224,6 @@ export class ActivityComponent {
       });
 
       this.projectCurve.nbProject = yearCount;
-      console.log(this.projectCurve);
 
       this.curveTitle = this.selectedYears.toString().replaceAll("[,]", "");
     }
@@ -256,46 +232,47 @@ export class ActivityComponent {
   drawCurve() {
     this.curveSetup();
 
-    this.chartOptions = {
-      series: [
-        {
-          name: "Marché",
-          data: this.projectCurve.nbProject
-        }
-      ],
-      chart: {
-        type: "area",
-        height: 390,
-        zoom: {
+    this.translateService.get('PROJECT_ANALYSIS').subscribe(translatedTitle => {
+      this.chartOptions = {
+        series: [
+          {
+            name: "Marché",
+            data: this.projectCurve.nbProject
+          }
+        ],
+        chart: {
+          type: "area",
+          height: 390,
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
           enabled: false
+        },
+        stroke: {
+          curve: "straight"
+        },
+        title: {
+          text: translatedTitle,
+          align: "left"
+        },
+        subtitle: {
+          text: this.curveTitle,
+          align: "left"
+        },
+        labels: this.projectCurve.dates,
+        xaxis: {
+          type: "category"
+        },
+        yaxis: {
+          opposite: true
+        },
+        legend: {
+          horizontalAlign: "left"
         }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        curve: "straight"
-      },
-
-      title: {
-        text: "Analyse des projets",
-        align: "left"
-      },
-      subtitle: {
-        text: this.curveTitle,
-        align: "left"
-      },
-      labels: this.projectCurve.dates,
-      xaxis: {
-        type: "category"
-      },
-      yaxis: {
-        opposite: true
-      },
-      legend: {
-        horizontalAlign: "left"
-      }
-    };
+      };
+    });
   }
 
   isMonthSelected(month: string): boolean {
@@ -308,6 +285,36 @@ export class ActivityComponent {
 
   isEnterpriseSelected(enterprise: number): boolean {
     return this.selectedEnterprise === enterprise;
+  }
+
+  isAllSelected(): boolean {
+    return this.selectedYears.length === this.years.length;
+  }
+
+  toggleSelectAll(): void {
+    if (this.isAllSelected()) {
+      this.deselectAll();
+    } else {
+      this.selectAll();
+    }
+  }
+
+  selectAll(): void {
+    this.selectedYears = [...this.years];
+    if (this.selectedEnterprise == -1) {
+      this.loadAllProjects();
+    } else {
+      this.loadEnterpriseProjects(this.selectedEnterprise);
+    }
+  }
+
+  deselectAll(): void {
+    this.selectedYears = [];
+    if (this.selectedEnterprise == -1) {
+      this.loadAllProjects();
+    } else {
+      this.loadEnterpriseProjects(this.selectedEnterprise);
+    }
   }
 
   sortProjectsByMonth(month: string) {
@@ -338,23 +345,28 @@ export class ActivityComponent {
     }
 
     if (this.selectedYears.length === 0) {
-      this.loadAllProjects();
+      if (this.selectedEnterprise == -1) {
+        this.loadAllProjects();
+      } else {
+        this.loadEnterpriseProjects(this.selectedEnterprise);
+      }
+
     } else {
       this.nbProjectsArchived = 0;
       this.nbProjectsFinished = 0;
-      this.nbProjectsInProgres = 0;
-      this.nbProjectsOnHold = 0;
+      this.nbProjectsInProgress = 0;
+      this.nbAvailableOpportunities = 0;
       this.listProject = this.allProjects.filter(project => this.selectedYears.includes(project.createdAt.toString().split("-")[0]));
       this.listProject.forEach(project => {
         switch(project.status) {
           case 'IN_PROGRESS':
-            this.nbProjectsInProgres++;
+            this.nbProjectsInProgress++;
             break;
           case 'FINISHED':
             this.nbProjectsFinished++;
             break;
           case 'ON_HOLD':
-            this.nbProjectsOnHold++;
+            this.nbAvailableOpportunities++;
             break;
           case 'ARCHIVED':
             this.nbProjectsArchived++;
