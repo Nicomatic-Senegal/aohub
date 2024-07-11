@@ -1,4 +1,4 @@
 export const environment = {
-    production: true,
-    apiBaseUrl: "http://plateforme-inhub.com:8080/api/v1/"
+  production: true,
+  apiBaseUrl: "https://dev.plateforme-inhub.com:8081/api/v1/"
 }

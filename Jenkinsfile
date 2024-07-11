@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        DOCKER_IMAGE = 'lamine2000/dev-inhub-plateform-frontend'
+        DOCKER_IMAGE = 'lamine2000/prod-inhub-plateform-frontend'
         DOCKER_TAG = "build-${new Date().format('yyyyMMddHHmmss')}"
     }
 
@@ -43,7 +43,7 @@ pipeline {
 
       stage('Trigger Deployment') {
             steps {
-                httpRequest url:"http://dev.plateforme-inhub.com:1888", validResponseCodes:'200'
+                httpRequest url:"http://dev.plateforme-inhub.com:1777", validResponseCodes:'200'
             }
         }
     }
