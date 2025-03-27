@@ -1,3 +1,4 @@
+// app.component.ts
 import { Component } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
