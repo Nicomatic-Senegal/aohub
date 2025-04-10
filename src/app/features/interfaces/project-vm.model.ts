@@ -1,5 +1,4 @@
-import { PartnerDTO } from "./partner.model";
-
+import { PartnerDTO } from './partner.model';
 
 export enum ProjectStatus {
   IN_PROGRESS,
@@ -13,13 +12,12 @@ export enum NeedType {
   PUNCTUAL,
 }
 
- export interface MarketDTO {
+export interface MarketDTO {
+  id?: number;
 
-    id?: number;
+  name?: string;
 
-    name?: string;
-
-    description?: string;
+  description?: string;
 }
 
 export interface DomainDTO {
@@ -41,7 +39,7 @@ export interface ProjectVM {
   budget?: number;
   latestDeadline?: Date;
   earliestDeadline?: Date;
-  client?: string;
+  service?: string;
   applicant?: PartnerDTO;
   markets?: MarketDTO[];
   domains?: DomainDTO[];

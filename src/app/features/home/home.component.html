@@ -1,23 +1,48 @@
 <div class="main flex w-full h-[100%] overflow-auto">
   <app-side-bar class="app-side h-100vh" [screen]="'/home'"></app-side-bar>
   <div class="head-home flex flex-col h-90vh flex-grow w-[90%] overflow-auto">
-    <app-top-bar class="w-full flex-grow-1 " title="{{'HOME' | translate}}" (languageEvent)="onLanguageEvent($event)"></app-top-bar>
-    <div class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto">
+    <app-top-bar
+      class="w-full flex-grow-1"
+      title="{{ 'HOME' | translate }}"
+      (languageEvent)="onLanguageEvent($event)"
+    ></app-top-bar>
+    <div
+      class="div-center w-full h-[100%] px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5 overflow-auto"
+    >
       <div class="upper-home flex justify-between">
         <div class="upper-home-left flex flex-col w-[70%]">
-            <div class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]">
-              <p class="text-[#0B0909] font-dmsans font-semibold text-xl">{{'WELCOME' | translate}} {{fullName}}</p>
-              <p class=" w-full text-[#232323] font-dmsans font-normal text-md pt-2">{{'TEXT1_HOME' | translate}} </p>
-              <button
-                class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
-                (click)="navigation('/project-submission')">{{'SUBMIT_NEW_PROJECT' | translate}}
-              </button>
-            </div>
-            <div class="upper-home-left-bottom flex flex-col mt-5 items-center mb-10">
-              <p class="text-[#408A7E] text-2xl font-bold mb-3 font-dmsans">{{'ECOSYSTEM_INHUB' | translate}} </p>
-              <p class="text-center font-dmsans font-medium text-gray-600 text-md w-[90%]">{{'TEXT2_HOME' | translate}}.</p>
-            </div>
-
+          <div
+            *ngIf="showProjectSubmissionButton"
+            class="upper-home-left-redbox shadow-sm p-5 rounded-lg bg-gradient-to-r from-[#EE1B22] via-[#E4CACB] to-[#E4CACB]"
+          >
+            <p class="text-[#0B0909] font-dmsans font-semibold text-xl">
+              {{ "WELCOME" | translate }} {{ fullName }}
+            </p>
+            <p
+              class="w-full text-[#232323] font-dmsans font-normal text-md pt-2"
+            >
+              {{ "TEXT1_HOME" | translate }}
+            </p>
+            <button
+              class="bg-[#408A7E] rounded-lg h-10 text-white text-sm font-dmsans font-semibold px-5 mt-5"
+              (click)="navigation('/project-submission')"
+            >
+              {{ "SUBMIT_NEW_PROJECT" | translate }}
+            </button>
+          </div>
+          <div
+            class="upper-home-left-bottom flex flex-col mt-5 items-center mb-10"
+          >
+            <p class="text-[#408A7E] text-2xl font-bold mb-3 font-dmsans">
+              {{ "ECOSYSTEM_INHUB" | translate }}
+            </p>
+            <p
+              class="text-center font-dmsans font-medium text-gray-600 text-md w-[90%]"
+            >
+              {{ "TEXT2_HOME" | translate }}.
+            </p>
+          </div>
+          <!--
             <div class="relative">
               <swiper-container
                 class="swiper-enterprise"
@@ -41,9 +66,70 @@
                 </swiper-slide>
               </swiper-container>
             </div>
+            -->
+          <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
+            <swiper-container
+              class="swiper-info-inhub"
+              effect="cube"
+              speed="7000"
+              autoplay="true"
+            >
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/parcours-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/reseau-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/confiance-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/expertise-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/plateforme-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+              <swiper-slide>
+                <img
+                  src="../../../assets/img/inhub-cest/projet-{{
+                    language
+                  }}.jpeg"
+                />
+              </swiper-slide>
+            </swiper-container>
+            <div class="w-full mt-5 flex justify-center">
+              <a
+                class="underline text-[#408A7E] hover:text-[#306F64] visited:text-[#675E86]"
+                href="https://www.ecosysteme-inhub.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                >www.ecosysteme-inhub.com</a
+              >
+            </div>
+          </div>
         </div>
         <div class="upper-home-right flex flex-col w-[25%]">
-          <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
+          <!-- <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
             <swiper-container
               class="swiper-info-inhub"
               effect="cube"
@@ -73,24 +159,45 @@
               <a class="underline text-[#408A7E] hover:text-[#306F64] visited:text-[#675E86]" href="https://www.ecosysteme-inhub.com" target="_blank" rel="noopener noreferrer">www.ecosysteme-inhub.com</a>
             </div>
           </div>
-
+        -->
           <div class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
-            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">{{'ADDRESS_BOOK' | translate}} </p>
+            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">
+              {{ "ADDRESS_BOOK" | translate }}
+            </p>
             <div>
               <div class="max-w-md mx-auto mb-3">
-                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">{{'SEARCH' | translate}} </label>
+                <label
+                  for="default-search"
+                  class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                  >{{ "SEARCH" | translate }}
+                </label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                        </svg>
-                    </div>
-                    <input
-                      type="search"
-                      id="default-search"
-                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md"
-                      placeholder="{{'SEARCH_PARTNER' | translate}}" #searchInput
-                    />
+                  <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+                  >
+                    <svg
+                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                      />
+                    </svg>
+                  </div>
+                  <input
+                    type="search"
+                    id="default-search"
+                    class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md"
+                    placeholder="{{ 'SEARCH_PARTNER' | translate }}"
+                    #searchInput
+                  />
                 </div>
               </div>
               <div class="max-h-80 overflow-auto">
@@ -99,15 +206,33 @@
                   class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab break-all"
                   (click)="openPartnerDetailsDialog(partner)"
                 >
-                  <img class="w-10 h-10 rounded-full" src="{{ partner?.imageBase64Content ? partner?.imageBase64Content : '../../../assets/icons/icon-user.png' }}" alt="">
-                  <div class="font-dmsans flex flex-col justify-left items-start">
-                      <p class="text-md font-medium">{{partner?.user?.firstName}} {{partner?.user?.lastName}}</p>
-                      <p class="text-sm text-gray-900">{{partner?.user?.email}}</p>
-                      <p class="text-sm text-gray-900">{{partner?.phoneNumber}}</p>
-                      <p class="text-sm text-gray-900">{{partner?.enterprise?.name}}</p>
+                  <img
+                    class="w-10 h-10 rounded-full"
+                    src="{{
+                      partner?.imageBase64Content
+                        ? partner?.imageBase64Content
+                        : '../../../assets/icons/icon-user.png'
+                    }}"
+                    alt=""
+                  />
+                  <div
+                    class="font-dmsans flex flex-col justify-left items-start"
+                  >
+                    <p class="text-md font-medium">
+                      {{ partner?.user?.firstName }}
+                      {{ partner?.user?.lastName }}
+                    </p>
+                    <p class="text-sm text-gray-900">
+                      {{ partner?.user?.email }}
+                    </p>
+                    <p class="text-sm text-gray-900">
+                      {{ partner?.phoneNumber }}
+                    </p>
+                    <p class="text-sm text-gray-900">
+                      {{ partner?.enterprise?.name }}
+                    </p>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

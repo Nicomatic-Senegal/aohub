@@ -10,33 +10,41 @@ import { environment } from 'src/environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-
   remainingSecondFromJWT!: number;
   token_timer: number;
   idle_timer: number;
   jwtHelper: JwtHelperService = new JwtHelperService();
   apiBaseUrl: string | undefined;
 
-  constructor(private route: Router, private http: HttpClient, private translateService: TranslateService) {
+  constructor(
+    private route: Router,
+    private http: HttpClient,
+    private translateService: TranslateService
+  ) {
     this.apiBaseUrl = environment.apiBaseUrl;
     this.token_timer = 50;
     this.idle_timer = 15;
-   }
+  }
 
   authenticate(userLogged: LoginVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = this.apiBaseUrl + 'authenticate';
-    return this.http.post<any>(url, userLogged, { headers, responseType: 'json' });
+    return this.http.post<any>(url, userLogged, {
+      headers,
+      responseType: 'json',
+    });
   }
 
   register(userRegistered: ManagedUserVM): Observable<any> {
     let headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = this.apiBaseUrl + 'register';
-    return this.http.post<any>(url, userRegistered, { headers, responseType: 'json' });
+    return this.http.post<any>(url, userRegistered, {
+      headers,
+      responseType: 'json',
+    });
   }
 
   activateCompte(key: string): Observable<any> {
@@ -63,7 +71,6 @@ export class AuthService {
     return this.http.post<any>(url, kpVM, { headers, responseType: 'json' });
   }
 
-
   checkAndRefreshToken(): Observable<any> {
     const token: string | null = localStorage.getItem('token');
     const expirationTime = this.getExpirationTimeFromToken(token);
@@ -81,11 +88,11 @@ export class AuthService {
 
   refreshToken(): Observable<any> {
     const token: string | null = localStorage.getItem('token');
-    console.log("Et voici le token: " + token);
+    console.log('Et voici le token: ' + token);
 
     let headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      Authorization: 'Bearer ' + token,
     });
 
     const url = this.apiBaseUrl + 'login/refresh_token';
@@ -110,17 +117,14 @@ export class AuthService {
 
   loggedOut() {
     if (localStorage.getItem('token')) {
-
       const jwtToken = localStorage.getItem('token');
 
-      if (typeof jwtToken == "string") {
+      if (typeof jwtToken == 'string') {
         if (this.jwtHelper.isTokenExpired(jwtToken)) {
           localStorage.clear();
         }
       }
-
-    }
-    else {
+    } else {
       localStorage.clear();
     }
   }
@@ -128,7 +132,7 @@ export class AuthService {
   logOut() {
     let language = localStorage.getItem('language');
     localStorage.clear();
-    if (typeof language == "string") {
+    if (typeof language == 'string') {
       localStorage.setItem('language', language);
     }
 
@@ -141,23 +145,43 @@ export class AuthService {
   }
 
   isLogged() {
-    if (!localStorage.getItem("token")) {
+    if (!localStorage.getItem('token')) {
       this.route.navigate(['/signin']);
       return;
     }
 
-    const language = localStorage.getItem("language");
+    const language = localStorage.getItem('language');
     if (language) {
       this.translateService.use(language);
     } else {
       this.translateService.use('fr');
     }
 
-    const item = localStorage.getItem("token");
-    if (typeof item == "string") {
+    const item = localStorage.getItem('token');
+    if (typeof item == 'string') {
       return item;
     }
     return item;
   }
+  // Méthode pour décoder le token JWT actuel
+  getDecodedToken(): any {
+    const token = localStorage.getItem('token');
+    return token ? this.jwtHelper.decodeToken(token) : null;
+  }
 
+  // Méthode pour récupérer le rôle utilisateur précis (depuis "auth")
+  getUserRole(): string | null {
+    const decoded = this.getDecodedToken();
+    return decoded ? decoded.auth : null;
+  }
+
+  // Vérifie précisément si le rôle est ROLE_ENTERPRISE
+  isEnterprise(): boolean {
+    return this.getUserRole() === 'ROLE_EMPLOYEE_ADMIN';
+  }
+
+  // Vérifie précisément si le rôle est ROLE_EMPLOYEE
+  isEmployee(): boolean {
+    return this.getUserRole() === 'ROLE_EMPLOYEE';
+  }
 }

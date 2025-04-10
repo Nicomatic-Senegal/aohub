@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { format } from 'date-fns';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Market } from '../../interfaces/market.model';
@@ -9,25 +14,40 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Disponibility } from '../../interfaces/disponibility.model';
 import { ProjectVM } from '../../interfaces/project-vm.model';
-import { AttachmentDto, AttachmentType } from '../../interfaces/attachment-dto.model';
+import {
+  AttachmentDto,
+  AttachmentType,
+} from '../../interfaces/attachment-dto.model';
 import { digitOnly } from '../../interfaces/utils';
-import {TranslateService} from "@ngx-translate/core";
-import {EmployeePostDTO} from "../../interfaces/employee.model";
+import { TranslateService } from '@ngx-translate/core';
+import { EmployeePostDTO } from '../../interfaces/employee.model';
 
 @Component({
   selector: 'app-project-submission',
   templateUrl: './project-submission.component.html',
-  styleUrls: ['./project-submission.component.scss']
+  styleUrls: ['./project-submission.component.scss'],
 })
 export class ProjectSubmissionComponent implements OnInit {
   step: number = 1;
   minDate!: Date;
-  titleSteps = ["MODALITY", "ATTACHMENTS", "LAUNCH", "TO_END"];
+  titleSteps = ['MODALITY', 'ATTACHMENTS', 'LAUNCH', 'TO_END'];
   stepsIcons = [
-    ["../../../assets/img/modality.svg", "../../../assets/img/modality-green.svg"],
-    ["../../../assets/img/description.svg", "../../../assets/img/description-green.svg"],
-    ["../../../assets/img/date-time.svg", "../../../assets/img/date-time-green.svg"],
-    ["../../../assets/img/success-grey.svg", "../../../assets/img/success-green.svg"]
+    [
+      '../../../assets/img/modality.svg',
+      '../../../assets/img/modality-green.svg',
+    ],
+    [
+      '../../../assets/img/description.svg',
+      '../../../assets/img/description-green.svg',
+    ],
+    [
+      '../../../assets/img/date-time.svg',
+      '../../../assets/img/date-time-green.svg',
+    ],
+    [
+      '../../../assets/img/success-grey.svg',
+      '../../../assets/img/success-green.svg',
+    ],
   ];
   projectSubmissionForm: FormGroup;
   minDateFinString!: string;
@@ -47,40 +67,47 @@ export class ProjectSubmissionComponent implements OnInit {
   allFiles: Array<AttachmentDto> = [];
   displayContractDuration: boolean = false;
   domainTranslationMap: Record<string, string> = {
-    "Décolletage" : "BAR_TURNING",
-    "Plasturgie": "PLASTICS_TRANSFORMATION",
-    "Traitement de surface": "SURFACE_TREATMENT",
-    "Assemblage": "ASSEMBLY",
-    "Usinage": "MACHINING",
-    "Produit standard": "STANDARD_PRODUCT",
-    "Découpe": "CUTTING_STAMPING",
-    "Électronique": "ELECTRONICS",
-    "Découpe laser": "LASER_CUTTING"
+    Décolletage: 'BAR_TURNING',
+    Plasturgie: 'PLASTICS_TRANSFORMATION',
+    'Traitement de surface': 'SURFACE_TREATMENT',
+    Assemblage: 'ASSEMBLY',
+    Usinage: 'MACHINING',
+    'Produit standard': 'STANDARD_PRODUCT',
+    Découpe: 'CUTTING_STAMPING',
+    Électronique: 'ELECTRONICS',
+    'Découpe laser': 'LASER_CUTTING',
   };
   marketTranslationMap: Record<string, string> = {
-    "Automobile": "AUTOMOBILE",
-    "Aéronautique": "AERONAUTICS",
-    "Énergie": "ENERGY",
-    "Électronique": "ELECTRONICS",
-    "Spatial": "SPACE",
-    "R&D": "R_AND_D",
-    "Ingénierie": "ENGINEERING",
-    "Médical": "MEDICAL",
-    "Aérospatial": "AEROSPACE",
-    "Militaire": "MILITARY",
-    "Industriel": "INDUSTRIAL",
-    "Mobilité urbaine": "URBAN_MOBILITY",
-    "Autre": "OTHER"
+    Automobile: 'AUTOMOBILE',
+    Aéronautique: 'AERONAUTICS',
+    Énergie: 'ENERGY',
+    Électronique: 'ELECTRONICS',
+    Spatial: 'SPACE',
+    'R&D': 'R_AND_D',
+    Ingénierie: 'ENGINEERING',
+    Médical: 'MEDICAL',
+    Aérospatial: 'AEROSPACE',
+    Militaire: 'MILITARY',
+    Industriel: 'INDUSTRIAL',
+    'Mobilité urbaine': 'URBAN_MOBILITY',
+    Autre: 'OTHER',
   };
 
-  constructor(private toastr: ToastrService, private route: Router, private fb: FormBuilder, private authService: AuthService, private projectService: ProjectService, private translateService: TranslateService) {
+  constructor(
+    private toastr: ToastrService,
+    private route: Router,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private projectService: ProjectService,
+    private translateService: TranslateService
+  ) {
     authService.loggedOut();
     this.token = authService.isLogged()!;
 
     this.minDate = new Date();
     this.projectSubmissionForm = this.fb.group({
       intitule: new FormControl(null, [Validators.required]),
-      client: new FormControl(null, [Validators.required]),
+      service: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       confidentialite1: new FormControl(true, [Validators.required]),
       confidentialite2: new FormControl(false, [Validators.required]),
@@ -103,7 +130,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
     this.projectSubmissionForm.patchValue({
       startDate: format(dayStart, 'yyyy-MM-dd'),
-      endDate: format(dayEnd, 'yyyy-MM-dd')
+      endDate: format(dayEnd, 'yyyy-MM-dd'),
     });
 
     // pour afficher uniquement les date posterieur
@@ -114,7 +141,6 @@ export class ProjectSubmissionComponent implements OnInit {
     const startDateControl: any = this.projectSubmissionForm.get('startDate');
     const endDateControl: any = this.projectSubmissionForm.get('endDate');
     endDateControl.valueChanges.subscribe((value: any) => {
-
       if (value) {
         const dateFin = new Date(value);
         this.endDateToString = format(dateFin, 'yyyy-MM-dd');
@@ -124,7 +150,7 @@ export class ProjectSubmissionComponent implements OnInit {
     startDateControl.valueChanges.subscribe((value: any) => {
       if (value) {
         this.projectSubmissionForm.patchValue({
-          endDate: value
+          endDate: value,
         });
 
         this.minDateFinString = value;
@@ -141,36 +167,48 @@ export class ProjectSubmissionComponent implements OnInit {
       next: (data) => {
         this.domains = data.map((item: Domain) => ({
           ...item,
-          translatedName: this.domainTranslationMap[item.name] || item.name
+          translatedName: this.domainTranslationMap[item.name] || item.name,
         }));
       },
       error: (err) => {
         console.log(err);
-        this.translateService.get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_FETCHING_DOMAINS'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['ERROR_FETCHING_DOMAINS', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_FETCHING_DOMAINS'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
 
     this.projectService.getAllMarkets(this.token).subscribe({
       next: (data) => {
         this.markets = data.map((item: Market) => ({
           ...item,
-          translatedName: this.marketTranslationMap[item.name] || item.name
+          translatedName: this.marketTranslationMap[item.name] || item.name,
         }));
       },
       error: (err) => {
         console.log(err);
-        this.translateService.get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_FETCHING_MARKETS'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_FETCHING_MARKETS'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
   }
 
@@ -179,46 +217,59 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.step < 4)
-      this.step++;
-    else
-      this.submit();
+    if (this.step < 4) this.step++;
+    else this.submit();
   }
 
   backStep() {
-    if (this.step > 1)
-      this.step--;
+    if (this.step > 1) this.step--;
 
     if (this.step >= 4) {
       this.projectSubmissionForm.reset();
       this.route.navigate(['/home']);
-
     }
   }
 
   submit() {
-    if (this.projectSubmissionForm.invalid || this.domainChoosen.length === 0 || this.allDateChoosen.length === 0) {
-      this.translateService.get(['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION', 'ERROR_PROJECT_SUBMISSION_TITLE']).subscribe(translations => {
-        this.toastr.error(translations['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION'], translations['ERROR_PROJECT_SUBMISSION_TITLE'], {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+    if (
+      this.projectSubmissionForm.invalid ||
+      this.domainChoosen.length === 0 ||
+      this.allDateChoosen.length === 0
+    ) {
+      this.translateService
+        .get([
+          'ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION',
+          'ERROR_PROJECT_SUBMISSION_TITLE',
+        ])
+        .subscribe((translations) => {
+          this.toastr.error(
+            translations['ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION'],
+            translations['ERROR_PROJECT_SUBMISSION_TITLE'],
+            {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            }
+          );
         });
-      });
-    }
-    else {
-
+    } else {
       const formvalue = this.projectSubmissionForm.value;
-      this.project.client = formvalue.client;
+      this.project.service = formvalue.service;
       this.project.budget = formvalue.budget;
-      this.project.confidential = formvalue.confidentialite1 ? formvalue.confidentialite1 : formvalue.confidentialite2;
+      this.project.confidential = formvalue.confidentialite1
+        ? formvalue.confidentialite1
+        : formvalue.confidentialite2;
       this.project.description = formvalue.description;
       this.project.disponibilityInstants = this.allDateChoosen;
-      this.project.domains = this.domains.filter(domain => this.domainChoosen.includes(domain.name));
+      this.project.domains = this.domains.filter((domain) =>
+        this.domainChoosen.includes(domain.name)
+      );
       this.project.duration = formvalue.duree;
       this.project.earliestDeadline = formvalue.startDate;
       this.project.globalVolume = formvalue.volumeGlobal;
       this.project.latestDeadline = formvalue.endDate;
-      this.project.markets = this.markets.filter(market => market.name === formvalue.marche);;
+      this.project.markets = this.markets.filter(
+        (market) => market.name === formvalue.marche
+      );
       this.project.needType = formvalue.typeDeBesoin;
       this.project.targetPrice = formvalue.prixCible;
       this.project.title = formvalue.intitule;
@@ -226,37 +277,52 @@ export class ProjectSubmissionComponent implements OnInit {
 
       this.projectService.addProject(this.token, this.project).subscribe({
         next: (data) => {
-          this.allFiles.forEach(file => {
+          this.allFiles.forEach((file) => {
             file.project = data;
-            this.projectService.addProjectAttachments(this.token, file).subscribe({
-              next: (data) => {
-              },
-              error: (err) => {
-              }
-            });
+            this.projectService
+              .addProjectAttachments(this.token, file)
+              .subscribe({
+                next: (data) => {},
+                error: (err) => {},
+              });
           });
-          this.translateService.get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE']).subscribe(translations => {
-            this.toastr.success(translations['SUCCESS_PROJECT_SUBMISSION'], translations['SUCCESS_TITLE'], {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
+          this.translateService
+            .get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE'])
+            .subscribe((translations) => {
+              this.toastr.success(
+                translations['SUCCESS_PROJECT_SUBMISSION'],
+                translations['SUCCESS_TITLE'],
+                {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                }
+              );
             });
-          });
-         this.step++;
+          this.step++;
         },
         error: (err) => {
-          this.translateService.get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE']).subscribe(translations => {
-            this.toastr.error(translations['ERROR_PROJECT_SUBMISSION'], translations['ERROR_TITLE'], {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
+          this.translateService
+            .get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE'])
+            .subscribe((translations) => {
+              this.toastr.error(
+                translations['ERROR_PROJECT_SUBMISSION'],
+                translations['ERROR_TITLE'],
+                {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                }
+              );
             });
-          });
-        }
+        },
       });
     }
   }
 
   handleChange(fieldName: string) {
-    const otherField = fieldName === 'confidentialite1' ? 'confidentialite2' : 'confidentialite1';
+    const otherField =
+      fieldName === 'confidentialite1'
+        ? 'confidentialite2'
+        : 'confidentialite1';
     if (this.projectSubmissionForm.get(fieldName)?.value) {
       this.projectSubmissionForm.get(otherField)?.setValue(false);
     }
@@ -267,7 +333,9 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   ajouterDate() {
-    const [heures, minutes] = this.projectSubmissionForm.value.heure.split(':').map(Number);
+    const [heures, minutes] = this.projectSubmissionForm.value.heure
+      .split(':')
+      .map(Number);
     this.selectedDate?.setHours(heures, minutes);
     if (this.allDateChoosen.indexOf(this.selectedDate?.toISOString()!) === -1)
       this.allDateChoosen.push(this.selectedDate?.toISOString()!);
@@ -288,14 +356,12 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   onSetStep(value: number) {
-    if (value != 5)
-      this.step = value;
+    if (value != 5) this.step = value;
   }
 
   gotoHome() {
     this.route.navigate(['/home']);
   }
-
 
   onFileSelected(event: any, indice: number) {
     const files: FileList = event.target.files;
@@ -317,7 +383,7 @@ export class ProjectSubmissionComponent implements OnInit {
             name: file.name,
             type: AttachmentType.NORMAL,
             fileSize: file.size,
-            base64Content: base64String
+            base64Content: base64String,
           };
           this.filesChoosen.push(file.name);
           this.allFiles.push(attachment);
@@ -326,7 +392,7 @@ export class ProjectSubmissionComponent implements OnInit {
             name: file.name,
             type: AttachmentType.PLAN,
             fileSize: file.size,
-            base64Content: base64String
+            base64Content: base64String,
           };
           this.plansChoosen.push(file.name);
           this.allFiles.push(attachment);
@@ -345,7 +411,7 @@ export class ProjectSubmissionComponent implements OnInit {
 
   onTypeDeBesoinSelected(event: any): void {
     const selectedValue = event.target.value;
-    if (selectedValue === "CONTRACT") {
+    if (selectedValue === 'CONTRACT') {
       this.displayContractDuration = true;
     } else {
       this.displayContractDuration = false;
