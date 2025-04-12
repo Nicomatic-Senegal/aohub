@@ -120,6 +120,13 @@
                       </span>
                     </span>
                   </p>
+                  <button
+                    class="bg-[#408A7E] text-white rounded px-4 py-1 mt-2"
+                    (click)="openDocumentDialog(project)"
+                  >
+                    {{ "DOCUMENTS_PROJECT" | translate }}
+                    <i class="fa-regular fa-folder-open ml-2"></i>
+                  </button>
                 </div>
                 <div
                   class="flex justify-between items-center pt-3 px-2 flex flex-wrap grid grid-cols-4 gap-2"

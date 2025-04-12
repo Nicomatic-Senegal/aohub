@@ -394,5 +394,10 @@
 
   "SELECT_ALL": "Séléctionner tout",
   "UNASSIGNED": "Pas affecté",
-  "PROJECT_ANALYSIS": "Analyse des projets"
+  "PROJECT_ANALYSIS": "Analyse des projets",
+
+  "UPLOAD_POSITIONING_FILE": "Fichier de candidature",
+  "CHOOSE_YOUR_APPLICATION_FILE": "Téléversez votre fichier de positionnement (PDF, DOCX, etc.)",
+  "WARNING_UPLOAD_FILE": "Veuillez sélectionner un fichier avant de continuer",
+  "WARNING_TITLE": "Fichier manquant"
 }

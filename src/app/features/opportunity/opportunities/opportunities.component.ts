@@ -1,21 +1,28 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProjectService } from '../../services/project/project.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Project } from '../../interfaces/project.model';
-import { debounceTime, distinctUntilChanged, filter, fromEvent, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  fromEvent,
+  tap,
+} from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { ProjectDocumentsDialogComponent } from '../../dialog/project-documents-dialog/project-documents-dialog.component';
 import { ShowMoreDialogComponent } from '../../dialog/show-more-dialog/show-more-dialog.component';
 import { ApplyProjectDialogComponent } from '../../dialog/apply-project-dialog/apply-project-dialog.component';
 import { UserService } from '../../services/user/user.service';
 import { PartnerDTO } from '../../interfaces/partner.model';
-        import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-opportunities',
   templateUrl: './opportunities.component.html',
-  styleUrls: ['./opportunities.component.scss']
+  styleUrls: ['./opportunities.component.scss'],
 })
 export class OpportunitiesComponent implements OnInit {
   token!: string;
@@ -28,30 +35,30 @@ export class OpportunitiesComponent implements OnInit {
   mapAlreadyAppliedApplicant: Map<number, boolean> = new Map<number, boolean>();
   @ViewChild('searchInput', { static: true }) searchInput!: ElementRef;
   domainTranslationMap: Record<string, string> = {
-    "Décolletage" : "BAR_TURNING",
-    "Plasturgie": "PLASTICS_TRANSFORMATION",
-    "Traitement de surface": "SURFACE_TREATMENT",
-    "Assemblage": "ASSEMBLY",
-    "Usinage": "MACHINING",
-    "Produit standard": "STANDARD_PRODUCT",
-    "Découpe": "CUTTING_STAMPING",
-    "Électronique": "ELECTRONICS",
-    "Découpe laser": "LASER_CUTTING"
+    Décolletage: 'BAR_TURNING',
+    Plasturgie: 'PLASTICS_TRANSFORMATION',
+    'Traitement de surface': 'SURFACE_TREATMENT',
+    Assemblage: 'ASSEMBLY',
+    Usinage: 'MACHINING',
+    'Produit standard': 'STANDARD_PRODUCT',
+    Découpe: 'CUTTING_STAMPING',
+    Électronique: 'ELECTRONICS',
+    'Découpe laser': 'LASER_CUTTING',
   };
   marketTranslationMap: Record<string, string> = {
-    "Automobile": "AUTOMOBILE",
-    "Aéronautique": "AERONAUTICS",
-    "Énergie": "ENERGY",
-    "Électronique": "ELECTRONICS",
-    "Spatial": "SPACE",
-    "R&D": "R_AND_D",
-    "Ingénierie": "ENGINEERING",
-    "Médical": "MEDICAL",
-    "Aérospatial": "AEROSPACE",
-    "Militaire": "MILITARY",
-    "Industriel": "INDUSTRIAL",
-    "Mobilité urbaine": "URBAN_MOBILITY",
-    "Autre": "OTHER"
+    Automobile: 'AUTOMOBILE',
+    Aéronautique: 'AERONAUTICS',
+    Énergie: 'ENERGY',
+    Électronique: 'ELECTRONICS',
+    Spatial: 'SPACE',
+    'R&D': 'R_AND_D',
+    Ingénierie: 'ENGINEERING',
+    Médical: 'MEDICAL',
+    Aérospatial: 'AEROSPACE',
+    Militaire: 'MILITARY',
+    Industriel: 'INDUSTRIAL',
+    'Mobilité urbaine': 'URBAN_MOBILITY',
+    Autre: 'OTHER',
   };
 
   constructor(
@@ -62,11 +69,11 @@ export class OpportunitiesComponent implements OnInit {
     private userService: UserService,
     public dialog: MatDialog,
     private translateService: TranslateService
-    ) {
-      authService.loggedOut();
-      this.token = authService.isLogged()!;
-      const id = userService.getUser(this.token);
-    }
+  ) {
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
+    const id = userService.getUser(this.token);
+  }
 
   ngOnInit(): void {
     this.loadCurrentConnectedUser();
@@ -74,7 +81,7 @@ export class OpportunitiesComponent implements OnInit {
   }
 
   loadCurrentConnectedUser() {
-    const userData = localStorage.getItem("currentConnectedUser");
+    const userData = localStorage.getItem('currentConnectedUser');
     if (userData) {
       this.currentConnectedUser = JSON.parse(userData);
     } else {
@@ -84,14 +91,20 @@ export class OpportunitiesComponent implements OnInit {
         },
         error: (err) => {
           console.log(err);
-          this.translateService.get(['ERROR_RECEIVE_USER', 'ERROR_TITLE']).subscribe(translations => {
-            this.toastr.error(translations['ERROR_RECEIVE_USER'], translations['ERROR_TITLE'], {
-              timeOut: 3000,
-              positionClass: 'toast-top-right',
+          this.translateService
+            .get(['ERROR_RECEIVE_USER', 'ERROR_TITLE'])
+            .subscribe((translations) => {
+              this.toastr.error(
+                translations['ERROR_RECEIVE_USER'],
+                translations['ERROR_TITLE'],
+                {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-right',
+                }
+              );
             });
-          });
-        }
-      })
+        },
+      });
     }
   }
 
@@ -104,50 +117,64 @@ export class OpportunitiesComponent implements OnInit {
           const currentDate = new Date();
           const deadlinePositioning = new Date(project.deadlinePositioning!);
 
-          const differenceInMilliseconds = deadlinePositioning.getTime() - currentDate.getTime();
-          const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) + 1;
+          const differenceInMilliseconds =
+            deadlinePositioning.getTime() - currentDate.getTime();
+          const differenceInDays =
+            Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) + 1;
 
           const createdAt = new Date(project.createdAt);
 
-          const differenceTotalInMilliseconds = deadlinePositioning.getTime() - createdAt.getTime();
-          const differenceTotalInDays = Math.floor(differenceTotalInMilliseconds / (1000 * 60 * 60 * 24));
+          const differenceTotalInMilliseconds =
+            deadlinePositioning.getTime() - createdAt.getTime();
+          const differenceTotalInDays = Math.floor(
+            differenceTotalInMilliseconds / (1000 * 60 * 60 * 24)
+          );
 
           if (differenceInMilliseconds) {
             this.mapDays.set(project.id, differenceInDays.toString());
-            this.mapDays.set(project.id, { differenceInDays, differenceTotalInDays });
+            this.mapDays.set(project.id, {
+              differenceInDays,
+              differenceTotalInDays,
+            });
 
             this.listProject.push(project);
           }
 
-          const isMember = await this.isTeamMember(project, this.currentConnectedUser);
+          const isMember = await this.isTeamMember(
+            project,
+            this.currentConnectedUser
+          );
           this.mapAlreadyAppliedApplicant.set(project.id, isMember);
-
         });
         this.totalItems = data.totalCount;
-
       },
       error: (err) => {
         console.log(err);
-        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_FETCHING_PROJECTS'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
   }
 
-
   ngAfterViewInit() {
-    fromEvent<KeyboardEvent>(this.searchInput.nativeElement,'keyup')
+    fromEvent<KeyboardEvent>(this.searchInput.nativeElement, 'keyup')
       .pipe(
-          filter(Boolean),
-          debounceTime(500),
-          distinctUntilChanged(),
-          tap((event:KeyboardEvent) => {
-            this.performSearch(this.searchInput.nativeElement.value);
-          })
+        filter(Boolean),
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap((event: KeyboardEvent) => {
+          this.performSearch(this.searchInput.nativeElement.value);
+        })
       )
       .subscribe();
   }
@@ -158,13 +185,13 @@ export class OpportunitiesComponent implements OnInit {
         next: (data) => {
           this.listProject = [];
           this.listProject.push(data);
-          this.listProject = this.listProject.flatMap(data => data);
+          this.listProject = this.listProject.flatMap((data) => data);
           this.totalItems = this.listProject.length;
         },
         error: (err) => {
           console.log(err);
-        }
-      })
+        },
+      });
     } else {
       this.loadAllProjects(0, 2);
     }
@@ -174,9 +201,10 @@ export class OpportunitiesComponent implements OnInit {
     this.dialog.open(ShowMoreDialogComponent, {
       hasBackdrop: true,
       data: {
-        title, description
+        title,
+        description,
       },
-      panelClass: 'custom-dialog-container'
+      panelClass: 'custom-dialog-container',
     });
   }
 
@@ -184,13 +212,12 @@ export class OpportunitiesComponent implements OnInit {
     const dialogRef = this.dialog.open(ApplyProjectDialogComponent, {
       hasBackdrop: true,
       data: {
-        project
+        project,
       },
-      panelClass: 'custom-dialog-container'
-    })
-
-    dialogRef.afterClosed().subscribe(result => {
+      panelClass: 'custom-dialog-container',
     });
+
+    dialogRef.afterClosed().subscribe((result) => {});
   }
 
   changePage(page: number) {
@@ -207,13 +234,16 @@ export class OpportunitiesComponent implements OnInit {
 
     let days = parseInt(differenceDaysValues.differenceInDays);
     days = Math.max(0, days);
-    const progressWidth = (days / differenceDaysValues.differenceTotalInDays) * 100;
+    const progressWidth =
+      (days / differenceDaysValues.differenceTotalInDays) * 100;
     return progressWidth;
   }
 
   async isTeamMember(project: Project, partner?: PartnerDTO): Promise<boolean> {
     try {
-      const data = await this.projectService.isTeamMember(this.token, project.id).toPromise();
+      const data = await this.projectService
+        .isTeamMember(this.token, project.id)
+        .toPromise();
       if (data) {
         for (const positioning of data) {
           if (positioning.partner.id === partner?.id) {
@@ -238,5 +268,11 @@ export class OpportunitiesComponent implements OnInit {
     }
     return this.marketTranslationMap[market] || market;
   }
-
+  openDocumentDialog(project: Project) {
+    this.dialog.open(ProjectDocumentsDialogComponent, {
+      hasBackdrop: true,
+      data: { project },
+      panelClass: 'custom-dialog-container',
+    });
+  }
 }

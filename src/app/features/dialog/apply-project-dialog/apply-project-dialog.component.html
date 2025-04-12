@@ -1,35 +1,34 @@
-<div class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-6 flex flex-col bg-white">
-	<div class="text-2xl w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-4">
-		<p class="text-[#408A7E]">{{'NAVIGATE_PROJECT' | translate}} </p>
-	</div>
-	<div class="title">
-		<p class="font-bold text-xl font-dmsans">{{'TIME_SLOTS_MEETING' | translate}} </p>
-		<p class="text-lg text-center font-dmsans text-gray-900 mt-1 mb-6">{{'CHECK_ONE_OR_MANY' | translate}} </p>
-	</div>
+<div
+  class="div-center w-full h-full px-4 pb-7 pt-2 md:py-4 md:px-6 flex flex-col bg-white"
+>
+  <div class="text-2xl w-full p-1 pt-3 border-b-2 border-[#E5E5E5] mb-4">
+    <p class="text-[#408A7E]">{{ "NAVIGATE_PROJECT" | translate }}</p>
+  </div>
 
-	<div class="creneaux flex flex-col items-center">
-		<div class="grid w-full md:grid-cols-4 md:gap-4 px-5 my-10 ">
-			<div
-				*ngFor="let item of listEventSchedule; let i=index;"
-				(click)="onSelected(item)"
-				class="inline-flex items-center justify-between w-full p-5  bg-white border-2  rounded-lg cursor-pointer "
-				[ngClass]="isSelected(item) !== -1 ? 'border-[#408A7E] text-[#408A7E]' : 'border-gray-200 text-gray-400 hover:text-gray-600 hover:bg-gray-50'"
-				>
-				<div class="block">
-					<div class="w-full text-xl font-semibold font-dmsans">{{item.dayOfWeek}}</div>
-					<div class="w-full text-md font-dmsans">{{item.day}}/{{item.month}}/{{item.year}}</div>
-					<div class="w-full text-lg font-semibold font-dmsans">{{item.hour}}h {{item.minute}}mn</div>
-				</div>
-			</div>
-		</div>
-	</div>
+  <div class="title text-center">
+    <p class="font-bold text-xl font-dmsans">
+      {{ "UPLOAD_POSITIONING_FILE" | translate }}
+    </p>
+    <p class="text-lg font-dmsans text-gray-900 mt-1 mb-6">
+      {{ "CHOOSE_YOUR_APPLICATION_FILE" | translate }}
+    </p>
+  </div>
 
-	<div class="flex justify-center mt-4 mb-4">
-		<button
-			type="submit"
-			(click)="onApply()"
-			class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5">
-			{{'NAVIGATE' | translate}}
-		</button>
-	</div>
+  <div class="flex flex-col items-center px-5 w-full">
+    <input
+      type="file"
+      (change)="onFileSelected($event)"
+      class="mb-6 w-full border border-[#408A7E] rounded-lg p-3 text-gray-700"
+    />
+  </div>
+
+  <div class="flex justify-center mt-4 mb-4">
+    <button
+      type="submit"
+      (click)="onApply()"
+      class="bg-[#408A7E] rounded-lg h-10 text-white text-md font-dmsans font-semibold px-10 mt-5"
+    >
+      {{ "NAVIGATE" | translate }}
+    </button>
+  </div>
 </div>
