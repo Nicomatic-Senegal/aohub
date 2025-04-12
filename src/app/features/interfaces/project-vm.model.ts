@@ -31,17 +31,17 @@ export interface ProjectVM {
   description?: string;
   status?: ProjectStatus;
   confidential?: boolean;
-  targetPrice?: number;
+
   needType?: NeedType;
   duration?: number;
   needLifetime?: number;
   globalVolume?: number;
   budget?: number;
-  latestDeadline?: Date;
-  earliestDeadline?: Date;
+  processingEndDate?: Date;
+  applicationClosingDate?: Date;
   service?: string;
   applicant?: PartnerDTO;
-  markets?: MarketDTO[];
+
   domains?: DomainDTO[];
   disponibilityInstants?: string[];
 }

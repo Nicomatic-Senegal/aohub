@@ -30,7 +30,7 @@ import { EmployeePostDTO } from '../../interfaces/employee.model';
 export class ProjectSubmissionComponent implements OnInit {
   step: number = 1;
   minDate!: Date;
-  titleSteps = ['MODALITY', 'ATTACHMENTS', 'LAUNCH', 'TO_END'];
+  titleSteps = ['MODALITY', 'ATTACHMENTS', 'TO_END'];
   stepsIcons = [
     [
       '../../../assets/img/modality.svg',
@@ -40,10 +40,7 @@ export class ProjectSubmissionComponent implements OnInit {
       '../../../assets/img/description.svg',
       '../../../assets/img/description-green.svg',
     ],
-    [
-      '../../../assets/img/date-time.svg',
-      '../../../assets/img/date-time-green.svg',
-    ],
+
     [
       '../../../assets/img/success-grey.svg',
       '../../../assets/img/success-green.svg',
@@ -51,15 +48,12 @@ export class ProjectSubmissionComponent implements OnInit {
   ];
   projectSubmissionForm: FormGroup;
   minDateFinString!: string;
-  startDateToString!: string;
-  endDateToString!: string;
+  applicationClosingDateToString!: string;
+  processingEndDateToString!: string;
   token: string;
-  selectedDate!: Date | null;
-  allDateChoosen: Array<string> = [];
-  markets: Array<Market> = [];
-  market: Array<Market> = [];
-  domains: Array<Domain> = [];
-  domainChoosen: Array<string> = [];
+
+  //domains: Array<Domain> = [];
+  //domainChoosen: Array<string> = [];
   project: ProjectVM = {};
   disponibilites: Array<Disponibility> = [];
   filesChoosen: Array<string> = [];
@@ -111,15 +105,12 @@ export class ProjectSubmissionComponent implements OnInit {
       description: new FormControl(null, [Validators.required]),
       confidentialite1: new FormControl(true, [Validators.required]),
       confidentialite2: new FormControl(false, [Validators.required]),
-      marche: new FormControl(null, [Validators.required]),
-      prixCible: new FormControl(null, [Validators.required]),
       typeDeBesoin: new FormControl(null, [Validators.required]),
       duree: new FormControl(null),
       volumeGlobal: new FormControl(null, [Validators.required]),
       budget: new FormControl(null, [Validators.required]),
-      startDate: new FormControl(null, [Validators.required]),
-      endDate: new FormControl(null, [Validators.required]),
-      heure: new FormControl(null, [Validators.required]),
+      applicationClosingDate: new FormControl(null, [Validators.required]),
+      processingEndDate: new FormControl(null, [Validators.required]),
     });
 
     const dayStart = new Date();
@@ -129,8 +120,8 @@ export class ProjectSubmissionComponent implements OnInit {
     dayEnd.setHours(23, 50, 0, 0);
 
     this.projectSubmissionForm.patchValue({
-      startDate: format(dayStart, 'yyyy-MM-dd'),
-      endDate: format(dayEnd, 'yyyy-MM-dd'),
+      applicationClosingDate: format(dayStart, 'yyyy-MM-dd'),
+      processingEndDate: format(dayEnd, 'yyyy-MM-dd'),
     });
 
     // pour afficher uniquement les date posterieur
@@ -138,16 +129,19 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const startDateControl: any = this.projectSubmissionForm.get('startDate');
-    const endDateControl: any = this.projectSubmissionForm.get('endDate');
-    endDateControl.valueChanges.subscribe((value: any) => {
+    const applicationClosingDateControl: any = this.projectSubmissionForm.get(
+      'applicationClosingDate'
+    );
+    const processingEndDateControl: any =
+      this.projectSubmissionForm.get('processingEndDate');
+    processingEndDateControl.valueChanges.subscribe((value: any) => {
       if (value) {
         const dateFin = new Date(value);
-        this.endDateToString = format(dateFin, 'yyyy-MM-dd');
+        this.processingEndDateToString = format(dateFin, 'yyyy-MM-dd');
       }
     });
 
-    startDateControl.valueChanges.subscribe((value: any) => {
+    applicationClosingDateControl.valueChanges.subscribe((value: any) => {
       if (value) {
         this.projectSubmissionForm.patchValue({
           endDate: value,
@@ -155,15 +149,15 @@ export class ProjectSubmissionComponent implements OnInit {
 
         this.minDateFinString = value;
         const dateFin = new Date(value);
-        this.endDateToString = format(dateFin, 'yyyy-MM-dd');
+        this.processingEndDateToString = format(dateFin, 'yyyy-MM-dd');
       }
 
       const dateDebut = new Date(this.projectSubmissionForm.value.startDate);
 
-      this.startDateToString = format(dateDebut, 'yyyy-MM-dd');
+      this.applicationClosingDateToString = format(dateDebut, 'yyyy-MM-dd');
     });
-
-    this.projectService.getAllDomains(this.token).subscribe({
+    /*
+     this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
         this.domains = data.map((item: Domain) => ({
           ...item,
@@ -185,31 +179,7 @@ export class ProjectSubmissionComponent implements OnInit {
             );
           });
       },
-    });
-
-    this.projectService.getAllMarkets(this.token).subscribe({
-      next: (data) => {
-        this.markets = data.map((item: Market) => ({
-          ...item,
-          translatedName: this.marketTranslationMap[item.name] || item.name,
-        }));
-      },
-      error: (err) => {
-        console.log(err);
-        this.translateService
-          .get(['ERROR_FETCHING_MARKETS', 'ERROR_TITLE'])
-          .subscribe((translations) => {
-            this.toastr.error(
-              translations['ERROR_FETCHING_MARKETS'],
-              translations['ERROR_TITLE'],
-              {
-                timeOut: 3000,
-                positionClass: 'toast-top-right',
-              }
-            );
-          });
-      },
-    });
+    });*/
   }
 
   getControl(controlName: string) {
@@ -217,7 +187,7 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.step < 4) this.step++;
+    if (this.step < 3) this.step++;
     else this.submit();
   }
 
@@ -231,11 +201,7 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   submit() {
-    if (
-      this.projectSubmissionForm.invalid ||
-      this.domainChoosen.length === 0 ||
-      this.allDateChoosen.length === 0
-    ) {
+    if (this.projectSubmissionForm.invalid) {
       this.translateService
         .get([
           'ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION',
@@ -259,19 +225,17 @@ export class ProjectSubmissionComponent implements OnInit {
         ? formvalue.confidentialite1
         : formvalue.confidentialite2;
       this.project.description = formvalue.description;
-      this.project.disponibilityInstants = this.allDateChoosen;
-      this.project.domains = this.domains.filter((domain) =>
-        this.domainChoosen.includes(domain.name)
-      );
+
+      //     this.project.domains = this.domains.filter((domain) =>
+      //     this.domainChoosen.includes(domain.name)
+      // );
       this.project.duration = formvalue.duree;
-      this.project.earliestDeadline = formvalue.startDate;
+      this.project.applicationClosingDate = formvalue.applicationClosingDate;
       this.project.globalVolume = formvalue.volumeGlobal;
-      this.project.latestDeadline = formvalue.endDate;
-      this.project.markets = this.markets.filter(
-        (market) => market.name === formvalue.marche
-      );
+      this.project.processingEndDate = formvalue.processingEndDate;
+
       this.project.needType = formvalue.typeDeBesoin;
-      this.project.targetPrice = formvalue.prixCible;
+
       this.project.title = formvalue.intitule;
       console.log(this.project);
 
@@ -332,28 +296,14 @@ export class ProjectSubmissionComponent implements OnInit {
     digitOnly(event);
   }
 
-  ajouterDate() {
-    const [heures, minutes] = this.projectSubmissionForm.value.heure
-      .split(':')
-      .map(Number);
-    this.selectedDate?.setHours(heures, minutes);
-    if (this.allDateChoosen.indexOf(this.selectedDate?.toISOString()!) === -1)
-      this.allDateChoosen.push(this.selectedDate?.toISOString()!);
-  }
-
-  newCreneau() {
-    this.selectedDate = null;
-    this.projectSubmissionForm.get('heure')?.setValue('00:00');
-  }
-
-  onSelectDomain(value: any) {
+  /*onSelectDomain(value: any) {
     if (this.domainChoosen.indexOf(value) === -1)
       this.domainChoosen.push(value);
   }
 
   removeDomain(item: string) {
     this.domainChoosen.splice(this.domainChoosen.indexOf(item), 1);
-  }
+  }*/
 
   onSetStep(value: number) {
     if (value != 5) this.step = value;
@@ -403,10 +353,6 @@ export class ProjectSubmissionComponent implements OnInit {
         reader.readAsDataURL(file);
       }
     }
-  }
-
-  removeDate(item: string) {
-    this.allDateChoosen.splice(this.allDateChoosen.indexOf(item), 1);
   }
 
   onTypeDeBesoinSelected(event: any): void {

@@ -1,19 +1,22 @@
-import {Component, Input, OnInit, SimpleChanges} from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { ProjectService } from '../../services/project/project.service';
 import { Project } from '../../interfaces/project.model';
-import { PositioningDTO, PositioningStatus } from '../../interfaces/positioning-dto.model';
+import {
+  PositioningDTO,
+  PositioningStatus,
+} from '../../interfaces/positioning-dto.model';
 import { Disponibility } from '../../interfaces/disponibility.model';
 import { digitOnly } from '../../interfaces/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-opportunity-tracking',
   templateUrl: './opportunity-tracking.component.html',
-  styleUrls: ['./opportunity-tracking.component.scss']
+  styleUrls: ['./opportunity-tracking.component.scss'],
 })
 export class OpportunityTrackingComponent implements OnInit {
   token!: string;
@@ -25,7 +28,6 @@ export class OpportunityTrackingComponent implements OnInit {
   myForm: FormGroup;
   @Input() projectId: string = '';
 
-
   constructor(
     private projectService: ProjectService,
     private toastr: ToastrService,
@@ -34,11 +36,11 @@ export class OpportunityTrackingComponent implements OnInit {
     private fb: FormBuilder,
     private translateService: TranslateService
   ) {
-      authService.loggedOut();
-      this.token = authService.isLogged()!;
-      this.myForm = this.fb.group({
-        nbDays: [1, [Validators.required, Validators.min(1), Validators.max(30)]]
-      });
+    authService.loggedOut();
+    this.token = authService.isLogged()!;
+    this.myForm = this.fb.group({
+      nbDays: [1, [Validators.required, Validators.min(1), Validators.max(30)]],
+    });
   }
 
   ngOnInit(): void {
@@ -51,7 +53,11 @@ export class OpportunityTrackingComponent implements OnInit {
     }
   }
 
-  extendDeadlineForOpportunity(id: number, deadlinePositioningStr: Date, createdAtStr: Date): void {
+  extendDeadlineForOpportunity(
+    id: number,
+    deadlinePositioningStr: Date,
+    createdAtStr: Date
+  ): void {
     if (this.myForm.valid) {
       const nbDays = this.myForm.get('nbDays')?.value;
       const nbDaysInMilliseconds = nbDays * 24 * 60 * 60 * 1000;
@@ -62,46 +68,82 @@ export class OpportunityTrackingComponent implements OnInit {
 
       const differenceInMilliseconds = deadlinePositioning - createdAt;
 
-      const newDeadlinePositioningInMilliseconds = createdAt + differenceInMilliseconds + nbDaysInMilliseconds;
+      const newDeadlinePositioningInMilliseconds =
+        createdAt + differenceInMilliseconds + nbDaysInMilliseconds;
 
-
-      if (newDeadlinePositioningInMilliseconds - createdAt < 30 * 24 * 60 * 60 * 1000) {
-        const deadlinePositioning = new Date(newDeadlinePositioningInMilliseconds);
+      if (
+        newDeadlinePositioningInMilliseconds - createdAt <
+        90 * 24 * 60 * 60 * 1000
+      ) {
+        const deadlinePositioning = new Date(
+          newDeadlinePositioningInMilliseconds
+        );
 
         const payload = {
           id: id,
-          deadlinePositioning: deadlinePositioning
+          deadlinePositioning: deadlinePositioning,
         };
 
-        this.projectService.extendDeadlineForOpportunity(this.token, payload, id).subscribe({
-          next: (data) => {
-            this.translateService.get(['SUCCESS_EXTEND_PROJECT_DURATION', 'SUCCESS_TITLE'], { nbDays }).subscribe(translations => {
-              this.toastr.success(translations['SUCCESS_EXTEND_PROJECT_DURATION'], translations['SUCCESS_TITLE'], {
+        this.projectService
+          .extendDeadlineForOpportunity(this.token, payload, id)
+          .subscribe({
+            next: (data) => {
+              this.translateService
+                .get(['SUCCESS_EXTEND_PROJECT_DURATION', 'SUCCESS_TITLE'], {
+                  nbDays,
+                })
+                .subscribe((translations) => {
+                  this.toastr.success(
+                    translations['SUCCESS_EXTEND_PROJECT_DURATION'],
+                    translations['SUCCESS_TITLE'],
+                    {
+                      timeOut: 3000,
+                      positionClass: 'toast-top-right',
+                    }
+                  );
+                });
+            },
+            error: (error) => {
+              console.log(error);
+            },
+          });
+      } else {
+        this.translateService
+          .get([
+            'ERROR_ALREADY_ADD_MORE_THAN_90_DAYS_TO_PROJECT_DURATION',
+            'ERROR_TITLE',
+          ])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations[
+                'ERROR_ALREADY_ADD_MORE_THAN_90_DAYS_TO_PROJECT_DURATION'
+              ],
+              translations['ERROR_TITLE'],
+              {
                 timeOut: 3000,
                 positionClass: 'toast-top-right',
-              });
-            });
-          },
-          error: (error) => {
-            console.log(error);
-          }
-        });
-      } else {
-        this.translateService.get(['ERROR_ALREADY_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_ALREADY_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
       }
-
     } else {
-      this.translateService.get(['ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION', 'ERROR_TITLE']).subscribe(translations => {
-        this.toastr.error(translations['ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION'], translations['ERROR_TITLE'], {
-          timeOut: 3000,
-          positionClass: 'toast-top-right',
+      this.translateService
+        .get([
+          'ERROR_CANNOT_ADD_MORE_THAN_90_DAYS_TO_PROJECT_DURATION',
+          'ERROR_TITLE',
+        ])
+        .subscribe((translations) => {
+          this.toastr.error(
+            translations[
+              'ERROR_CANNOT_ADD_MORE_THAN_90_DAYS_TO_PROJECT_DURATION'
+            ],
+            translations['ERROR_TITLE'],
+            {
+              timeOut: 3000,
+              positionClass: 'toast-top-right',
+            }
+          );
         });
-      });
     }
   }
 
@@ -109,30 +151,37 @@ export class OpportunityTrackingComponent implements OnInit {
     this.projectService.getProjectById(this.token, this.projectId).subscribe({
       next: (data) => {
         this.project = data;
-        this.projectService.getPartnersInMyProjects(this.token, this.project?.id).subscribe({
-          next: (data1) => {
-            this.positioners[this.project?.id] = data1;
-          },
-          error: (err) => {
-            console.error(err);
-          }
-        });
+        this.projectService
+          .getPartnersInMyProjects(this.token, this.project?.id)
+          .subscribe({
+            next: (data1) => {
+              this.positioners[this.project?.id] = data1;
+            },
+            error: (err) => {
+              console.error(err);
+            },
+          });
       },
       error: (err) => {
         console.log(err);
-        this.translateService.get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_FETCHING_PROJECTS'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['ERROR_FETCHING_PROJECTS', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_FETCHING_PROJECTS'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
   }
 
   getAllDisponibility(dispo: Disponibility[]) {
-    if (dispo)
-      return dispo.map(d => d.instant);
+    if (dispo) return dispo.map((d) => d.instant);
     return null;
   }
 
@@ -143,22 +192,34 @@ export class OpportunityTrackingComponent implements OnInit {
         this.loadProject();
       },
       error: (err) => {
-        console.log(err)
-        this.translateService.get(['ERROR_VALIDATE_PARTNER', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_VALIDATE_PARTNER'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        console.log(err);
+        this.translateService
+          .get(['ERROR_VALIDATE_PARTNER', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_VALIDATE_PARTNER'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
       },
       complete: () => {
-        this.translateService.get(['SUCCESS_VALIDATE_PARTNER', 'SUCCESS_TITLE']).subscribe(translations => {
-          this.toastr.success(translations['SUCCESS_VALIDATE_PARTNER'], translations['SUCCESS_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['SUCCESS_VALIDATE_PARTNER', 'SUCCESS_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.success(
+              translations['SUCCESS_VALIDATE_PARTNER'],
+              translations['SUCCESS_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
   }
 
@@ -169,21 +230,33 @@ export class OpportunityTrackingComponent implements OnInit {
         this.loadProject();
       },
       error: (err) => {
-        this.translateService.get(['ERROR_REJECT_PARTNER', 'ERROR_TITLE']).subscribe(translations => {
-          this.toastr.error(translations['ERROR_REJECT_PARTNER'], translations['ERROR_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['ERROR_REJECT_PARTNER', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_REJECT_PARTNER'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
       },
       complete: () => {
-        this.translateService.get(['SUCCESS_REJECT_PARTNER', 'SUCCESS_TITLE']).subscribe(translations => {
-          this.toastr.success(translations['SUCCESS_REJECT_PARTNER'], translations['SUCCESS_TITLE'], {
-            timeOut: 3000,
-            positionClass: 'toast-top-right',
+        this.translateService
+          .get(['SUCCESS_REJECT_PARTNER', 'SUCCESS_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.success(
+              translations['SUCCESS_REJECT_PARTNER'],
+              translations['SUCCESS_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
           });
-        });
-      }
+      },
     });
   }
 
@@ -191,12 +264,15 @@ export class OpportunityTrackingComponent implements OnInit {
     digitOnly(event);
   }
 
-  status(value?: PositioningStatus, ) {
-      switch(value?.toString()) {
-        case "ACCEPTED": return 1;
-        case "REJECTED": return 2;
-        default: return 3;
-      }
+  status(value?: PositioningStatus) {
+    switch (value?.toString()) {
+      case 'ACCEPTED':
+        return 1;
+      case 'REJECTED':
+        return 2;
+      default:
+        return 3;
+    }
   }
 
   formatDate(date: Date | undefined): string {
@@ -214,7 +290,7 @@ export class OpportunityTrackingComponent implements OnInit {
       month: 'short',
       year: 'numeric',
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   }
 }
