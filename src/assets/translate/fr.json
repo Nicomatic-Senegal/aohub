@@ -399,5 +399,9 @@
   "UPLOAD_POSITIONING_FILE": "Fichier de candidature",
   "CHOOSE_YOUR_APPLICATION_FILE": "Téléversez votre fichier de positionnement (PDF, DOCX, etc.)",
   "WARNING_UPLOAD_FILE": "Veuillez sélectionner un fichier avant de continuer",
-  "WARNING_TITLE": "Fichier manquant"
+  "WARNING_TITLE": "Fichier manquant",
+
+  "APPLICATION_FILE": "Fichier de candidature",
+  "NO_FILE": "Aucun fichier",
+  "DOWNLOAD": "Télécharger"
 }

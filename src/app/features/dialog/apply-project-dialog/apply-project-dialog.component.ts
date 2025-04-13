@@ -45,7 +45,7 @@ export class ApplyProjectDialogComponent implements OnInit {
       const base64String = reader.result as string;
       this.fileSelected = {
         name: file.name,
-        type: AttachmentType.POSITIONNING,
+        type: AttachmentType.POSITIONING,
         fileSize: file.size,
         base64Content: base64String,
       };

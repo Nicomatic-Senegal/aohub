@@ -394,5 +394,9 @@
 
   "SELECT_ALL": "Select all",
   "UNASSIGNED": "Unassigned",
-  "PROJECT_ANALYSIS": "Project analysis"
+  "PROJECT_ANALYSIS": "Project analysis",
+
+  "APPLICATION_FILE": "Application file",
+  "NO_FILE": "No file",
+  "DOWNLOAD": "Download"
 }

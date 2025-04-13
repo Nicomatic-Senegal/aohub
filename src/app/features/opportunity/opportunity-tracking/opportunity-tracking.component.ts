@@ -8,6 +8,11 @@ import {
   PositioningDTO,
   PositioningStatus,
 } from '../../interfaces/positioning-dto.model';
+import {
+  AttachmentDto,
+  AttachmentType,
+} from '../../interfaces/attachment-dto.model';
+
 import { Disponibility } from '../../interfaces/disponibility.model';
 import { digitOnly } from '../../interfaces/utils';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -27,6 +32,7 @@ export class OpportunityTrackingComponent implements OnInit {
   currentPage = 1;
   myForm: FormGroup;
   @Input() projectId: string = '';
+  attachmentsMap: Map<number, AttachmentDto> = new Map();
 
   constructor(
     private projectService: ProjectService,
@@ -151,14 +157,43 @@ export class OpportunityTrackingComponent implements OnInit {
     this.projectService.getProjectById(this.token, this.projectId).subscribe({
       next: (data) => {
         this.project = data;
+
         this.projectService
           .getPartnersInMyProjects(this.token, this.project?.id)
           .subscribe({
             next: (data1) => {
               this.positioners[this.project?.id] = data1;
+
+              data1.forEach((positioning: PositioningDTO) => {
+                this.projectService
+                  .getPositioningAttachment(this.token, positioning.id)
+                  .subscribe(
+                    (attachments: AttachmentDto[]) => {
+                      console.log(
+                        `📦 Fichiers pour le positionnement ${positioning.id}:`,
+                        attachments
+                      );
+
+                      // ⚠️ On suppose qu'il y a un seul fichier par positionnement
+                      const positioningFile = attachments[0];
+
+                      if (positioningFile) {
+                        this.attachmentsMap.set(
+                          positioning.id,
+                          positioningFile
+                        );
+                      }
+                    },
+                    (err) => {
+                      console.warn(
+                        `⚠️ Aucun fichier trouvé pour le positionnement ID ${positioning.id}`
+                      );
+                    }
+                  );
+              });
             },
             error: (err) => {
-              console.error(err);
+              console.error('Erreur récupération des partenaires :', err);
             },
           });
       },

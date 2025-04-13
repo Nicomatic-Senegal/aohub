@@ -4,7 +4,7 @@ import { Project } from './project.model';
 export enum AttachmentType {
   NORMAL,
   PLAN,
-  POSITIONNING,
+  POSITIONING,
 }
 
 export interface AttachmentDto {
