@@ -1,64 +1,64 @@
 .main {
-  @apply flex w-full h-full
+  @apply flex w-full h-full;
 }
 
 .app-side {
-  @apply  h-full
+  @apply h-full;
 }
 
-.head-home{
-  @apply flex flex-col h-full flex-grow w-[90%]
+.head-home {
+  @apply flex flex-col h-full flex-grow w-[90%];
 }
 
 .div-center {
-  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5
+  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5;
 }
 
 .div-input {
-  @apply flex flex-col w-full
+  @apply flex flex-col w-full;
 }
 
 .label {
-  @apply text-[#737373] text-base font-dmsans font-medium
+  @apply text-[#737373] text-base font-dmsans font-medium;
 }
 
 .input {
-  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent;
 }
 
 .textarea {
-  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-16 rounded-md pl-3 mt-1 w-full bg-transparent pt-3
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-16 rounded-md pl-3 mt-1 w-full bg-transparent pt-3;
 }
 
 .div-line-form {
-  @apply flex justify-between items-center h-20
+  @apply flex justify-between items-center h-20;
 }
 
 .div-line-form-bis {
-  @apply flex justify-between items-center
+  @apply flex justify-between items-center;
 }
 
 .part-line-form {
-  @apply w-[45%] flex justify-between items-center
+  @apply w-[45%] flex justify-between items-center;
 }
 
 .part-line-form-bis {
-  @apply w-full flex justify-between items-center
+  @apply w-full flex justify-between items-center;
 }
 
 .checkbox {
-  @apply checked:bg-[#408A7E] before:text-black
+  @apply checked:bg-[#408A7E] before:text-black;
 }
 
 #heureDeb {
-  @apply text-black
+  @apply text-black;
 }
 
 /* styles.css (ou dans le fichier CSS de votre composant) */
 
 /* Personnalisation de la couleur de fond et de la couleur du texte pour mat-card */
 .demo-inline-calendar-card {
-  @apply w-full
+  @apply w-full;
 }
 
 /* Personnalisation des couleurs pour mat-calendar */
@@ -66,34 +66,32 @@
   /* Ajoutez vos styles personnalisés pour le mat-calendar ici */
 }
 
-
-
 /* Exemple de personnalisation des couleurs pour les cellules de mat-calendar */
 .mat-calendar.custom-calendar .mat-calendar-body-cell {
-  background-color: #408A7E; /* Couleur de fond personnalisée */
+  background-color: #408a7e; /* Couleur de fond personnalisée */
   color: #fff; /* Couleur du texte personnalisée */
 }
 
 /* Exemple de personnalisation des couleurs pour les jours de la semaine */
 .mat-calendar.custom-calendar .mat-calendar-table-header th {
-  background-color: #408A7E; /* Couleur de fond personnalisée pour les jours de la semaine */
+  background-color: #408a7e; /* Couleur de fond personnalisée pour les jours de la semaine */
   color: #fff; /* Couleur du texte personnalisée pour les jours de la semaine */
 }
 
 ::ng-deep .mat-calendar-table-header th:nth-child(6) {
-  @apply text-[#FF3B30] /* Couleur de fond personnalisée pour les weekends */
+  @apply text-[#FF3B30] /* Couleur de fond personnalisée pour les weekends */;
 }
 
 ::ng-deep .mat-calendar-table-header th:nth-child(7) {
-  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */;
 }
 
 ::ng-deep .mat-calendar-body tr td:nth-child(6) span {
-  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends */;
 }
 
 ::ng-deep .mat-calendar-body tr td:nth-child(7) span {
-  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends mat-focus-indicator mat-calendar-body-today*/
+  @apply text-[#FF3B30]  /* Couleur de fond personnalisée pour les weekends mat-focus-indicator mat-calendar-body-today*/;
 }
 
 // ::ng-deep .mat-calendar-body-cell-content {
@@ -116,14 +114,13 @@
 
 /* Définir la couleur de fond des dates sélectionnées */
 ::ng-deep .mat-calendar-body-selected {
-  background-color: #408A7E !important; /* Couleur de fond des dates sélectionnées */
+  background-color: #408a7e !important; /* Couleur de fond des dates sélectionnées */
 }
 
-
 ::ng-deep .mat-calendar-body-selected {
-  @apply  bg-[#408A7E]
+  @apply bg-[#408A7E];
 }
 
 ::ng-deep .mat-calendar-body-today {
-  @apply bg-[#EDEDED]
+  @apply bg-[#EDEDED];
 }

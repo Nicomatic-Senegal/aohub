@@ -390,7 +390,6 @@
   "ERROR_CANNOT_ADD_MORE_THAN_30_DAYS_TO_PROJECT_DURATION": "Vous ne pouvez pas rajouter plus de 30 jours au projet",
 
   "WARNING_CHOOSE_SLOT": "Veuillez choisir au moins un créneau",
-  "WARNING_TITLE": "Attention !",
 
   "SELECT_ALL": "Séléctionner tout",
   "UNASSIGNED": "Pas affecté",
@@ -403,5 +402,15 @@
 
   "APPLICATION_FILE": "Fichier de candidature",
   "NO_FILE": "Aucun fichier",
-  "DOWNLOAD": "Télécharger"
+  "DOWNLOAD": "Télécharger",
+
+  "TENDER_TYPE": "Type d'appel d'offre",
+  "GLOBAL_TENDER": "AO global",
+  "RESTRICTED_CONSULTATION": "Consultation restreinte",
+  "CALL_FOR_EXPRESSION": "Appel à manifestation d’intérêt",
+  "TENDER_TYPE_REQUIRED": "Veuillez sélectionner au moins un type d’appel d’offre.",
+
+  "ACTIVITIES_REQUIRED": "Veuillez sélectionner au moins une activité.",
+
+  "ERROR_FETCHING_ACTIVITIES": "Une erreur est survenue lors du chargement des activités."
 }

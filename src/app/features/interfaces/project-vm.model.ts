@@ -1,4 +1,5 @@
 import { PartnerDTO } from './partner.model';
+import { ActivityDTO } from './activity.model';
 
 export enum ProjectStatus {
   IN_PROGRESS,
@@ -41,6 +42,9 @@ export interface ProjectVM {
   applicationClosingDate?: Date;
   service?: string;
   applicant?: PartnerDTO;
+
+  activities?: ActivityDTO[]; //  id ,name , description
+  typeAppelOffre?: string[]; // AOType -> GLOBAL RESTRICTED INTEREST_MANIFESTATION
 
   domains?: DomainDTO[];
   disponibilityInstants?: string[];

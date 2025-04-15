@@ -509,4 +509,24 @@ export class ProjectService {
       }
     );
   }
+  getAllActivities(token: string) {
+    return this.http.get<{ id: number; name: string }[]>(
+      `${this.apiBaseUrl}activities`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
+  searchActivities(token: string, query: string) {
+    return this.http.get<Array<{ id: number; name: string }>>(
+      `${this.apiBaseUrl}activities/_search?query=${encodeURIComponent(query)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+  }
 }

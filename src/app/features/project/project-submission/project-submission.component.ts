@@ -18,6 +18,8 @@ import {
   AttachmentDto,
   AttachmentType,
 } from '../../interfaces/attachment-dto.model';
+import { ActivityDTO } from '../../interfaces/activity.model';
+import { TypeAppelOffre } from '../../interfaces/appelOffre.model';
 import { digitOnly } from '../../interfaces/utils';
 import { TranslateService } from '@ngx-translate/core';
 import { EmployeePostDTO } from '../../interfaces/employee.model';
@@ -50,7 +52,19 @@ export class ProjectSubmissionComponent implements OnInit {
   minDateFinString!: string;
   applicationClosingDateToString!: string;
   processingEndDateToString!: string;
+
   token: string;
+
+  selectedActivities: ActivityDTO[] = [];
+
+  activitiesInvalid: boolean = false;
+  selectedTypeAppelOffre: TypeAppelOffre | null = null;
+
+  typeAppelOffreInvalid: boolean = false;
+  activitySearchTerm: string = '';
+
+  activitiesList: ActivityDTO[] = [];
+  filteredActivitiesList: ActivityDTO[] = [];
 
   //domains: Array<Domain> = [];
   //domainChoosen: Array<string> = [];
@@ -128,6 +142,49 @@ export class ProjectSubmissionComponent implements OnInit {
     this.minDateFinString = format(dayStart, 'yyyy-MM-dd');
   }
 
+  addActivity(activity: ActivityDTO): void {
+    if (!this.selectedActivities.find((a) => a.id === activity.id)) {
+      this.selectedActivities.push(activity);
+    }
+    this.activitySearchTerm = '';
+    this.filteredActivitiesList = [];
+    this.activitiesInvalid = false;
+  }
+
+  removeActivity(activity: ActivityDTO): void {
+    this.selectedActivities = this.selectedActivities.filter(
+      (a) => a.id !== activity.id
+    );
+    this.activitiesInvalid = this.selectedActivities.length === 0;
+  }
+  onActivityInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.activitySearchTerm = input.value;
+    this.onSearchActivities();
+  }
+
+  getActivityName(activity: ActivityDTO): string {
+    return activity.name || '';
+  }
+
+  onSearchActivities(): void {
+    const term = this.activitySearchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredActivitiesList = [];
+      return;
+    }
+
+    this.filteredActivitiesList = this.activitiesList.filter((activity) =>
+      activity.name?.toLowerCase().includes(term)
+    );
+  }
+
+  onTypeAppelOffreChange(event: any): void {
+    const value = +event.target.value as TypeAppelOffre;
+    this.selectedTypeAppelOffre = value;
+    this.typeAppelOffreInvalid = this.selectedTypeAppelOffre === null;
+  }
+
   ngOnInit(): void {
     const applicationClosingDateControl: any = this.projectSubmissionForm.get(
       'applicationClosingDate'
@@ -180,6 +237,27 @@ export class ProjectSubmissionComponent implements OnInit {
           });
       },
     });*/
+    this.projectService.getAllActivities(this.token).subscribe({
+      next: (data) => {
+        this.activitiesList = data;
+        this.filteredActivitiesList = data; // initialiser l’affichage complet
+      },
+      error: (err) => {
+        console.error('Erreur récupération activités', err);
+        this.translateService
+          .get(['ERROR_FETCHING_ACTIVITIES', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_FETCHING_ACTIVITIES'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
+          });
+      },
+    });
   }
 
   getControl(controlName: string) {
@@ -201,7 +279,14 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   submit() {
-    if (this.projectSubmissionForm.invalid) {
+    this.activitiesInvalid = this.selectedActivities.length === 0;
+    this.typeAppelOffreInvalid = this.selectedTypeAppelOffre === null;
+
+    if (
+      this.projectSubmissionForm.invalid ||
+      this.activitiesInvalid ||
+      this.typeAppelOffreInvalid
+    ) {
       this.translateService
         .get([
           'ERROR_FIELD_NOT_CONFORM_PROJECT_SUBMISSION',
@@ -219,24 +304,27 @@ export class ProjectSubmissionComponent implements OnInit {
         });
     } else {
       const formvalue = this.projectSubmissionForm.value;
+
       this.project.service = formvalue.service;
       this.project.budget = formvalue.budget;
       this.project.confidential = formvalue.confidentialite1
         ? formvalue.confidentialite1
         : formvalue.confidentialite2;
       this.project.description = formvalue.description;
+      this.project.activities = this.selectedActivities;
 
-      //     this.project.domains = this.domains.filter((domain) =>
-      //     this.domainChoosen.includes(domain.name)
-      // );
+      this.project.typeAppelOffre =
+        this.selectedTypeAppelOffre !== null
+          ? [TypeAppelOffre[this.selectedTypeAppelOffre]]
+          : [];
+
       this.project.duration = formvalue.duree;
       this.project.applicationClosingDate = formvalue.applicationClosingDate;
       this.project.globalVolume = formvalue.volumeGlobal;
       this.project.processingEndDate = formvalue.processingEndDate;
-
       this.project.needType = formvalue.typeDeBesoin;
-
       this.project.title = formvalue.intitule;
+
       console.log(this.project);
 
       this.projectService.addProject(this.token, this.project).subscribe({
@@ -246,8 +334,8 @@ export class ProjectSubmissionComponent implements OnInit {
             this.projectService
               .addProjectAttachments(this.token, file)
               .subscribe({
-                next: (data) => {},
-                error: (err) => {},
+                next: () => {},
+                error: () => {},
               });
           });
           this.translateService
@@ -264,7 +352,7 @@ export class ProjectSubmissionComponent implements OnInit {
             });
           this.step++;
         },
-        error: (err) => {
+        error: () => {
           this.translateService
             .get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE'])
             .subscribe((translations) => {

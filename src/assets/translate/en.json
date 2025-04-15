@@ -398,5 +398,14 @@
 
   "APPLICATION_FILE": "Application file",
   "NO_FILE": "No file",
-  "DOWNLOAD": "Download"
+  "DOWNLOAD": "Download",
+
+  "TENDER_TYPE": "Type of Tender",
+  "GLOBAL_TENDER": "Global Tender",
+  "RESTRICTED_CONSULTATION": "Restricted Consultation",
+  "CALL_FOR_EXPRESSION": "Call for Expression of Interest",
+  "TENDER_TYPE_REQUIRED": "At least one tender type must be selected.",
+
+  "ACTIVITIES_REQUIRED": "At least one activity must be selected.",
+  "ERROR_FETCHING_ACTIVITIES": "An error occurred while fetching activities."
 }
