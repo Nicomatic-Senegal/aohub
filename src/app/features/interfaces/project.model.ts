@@ -4,6 +4,9 @@ import { Domain } from './domain.model';
 import { Market } from './market.model';
 import { PartnerDTO } from './partner.model';
 import { PhaseDTO } from './phase.model';
+import { TypeAppelOffre } from './appelOffre.model';
+import { ActivityDTO } from './activity.model';
+import { EnterpriseDTO } from './enterprise.model';
 
 export interface Project {
   id: number;
@@ -30,4 +33,7 @@ export interface Project {
   phases?: PhaseDTO[];
   stopped?: boolean;
   stopReason?: string;
+  aoType?: TypeAppelOffre;
+  specifiedEnterprises?: EnterpriseDTO[];
+  activities?: ActivityDTO[];
 }

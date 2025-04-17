@@ -66,6 +66,7 @@ export class ProjectSubmissionComponent implements OnInit {
   token: string;
 
   selectedActivities: ActivityDTO[] = [];
+  selectedEnterprises: EnterpriseDTO[] = [];
 
   activitiesInvalid: boolean = false;
   selectedTypeAppelOffre: TypeAppelOffre | null = null;
@@ -84,6 +85,7 @@ export class ProjectSubmissionComponent implements OnInit {
   plansChoosen: Array<string> = [];
   allFiles: Array<AttachmentDto> = [];
   displayContractDuration: boolean = false;
+  specifiedEnterprises: Array<EnterpriseDTO> = [];
   domainTranslationMap: Record<string, string> = {
     Décolletage: 'BAR_TURNING',
     Plasturgie: 'PLASTICS_TRANSFORMATION',
@@ -174,6 +176,18 @@ export class ProjectSubmissionComponent implements OnInit {
     );
     this.activitiesInvalid = this.selectedActivities.length === 0;
   }
+
+  removeEnterprise(enterprise: EnterpriseDTO): void {
+    this.selectedEnterprises = this.selectedEnterprises.filter(
+      (e) => e.id !== enterprise.id
+    );
+  }
+  addEnterprise(enterprise: EnterpriseDTO): void {
+    if (!this.selectedEnterprises.find((e) => e.id === enterprise.id)) {
+      this.selectedEnterprises.push(enterprise);
+    }
+  }
+
   onActivityInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     this.activitySearchTerm = input.value;
@@ -371,10 +385,7 @@ export class ProjectSubmissionComponent implements OnInit {
     this.project.confidential = f.confidentialite1;
     this.project.description = f.description;
     this.project.activities = this.selectedActivities;
-    this.project.typeAppelOffre =
-      f.selectedTypeAppelOffre != null
-        ? [TypeAppelOffre[f.selectedTypeAppelOffre]]
-        : [];
+    this.project.aoType = f.selectedTypeAppelOffre;
     this.project.duration = f.duree;
     this.project.applicationClosingDate = f.applicationClosingDate;
     this.project.globalVolume = f.volumeGlobal;

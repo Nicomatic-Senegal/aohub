@@ -398,18 +398,28 @@
                   <label class="label mb-1">
                     {{ "SPECIFIED_ENTERPRISES" | translate }}
                   </label>
-                  <select
-                    formControlName="specifiedEnterprises"
-                    multiple
-                    class="input h-auto"
-                  >
-                    <option
-                      *ngFor="let ent of enterprisesList"
-                      [value]="ent.id"
-                    >
-                      {{ ent.name }}
-                    </option>
-                  </select>
+                  <mat-form-field appearance="fill" class="w-full">
+                    <mat-label>{{
+                      "CHOOSE_ENTERPRISES" | translate
+                    }}</mat-label>
+                    <mat-form-field appearance="fill" class="w-full">
+                      <mat-label>{{
+                        "CHOOSE_ENTERPRISES" | translate
+                      }}</mat-label>
+                      <mat-select
+                        formControlName="specifiedEnterprises"
+                        multiple
+                        class="input h-auto"
+                      >
+                        <mat-option
+                          *ngFor="let ent of enterprisesList"
+                          [value]="ent"
+                        >
+                          {{ ent.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </mat-form-field>
                   <p
                     *ngIf="
                       projectSubmissionForm.get('specifiedEnterprises')!

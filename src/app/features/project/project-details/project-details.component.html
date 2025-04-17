@@ -95,12 +95,11 @@
 
             <!-- Liste des types d'appel d'offre -->
             <ul
-              *ngIf="project?.typeAppelOffre?.length; else noTenderTypes"
               class="text-[#737373] font-dmsans text-md list-disc list-inside space-y-1"
             >
-              <li *ngFor="let type of project.typeAppelOffre">
-                {{ type | translate }}
-              </li>
+              {{
+                project.aoType | translate
+              }}
             </ul>
 
             <!-- Cas où aucun type n'est défini -->

@@ -36,11 +36,13 @@
             <p class="text-[#408A7E] text-2xl font-bold mb-3 font-dmsans">
               {{ "ECOSYSTEM_INHUB" | translate }}
             </p>
+            <!--
             <p
               class="text-center font-dmsans font-medium text-gray-600 text-md w-[90%]"
             >
               {{ "TEXT2_HOME" | translate }}.
             </p>
+            -->
           </div>
           <!--
             <div class="relative">
@@ -66,7 +68,7 @@
                 </swiper-slide>
               </swiper-container>
             </div>
-            -->
+            
           <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
             <swiper-container
               class="swiper-info-inhub"
@@ -127,9 +129,9 @@
               >
             </div>
           </div>
-        </div>
-        <div class="upper-home-right flex flex-col w-[25%]">
-          <!-- <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
+        </div> -->
+          <div class="upper-home-right flex flex-col w-[100%]">
+            <!-- <div class="info-inhub rounded-xl mb-8 p-0 cursor-pointer">
             <swiper-container
               class="swiper-info-inhub"
               effect="cube"
@@ -160,77 +162,80 @@
             </div>
           </div>
         -->
-          <div class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg">
-            <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">
-              {{ "ADDRESS_BOOK" | translate }}
-            </p>
-            <div>
-              <div class="max-w-md mx-auto mb-3">
-                <label
-                  for="default-search"
-                  class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-                  >{{ "SEARCH" | translate }}
-                </label>
-                <div class="relative">
-                  <div
-                    class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
-                  >
-                    <svg
-                      class="w-4 h-4 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 20"
+            <div
+              class="carnet rounded-xl bg-white px-4 pt-2 pb-4 mb-5 shadow-lg"
+            >
+              <p class="text-[#408A7E] font-dmsans text-md mb-3 font-semibold">
+                {{ "ADDRESS_BOOK" | translate }}
+              </p>
+              <div>
+                <div class="max-w-md mx-auto mb-3">
+                  <label
+                    for="default-search"
+                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+                    >{{ "SEARCH" | translate }}
+                  </label>
+                  <div class="relative">
+                    <div
+                      class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
                     >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                      />
-                    </svg>
+                      <svg
+                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="search"
+                      id="default-search"
+                      class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md"
+                      placeholder="{{ 'SEARCH_PARTNER' | translate }}"
+                      #searchInput
+                    />
                   </div>
-                  <input
-                    type="search"
-                    id="default-search"
-                    class="block w-full p-4 ps-10 text-md text-gray-500 border border-gray-100 rounded-full bg-gray-50 focus:ring-gray-500 focus:outline-none focus:border-gray-500 shadow-md"
-                    placeholder="{{ 'SEARCH_PARTNER' | translate }}"
-                    #searchInput
-                  />
                 </div>
-              </div>
-              <div class="max-h-80 overflow-auto">
-                <div
-                  *ngFor="let partner of searchData"
-                  class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab break-all"
-                  (click)="openPartnerDetailsDialog(partner)"
-                >
-                  <img
-                    class="w-10 h-10 rounded-full"
-                    src="{{
-                      partner?.imageBase64Content
-                        ? partner?.imageBase64Content
-                        : '../../../assets/icons/icon-user.png'
-                    }}"
-                    alt=""
-                  />
+                <div class="max-h-80 overflow-auto">
                   <div
-                    class="font-dmsans flex flex-col justify-left items-start"
+                    *ngFor="let partner of searchData"
+                    class="flex items-center gap-4 bg-gray-100 rounded-lg mb-3 p-2 cursor-grab break-all"
+                    (click)="openPartnerDetailsDialog(partner)"
                   >
-                    <p class="text-md font-medium">
-                      {{ partner?.user?.firstName }}
-                      {{ partner?.user?.lastName }}
-                    </p>
-                    <p class="text-sm text-gray-900">
-                      {{ partner?.user?.email }}
-                    </p>
-                    <p class="text-sm text-gray-900">
-                      {{ partner?.phoneNumber }}
-                    </p>
-                    <p class="text-sm text-gray-900">
-                      {{ partner?.enterprise?.name }}
-                    </p>
+                    <img
+                      class="w-10 h-10 rounded-full"
+                      src="{{
+                        partner?.imageBase64Content
+                          ? partner?.imageBase64Content
+                          : '../../../assets/icons/icon-user.png'
+                      }}"
+                      alt=""
+                    />
+                    <div
+                      class="font-dmsans flex flex-col justify-left items-start"
+                    >
+                      <p class="text-md font-medium">
+                        {{ partner?.user?.firstName }}
+                        {{ partner?.user?.lastName }}
+                      </p>
+                      <p class="text-sm text-gray-900">
+                        {{ partner?.user?.email }}
+                      </p>
+                      <p class="text-sm text-gray-900">
+                        {{ partner?.phoneNumber }}
+                      </p>
+                      <p class="text-sm text-gray-900">
+                        {{ partner?.enterprise?.name }}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
