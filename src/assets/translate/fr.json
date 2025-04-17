@@ -412,5 +412,48 @@
 
   "ACTIVITIES_REQUIRED": "Veuillez sélectionner au moins une activité.",
 
-  "ERROR_FETCHING_ACTIVITIES": "Une erreur est survenue lors du chargement des activités."
+  "ERROR_FETCHING_ACTIVITIES": "Une erreur est survenue lors du chargement des activités.",
+
+  "definition": "Définition",
+  "need_identification": "Identification du besoin",
+  "market_notice_publication": "Publication de l’avis",
+  "kick_off_meeting": "Réunion de lancement",
+  "technical_monitoring": "Suivi technique",
+  "provisional_delivery": "Livraison provisoire",
+  "final_delivery": "Livraison finale",
+
+  "attribution": "Attribution",
+  "startup": "Démarrage",
+  "execution": "Exécution",
+  "admissibility": "Admissibilité",
+  "project_closure": "Clôture du projet",
+
+  "elaboration_of_specifications": "Élaboration du cahier des charges",
+  "procedure_selection": "Choix de la procédure",
+  "drafting_of_consultation_dossier": "Rédaction du dossier de consultation",
+
+  "selection_of_qualified_candidates": "Sélection des candidats qualifiés",
+  "analysis_of_offers": "Analyse des offres",
+  "market_notification_to_holder": "Notification du marché au titulaire",
+
+  "inversion_of_preliminary_schedule": "Inversion du planning prévisionnel",
+  "team_mobilization": "Mobilisation de l’équipe",
+  "validation_of_startup_deliverables": "Validation des livrables de lancement",
+
+  "risk_management_and_adjustments": "Gestion des risques et ajustements",
+  "continuous_quality_control": "Contrôle qualité continu",
+  "stakeholder_communication": "Communication avec les parties prenantes",
+
+  "compliance_verification": "Vérification de conformité",
+  "drafting_of_reception_report": "Rédaction du rapport de réception",
+  "correction_requests": "Demandes de correction",
+
+  "payment_settlement": "Règlement des paiements",
+  "dossier_archiving": "Archivage du dossier",
+
+  "BUDGET_VOLUME": "Volume global & budget",
+
+  "DEADLINES": "Délais",
+
+  "NEED_TYPE_REQUIRED": "Veuillez sélectionner un type de besoin"
 }

@@ -48,4 +48,5 @@ export interface ProjectVM {
 
   domains?: DomainDTO[];
   disponibilityInstants?: string[];
+  specifiedEnterprises?: number[];
 }

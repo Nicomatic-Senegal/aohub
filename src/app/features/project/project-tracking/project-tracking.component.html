@@ -1,75 +1,127 @@
-<div class="flex flex-col overflow-auto ">
-  <div class=" flex w-full">
+<div class="flex flex-col overflow-auto">
+  <!-- Ligne du haut : tâches des phases d’indice pair -->
+  <div class="flex w-full">
     <ng-container *ngFor="let phase of project.phases; let i = index">
-      <div class="w-[14%] flex flex-col justify-end" *ngIf="i % 2 === 0">
-        <div class="mb-2 w-full" *ngFor="let task of phase.tasks; let j = index">
-          <div class="flex items-center justify-between mb-2 w-full">
-            <div class="flex items-center w-full">
-              <div class="rounded-full w-1 h-1 bg-[#EE1B22] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
-              <p class="text-[#696969] text-sm font-dmsans text-wrap w-[90%]">{{task.label! | translate}} </p>
+      <!-- colonne tasks quand i est pair -->
+      <div
+        *ngIf="i % 2 === 0"
+        class="w-[14%] flex flex-col justify-end space-y-2"
+      >
+        <ng-container *ngFor="let task of phase.tasks; let j = index">
+          <!-- Une task -->
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div
+                class="rounded-full w-1 h-1 bg-[#EE1B22]"
+                *ngIf="isExpired(task.endDate!, task.done!)"
+              ></div>
+              <p class="text-[#696969] text-sm font-dmsans flex-1">
+                {{ task.label! | translate }}
+              </p>
             </div>
-            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2 shadow-xl shadow-[#c6bfbf] cursor-pointer" (click)="openTaskDialog(task, phase, i, j)"><i class="fas fa-chevron-right"></i></div>
+            <button
+              class="rounded-full bg-white p-2 w-7 h-7 shadow-xl shadow-[#c6bfbf] cursor-pointer"
+              (click)="openTaskDialog(task, phase, i, j)"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
-          <div class="h-1 w-full flex">
-            <div class="bg-[#D9D9D9] w-full h-1" *ngIf="!isTaskDone(task.done)"></div>
-            <div class="bg-[#00CE2D] w-full h-1" *ngIf="isTaskDone(task.done)"></div>
+          <div class="h-1 w-full">
+            <div class="h-1 bg-[#00CE2D]" *ngIf="isTaskDone(task.done)"></div>
+            <div class="h-1 bg-[#D9D9D9]" *ngIf="!isTaskDone(task.done)"></div>
           </div>
-        </div>
+        </ng-container>
       </div>
-      <div class="w-[14%]" *ngIf="i % 2 !== 0"></div>
+
+      <!-- colonne vide pour phases impaires -->
+      <div *ngIf="i % 2 !== 0" class="w-[10%]"></div>
+    </ng-container>
+  </div>
+
+  <!-- Barre centrale : suivi d’avancement par phase -->
+  <div class="flex h-[14vh] mt-5 w-full">
+    <ng-container *ngFor="let phase of project.phases; let k = index">
+      <div
+        class="relative cursor-pointer h-full w-[14%] shadow-custom flex items-center justify-center"
+        (click)="openPhaseDialog(phase, k)"
+      >
+        <p class="absolute z-10 p-2 font-roboto">
+          {{ phase.label! | translate }}
+        </p>
+
+        <!-- Vignettes de progression -->
+        <ng-container
+          *ngFor="let done of sortTaskByDone(phase.tasks!); let j = index"
+        >
+          <div
+            class="absolute top-0 left-0 h-full"
+            [ngClass]="phase.tasks?.length === 3 ? 'w-1/3' : 'w-1/4'"
+            [style.left.%]="(100 / phase.tasks!.length) * j"
+            [class.bg-[#00CE2D]]="j + 1 <= nbTasksDone(phase.tasks!)"
+            [class.bg-[#F0F0F0]]="j + 1 > nbTasksDone(phase.tasks!)"
+            [class.bg-gradient-to-r]="
+              j + 1 === nbTasksDone(phase.tasks!) && j + 1 < phase.tasks!.length
+            "
+            [class.from-[#00CE2D]]="j + 1 === nbTasksDone(phase.tasks!)"
+            [class.to-[#F0F0F0]]="j + 1 === nbTasksDone(phase.tasks!)"
+          ></div>
+        </ng-container>
+      </div>
     </ng-container>
 
-  </div>
-  <div class="flex h-[14vh] mt-5">
-    <div *ngFor="let phase of project.phases; let k = index" (click)="openPhaseDialog(phase, k)" class="relative cursor-pointer h-24 w-[14%] shadow-custom font-dmsans text-base text-black flex justify-center items-center">
-      <p class="absolute z-10 p-2 font-roboto">{{phase?.label! | translate}}</p>
-      <div
-      *ngFor="let done of sortTaskByDone(phase.tasks!); let j = index"
-      class=" h-full relative" [ngClass]="[phase.tasks?.length === 3 ? 'w-1/3' : 'w-1/4' , j + 1 < this.nbTasksDone(phase.tasks!) ?
-      'bg-[#00CE2D]' :
-      ( j + 1 > this.nbTasksDone(phase.tasks!) ?
-        'bg-[#F0F0F0]' :
-        (j + 1 !== phase.tasks?.length ?
-          'bg-gradient-to-r from-[#00CE2D] to-[#F0F0F0]' :
-          'bg-[#00CE2D]'
-        )
-      )]"
-    >
-    </div>
-    </div>
+    <!-- Flèche finale -->
     <div
-      *ngIf="project && project.phases && project.phases.length > 0"
-      class="transform translate-y-[-32%] border-t-[120px] border-t-transparent border-b-[120px] border-b-transparent border-l-[120px] border-l-[#F0F0F0]"
-      [ngClass]="{
-         'border-l-[#00CE2D]': areAllPhasesDone(),
-         'border-l-[#F0F0F0]': !areAllPhasesDone()
-       }">
-    </div>
+      *ngIf="project && project.phases && project.phases.length"
+      class="transform -translate-y-[35%] border-t-[120px] border-b-[120px] border-transparent border-l-[120px]"
+      [class.border-l-[#00CE2D]]="areAllPhasesDone()"
+      [class.border-l-[#D9D9D9]]="!areAllPhasesDone()"
+    ></div>
   </div>
-  <div class=" flex w-full">
+
+  <!-- Ligne du bas : tâches des phases d’indice impair -->
+  <div class="flex w-full mt-5">
     <ng-container *ngFor="let phase of project.phases; let i = index">
-      <div class="w-[14%] flex flex-col justify-start" *ngIf="i % 2 !== 0">
-        <div class="mb-2 w-full" *ngFor="let task of phase.tasks; let j = index">
-          <div class="flex items-center justify-between mb-2 w-full">
-            <div class="flex items-center w-full">
-              <div class="rounded-full w-1 h-1 bg-[#EE1B22] mr-1" *ngIf="isExpired(task.endDate!, task.done!)"></div>
-              <p class="text-[#696969] text-sm font-dmsans text-wrap w-[90%]">{{task.label! | translate}} </p>
+      <!-- colonne tasks quand i est impair -->
+      <div
+        *ngIf="i % 2 !== 0"
+        class="w-[14%] flex flex-col justify-start space-y-2"
+      >
+        <ng-container *ngFor="let task of phase.tasks; let j = index">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <div
+                class="rounded-full w-1 h-1 bg-[#EE1B22]"
+                *ngIf="isExpired(task.endDate!, task.done!)"
+              ></div>
+              <p class="text-[#696969] text-sm font-dmsans flex-1">
+                {{ task.label! | translate }}
+              </p>
             </div>
-            <div class="rounded-full bg-white p-2 w-7 h-7 text-lg flex items-center ml-2 shadow-xl shadow-[#c6bfbf] cursor-pointer" (click)="openTaskDialog(task, phase, i, j)"><i class="fas fa-chevron-right"></i></div>
+            <button
+              class="rounded-full bg-white p-2 w-7 h-7 shadow-xl shadow-[#c6bfbf] cursor-pointer"
+              (click)="openTaskDialog(task, phase, i, j)"
+            >
+              <i class="fas fa-chevron-right"></i>
+            </button>
           </div>
-          <div class="h-1 w-full flex">
-            <div class="bg-[#D9D9D9] w-full h-1" *ngIf="!isTaskDone(task.done)"></div>
-            <div class="bg-[#00CE2D] w-full h-1" *ngIf="isTaskDone(task.done)"></div>
+          <div class="h-1 w-full">
+            <div class="h-1 bg-[#00CE2D]" *ngIf="isTaskDone(task.done)"></div>
+            <div class="h-1 bg-[#D9D9D9]" *ngIf="!isTaskDone(task.done)"></div>
           </div>
-        </div>
+        </ng-container>
       </div>
-      <div class="w-[14%]" *ngIf="i % 2 === 0"></div>
+
+      <!-- colonne vide pour phases paires -->
+      <div *ngIf="i % 2 === 0" class="w-[10%]"></div>
     </ng-container>
   </div>
+
+  <!-- Bouton fixe pour les documents -->
   <button
-    class="flex items-center font-dmsans text-base text-white bg-[#408A7E] rounded-md p-3 fixed z-50 right-5 bottom-5"
-    (click)="openDocumentDialog()">
-    {{'DOCUMENTS_PROJECT' | translate}}
+    class="fixed bottom-5 right-5 flex items-center font-dmsans text-base text-white bg-[#408A7E] rounded-md p-3 shadow-lg"
+    (click)="openDocumentDialog()"
+  >
+    {{ "DOCUMENTS_PROJECT" | translate }}
     <i class="fa-regular fa-folder-open ml-2"></i>
   </button>
 </div>

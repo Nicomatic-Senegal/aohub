@@ -9,6 +9,7 @@ import { PositioningDTO } from '../../interfaces/positioning-dto.model';
 import { Market } from '../../interfaces/market.model';
 import { PhaseDTO } from '../../interfaces/phase.model';
 import { TaskDTO } from '../../interfaces/task.model';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
 
 @Injectable({
   providedIn: 'root',
@@ -528,5 +529,11 @@ export class ProjectService {
         },
       }
     );
+  }
+  /** Récupère la liste des entreprises pour le multi‑select */
+  getAllEnterprises(): Observable<EnterpriseDTO[]> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = this.apiBaseUrl + 'enterprises';
+    return this.http.get<EnterpriseDTO[]>(url, { headers });
   }
 }

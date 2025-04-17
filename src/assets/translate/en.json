@@ -407,5 +407,48 @@
   "TENDER_TYPE_REQUIRED": "At least one tender type must be selected.",
 
   "ACTIVITIES_REQUIRED": "At least one activity must be selected.",
-  "ERROR_FETCHING_ACTIVITIES": "An error occurred while fetching activities."
+  "ERROR_FETCHING_ACTIVITIES": "An error occurred while fetching activities.",
+
+  "definition": "Definition",
+  "need_identification": "Need identification",
+  "market_notice_publication": "Market notice publication",
+  "kick_off_meeting": "Kick-off meeting",
+  "technical_monitoring": "Technical monitoring",
+  "provisional_delivery": "Provisional delivery",
+  "final_delivery": "Final delivery",
+
+  "attribution": "Attribution",
+  "startup": "Startup",
+  "execution": "Execution",
+  "admissibility": "Admissibility",
+  "project_closure": "Project closure",
+
+  "elaboration_of_specifications": "Elaboration of specifications",
+  "procedure_selection": "Procedure selection",
+  "drafting_of_consultation_dossier": "Drafting of consultation dossier",
+
+  "selection_of_qualified_candidates": "Selection of qualified candidates",
+  "analysis_of_offers": "Analysis of offers",
+  "market_notification_to_holder": "Market notification to holder",
+
+  "inversion_of_preliminary_schedule": "Inversion of preliminary schedule",
+  "team_mobilization": "Team mobilization",
+  "validation_of_startup_deliverables": "Validation of startup deliverables",
+
+  "risk_management_and_adjustments": "Risk management and adjustments",
+  "continuous_quality_control": "Continuous quality control",
+  "stakeholder_communication": "Stakeholder communication",
+
+  "compliance_verification": "Compliance verification",
+  "drafting_of_reception_report": "Drafting of reception report",
+  "correction_requests": "Correction requests",
+
+  "payment_settlement": "Payment settlement",
+  "dossier_archiving": "Dossier archiving",
+
+  "BUDGET_VOLUME": "Overall Volume & Budget",
+
+  "DEADLINES": "Deadlines",
+
+  "NEED_TYPE_REQUIRED": "Please select a need type"
 }

@@ -3,17 +3,21 @@
 }
 
 .app-side {
-  @apply h-full;
+  /* sidebar fixe à gauche, 20% de la largeur */
+  @apply fixed top-0 left-0 h-full w-[20%] z-20;
 }
 
 .head-home {
-  @apply flex flex-col h-full flex-grow w-[90%];
+  /* contenu décalé pour ne pas passer sous la sidebar */
+  @apply ml-[20%] flex flex-col w-[80%];
 }
 
 .div-center {
-  @apply w-full h-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5;
+  /* suppression de h-full pour que le bg suive le formulaire */
+  @apply w-full px-2 md:px-10 py-2 md:py-5 flex flex-col bg-[#1E1E1E]/5;
 }
 
+/* tes utilitaires existants */
 .div-input {
   @apply flex flex-col w-full;
 }
@@ -23,11 +27,13 @@
 }
 
 .input {
-  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent;
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA]
+         focus:outline-[#408A7E] h-8 rounded-md pl-3 mt-1 w-full bg-transparent;
 }
 
 .textarea {
-  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA] focus:outline-[#408A7E] h-16 rounded-md pl-3 mt-1 w-full bg-transparent pt-3;
+  @apply text-[#408A7E] text-sm font-dmsans outline outline-[1px] outline-[#AAAAAA]
+         focus:outline-[#408A7E] h-16 rounded-md pl-3 mt-1 w-full bg-transparent pt-3;
 }
 
 .div-line-form {
@@ -123,4 +129,8 @@
 
 ::ng-deep .mat-calendar-body-today {
   @apply bg-[#EDEDED];
+}
+/* au bas de ton fichier CSS de composant */
+.card-section {
+  @apply bg-transparent border border-[#D6D6D6] rounded-lg p-6;
 }

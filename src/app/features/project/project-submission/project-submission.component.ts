@@ -4,12 +4,15 @@ import {
   FormControl,
   Validators,
   FormBuilder,
+  AbstractControl,
 } from '@angular/forms';
 import { format } from 'date-fns';
+import { EnterpriseDTO } from '../../interfaces/enterprise.model';
 import { AuthService } from 'src/app/core/services/auth/auth.service';
 import { Market } from '../../interfaces/market.model';
 import { Domain } from '../../interfaces/domain.model';
 import { ProjectService } from '../../services/project/project.service';
+import { EnterpriseService } from '../../services/enterprise/enterprise.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Disponibility } from '../../interfaces/disponibility.model';
@@ -30,6 +33,13 @@ import { EmployeePostDTO } from '../../interfaces/employee.model';
   styleUrls: ['./project-submission.component.scss'],
 })
 export class ProjectSubmissionComponent implements OnInit {
+  /** Pour pouvoir utiliser TypeAppelOffre.* dans le template */
+  public TypeAppelOffre = TypeAppelOffre;
+
+  /** La liste qui viendra du back pour le multi‑select */
+
+  public enterprisesList: EnterpriseDTO[] = [];
+
   step: number = 1;
   minDate!: Date;
   titleSteps = ['MODALITY', 'ATTACHMENTS', 'TO_END'];
@@ -125,7 +135,14 @@ export class ProjectSubmissionComponent implements OnInit {
       budget: new FormControl(null, [Validators.required]),
       applicationClosingDate: new FormControl(null, [Validators.required]),
       processingEndDate: new FormControl(null, [Validators.required]),
+      selectedTypeAppelOffre: new FormControl(null, Validators.required),
+      specifiedEnterprises: new FormControl([], []),
     });
+    const specEntCtrl = this.projectSubmissionForm.get('specifiedEnterprises')!;
+    specEntCtrl.setValidators(this.restrictedValidator.bind(this));
+    this.projectSubmissionForm
+      .get('selectedTypeAppelOffre')!
+      .valueChanges.subscribe(() => specEntCtrl.updateValueAndValidity());
 
     const dayStart = new Date();
     const dayEnd = new Date();
@@ -184,6 +201,19 @@ export class ProjectSubmissionComponent implements OnInit {
     this.selectedTypeAppelOffre = value;
     this.typeAppelOffreInvalid = this.selectedTypeAppelOffre === null;
   }
+  restrictedValidator(control: AbstractControl) {
+    const type = this.projectSubmissionForm.get(
+      'selectedTypeAppelOffre'
+    )?.value;
+    // si « RESTRICTED » et aucune entreprise sélectionnée → erreur
+    if (
+      type === TypeAppelOffre.RESTRICTED &&
+      (!control.value || control.value.length === 0)
+    ) {
+      return { required: true };
+    }
+    return null;
+  }
 
   ngOnInit(): void {
     const applicationClosingDateControl: any = this.projectSubmissionForm.get(
@@ -213,6 +243,28 @@ export class ProjectSubmissionComponent implements OnInit {
 
       this.applicationClosingDateToString = format(dateDebut, 'yyyy-MM-dd');
     });
+    // après la création du form, par exemple à la fin du constructeur ou dans ngOnInit()
+    this.projectSubmissionForm
+      .get('specifiedEnterprises')!
+      .setValidators((control) => {
+        const type = this.projectSubmissionForm.get(
+          'selectedTypeAppelOffre'
+        )?.value;
+        return type === TypeAppelOffre.RESTRICTED &&
+          (!control.value || control.value.length === 0)
+          ? { required: true }
+          : null;
+      });
+
+    // et, pour recalculer la validité à chaque changement de type
+    this.projectSubmissionForm
+      .get('selectedTypeAppelOffre')!
+      .valueChanges.subscribe(() => {
+        this.projectSubmissionForm
+          .get('specifiedEnterprises')!
+          .updateValueAndValidity();
+      });
+
     /*
      this.projectService.getAllDomains(this.token).subscribe({
       next: (data) => {
@@ -258,6 +310,10 @@ export class ProjectSubmissionComponent implements OnInit {
           });
       },
     });
+    this.projectService.getAllEnterprises().subscribe({
+      next: (data: EnterpriseDTO[]) => (this.enterprisesList = data),
+      error: (err) => console.error('Erreur entreprises', err),
+    });
   }
 
   getControl(controlName: string) {
@@ -279,8 +335,12 @@ export class ProjectSubmissionComponent implements OnInit {
   }
 
   submit() {
+    // 1) Récupère les valeurs du form
+    const f = this.projectSubmissionForm.value as any;
+
+    // 2) Validation des activités et du type d'appel
     this.activitiesInvalid = this.selectedActivities.length === 0;
-    this.typeAppelOffreInvalid = this.selectedTypeAppelOffre === null;
+    this.typeAppelOffreInvalid = f.selectedTypeAppelOffre == null;
 
     if (
       this.projectSubmissionForm.invalid ||
@@ -302,72 +362,74 @@ export class ProjectSubmissionComponent implements OnInit {
             }
           );
         });
-    } else {
-      const formvalue = this.projectSubmissionForm.value;
-
-      this.project.service = formvalue.service;
-      this.project.budget = formvalue.budget;
-      this.project.confidential = formvalue.confidentialite1
-        ? formvalue.confidentialite1
-        : formvalue.confidentialite2;
-      this.project.description = formvalue.description;
-      this.project.activities = this.selectedActivities;
-
-      this.project.typeAppelOffre =
-        this.selectedTypeAppelOffre !== null
-          ? [TypeAppelOffre[this.selectedTypeAppelOffre]]
-          : [];
-
-      this.project.duration = formvalue.duree;
-      this.project.applicationClosingDate = formvalue.applicationClosingDate;
-      this.project.globalVolume = formvalue.volumeGlobal;
-      this.project.processingEndDate = formvalue.processingEndDate;
-      this.project.needType = formvalue.typeDeBesoin;
-      this.project.title = formvalue.intitule;
-
-      console.log(this.project);
-
-      this.projectService.addProject(this.token, this.project).subscribe({
-        next: (data) => {
-          this.allFiles.forEach((file) => {
-            file.project = data;
-            this.projectService
-              .addProjectAttachments(this.token, file)
-              .subscribe({
-                next: () => {},
-                error: () => {},
-              });
-          });
-          this.translateService
-            .get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE'])
-            .subscribe((translations) => {
-              this.toastr.success(
-                translations['SUCCESS_PROJECT_SUBMISSION'],
-                translations['SUCCESS_TITLE'],
-                {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                }
-              );
-            });
-          this.step++;
-        },
-        error: () => {
-          this.translateService
-            .get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE'])
-            .subscribe((translations) => {
-              this.toastr.error(
-                translations['ERROR_PROJECT_SUBMISSION'],
-                translations['ERROR_TITLE'],
-                {
-                  timeOut: 3000,
-                  positionClass: 'toast-top-right',
-                }
-              );
-            });
-        },
-      });
+      return;
     }
+
+    // 3) On construit l'objet projectVM
+    this.project.service = f.service;
+    this.project.budget = f.budget;
+    this.project.confidential = f.confidentialite1;
+    this.project.description = f.description;
+    this.project.activities = this.selectedActivities;
+    this.project.typeAppelOffre =
+      f.selectedTypeAppelOffre != null
+        ? [TypeAppelOffre[f.selectedTypeAppelOffre]]
+        : [];
+    this.project.duration = f.duree;
+    this.project.applicationClosingDate = f.applicationClosingDate;
+    this.project.globalVolume = f.volumeGlobal;
+    this.project.processingEndDate = f.processingEndDate;
+    this.project.needType = f.typeDeBesoin;
+    this.project.title = f.intitule;
+
+    // 4) Si consultation restreinte, on ajoute specifiedEnterprises
+    if (f.selectedTypeAppelOffre === TypeAppelOffre.RESTRICTED) {
+      this.project.specifiedEnterprises = f.specifiedEnterprises;
+    }
+
+    console.log('Payload project:', this.project);
+
+    // 5) Envoi au back
+    this.projectService.addProject(this.token, this.project).subscribe({
+      next: (data) => {
+        // Ajout des pièces jointes
+        this.allFiles.forEach((file) => {
+          file.project = data;
+          this.projectService.addProjectAttachments(this.token, file).subscribe(
+            () => {},
+            () => {}
+          );
+        });
+        // Toast de succès et passage à l'étape suivante
+        this.translateService
+          .get(['SUCCESS_PROJECT_SUBMISSION', 'SUCCESS_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.success(
+              translations['SUCCESS_PROJECT_SUBMISSION'],
+              translations['SUCCESS_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
+          });
+        this.step++;
+      },
+      error: () => {
+        this.translateService
+          .get(['ERROR_PROJECT_SUBMISSION', 'ERROR_TITLE'])
+          .subscribe((translations) => {
+            this.toastr.error(
+              translations['ERROR_PROJECT_SUBMISSION'],
+              translations['ERROR_TITLE'],
+              {
+                timeOut: 3000,
+                positionClass: 'toast-top-right',
+              }
+            );
+          });
+      },
+    });
   }
 
   handleChange(fieldName: string) {

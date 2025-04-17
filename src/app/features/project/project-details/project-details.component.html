@@ -81,38 +81,48 @@
 
           <div class="flex flex-col flex-1">
             <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">
-              {{ "CUSTOMER" | translate }}
+              {{ "SERVICE" | translate }}
             </p>
-            <p class="text-[#737373] font-dmsans text-md mr-5">
-              {{ project?.client }}
+            <p class="text-[#737373] font-dmsans text-md">
+              {{ project?.service }}
             </p>
           </div>
 
           <div class="flex flex-col flex-1">
             <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">
-              {{ "MARKET" | translate }}
+              {{ "TENDER_TYPE" | translate }}
             </p>
-            <p
-              *ngFor="let market of project?.markets"
-              class="text-[#737373] font-dmsans text-md"
+
+            <!-- Liste des types d'appel d'offre -->
+            <ul
+              *ngIf="project?.typeAppelOffre?.length; else noTenderTypes"
+              class="text-[#737373] font-dmsans text-md list-disc list-inside space-y-1"
             >
-              {{ translateMarket(market?.name) | translate }}
-            </p>
+              <li *ngFor="let type of project.typeAppelOffre">
+                {{ type | translate }}
+              </li>
+            </ul>
+
+            <!-- Cas où aucun type n'est défini -->
+            <ng-template #noTenderTypes>
+              <p class="text-[#737373] font-dmsans text-md">-</p>
+            </ng-template>
           </div>
         </div>
 
         <div class="flex items-start justify-between mt-7 w-full">
           <div class="flex flex-col flex-1">
             <p class="text-[#408A7E] font-dmsans text-md font-semibold mb-3">
-              {{ "PROFESSIONS" | translate }}
+              {{ "ACTIVITIES" | translate }}
             </p>
-            <div class="flex pr-3">
-              <select class="text-[#737373] font-dmsans text-md">
-                <option *ngFor="let domain of project?.domains">
-                  {{ translateDomain(domain?.name) | translate }}
-                </option>
-              </select>
-            </div>
+            <ul
+              class="list-disc list-inside text-[#737373] font-dmsans text-md space-y-1"
+            >
+              <li *ngFor="let act of project?.activities">
+                {{ act?.name || act?.label }}
+              </li>
+              <li *ngIf="!project?.activities?.length">-</li>
+            </ul>
           </div>
 
           <div class="flex flex-col flex-1">

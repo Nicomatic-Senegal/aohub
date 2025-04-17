@@ -74,7 +74,7 @@
         <form action="" [formGroup]="projectSubmissionForm" class="w-full mt-5">
           <div [ngSwitch]="step" class="w-full">
             <div
-              *ngSwitchCase="'1'"
+              *ngSwitchCase="1"
               class="w-full px-10 border-b-2 pb-10 border-[#797777]/78"
             >
               <div class="div-line-form">
@@ -249,307 +249,299 @@
               </div>
             </div>
             <div
-              *ngSwitchCase="'2'"
-              class="w-full px-10 pb-10 border-[#797777]/78"
+              *ngSwitchCase="2"
+              class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 px-2 md:px-10 pb-10"
             >
-              <!-- VOLUME GLOBAL & BUDGET -->
-              <div class="p-5 rounded-lg border border-[#D6D6D6] mt-5">
-                <h3 class="text-[#408A7E] text-lg font-semibold mb-3">
+              <!-- Budget & Volume -->
+              <section class="card-section">
+                <h3 class="text-lg font-semibold text-[#408A7E] mb-4">
                   {{ "BUDGET_VOLUME" | translate }}
                 </h3>
-                <div class="div-line-form">
-                  <div class="part-line-form">
-                    <label class="label w-[30%]">{{
+                <div class="grid grid-cols-1 gap-4">
+                  <div>
+                    <label class="label mb-1">{{
                       "OVERALL_VOLUME" | translate
                     }}</label>
-                    <div class="w-[60%]">
-                      <input
-                        type="number"
-                        class="input"
-                        formControlName="volumeGlobal"
-                        min="0"
-                        (keypress)="onKeyPress($event)"
-                      />
-                      <div
-                        *ngIf="
-                          getControl('volumeGlobal')?.invalid &&
-                          (getControl('volumeGlobal')?.dirty ||
-                            getControl('volumeGlobal')?.touched)
-                        "
-                        class="text-red-600 text-xs"
-                      >
-                        {{ "OVERALL_VOLUME_REQUIRED" | translate }}.
-                      </div>
-                    </div>
+                    <input
+                      type="number"
+                      class="input"
+                      formControlName="volumeGlobal"
+                      min="0"
+                      (keypress)="onKeyPress($event)"
+                    />
+                    <p
+                      *ngIf="
+                        getControl('volumeGlobal')?.invalid &&
+                        (getControl('volumeGlobal')?.dirty ||
+                          getControl('volumeGlobal')?.touched)
+                      "
+                      class="text-red-600 text-xs mt-1"
+                    >
+                      {{ "OVERALL_VOLUME_REQUIRED" | translate }}.
+                    </p>
                   </div>
-
-                  <div class="part-line-form mt-5">
-                    <label class="label w-[30%]">Budget (€)</label>
-                    <div class="w-[60%]">
-                      <input
-                        type="number"
-                        class="input"
-                        formControlName="budget"
-                        min="0"
-                        (keypress)="onKeyPress($event)"
-                      />
-                      <div
-                        *ngIf="
-                          getControl('budget')?.invalid &&
-                          (getControl('budget')?.dirty ||
-                            getControl('budget')?.touched)
-                        "
-                        class="text-red-600 text-xs"
-                      >
-                        {{ "BUDGET_REQUIRED" | translate }}.
-                      </div>
-                    </div>
+                  <div>
+                    <label class="label mb-1">Budget (€)</label>
+                    <input
+                      type="number"
+                      class="input"
+                      formControlName="budget"
+                      min="0"
+                      (keypress)="onKeyPress($event)"
+                    />
+                    <p
+                      *ngIf="
+                        getControl('budget')?.invalid &&
+                        (getControl('budget')?.dirty ||
+                          getControl('budget')?.touched)
+                      "
+                      class="text-red-600 text-xs mt-1"
+                    >
+                      {{ "BUDGET_REQUIRED" | translate }}.
+                    </p>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              <!-- ACTIVITÉS -->
-              <div class="p-5 rounded-lg border border-[#D6D6D6] mt-10">
-                <h3 class="text-[#408A7E] text-lg font-semibold mb-3">
+              <!-- Activités -->
+              <section class="card-section">
+                <h3 class="text-lg font-semibold text-[#408A7E] mb-4">
                   {{ "ACTIVITIES" | translate }}
                 </h3>
-                <div class="div-line-form">
-                  <div class="part-line-form items-center">
-                    <label class="label w-[30%]"></label>
-                    <div class="w-[60%]">
-                      <!-- Nouveau input + liste filtrée + tags -->
-                      <input
-                        type="text"
-                        class="input mb-2"
-                        placeholder="{{ 'SEARCH_ACTIVITY' | translate }}"
-                        [value]="activitySearchTerm"
-                        (input)="onActivityInput($event)"
-                      />
-
-                      <!-- Liste suggestions filtrées -->
-                      <div
-                        *ngIf="
-                          filteredActivitiesList.length &&
-                          activitySearchTerm.trim()
-                        "
-                        class="border rounded p-2 shadow-md max-h-48 overflow-y-auto"
-                      >
-                        <div
-                          *ngFor="let activity of filteredActivitiesList"
-                          class="cursor-pointer hover:bg-gray-100 p-2 rounded text-sm"
-                          (click)="addActivity(activity)"
-                        >
-                          {{ activity.name }}
-                        </div>
-                      </div>
-
-                      <!-- Tags des activités sélectionnées -->
-                      <div class="mt-2 flex flex-wrap gap-2">
-                        <span
-                          *ngFor="let act of selectedActivities"
-                          class="bg-[#DBE9E6] text-[#408A7E] text-sm px-3 py-1 rounded-full flex items-center gap-2"
-                        >
-                          {{ getActivityName(act) }}
-                          <button type="button" (click)="removeActivity(act)">
-                            ×
-                          </button>
-                        </span>
-                      </div>
-
-                      <!-- Erreur -->
-
-                      <div
-                        *ngIf="activitiesInvalid"
-                        class="text-red-600 text-xs mt-1"
-                      >
-                        {{ "ACTIVITIES_REQUIRED" | translate }}
-                      </div>
+                <div>
+                  <input
+                    type="text"
+                    class="input mb-3"
+                    placeholder="{{ 'SEARCH_ACTIVITY' | translate }}"
+                    [value]="activitySearchTerm"
+                    (input)="onActivityInput($event)"
+                  />
+                  <div
+                    *ngIf="
+                      filteredActivitiesList.length && activitySearchTerm.trim()
+                    "
+                    class="border rounded p-2 max-h-48 overflow-y-auto mb-3"
+                  >
+                    <div
+                      *ngFor="let activity of filteredActivitiesList"
+                      class="cursor-pointer hover:bg-gray-100 p-2 rounded text-sm"
+                      (click)="addActivity(activity)"
+                    >
+                      {{ activity.name }}
                     </div>
                   </div>
+                  <div class="flex flex-wrap gap-2 mb-2">
+                    <span
+                      *ngFor="let act of selectedActivities"
+                      class="bg-[#DBE9E6] text-[#408A7E] text-sm px-3 py-1 rounded-full flex items-center gap-2"
+                    >
+                      {{ getActivityName(act) }}
+                      <button
+                        type="button"
+                        (click)="removeActivity(act)"
+                        class="font-bold"
+                      >
+                        ×
+                      </button>
+                    </span>
+                  </div>
+                  <p *ngIf="activitiesInvalid" class="text-red-600 text-xs">
+                    {{ "ACTIVITIES_REQUIRED" | translate }}
+                  </p>
                 </div>
-              </div>
+              </section>
 
-              <!-- TYPE D’APPEL D’OFFRE -->
-              <div class="p-5 rounded-lg border border-[#D6D6D6] mt-10">
-                <h3 class="text-[#408A7E] text-lg font-semibold mb-3">
+              <!-- Type d’appel d’offre -->
+              <!-- À l’intérieur de ton *ngSwitchCase="2", dans la section TENDER_TYPE -->
+              <section class="card-section">
+                <h3 class="text-lg font-semibold text-[#408A7E] mb-4">
                   {{ "TENDER_TYPE" | translate }}
                 </h3>
-                <div class="div-line-form">
-                  <div class="part-line-form items-center">
-                    <label class="label w-[30%]"></label>
-                    <div class="w-[60%]">
-                      <div class="flex flex-row gap-2">
-                        <input
-                          type="radio"
-                          name="tender"
-                          value="GLOBAL"
-                          [(ngModel)]="selectedTypeAppelOffre"
-                          class="accent-[#408A7E]"
-                        />
-                        {{ "GLOBAL_TENDER" | translate }}
 
-                        <input
-                          type="radio"
-                          name="tender"
-                          value="RESTRICTED"
-                          [(ngModel)]="selectedTypeAppelOffre"
-                          class="accent-[#408A7E]"
-                        />
-                        {{ "RESTRICTED_CONSULTATION" | translate }}
+                <!-- Radios existantes -->
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    formControlName="selectedTypeAppelOffre"
+                    [value]="TypeAppelOffre.GLOBAL"
+                    class="accent-[#408A7E]"
+                  />
+                  {{ "GLOBAL_TENDER" | translate }}
+                </label>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    formControlName="selectedTypeAppelOffre"
+                    [value]="TypeAppelOffre.RESTRICTED"
+                    class="accent-[#408A7E]"
+                  />
+                  {{ "RESTRICTED_CONSULTATION" | translate }}
+                </label>
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    formControlName="selectedTypeAppelOffre"
+                    [value]="TypeAppelOffre.INTEREST_MANIFESTATION"
+                    class="accent-[#408A7E]"
+                  />
+                  {{ "CALL_FOR_EXPRESSION" | translate }}
+                </label>
 
-                        <input
-                          type="radio"
-                          name="tender"
-                          value="INTEREST_MANIFESTATION"
-                          [(ngModel)]="selectedTypeAppelOffre"
-                          class="accent-[#408A7E]"
-                        />
-                        {{ "CALL_FOR_EXPRESSION" | translate }}
-                      </div>
-                      <div
-                        *ngIf="typeAppelOffreInvalid"
-                        class="text-red-600 text-xs mt-1"
-                      >
-                        {{ "TENDER_TYPE_REQUIRED" | translate }}
-                      </div>
-                    </div>
-                  </div>
+                <!-- NOUVEAU : multi-select conditionnel -->
+                <div
+                  *ngIf="
+                    projectSubmissionForm.get('selectedTypeAppelOffre')!
+                      .value === TypeAppelOffre.RESTRICTED
+                  "
+                  class="mt-4"
+                >
+                  <label class="label mb-1">
+                    {{ "SPECIFIED_ENTERPRISES" | translate }}
+                  </label>
+                  <select
+                    formControlName="specifiedEnterprises"
+                    multiple
+                    class="input h-auto"
+                  >
+                    <option
+                      *ngFor="let ent of enterprisesList"
+                      [value]="ent.id"
+                    >
+                      {{ ent.name }}
+                    </option>
+                  </select>
+                  <p
+                    *ngIf="
+                      projectSubmissionForm.get('specifiedEnterprises')!
+                        .invalid &&
+                      (projectSubmissionForm.get('specifiedEnterprises')!
+                        .touched ||
+                        projectSubmissionForm.get('specifiedEnterprises')!
+                          .dirty)
+                    "
+                    class="text-red-600 text-xs mt-1"
+                  >
+                    {{ "SPECIFIED_ENTERPRISES_REQUIRED" | translate }}
+                  </p>
                 </div>
-              </div>
+              </section>
 
-              <!-- DEADLINES -->
-              <div class="p-5 rounded-lg border border-[#D6D6D6] mt-10">
-                <h3 class="text-[#408A7E] text-lg font-semibold mb-3">
+              <!-- Deadlines -->
+              <section class="card-section">
+                <h3 class="text-lg font-semibold text-[#408A7E] mb-4">
                   {{ "DEADLINES" | translate }}
                 </h3>
-                <div class="div-line-form">
-                  <div class="part-line-form">
-                    <label class="label w-[30%]">{{
+                <div class="grid grid-cols-1 gap-4">
+                  <div>
+                    <label class="label mb-1">{{
                       "DEADLINE_RATHER" | translate
                     }}</label>
-                    <div class="w-[60%]">
-                      <input
-                        type="date"
-                        class="input"
-                        formControlName="applicationClosingDate"
-                        [min]="minDate.toISOString().split('T')[0]"
-                        (keydown.enter)="$event.preventDefault()"
-                      />
-                      <div
-                        *ngIf="
-                          getControl('applicationClosingDate')?.invalid &&
-                          (getControl('applicationClosingDate')?.dirty ||
-                            getControl('applicationClosingDate')?.touched)
-                        "
-                        class="text-red-600 text-xs"
-                      >
-                        {{ "DEADLINE_RATHER_REQUIRED" | translate }}.
-                      </div>
-                    </div>
+                    <input
+                      type="date"
+                      class="input"
+                      formControlName="applicationClosingDate"
+                      [min]="minDate.toISOString().split('T')[0]"
+                      (keydown.enter)="$event.preventDefault()"
+                    />
+                    <p
+                      *ngIf="
+                        getControl('applicationClosingDate')?.invalid &&
+                        (getControl('applicationClosingDate')?.dirty ||
+                          getControl('applicationClosingDate')?.touched)
+                      "
+                      class="text-red-600 text-xs mt-1"
+                    >
+                      {{ "DEADLINE_RATHER_REQUIRED" | translate }}.
+                    </p>
                   </div>
-
-                  <div class="part-line-form mt-5">
-                    <label class="label w-[30%]">{{
+                  <div>
+                    <label class="label mb-1">{{
                       "DEADLINE" | translate
                     }}</label>
-                    <div class="w-[60%]">
-                      <input
-                        type="date"
-                        class="input"
-                        formControlName="processingEndDate"
-                        [min]="minDateFinString"
-                        (keydown.enter)="$event.preventDefault()"
-                      />
-                      <div
-                        *ngIf="
-                          getControl('processingEndDate')?.invalid &&
-                          (getControl('processingEndDate')?.dirty ||
-                            getControl('processingEndDate')?.touched)
-                        "
-                        class="text-red-600 text-xs"
-                      >
-                        {{ "DEADLINE_REQUIRED" | translate }}.
-                      </div>
-                    </div>
+                    <input
+                      type="date"
+                      class="input"
+                      formControlName="processingEndDate"
+                      [min]="minDateFinString"
+                      (keydown.enter)="$event.preventDefault()"
+                    />
+                    <p
+                      *ngIf="
+                        getControl('processingEndDate')?.invalid &&
+                        (getControl('processingEndDate')?.dirty ||
+                          getControl('processingEndDate')?.touched)
+                      "
+                      class="text-red-600 text-xs mt-1"
+                    >
+                      {{ "DEADLINE_REQUIRED" | translate }}.
+                    </p>
                   </div>
                 </div>
-              </div>
+              </section>
 
-              <!-- TYPE DE BESOIN -->
-              <div class="p-5 rounded-lg border border-[#D6D6D6] mt-10">
-                <h3 class="text-[#408A7E] text-lg font-semibold mb-3">
+              <!-- Type de besoin -->
+              <section class="card-section">
+                <h3 class="text-lg font-semibold text-[#408A7E] mb-4">
                   {{ "NEED_TYPE" | translate }}
                 </h3>
-                <div class="div-line-form">
-                  <div class="part-line-form items-center">
-                    <label class="label w-[30%]"></label>
-                    <div class="w-[60%]">
-                      <div class="flex gap-10">
-                        <label class="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="radio"
-                            formControlName="typeDeBesoin"
-                            value="CONTRACT"
-                            class="accent-[#408A7E]"
-                          />
-                          {{ "CONTRACTUAL" | translate }}
-                        </label>
-                        <label class="flex items-center gap-2 cursor-pointer">
-                          <input
-                            type="radio"
-                            formControlName="typeDeBesoin"
-                            value="PUNCTUAL"
-                            class="accent-[#408A7E]"
-                          />
-                          {{ "PUNCTUAL" | translate }}
-                        </label>
-                      </div>
-                      <div
-                        *ngIf="
-                          getControl('typeDeBesoin')?.invalid &&
-                          (getControl('typeDeBesoin')?.dirty ||
-                            getControl('typeDeBesoin')?.touched)
-                        "
-                        class="text-red-600 text-xs mt-1"
-                      >
-                        {{ "NEED_TYPE_REQUIRED" | translate }}.
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    *ngIf="displayContractDuration"
-                    class="part-line-form mt-5"
+                <div class="flex flex-col gap-2">
+                  <label class="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      formControlName="typeDeBesoin"
+                      value="CONTRACT"
+                      class="accent-[#408A7E]"
+                    />
+                    {{ "CONTRACTUAL" | translate }}
+                  </label>
+                  <label class="flex items-center gap-2">
+                    <input
+                      type="radio"
+                      formControlName="typeDeBesoin"
+                      value="PUNCTUAL"
+                      class="accent-[#408A7E]"
+                    />
+                    {{ "PUNCTUAL" | translate }}
+                  </label>
+                  <p
+                    *ngIf="
+                      getControl('typeDeBesoin')?.invalid &&
+                      (getControl('typeDeBesoin')?.dirty ||
+                        getControl('typeDeBesoin')?.touched)
+                    "
+                    class="text-red-600 text-xs mt-1"
                   >
-                    <label class="label w-[30%]">
+                    {{ "NEED_TYPE_REQUIRED" | translate }}.
+                  </p>
+
+                  <div *ngIf="displayContractDuration" class="mt-4">
+                    <label class="label mb-1">
                       {{ "DURATION" | translate }} ({{ "YEARS" | translate }})
                     </label>
-                    <div class="w-[60%]">
-                      <input
-                        type="number"
-                        class="input"
-                        formControlName="duree"
-                        min="0"
-                        (keypress)="onKeyPress($event)"
-                      />
-                      <div
-                        *ngIf="
-                          getControl('duree')?.invalid &&
-                          (getControl('duree')?.dirty ||
-                            getControl('duree')?.touched)
-                        "
-                        class="text-red-600 text-xs"
-                      >
-                        {{ "PROJECT_DURATION_REQUIRED" | translate }}.
-                      </div>
-                    </div>
+                    <input
+                      type="number"
+                      class="input"
+                      formControlName="duree"
+                      min="0"
+                      (keypress)="onKeyPress($event)"
+                    />
+                    <p
+                      *ngIf="
+                        getControl('duree')?.invalid &&
+                        (getControl('duree')?.dirty ||
+                          getControl('duree')?.touched)
+                      "
+                      class="text-red-600 text-xs mt-1"
+                    >
+                      {{ "PROJECT_DURATION_REQUIRED" | translate }}.
+                    </p>
                   </div>
                 </div>
-              </div>
+              </section>
             </div>
 
             <div
-              *ngSwitchCase="'3'"
+              *ngSwitchCase="3"
               class="w-full mt-5 px-10 border-b-2 pb-5 border-[#797777]/78"
             >
               <div class="div-line-form-bis">
