@@ -410,41 +410,39 @@
   "ERROR_FETCHING_ACTIVITIES": "An error occurred while fetching activities.",
 
   "definition": "Definition",
-  "need_identification": "Need identification",
-  "market_notice_publication": "Market notice publication",
+  "identification_of_need": "Identification of need",
+  "specifications_document_drafting": "Drafting of specifications document",
+  "selection_of_procedure": "Selection of procedure",
+  "drafting_of_consultation_dossier_documents": "Drafting of consultation dossier documents",
+
+  "award": "Award",
+  "publication_of_tender_notice": "Publication of tender notice",
+  "selection_of_shortlisted_candidates": "Selection of shortlisted candidates",
+  "analysis_of_offers_technical_financial_legal": "Analysis of offers (technical, financial, legal)",
+  "notification_of_award_to_contract_winner": "Notification of award to contract winner",
+
+  "kick_off": "Kick-off",
   "kick_off_meeting": "Kick-off meeting",
-  "technical_monitoring": "Technical monitoring",
-  "provisional_delivery": "Provisional delivery",
-  "final_delivery": "Final delivery",
-
-  "attribution": "Attribution",
-  "startup": "Startup",
-  "execution": "Execution",
-  "admissibility": "Admissibility",
-  "project_closure": "Project closure",
-
-  "elaboration_of_specifications": "Elaboration of specifications",
-  "procedure_selection": "Procedure selection",
-  "drafting_of_consultation_dossier": "Drafting of consultation dossier",
-
-  "selection_of_qualified_candidates": "Selection of qualified candidates",
-  "analysis_of_offers": "Analysis of offers",
-  "market_notification_to_holder": "Market notification to holder",
-
-  "inversion_of_preliminary_schedule": "Inversion of preliminary schedule",
+  "handover_of_preliminary_schedule": "Handover of preliminary schedule",
   "team_mobilization": "Team mobilization",
-  "validation_of_startup_deliverables": "Validation of startup deliverables",
+  "validation_of_initial_deliverables": "Validation of initial deliverables",
 
-  "risk_management_and_adjustments": "Risk management and adjustments",
+  "execution": "Execution",
+  "technical_monitoring_reporting_regular_meetings": "Technical monitoring & regular meetings",
+  "management_of_risks_and_adjustments": "Management of risks and adjustments",
   "continuous_quality_control": "Continuous quality control",
-  "stakeholder_communication": "Stakeholder communication",
+  "communication_between_parties": "Communication between parties",
 
-  "compliance_verification": "Compliance verification",
-  "drafting_of_reception_report": "Drafting of reception report",
-  "correction_requests": "Correction requests",
+  "acceptance": "Acceptance",
+  "provisional_delivery_of_services": "Provisional delivery",
+  "compliance_verification_tests_audits": "Compliance verification (tests, audits)",
+  "drafting_of_acceptance_report": "Drafting of acceptance report",
+  "requests_for_possible_corrections": "Requests for possible corrections",
 
+  "project_closure": "Project closure",
+  "final_delivery": "Final delivery",
   "payment_settlement": "Payment settlement",
-  "dossier_archiving": "Dossier archiving",
+  "archiving_of_project_documents": "Archiving of project documents",
 
   "BUDGET_VOLUME": "Overall Volume & Budget",
 

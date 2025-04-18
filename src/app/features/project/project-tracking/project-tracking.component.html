@@ -34,12 +34,12 @@
       </div>
 
       <!-- colonne vide pour phases impaires -->
-      <div *ngIf="i % 2 !== 0" class="w-[10%]"></div>
+      <div *ngIf="i % 2 !== 0" class="w-[15%]"></div>
     </ng-container>
   </div>
 
   <!-- Barre centrale : suivi d’avancement par phase -->
-  <div class="flex h-[14vh] mt-5 w-full">
+  <div class="flex h-[14vh] mt-5 w-full z-0">
     <ng-container *ngFor="let phase of project.phases; let k = index">
       <div
         class="relative cursor-pointer h-full w-[14%] shadow-custom flex items-center justify-center"
@@ -79,7 +79,7 @@
   </div>
 
   <!-- Ligne du bas : tâches des phases d’indice impair -->
-  <div class="flex w-full mt-5">
+  <div class="flex w-full mt-5 z-10">
     <ng-container *ngFor="let phase of project.phases; let i = index">
       <!-- colonne tasks quand i est impair -->
       <div
@@ -112,7 +112,7 @@
       </div>
 
       <!-- colonne vide pour phases paires -->
-      <div *ngIf="i % 2 === 0" class="w-[10%]"></div>
+      <div *ngIf="i % 2 === 0" class="w-[15%]"></div>
     </ng-container>
   </div>
 

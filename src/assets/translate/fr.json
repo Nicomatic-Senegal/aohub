@@ -415,41 +415,39 @@
   "ERROR_FETCHING_ACTIVITIES": "Une erreur est survenue lors du chargement des activités.",
 
   "definition": "Définition",
-  "need_identification": "Identification du besoin",
-  "market_notice_publication": "Publication de l’avis",
+  "identification_of_need": "Identification du besoin",
+  "specifications_document_drafting": "Rédaction du cahier des charges",
+  "selection_of_procedure": "Choix de la procédure",
+  "drafting_of_consultation_dossier_documents": "Élaboration des documents de consultation",
+
+  "award": "Attribution",
+  "publication_of_tender_notice": "Publication de l’avis de marché",
+  "selection_of_shortlisted_candidates": "Sélection des candidats présélectionnés",
+  "analysis_of_offers_technical_financial_legal": "Analyse des offres (technique, financière, juridique)",
+  "notification_of_award_to_contract_winner": "Notification d’attribution au titulaire",
+
+  "kick_off": "Démarrage",
   "kick_off_meeting": "Réunion de lancement",
-  "technical_monitoring": "Suivi technique",
-  "provisional_delivery": "Livraison provisoire",
-  "final_delivery": "Livraison finale",
+  "handover_of_preliminary_schedule": "Remise du planning prévisionnel",
+  "team_mobilization": "Mobilisation des équipes",
+  "validation_of_initial_deliverables": "Validation des livrables initiaux",
 
-  "attribution": "Attribution",
-  "startup": "Démarrage",
   "execution": "Exécution",
-  "admissibility": "Admissibilité",
-  "project_closure": "Clôture du projet",
-
-  "elaboration_of_specifications": "Élaboration du cahier des charges",
-  "procedure_selection": "Choix de la procédure",
-  "drafting_of_consultation_dossier": "Rédaction du dossier de consultation",
-
-  "selection_of_qualified_candidates": "Sélection des candidats qualifiés",
-  "analysis_of_offers": "Analyse des offres",
-  "market_notification_to_holder": "Notification du marché au titulaire",
-
-  "inversion_of_preliminary_schedule": "Inversion du planning prévisionnel",
-  "team_mobilization": "Mobilisation de l’équipe",
-  "validation_of_startup_deliverables": "Validation des livrables de lancement",
-
-  "risk_management_and_adjustments": "Gestion des risques et ajustements",
+  "technical_monitoring_reporting_regular_meetings": "Suivi technique / réunions régulières",
+  "management_of_risks_and_adjustments": "Gestion des risques et ajustements",
   "continuous_quality_control": "Contrôle qualité continu",
-  "stakeholder_communication": "Communication avec les parties prenantes",
+  "communication_between_parties": "Communication entre les parties",
 
-  "compliance_verification": "Vérification de conformité",
-  "drafting_of_reception_report": "Rédaction du rapport de réception",
-  "correction_requests": "Demandes de correction",
+  "acceptance": "Réception",
+  "provisional_delivery_of_services": "Livraison provisoire",
+  "compliance_verification_tests_audits": "Vérification de conformité (tests, audits)",
+  "drafting_of_acceptance_report": "Rédaction du PV de réception",
+  "requests_for_possible_corrections": "Demandes de corrections éventuelles",
 
-  "payment_settlement": "Règlement des paiements",
-  "dossier_archiving": "Archivage du dossier",
+  "project_closure": "Clôture",
+  "final_delivery": "Livraison finale",
+  "payment_settlement": "Règlement",
+  "archiving_of_project_documents": "Archivage des documents projet",
 
   "BUDGET_VOLUME": "Volume global & budget",
 
